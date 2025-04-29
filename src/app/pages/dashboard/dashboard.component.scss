@@ -1,0 +1,37 @@
+.mb-4.profile-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--primary-color);
+    overflow: hidden;
+    position: relative;
+
+    img.rounded-circle.object-cover.d-block {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    p-button.img-profile {
+        position: absolute;
+        bottom: -10px;
+        left: 38%;
+    }
+}
+
+.mb-8.profile-details.row-details {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px 25px;
+    justify-items: start;
+}
+
+.heading-color{
+    color:var(--primary-color);
+}
+
+.background-ban{
+    margin: 0px -28px;
+background: linear-gradient(180deg, #10b98161, transparent);
+padding: 25px 25px 0;
+}
