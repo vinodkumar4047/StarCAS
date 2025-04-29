@@ -33,6 +33,7 @@ export class DashboardComponent {
     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
     { label: 'Remove', icon: 'pi pi-fw pi-trash' }
   ];
+  
 
   products!: Product[];
 
