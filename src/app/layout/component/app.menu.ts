@@ -10,8 +10,10 @@ import { AppMenuitem } from './app.menuitem';
     imports: [CommonModule, AppMenuitem, RouterModule],
     template: `<ul class="layout-menu">
         <ng-container *ngFor="let item of model; let i = index">
+
             <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
             <li *ngIf="item.separator" class="menu-separator"></li>
+            
         </ng-container>
     </ul> `
 })
@@ -24,6 +26,230 @@ export class AppMenu {
                 label: 'Home',
                 items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/pages/dashboard'] }]
             },
+            {
+                items: [{
+                    label: 'Configuration',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Institution',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/auth/login']
+                        },
+                        {
+                            label: 'Branch',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                        {
+                            label: 'Bin',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'ATM Type',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'ATM',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'External Bin',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'Fit',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'CASSET',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'Port',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'Transaction',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'Monitorning',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Network Monitoring',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/auth/login']
+                        },
+                        {
+                            label: 'HSM Monitoring',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                        {
+                            label: 'Txn Monitoring',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'ATM Monitoring',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'Transaction Search',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'Control',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Task Manager',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/task_Manager']
+                        },
+                        {
+                            label: 'Port Manager',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                        {
+                            label: 'Network Control',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'ATM Control',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'Risk Management',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'INTERNATIONAL TXN ENABLED',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/auth/login']
+                        },
+                        {
+                            label: 'TXN ALLOW WITHOUT PIN',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                        {
+                            label: 'RISK COUNTRY BLOCK',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'TXN ALLOW FOR RISK COUNTRY',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'MCC BLOCK',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'TXN ALLOW FOR BLOCKED MCC',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'RISK ECOM SITE BLOCK',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'Reports',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'Utility',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Email Update',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/auth/login']
+                        },
+                        {
+                            label: 'Modile Update',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                        {
+                            label: 'SAF Management',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                        {
+                            label: 'Admin card',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/auth/access']
+                        },
+                    ]
+                }]
+            },
+
+            {
+                items: [{
+                    label: 'User Management',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Profile',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/auth/login']
+                        },
+                        {
+                            label: 'User',
+                            icon: 'pi pi-fw pi-times-circle',
+                            routerLink: ['/auth/error']
+                        },
+                    ]
+                }]
+            },
+
             {
                 label: 'UI Components',
                 items: [

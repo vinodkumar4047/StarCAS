@@ -37,7 +37,7 @@ export class DashboardComponent {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
   products!: Product[];
-  userInfo:any = {
+  userInfo: any = {
     "USERID": 24,
     "USERNAME": "demomaker",
     "USERPASSWORD": "EX0vrfvtYYZpSZzc+9a7hBX9H+o=",
