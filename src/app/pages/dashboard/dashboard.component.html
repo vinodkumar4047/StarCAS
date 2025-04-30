@@ -4,7 +4,7 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total Users</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">8</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.userCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -20,7 +20,7 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total Branchs</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">86</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.branchCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-orange-100 dark:bg-orange-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -36,7 +36,7 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total Alert TXN'S</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">148638</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.fraudTransactionCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-red-100 dark:bg-red-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -52,7 +52,7 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total ECOM TXN's</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">41265</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.atmOpenedTicketCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-green-100 dark:bg-green-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -67,19 +67,19 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total ATM's</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">70</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.totalAtmCount}}</div>
                 </div>
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Online</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">41</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.onlineAtmCount}}</div>
                 </div>
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Offline</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">9</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.offlineAtmCount}}</div>
                 </div>
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Warning</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">2</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.warnAtmCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-blue-100 dark:bg-blue-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -94,7 +94,7 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <span class="block text-muted-color font-medium mb-4">Total ATM TXN'S</span>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">33637</div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{cardsInfo?.atmTransactionCount}}</div>
                 </div>
                 <div class="flex items-center justify-center bg-purple-100 dark:bg-purple-400/10 rounded-border"
                     style="width: 5rem; height: 5rem">
@@ -103,28 +103,36 @@
             </div>
         </div>
     </div>
-
     <div class="col-span-12 xl:col-span-12">
         <div class="card !mb-4">
             <div class="font-semibold text-xl mb-8 heading-color">
                 My Profile
             </div>
             <div class="flex flex-row gap-16 items-center px-8 background-ban">
-                <div class="mb-4 profile-img">
-                    <p-button icon="pi pi-camera" p-button class="img-profile" rounded
-                        (click)="triggerFileInputClick()"></p-button>
-                    <!-- Hidden File Input -->
-                    <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*"
-                        style="display: none;" />
-                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image"
-                        class="rounded-circle object-cover d-block" />
-                </div>
+                <p-confirmpopup  />
+                    <div class="mb-4 profile-img"> 
+                        <div *ngIf="!imageUrl">
+                            <div class="default-profile-head"> </div>
+                            <div class="default-profile-body"> </div>
+                          </div>
+                        <p-button icon="pi pi-camera" p-button class="img-profile" rounded
+                            (click)="upload($event)"></p-button>
+                            
+                        <!-- Hidden File Input -->
+                        <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*"
+                            style="display: none;" />
+                            <img
+                            *ngIf="imageUrl"
+                            [src]="imageUrl"
+                            alt="Profile Image"
+                            class="rounded-circle object-cover d-block"
+                          />
+                         
+                    </div>
                 <div class="mb-8 profile-details ">
                     <!-- <div class="font-semibold text-xl ">{{userInfo.FIRSTNAME}} {{userInfo.LASTNAME}}</div> -->
                     <div class="font-semibold text-xl pb-1 heading-color">Tdfwefw Fwefwewegweg</div>
-
                     <div class="font-semibold text-base pb-1">{{userInfo.USERNAME}}</div>
-
                     <div class="font-semibold text-base ">{{userInfo.CITY}}, {{userInfo.COUNTRY}}.</div>
                 </div>
             </div>
@@ -146,7 +154,6 @@
                         <div class="font-semibold text-sm ">Email ID </div>
                         <div class="font-semibold text-lg ">{{userInfo.EMAILID}}</div>
                     </div>
-
                 </div>
                 <div class="mb-8  profile-details ">
                     <div class="mb-8">
@@ -175,11 +182,8 @@
                         <div class="font-semibold text-sm ">Last Login </div>
                         <div class="font-semibold text-lg ">{{userInfo.LASTLOGIN}}</div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>

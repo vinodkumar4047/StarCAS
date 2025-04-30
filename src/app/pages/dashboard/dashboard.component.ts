@@ -4,10 +4,14 @@ import { MenuModule } from 'primeng/menu';
 import { Product, ProductService } from '../service/product.service';
 import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, Subscription ,of} from 'rxjs';
 import { LayoutService } from '../../layout/service/layout.service';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { RestService } from '../../layout/service/rest.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,19 +21,20 @@ import { ChartModule } from 'primeng/chart';
     MenuModule,
     TableModule,
     RippleModule,
-    ChartModule
+    ChartModule,
+    ConfirmPopupModule
   ],
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  providers: [ProductService]
+  providers: [ProductService, ConfirmationService, MessageService]
 })
 export class DashboardComponent {
   menu = null;
   chartData: any;
   chartOptions: any;
   subscription!: Subscription;
-  imageUrl: string | ArrayBuffer | null = null;
+  imageUrl: any = '';
   items = [
     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
     { label: 'Remove', icon: 'pi pi-fw pi-trash' }
@@ -37,7 +42,7 @@ export class DashboardComponent {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
   products!: Product[];
-  userInfo:any = {
+  userInfo: any = {
     "USERID": 24,
     "USERNAME": "demomaker",
     "USERPASSWORD": "EX0vrfvtYYZpSZzc+9a7hBX9H+o=",
@@ -98,100 +103,68 @@ export class DashboardComponent {
     "BLOCKEDDATE": null,
     "PASS_COUNT": null
   }
-  constructor(private productService: ProductService, public layoutService: LayoutService) {
+  cardsInfo:any;
+  constructor(private productService: ProductService, public layoutService: LayoutService, 
+    private confirmationService: ConfirmationService, private messageService: MessageService,
+  private rest:RestService) {
     this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
-      this.initChart();
+      // this.initChart();
     });
   }
 
   ngOnInit() {
+    this.getCardDetails();
     this.productService.getProductsSmall().then((data) => (this.products = data));
-    this.initChart();
-  }
-  initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const borderColor = documentStyle.getPropertyValue('--surface-border');
-    const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
-
-    this.chartData = {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Subscriptions',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-400'),
-          data: [4000, 10000, 15000, 4000],
-          barThickness: 32
-        },
-        {
-          type: 'bar',
-          label: 'Advertising',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-300'),
-          data: [2100, 8400, 2400, 7500],
-          barThickness: 32
-        },
-        {
-          type: 'bar',
-          label: 'Affiliate',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
-          data: [4100, 5200, 3400, 7400],
-          borderRadius: {
-            topLeft: 8,
-            topRight: 8,
-            bottomLeft: 0,
-            bottomRight: 0
-          },
-          borderSkipped: false,
-          barThickness: 32
-        }
-      ]
-    };
-
-    this.chartOptions = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.8,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-            color: textMutedColor
-          },
-          grid: {
-            color: 'transparent',
-            borderColor: 'transparent'
-          }
-        },
-        y: {
-          stacked: true,
-          ticks: {
-            color: textMutedColor
-          },
-          grid: {
-            color: borderColor,
-            borderColor: 'transparent',
-            drawTicks: false
-          }
-        }
-      }
-    };
   }
 
-  // Trigger file input click
+ 
+  
+  getCardDetails() {
+    const url = '/dashboard/v1/details?instid=SCB'
+    this.rest.get(url)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching branch data:', error);
+          this.cardsInfo = []; // fallback or reset
+          return of([]); 
+        })
+      )
+      .subscribe((res: any[]) => {
+        console.log(res,'res---');
+        this.cardsInfo = res;
+      });
+  }
+  
+
   triggerFileInputClick(): void {
-    // Trigger the click event on the file input element
     this.fileInput.nativeElement.click();
+  }
+
+  upload(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Change Profile ',
+      rejectButtonProps: {
+        label: 'Remove',
+        severity: 'secondary',
+        outlined: true
+      },
+      acceptButtonProps: {
+        label: 'Upload'
+      },
+      accept: () => {
+        this.triggerFileInputClick();
+      },
+      reject: () => {
+        this.imageUrl = '';
+      },
+    });
   }
 
 
   onImageSelected(event: Event): void {
+    console.log(event,'evernt');
+    
     const input = event.target as HTMLInputElement;
     if (input?.files?.[0]) {
       const file = input.files[0];
@@ -202,6 +175,7 @@ export class DashboardComponent {
       };
 
       reader.readAsDataURL(file);
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
     }
   }
 
