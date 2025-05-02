@@ -1,1 +1,77 @@
-<p>atm-control works!</p>
+<div class="col-span-12 xl:col-span-12">
+    <div class="card !mb-4">
+        <div class="font-semibold text-xl mb-8 heading-color">
+            ATM Controller
+        </div>
+        <div class="mx-8 flex flex-wrap gap-8">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
+                class="atm-select" aria-labelledby="basic" (onChange)="resetTop()" />
+            <div class="my-4" *ngIf="value">
+                <p-select [(ngModel)]="dropdownValue" [options]=" value == 'logicalGroup' ? LogicValues : ATMValues"
+                    optionLabel="name"
+                    [placeholder]="value == 'logicalGroup' ? 'Select Logical Group' : 'Select ATM ID'"
+                    class="atm-ContDropDown" />
+            </div>
+        </div>
+    </div>
+    <div class="card !mb-4" *ngIf="dropdownValue != null">
+        <div class="mx-8 flex flex-wrap gap-8">
+            <p-selectbutton [options]="typeOptions" [(ngModel)]="typevalue" optionLabel="label" optionValue="value"
+                class="atm-select" aria-labelledby="basic" (onChange)="reset()" />
+            <div class="my-4" *ngIf="value">
+                <p-select [(ngModel)]="dwnOrCmdValue"
+                    [options]=" typevalue == 'downloads' ? downloadValues : commandValues" optionLabel="name"
+                    [placeholder]="typevalue == 'downloads' ? 'Select Downloads' : 'Select Commands'"
+                    class="atm-ContDropDown" />
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="card !mb-4 flex" *ngIf="dropdownValue != null">
+        <div class="mx-8 flex flex-col">
+            <div class="font-semibold text-xl mb-8 heading-color">
+                Downloads
+            </div>
+            <p-listbox [options]="downloadValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                class="w-full md:w-56" />
+        </div>
+        <div class="mx-8 flex flex-col">
+            <div class="font-semibold text-xl mb-8 heading-color">
+                Commands
+            </div>
+            <p-listbox [options]="commandValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                class="w-full md:w-56" />
+        </div>
+    </div>
+</div>
+
+<div class="card !mb-4 col-span-6" *ngIf="dropdownValue != null">
+    <div class="mx-8 flex flex-col">
+        <div class="font-semibold text-xl mb-8 heading-color">
+            Downloads
+        </div>
+        <div class="flex flex-wrap gap-8">
+            <p-button label="Load All" [raised]="true" />
+            <p-button label="Load State" [raised]="true" />
+            <p-button label="Load Screen" [raised]="true" />
+            <p-button label="Load Misc" [raised]="true" />
+            <p-button label="Load Misc-E" [raised]="true" />
+            <p-button label="Load Fit" [raised]="true" />
+            <p-button label="Load Config ID" [raised]="true" />
+        </div>
+    </div>
+</div>
+
+<div class="card !mb-4 col-span-6" *ngIf="dropdownValue != null">
+    <div class="mx-8 flex flex-col">
+        <div class="font-semibold text-xl mb-8 heading-color">
+            Commands
+        </div>
+        <div class="flex flex-wrap gap-8">
+            <p-button label="Go In Service" [raised]="true" />
+            <p-button label="Go Out Service" [raised]="true" />
+            <p-button label="Get Config Info" [raised]="true" />
+            <p-button label="Get Supply Count" [raised]="true" />
+        </div>
+    </div>
+</div> -->
