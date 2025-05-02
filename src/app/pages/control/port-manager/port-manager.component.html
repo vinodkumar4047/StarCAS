@@ -1,1 +1,30 @@
-<p>port-manager works!</p>
+<!-- Header Section with Background and Title -->
+<div class="background-ban"
+    style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;">Port Manager Details</h2>
+</div>
+
+<!-- Card and Table -->
+<div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+    <p-table [value]="portData" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[10,15,20]">
+        <ng-template #header>
+            <tr>
+                <th style="width:25%">PORT NAME</th>
+                <th style="width:25%">IP ADDRESS</th>
+                <th style="width:25%">PORT NO</th>
+                <th style="width:25%">CONNECTIVITY MODE</th>
+                <th style="width:25%">PORT STATUS</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-port>
+            <tr>
+                <td>{{ port.portname }}</td>
+                <td>{{ port.ipaddress }}</td>
+                <td>{{ port.portno }}</td>
+                <td>{{ port.aptype }}</td>
+                <td>{{ port.portstatus }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

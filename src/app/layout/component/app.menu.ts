@@ -132,17 +132,17 @@ export class AppMenu {
                         {
                             label: 'Port Manager',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/port_Manager']
                         },
                         {
                             label: 'Network Control',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/network_Control']
                         },
                         {
                             label: 'ATM Control',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['']
                         },
                     ]
                 }]
