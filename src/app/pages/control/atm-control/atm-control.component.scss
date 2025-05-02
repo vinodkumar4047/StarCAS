@@ -1,0 +1,23 @@
+.heading-color {
+    color: var(--primary-color);
+}
+
+::ng-deep {
+    .p-togglebutton-content {
+        height: 40px;
+        width: 125px;
+        border-radius: 10px !important;
+    }
+
+    .atm-ContDropDown {
+        span.p-select-label {
+            width: 250px;
+            height: 40px;
+            align-content: center;
+        }
+    }
+
+    .atm-select.p-selectbutton {
+            align-items: center ;
+        }
+}

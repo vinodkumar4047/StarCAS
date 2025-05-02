@@ -142,7 +142,7 @@ export class AppMenu {
                         {
                             label: 'ATM Control',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['']
+                            routerLink: ['/pages/atm_control']
                         },
                     ]
                 }]

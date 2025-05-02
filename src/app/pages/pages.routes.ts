@@ -4,6 +4,7 @@ import { Crud } from './crud/crud';
 import { Empty } from './empty/empty';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskManagerComponent } from './control/task-manager/task-manager.component';
+import { ATMControlComponent } from './control/atm-control/atm-control.component';
 import { PortManagerComponent } from './control/port-manager/port-manager.component';
 import { NetworkControlComponent } from './control/network-control/network-control.component';
 
@@ -15,6 +16,7 @@ export default [
     { path: 'task_Manager', component: TaskManagerComponent },
     { path: 'port_Manager', component: PortManagerComponent },
     { path: 'network_Control', component: NetworkControlComponent },
+    {path:'atm_control',  component: ATMControlComponent},
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
