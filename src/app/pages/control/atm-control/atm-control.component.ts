@@ -5,6 +5,8 @@ import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
+import { RestService } from '../../../layout/service/rest.service';
+import { catchError, of } from 'rxjs';
 @Component({
   selector: 'app-atm-control',
   imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule,ListboxModule,ButtonModule],
@@ -12,6 +14,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './atm-control.component.scss'
 })
 export class ATMControlComponent {
+
+  constructor( private rest:RestService){};
+  
   stateOptions: any[] = [{ label: 'Logical Group', value: 'logicalGroup' }, { label: 'ATM ID', value: 'atmId' }];
   typeOptions: any[] = [{ label: 'Downloads', value: 'downloads' }, { label: 'Commands', value: 'commands' }];
   value: string = 'logicalGroup';
@@ -50,6 +55,10 @@ export class ATMControlComponent {
     { name: 'Get Supply Count', code: '14' },
   ];
 
+  ngOnInit(){
+    this.listApi('logicalGroup');
+  }
+
   resetTop(){
     this.dropdownValue = null;
     this.reset();
@@ -57,5 +66,46 @@ export class ATMControlComponent {
 
   reset(){
     this.dwnOrCmdValue = null;
+  }
+
+  atmControllerApi(){
+    console.log(this.dwnOrCmdValue ,this.dropdownValue,'----dropdownValue' );
+    
+  }
+
+  listApi(type:any){
+    this.resetTop(); 
+    console.log(type,'type=============');
+    if(type == 'atmId'){
+     
+       const url = ''
+        this.rest.get(url)
+          .pipe(
+            catchError(error => {
+              console.error('Error fetching atmId data:', error);
+            
+              return of([]); 
+            })
+          )
+          .subscribe((res: any[]) => {
+            console.log(res,'res---');
+          
+          });
+    }else{
+      const url = ''
+      this.rest.get(url)
+        .pipe(
+          catchError(error => {
+            console.error('Error fetching logicalGroup data:', error);
+          
+            return of([]); 
+          })
+        )
+        .subscribe((res: any[]) => {
+          console.log(res,'res---');
+        
+        });
+    }
+   
   }
 }

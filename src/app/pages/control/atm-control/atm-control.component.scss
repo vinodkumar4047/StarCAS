@@ -18,6 +18,35 @@
     }
 
     .atm-select.p-selectbutton {
-            align-items: center ;
+        align-items: center;
+    }
+
+    .atm-controller {
+        .p-listbox-list-container {
+            max-height: 20rem !important;
         }
+    }
+
+    @media (max-width: 600px) {
+        .atm-controller {
+            .p-togglebutton-content {
+                width: 100px;
+                height: 36px;
+            }
+
+            .atm-ContDropDown {
+                span.p-select-label {
+                    width: 100%;
+                    height: 36px;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .atm-select.p-selectbutton {
+                flex-direction: column; // stack items vertically if needed
+                align-items: stretch;
+            }
+        }
+    }
+
 }
