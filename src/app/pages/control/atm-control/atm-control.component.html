@@ -1,20 +1,37 @@
-<div class="col-span-12 xl:col-span-12">
+<div class="atm-controller col-span-12 xl:col-span-12">
     <div class="card !mb-4">
         <div class="font-semibold text-xl mb-8 heading-color">
             ATM Controller
         </div>
         <div class="mx-8 flex flex-wrap gap-8">
             <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                class="atm-select" aria-labelledby="basic" (onChange)="resetTop()" />
+                class="atm-select" aria-labelledby="basic" (onChange)="listApi(value)"  />
             <div class="my-4" *ngIf="value">
                 <p-select [(ngModel)]="dropdownValue" [options]=" value == 'logicalGroup' ? LogicValues : ATMValues"
                     optionLabel="name"
                     [placeholder]="value == 'logicalGroup' ? 'Select Logical Group' : 'Select ATM ID'"
-                    class="atm-ContDropDown" />
+                    class="atm-ContDropDown" [filter]="true" filterBy="name" [showClear]="true"/>
+                
+            </div>
+        </div>
+        <div class="flex flex-wrap mt-4 gap-8" *ngIf="dropdownValue != null">
+            <div class="mx-8 flex flex-col">
+                <div class="font-semibold text-xl mb-8 heading-color">
+                    Downloads
+                </div>
+                <p-listbox [options]="downloadValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                    class="w-full md:w-56" />
+            </div>
+            <div class="mx-8 flex flex-col">
+                <div class="font-semibold text-xl mb-8 heading-color">
+                    Commands
+                </div>
+                <p-listbox [options]="commandValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                    class="w-full md:w-56" />
             </div>
         </div>
     </div>
-    <div class="card !mb-4" *ngIf="dropdownValue != null">
+    <!-- <div class="card !mb-4" *ngIf="dropdownValue != null">
         <div class="mx-8 flex flex-wrap gap-8">
             <p-selectbutton [options]="typeOptions" [(ngModel)]="typevalue" optionLabel="label" optionValue="value"
                 class="atm-select" aria-labelledby="basic" (onChange)="reset()" />
@@ -22,30 +39,15 @@
                 <p-select [(ngModel)]="dwnOrCmdValue"
                     [options]=" typevalue == 'downloads' ? downloadValues : commandValues" optionLabel="name"
                     [placeholder]="typevalue == 'downloads' ? 'Select Downloads' : 'Select Commands'"
-                    class="atm-ContDropDown" />
+                    class="atm-ContDropDown" (onChange)="atmControllerApi()"/>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- <div class="card !mb-4 flex" *ngIf="dropdownValue != null">
-        <div class="mx-8 flex flex-col">
-            <div class="font-semibold text-xl mb-8 heading-color">
-                Downloads
-            </div>
-            <p-listbox [options]="downloadValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
-                class="w-full md:w-56" />
-        </div>
-        <div class="mx-8 flex flex-col">
-            <div class="font-semibold text-xl mb-8 heading-color">
-                Commands
-            </div>
-            <p-listbox [options]="commandValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
-                class="w-full md:w-56" />
-        </div>
-    </div>
+    
 </div>
 
-<div class="card !mb-4 col-span-6" *ngIf="dropdownValue != null">
+<!-- <div class="card !mb-4 col-span-6" *ngIf="dropdownValue != null">
     <div class="mx-8 flex flex-col">
         <div class="font-semibold text-xl mb-8 heading-color">
             Downloads

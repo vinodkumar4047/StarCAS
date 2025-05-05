@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: '/auth/login',pathMatch: 'full', },
+            { path: '', redirectTo: '/landing',pathMatch: 'full', },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
