@@ -34,52 +34,52 @@ export class AppMenu {
                         {
                             label: 'Institution',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/auth/login']
+                            routerLink: ['/pages/institution']
                         },
                         {
                             label: 'Branch',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/branch']
                         },
                         {
                             label: 'Bin',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/bin']
                         },
                         {
                             label: 'ATM Type',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/atmType']
                         },
                         {
                             label: 'ATM',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/atm']
                         },
                         {
                             label: 'External Bin',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/externalBin']
                         },
                         {
                             label: 'Fit',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/fit']
                         },
                         {
                             label: 'CASSET',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/casset']
                         },
                         {
                             label: 'Port',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/port']
                         },
                         {
                             label: 'Transaction',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/transaction']
                         },
                     ]
                 }]

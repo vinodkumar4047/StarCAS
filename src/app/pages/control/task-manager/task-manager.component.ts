@@ -17,12 +17,17 @@ import { RippleModule } from 'primeng/ripple';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TagModule } from 'primeng/tag';
+
 @Component({
   selector: 'app-task-manager',
   imports: [TooltipModule,
     TableModule,  // Only import TableModule
     CommonModule,
-    FormsModule,],
+    FormsModule,
+    InputIconModule,
+    IconFieldModule,
+    ButtonModule
+  ],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
 })
@@ -50,5 +55,7 @@ export class TaskManagerComponent {
     { name: 'Task S', taskId: 'T019', status: 'Pending', startDate: '2025-04-19', startTime: '02:45 PM' },
     { name: 'Task T', taskId: 'T020', status: 'In Progress', startDate: '2025-04-20', startTime: '03:00 PM' },
   ];
+  clear(able: Table){
 
+  }
 }

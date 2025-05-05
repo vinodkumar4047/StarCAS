@@ -1,5 +1,5 @@
 <!-- Header Section with Background and Title -->
-<div class="background-ban"
+<div class=""
     style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
     <h2 style="margin: 0;">Task Manager Details</h2>
 </div>
@@ -8,6 +8,17 @@
 <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
     <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
         [rowsPerPageOptions]="[10,15,20]">
+        <ng-template #caption>
+            <div class="flex">
+                <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash"  />
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" class="searchInp"  placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
         <ng-template #header>
             <tr>
                 <th style="width:25%">
