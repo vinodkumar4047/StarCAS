@@ -2,49 +2,7 @@
     <h2 class="mb-8">ATM Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }" #dt2
-            [rowsPerPageOptions]="[10,15,20]"  [globalFilterFields]="[ 'name', 'taskId', 'status', 'startDate', 'startTime' ]">
-            <ng-template #caption>
-                <div class="flex justify-between mb-4">
-                    <div class="flex items-center">
-                       
-                    <p-iconfield iconPosition="left" class="ml-auto">
-                        <p-inputicon>
-                            <i class="pi pi-search"></i>
-                        </p-inputicon>
-                        <input pInputText type="text" class="searchInp" [(ngModel)]="search"
-                       (input)="onGlobalFilter($event, dt2)" placeholder="Search keyword" />
-                    </p-iconfield> 
-                    <div (click)="clear(dt2)" class="w-8 h-4 text-center align-middle cursor-pointer ">X</div>
-                    </div>
-                    <p-button label="Add ATM" icon="pi pi-plus" (click)="addOrEdit('add','')"/>
-                    
-                </div>
-            </ng-template>
-            <ng-template #header>
-                <tr>
-                    <th style="width:25%">
-                        TASK_NAME</th>
-                    <th style="width:25%">TASK_ID</th>
-                    <th style="width:25%">STATUS</th>
-                    <th style="width:25%">START_DATE</th>
-                    <th style="width:25%">START_TIME</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-customer>
-                <tr>
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.taskId }}</td>
-                    <td>{{ customer.status }}</td>
-                    <td>{{ customer.startDate }}</td>
-                    <td>{{ customer.startTime }}</td>
-                </tr>
-            </ng-template>
-            <ng-template #emptymessage>
-                <tr>
-                    <td colspan="7">No Data found.</td>
-                </tr>
-            </ng-template>
-        </p-table>
+       <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" 
+       (addEvent)="addOrEdit('add',$event)" (editEvent)="addOrEdit('edit',$event)" (viewEvent)="addOrEdit('add',$event)"[addButton]="'Add ATM'"/>
     </div>
 </div>

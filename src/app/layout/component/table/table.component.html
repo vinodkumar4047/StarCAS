@@ -1,0 +1,62 @@
+<p-table [value]="tableData" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }" #dt2
+    class="mainTable" [rowsPerPageOptions]="[10,15,20]" [globalFilterFields]="globalFilterFields" [columns]="cols">
+    <ng-template #caption>
+        <div class="flex justify-between mb-4">
+            <div>
+                <p-button *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
+                <p-button *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil" (click)="add($event)" />
+                <div *ngIf="multipleButton?.length > 0">
+                    <ng-template *ngFor="let btn of multipleButton">
+                        <p-button [label]="btn?.label" icon="btn?.icon"
+                            (click)="otherEvents(btn?.data??'',$event,btn?.type)" />
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="flex items-center" *ngIf="globalFilterFields?.length > 0">
+
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" class="searchInp" [(ngModel)]="search"
+                        (input)="onGlobalFilter($event, dt2)" placeholder="Search keyword" />
+                </p-iconfield>
+                <div class="w-8 h-4 text-center align-middle cursor-pointer" pTooltip="Clear" tooltipPosition="top"
+                    (click)="clear(dt2)">X
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [style.width]="col.width || '20%'">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-row let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                <span *ngIf="col.header != 'Action'">{{ row[col.field] }}</span>
+                <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
+                    <p-button *ngIf="col.type?.includes('add')" severity="secondary" class=" p-button-icon-only" pTooltip="Add" tooltipPosition="top"
+                        icon="pi pi-plus" (click)="add($event)" />
+                    <p-button  *ngIf="col.type?.includes('view')" severity="secondary" class=" p-button-icon-only" pTooltip="View" tooltipPosition="top"
+                        icon="pi pi-eye" (click)="view(row,$event)" />
+                    <p-button  *ngIf="col.type?.includes('edit')" severity="secondary" class=" p-button-icon-only" pTooltip="Edit" tooltipPosition="top"
+                        icon="pi pi-pencil" (click)="edit(row,$event)" />
+                    <p-button  *ngIf="col.type?.includes('delete')" severity="danger" class=" p-button-icon-only" pTooltip="Delete" tooltipPosition="top"
+                        icon="pi pi-trash" (click)="delete(row,$event)" />
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+        <tr>
+            <td [attr.colspan]="cols.length + 1">No Data found.</td>
+        </tr>
+    </ng-template>
+</p-table>
