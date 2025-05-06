@@ -1,4 +1,4 @@
-<p-table [value]="tableData" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }" #dt2
+<p-table [value]="tableData" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }" #dt2 size="small"
     class="mainTable" [rowsPerPageOptions]="[10,15,20]" [globalFilterFields]="globalFilterFields" [columns]="cols">
     <ng-template #caption>
         <div class="flex justify-between mb-4">
@@ -6,10 +6,10 @@
                 <p-button class="mr-2" *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
                 <p-button class="mr-2" *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil" (click)="add($event)" />
                 <div *ngIf="multipleButton?.length > 0">
-                    <ng-template *ngFor="let btn of multipleButton">
+                    <div *ngFor="let btn of multipleButton">
                         <p-button [label]="btn?.label" icon="btn?.icon" class="mr-2"
                             (click)="otherEvents(btn?.data??'',$event,btn?.type)" />
-                    </ng-template>
+                    </div>
                 </div>
             </div>
 
@@ -42,13 +42,13 @@
             <td *ngFor="let col of columns">
                 <span *ngIf="col.header != 'Action'">{{ row[col.field] }}</span>
                 <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
-                    <p-button *ngIf="col.type?.includes('add')" severity="secondary" class=" p-button-icon-only" pTooltip="Add" tooltipPosition="top"
+                    <p-button *ngIf="col.type?.includes('add')" text severity="primary" class=" p-button-icon-only" pTooltip="Add" tooltipPosition="top"
                         icon="pi pi-plus" (click)="add($event)" />
-                    <p-button  *ngIf="col.type?.includes('view')" severity="secondary" class=" p-button-icon-only" pTooltip="View" tooltipPosition="top"
+                    <p-button  *ngIf="col.type?.includes('view')" text severity="primary" class=" p-button-icon-only" pTooltip="View" tooltipPosition="top"
                         icon="pi pi-eye" (click)="view(row,$event)" />
-                    <p-button  *ngIf="col.type?.includes('edit')" severity="secondary" class=" p-button-icon-only" pTooltip="Edit" tooltipPosition="top"
+                    <p-button  *ngIf="col.type?.includes('edit')" text severity="primary" class=" p-button-icon-only" pTooltip="Edit" tooltipPosition="top"
                         icon="pi pi-pencil" (click)="edit(row,$event)" />
-                    <p-button  *ngIf="col.type?.includes('delete')" severity="danger" class=" p-button-icon-only" pTooltip="Delete" tooltipPosition="top"
+                    <p-button  *ngIf="col.type?.includes('delete')" text severity="danger" class=" p-button-icon-only" pTooltip="Delete" tooltipPosition="top"
                         icon="pi pi-trash" (click)="delete(row,$event)" />
                 </span>
             </td>

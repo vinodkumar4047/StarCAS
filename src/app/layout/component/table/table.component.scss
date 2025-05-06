@@ -1,29 +1,31 @@
-::ng-deep{
-    .mainTable{
+::ng-deep {
+    .mainTable {
         th {
             color: var(--primary-color) !important;
             font-weight: bold !important;
             height: 50px !important;
             font-size: 16px;
         }
+
         input.searchInp {
             height: 40px;
             border: 2px solid var(--primary-color);
             border-left: none;
             border-top: none;
             border-right: none;
-            /* border-radius: 10px; */
+            border-radius: 6px;
             text-align: left;
             padding: 0 0 0 30px;
             outline: none;
         }
-        .p-datatable-thead > tr > th{
+
+        .p-datatable-thead>tr>th {
             border-color: var(--primary-color);
             border-style: solid;
             border-width: 0 0 2px 0;
         }
 
-        
+
     }
-    
+
 }

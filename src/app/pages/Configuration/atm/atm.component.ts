@@ -88,5 +88,7 @@ export class ATMComponent {
 
   addOrEdit(type: any, data: any) {
       this.router.navigate(['/pages/add_edit_atm'], { state:{ data:data?.data , type:type} });
+      console.log(data?.data);
+      
   }
 }
