@@ -17,6 +17,7 @@ import { FitComponent } from './Configuration/fit/fit.component';
 import { CASSETComponent } from './Configuration/casset/casset.component';
 import { PortComponent } from './Configuration/port/port.component';
 import { TransactionComponent } from './Configuration/transaction/transaction.component';
+import { AddEditViewAtmDetailsComponent } from './Configuration/atm/add-edit-view-atm-details/add-edit-view-atm-details.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -32,6 +33,7 @@ export default [
     { path: 'bin', component: BinComponent },
     { path: 'atmType', component: ATMTypeComponent },
     { path: 'atm', component: ATMComponent },
+    { path: 'add_edit_atm', component: AddEditViewAtmDetailsComponent },
     { path: 'externalBin', component: ExternalBinComponent },
     { path: 'fit', component: FitComponent },
     { path: 'casset', component: CASSETComponent },
