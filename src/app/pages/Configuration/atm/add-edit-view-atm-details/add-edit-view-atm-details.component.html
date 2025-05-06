@@ -8,14 +8,13 @@
                 ATM Details
             </div>
         </div>
-
-        <div class="mx-8 grid grid-cols-3 gap-8">
-            <div class="grid grid-cols-3 col-span-3">
-                <img src="assets/images/atm-icon-gray.png" alt="">
-                <iframe width="100%" height="250" style="border:0;" [src]="mapUrl" allowfullscreen loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade" class="col-span-2">
-                </iframe>
-            </div>
+        <div class="mx-4 grid grid-cols-1 md:grid-cols-3 gap-4 items-center mb-6">
+            <img src="assets/images/atm-icon-gray.png" alt="">
+            <iframe width="100%" height="250" style="border:0;" [src]="mapUrl" allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" class="col-span-2">
+            </iframe>
+        </div>
+        <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
 
             <div class="flex flex-col gap-2">
@@ -89,38 +88,41 @@
                 <label for="MaxAmountDispence">Max Amount Dispence</label>
                 <input pInputText id="MaxAmountDispence" type="text" />
             </div>
-                <div  class="flex flex-col gap-2">
-                    <label for="EMVEnabled">EMV Enabled </label>
-                    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                        class="atm-select" aria-labelledby="basic" id="EMVEnabled" />
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="KeepAlive">Keep Alive</label>
-                    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                        class="atm-select" aria-labelledby="basic" id="KeepAlive"/>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="Connection">Connection</label>
-                    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                        class="atm-select" aria-labelledby="basic" id="Connection"/>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="Header">Header</label>
-                    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                        class="atm-select" aria-labelledby="basic" id="Header"/>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="ATMStatus">ATM Status</label>
-                    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
-                        class="atm-select" aria-labelledby="basic" id="ATMStatus"/>
-                </div>
+            <div class="flex flex-col gap-2">
+                <label for="EMVEnabled">EMV Enabled </label>
+                <p-selectbutton [options]="EMVOptions" [(ngModel)]="EMVValue" optionLabel="label" optionValue="value"
+                    class="atm-select" aria-labelledby="basic" id="EMVEnabled" />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="KeepAlive">Keep Alive</label>
+                <p-selectbutton [options]="aliveOptions" [(ngModel)]="aliveValue" optionLabel="label" optionValue="value"
+                    class="atm-select" aria-labelledby="basic" id="KeepAlive" />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="Connection">Connection</label>
+                <p-selectbutton [options]="connectionOptions" [(ngModel)]="connectionValue" optionLabel="label" optionValue="value"
+                    class="atm-select" aria-labelledby="basic" id="Connection" />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="Header">Header</label>
+                <p-selectbutton [options]="headerOptions" [(ngModel)]="headerValue" optionLabel="label" optionValue="value"
+                    class="atm-select" aria-labelledby="basic" id="Header" />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="ATMStatus">ATM Status</label>
+                <p-selectbutton [options]="statusOptions" [(ngModel)]="statusValue" optionLabel="label" optionValue="value"
+                    class="atm-select" aria-labelledby="basic" id="ATMStatus" />
+            </div>
 
         </div>
         <div class="card">
-            <p-table [value]="products" [(selection)]="selectprod"  showGridlines dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+            <p-table [value]="products" [(selection)]="selectprod" showGridlines dataKey="code"
+                [tableStyle]="{'min-width': '50rem'}">
                 <ng-template #header>
                     <tr>
-                        <th style="width: 10rem"><p>Denom Select</p><p-tableHeaderCheckbox /></th>
+                        <th style="width: 10rem">
+                            <p>Denom Select</p><p-tableHeaderCheckbox />
+                        </th>
                         <th>Denom Value</th>
                         <th>Denom Currency Code</th>
                     </tr>
@@ -130,8 +132,12 @@
                         <td>
                             <p-tableCheckbox [value]="product" />
                         </td>
-                        <td>{{product.code}}</td>
-                        <td>{{product.name}}</td>
+                        <td>
+                            <input pInputText type="text" placeholder="Enter Denom Value" />
+                        </td>
+                        <td>
+                            <input pInputText type="text" placeholder="Enter Currency Code" />
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

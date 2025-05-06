@@ -9,6 +9,8 @@
         border-radius: 10px !important;
     }
 
+   
+
     .atm-ContDropDown {
         span.p-select-label {
             width: 250px;
@@ -25,6 +27,10 @@
         .p-listbox-list-container {
             max-height: 20rem !important;
         }
+         .p-togglebutton-checked .p-togglebutton-content{
+        background:var(--primary-color);
+        color: #fff;
+    }
     }
 
     @media (max-width: 600px) {
