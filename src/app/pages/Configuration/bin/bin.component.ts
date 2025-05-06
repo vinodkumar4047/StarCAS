@@ -25,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class BinComponent {
   visible: boolean = false;
+  show_visible: boolean = false;
   customers = [{ INSTID: "TEST", BIN: "63980700", BINDESC: "ONUS", PRODUCTCODE: "01", PRODUCTNAME: "CGS", BINTYPE: "DEBIT", ROUTETYPE: "DEBIT", "TXNLIST": "1,30,31,33,34,38,94,40,44,46,47,36,70,09,14,19,18,0,50,51,61,62,63,41,91,92,71,72,20,90,29,37" },
   { INSTID: "TEST", BIN: "466096", BINDESC: "PREPAID", PRODUCTCODE: "01", PRODUCTNAME: "CGS", BINTYPE: "DEBIT", ROUTETYPE: "DEBIT", "TXNLIST": "1,30,31,33,34,38,94,40,44,46,47,36,70,09,14,19,18,0,50,51,61,62,63,41,91,92,71,72,20,90,29,37" },
   { INSTID: "TEST", BIN: "451452", BINDESC: "TEST BIN", PRODUCTCODE: "01", PRODUCTNAME: "CGS", BINTYPE: "DEBIT", ROUTETYPE: "DEBIT", "TXNLIST": "1,30,31,33,34,38,94,40,44,46,47,36,70,09,14,19,18,0,50,51,61,62,63,41,91,92,71,72,20,90,29,37" },
@@ -36,5 +37,8 @@ export class BinComponent {
   addFunction() {
     this.visible = true;
     // alert("fucntion triger")
+  }
+  showFucntion() {
+    this.show_visible = true;
   }
 }
