@@ -3,11 +3,11 @@
     <ng-template #caption>
         <div class="flex justify-between mb-4">
             <div>
-                <p-button *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
-                <p-button *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil" (click)="add($event)" />
+                <p-button class="mr-2" *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
+                <p-button class="mr-2" *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil" (click)="add($event)" />
                 <div *ngIf="multipleButton?.length > 0">
                     <ng-template *ngFor="let btn of multipleButton">
-                        <p-button [label]="btn?.label" icon="btn?.icon"
+                        <p-button [label]="btn?.label" icon="btn?.icon" class="mr-2"
                             (click)="otherEvents(btn?.data??'',$event,btn?.type)" />
                     </ng-template>
                 </div>
