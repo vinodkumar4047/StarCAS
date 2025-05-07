@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
@@ -14,7 +13,6 @@ import { DialogModule } from 'primeng/dialog';
   selector: 'app-atm',
   imports: [
     TooltipModule,
-    TableModule,
     CommonModule,
     FormsModule,
     InputIconModule,

@@ -11,11 +11,11 @@ import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { FloatLabel } from 'primeng/floatlabel';
 @Component({
     selector: 'app-add-edit-view-atm-details',
     imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, InputGroupModule, ReactiveFormsModule,
-        CheckboxModule, TableModule, InputGroupAddonModule, SelectModule, SelectButtonModule],
+        CheckboxModule, TableModule, InputGroupAddonModule, SelectModule, SelectButtonModule, FloatLabel],
     templateUrl: './add-edit-view-atm-details.component.html',
     styleUrl: './add-edit-view-atm-details.component.scss'
 })
@@ -115,13 +115,13 @@ export class AddEditViewAtmDetailsComponent {
             ATMID: ['', Validators.required],
             Locate: [''],
             ATMLocation: ['', Validators.required],
-            ATMType: ['', Validators.required],
-            ATMLogicalGroup: ['', Validators.required],
+            ATMType: [null, Validators.required],
+            ATMLogicalGroup: [null, Validators.required],
             TerminalId: ['', Validators.required],
             AcquirerBin: ['', Validators.required],
-            AcquirerInstitution: ['', Validators.required],
-            AcquirerBranch: ['', Validators.required],
-            ATMKeylen: ['', Validators.required],
+            AcquirerInstitution: [null, Validators.required],
+            AcquirerBranch: [null, Validators.required],
+            ATMKeylen: [null, Validators.required],
             ATMMasterKey: ['', Validators.required],
             ATMCommonKey: ['', Validators.required],
             IPAddress: ['', Validators.required],
@@ -133,16 +133,17 @@ export class AddEditViewAtmDetailsComponent {
             Connection: ['1', Validators.required],
             Header: ['1', Validators.required],
             ATMStatus: ['1', Validators.required],
-            productDetails: this.fb.array([])  
+            productDetails: this.fb.array([])
         });
 
         this.initializeProductFormArrays();
-       if( this.routeData?.type == 'Edit' || this.routeData?.type == 'View'){
-        this.setFormData(this.routeData?.data);
-        this.atmForm.disable();
-       }else{ 
-        this.atmForm.enable();
-       }; 
+        if (this.routeData?.type == 'Edit' || this.routeData?.type == 'View') {
+            this.setFormData(this.routeData?.data);
+            this.atmForm.disable();
+        } else {
+            this.atmForm.enable();
+            this.EnableDisableAllProductFields()
+        };
     }
 
     initializeProductFormArrays() {
@@ -187,7 +188,8 @@ export class AddEditViewAtmDetailsComponent {
                 this.atmForm.disable();
             }
         } else {
-            console.log('Form is invalid',this.atmForm);
+            console.log('Form is invalid', this.atmForm);
+            this.atmForm.markAllAsTouched();
         }
     }
 
@@ -208,14 +210,14 @@ export class AddEditViewAtmDetailsComponent {
         this.EnableDisableAllProductFields();
     }
 
-   EnableDisableAllProductFields() {
+    EnableDisableAllProductFields() {
         const productDetailsArray = this.atmForm.get('productDetails') as FormArray;
         productDetailsArray.controls.forEach((group: any, index: number) => {
             const selectedProductControl = group.get('selectedProduct');
             const denomControl = group.get('denomValue');
             const currencyControl = group.get('currencyCode');
             const isChecked = selectedProductControl?.value;
-    
+
             if (isChecked) {
                 denomControl?.enable();
                 currencyControl?.enable();
@@ -225,7 +227,7 @@ export class AddEditViewAtmDetailsComponent {
             }
         });
     }
-    
+
     setFormData(data: any) {
         // Set top-level values in the form
         this.atmForm.patchValue({
@@ -251,18 +253,18 @@ export class AddEditViewAtmDetailsComponent {
             Header: data.Header,
             ATMStatus: data.ATMStatus,
         });
-    
+
         // Set product details (form array)
         const productDetailsArray = this.atmForm.get('productDetails') as FormArray;
         data.productDetails.forEach((product: any, index: number) => {
             const group = productDetailsArray.at(index) as FormGroup;
-    
+
             group.patchValue({
                 selectedProduct: product.selectedProduct ?? false,
                 denomValue: product.denomValue ?? '',
                 currencyCode: product.currencyCode ?? ''
             });
-    
+
         });
     }
 }
