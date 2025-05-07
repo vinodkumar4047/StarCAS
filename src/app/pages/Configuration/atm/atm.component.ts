@@ -8,6 +8,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-atm',
@@ -19,7 +20,8 @@ import { TableComponent } from '../../../layout/component/table/table.component'
     InputIconModule,
     IconFieldModule,
     ButtonModule,
-    TableComponent
+    TableComponent,
+      DialogModule,
   ],
   templateUrl: './atm.component.html',
   styleUrl: './atm.component.scss'
@@ -127,6 +129,7 @@ export class ATMComponent {
   { field: 'acquirerBranch', header: 'ACQUIRER BRANCH' },
   { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
+delete_visible: any;
 
   constructor(private router: Router) { };
 
@@ -197,5 +200,8 @@ export class ATMComponent {
       this.router.navigate(['/pages/add_edit_atm'], { state:{ data:data , type:type} });
       console.log(details);
       
+  }
+  delateData(){
+    this.delete_visible = false
   }
 }
