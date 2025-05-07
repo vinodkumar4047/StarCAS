@@ -1,146 +1,163 @@
 <div class="add-atm-controller col-span-12 xl:col-span-12">
-    <h2 class="mb-8">Add ATM Details</h2>
+    <h2 class="mb-8">{{this.routeData?.type +' ATM Details'}}</h2>
     <div class="card !mb-4">
-        <div class="flex gap-2 items-center mb-8">
-            <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
-                class="backIcon"></p-button>
-            <div class="font-semibold text-xl  heading-color">
-                ATM Details
-            </div>
-        </div>
-        <div class="mx-4 grid grid-cols-1 md:grid-cols-3 gap-4 items-center mb-6">
-            <img src="assets/images/atm-icon-gray.png" alt="">
-            <iframe width="100%" height="250" style="border:0;" [src]="mapUrl" allowfullscreen loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade" class="col-span-2">
-            </iframe>
-        </div>
-        <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-
-            <div class="flex flex-col gap-2">
-                <label for="ATMID">ATM ID</label>
-                <input pInputText id="ATMID" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="Locate">Location</label>
-                <p-inputgroup>
-                    <p-button label="Locate" />
-                    <input pInputText id="Locate" placeholder="Search Location" />
-                </p-inputgroup>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMLocation">ATM Location</label>
-                <input pInputText id="ATMLocation" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMType">ATM Type</label>
-                <p-select [options]="atmTypes" [(ngModel)]="selectedType" optionLabel="name"
-                    placeholder="Select ATM Type" id="ATMType" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMLogicalGroup">ATM Logical Group</label>
-                <input pInputText id="ATMLogicalGroup" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="TerminalId">Terminal Id</label>
-                <input pInputText id="TerminalId" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="AcquirerBin">Acquirer Bin</label>
-                <input pInputText id="AcquirerBin" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="AcquirerInstitution">Acquirer Institution</label>
-                <p-select [options]="atmTypes" [(ngModel)]="selectedType" optionLabel="name"
-                    placeholder="Select Acquirer Institution" id="AcquirerInstitution" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="AcquirerBranch">Acquirer Branch</label>
-                <p-select [options]="atmTypes" [(ngModel)]="selectedType" optionLabel="name"
-                    placeholder="Select Acquirer Branch" id="AcquirerBranch" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMKeylen">ATM Key len</label>
-                <p-select [options]="atmTypes" [(ngModel)]="selectedType" optionLabel="name"
-                    placeholder="Select Acquirer Institution" id="ATMKeylen" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMMasterKey">ATM Master Key</label>
-                <input pInputText id="ATMMasterKey" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMCommonKey">ATM Common Key</label>
-                <input pInputText id="ATMCommonKey" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="IPAddress">IP Address</label>
-                <input pInputText id="IPAddress" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="PORTID">PORT ID</label>
-                <input pInputText id="PORTID" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="MaxNotedDispence ">Max Noted Dispence </label>
-                <input pInputText id="MaxNotedDispence " type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="MaxAmountDispence">Max Amount Dispence</label>
-                <input pInputText id="MaxAmountDispence" type="text" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="EMVEnabled">EMV Enabled </label>
-                <p-selectbutton [options]="EMVOptions" [(ngModel)]="EMVValue" optionLabel="label" optionValue="value"
-                    class="atm-select" aria-labelledby="basic" id="EMVEnabled" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="KeepAlive">Keep Alive</label>
-                <p-selectbutton [options]="aliveOptions" [(ngModel)]="aliveValue" optionLabel="label" optionValue="value"
-                    class="atm-select" aria-labelledby="basic" id="KeepAlive" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="Connection">Connection</label>
-                <p-selectbutton [options]="connectionOptions" [(ngModel)]="connectionValue" optionLabel="label" optionValue="value"
-                    class="atm-select" aria-labelledby="basic" id="Connection" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="Header">Header</label>
-                <p-selectbutton [options]="headerOptions" [(ngModel)]="headerValue" optionLabel="label" optionValue="value"
-                    class="atm-select" aria-labelledby="basic" id="Header" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="ATMStatus">ATM Status</label>
-                <p-selectbutton [options]="statusOptions" [(ngModel)]="statusValue" optionLabel="label" optionValue="value"
-                    class="atm-select" aria-labelledby="basic" id="ATMStatus" />
+        <form [formGroup]="atmForm">
+            <div class="flex justify-between">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl  heading-color">
+                        ATM Details
+                    </div>
+                </div>
+                <p-button *ngIf="this.routeData?.type == 'Edit' && !this.saveCheck" label="Edit ATM Details" severity="warn" raised icon="pi pi-pencil" (click)="editEnable()" />
             </div>
 
-        </div>
-        <div class="card">
-            <p-table [value]="products" [(selection)]="selectprod" showGridlines dataKey="code"
-                [tableStyle]="{'min-width': '50rem'}">
-                <ng-template #header>
-                    <tr>
-                        <th style="width: 10rem">
-                            <p>Denom Select</p><p-tableHeaderCheckbox />
-                        </th>
-                        <th>Denom Value</th>
-                        <th>Denom Currency Code</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body let-product>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="product" />
-                        </td>
-                        <td>
-                            <input pInputText type="text" placeholder="Enter Denom Value" />
-                        </td>
-                        <td>
-                            <input pInputText type="text" placeholder="Enter Currency Code" />
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="mx-4 grid grid-cols-1 md:grid-cols-3 gap-4 items-center mb-6">
+                <img src="assets/images/atm-icon-gray.png" alt="">
+                <iframe width="100%" height="250" style="border:0;" [src]="mapUrl" allowfullscreen loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" class="col-span-2">
+                </iframe>
+            </div>
+            <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+
+                <div class="flex flex-col gap-2">
+                    <label for="ATMID">ATM ID</label>
+                    <input pInputText id="ATMID" type="text" formControlName="ATMID" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="Locate">Location</label>
+                    <p-inputgroup>
+                        <p-button label="Locate" />
+                        <input pInputText id="Locate" placeholder="Search Location" formControlName="Locate" />
+                    </p-inputgroup>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMLocation">ATM Location</label>
+                    <input pInputText id="ATMLocation" type="text" formControlName="ATMLocation" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMType">ATM Type</label>
+                    <p-select [options]="atmTypes" formControlName="ATMType" optionValue="code" optionLabel="name"
+                        placeholder="Select ATM Type" id="ATMType" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMLogicalGroup">ATM Logical Group</label>
+                    <p-select [options]="logicalGroupOpt" formControlName="ATMLogicalGroup" optionValue="code" optionLabel="name"
+                        placeholder="Select Logical Group" id="ATMLogicalGroup" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="TerminalId">Terminal Id</label>
+                    <input pInputText id="TerminalId" formControlName="TerminalId" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="AcquirerBin">Acquirer Bin</label>
+                    <input pInputText id="AcquirerBin" formControlName="AcquirerBin" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="AcquirerInstitution">Acquirer Institution</label>
+                    <p-select [options]="institution" formControlName="AcquirerInstitution" optionValue="code" optionLabel="name"
+                        placeholder="Select Acquirer Institution" id="AcquirerInstitution" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="AcquirerBranch">Acquirer Branch</label>
+                    <p-select [options]="branchOpt" formControlName="AcquirerBranch" optionValue="code" optionLabel="name"
+                        placeholder="Select Acquirer Branch" id="AcquirerBranch" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMKeylen">ATM Key len</label>
+                    <p-select [options]="keyOpt" formControlName="ATMKeylen" optionValue="code" optionLabel="name" 
+                        placeholder="Select Acquirer Institution" id="ATMKeylen" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMMasterKey">ATM Master Key</label>
+                    <input pInputText id="ATMMasterKey" formControlName="ATMMasterKey" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMCommonKey">ATM Common Key</label>
+                    <input pInputText id="ATMCommonKey" formControlName="ATMCommonKey" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="IPAddress">IP Address</label>
+                    <input pInputText id="IPAddress" formControlName="IPAddress" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="PORTID">PORT ID</label>
+                    <input pInputText id="PORTID" formControlName="PORTID" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="MaxNotedDispence">Max Noted Dispence </label>
+                    <input pInputText id="MaxNotedDispence" formControlName="MaxNotedDispence" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="MaxAmountDispence">Max Amount Dispence</label>
+                    <input pInputText id="MaxAmountDispence" formControlName="MaxAmountDispence" type="text" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="EMVEnabled">EMV Enabled </label>
+                    <p-selectbutton [options]="EMVOptions" formControlName="EMVEnabled" optionLabel="label"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="EMVEnabled" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="KeepAlive">Keep Alive</label>
+                    <p-selectbutton [options]="aliveOptions" formControlName="KeepAlive" optionLabel="label"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="KeepAlive" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="Connection">Connection</label>
+                    <p-selectbutton [options]="connectionOptions" formControlName="Connection" optionLabel="label"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="Connection" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="Header">Header</label>
+                    <p-selectbutton [options]="headerOptions" formControlName="Header" optionLabel="label"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="Header" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="ATMStatus">ATM Status</label>
+                    <p-selectbutton [options]="statusOptions" formControlName="ATMStatus" optionLabel="label"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="ATMStatus" />
+                </div>
+
+            </div>
+            <div class="card tableForm_Atm">
+                <p-table [value]="products" [(selection)]="selectprod" showGridlines dataKey="code"
+                    [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template #header>
+                        <tr>
+                            <th style="width: 10rem">
+                                <p>Denom Select</p>
+                            </th>
+                            <th>Denom Value</th>
+                            <th>Denom Currency Code</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product let-i="rowIndex">
+                        <tr>
+                            <td>
+                                <!-- Bind selectedProduct (checkbox) -->
+                                <p-checkbox binary="true" [formControl]="getProductControl(i, 'selectedProduct')"
+                                    [value]="product?.name" />
+                            </td>
+                            <td>
+                                <!-- Bind denomValue input -->
+                                <input pInputText type="text" [formControl]="getProductControl(i, 'denomValue')"
+                                    [placeholder]="product?.name+' Value'" />
+                            </td>
+                            <td>
+                                <!-- Bind currencyCode input -->
+                                <input pInputText type="text" [formControl]="getProductControl(i, 'currencyCode')"
+                                    [placeholder]="product?.name+' Currency Code'" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+            <div class="flex flex-row-reverse" *ngIf="this.saveCheck">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
     </div>
 </div>

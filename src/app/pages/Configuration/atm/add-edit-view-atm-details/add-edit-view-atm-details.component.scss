@@ -45,6 +45,11 @@
         .p-datatable-gridlines .p-datatable-tbody > tr > td:first-child{
             text-align: center;
         }
+        .tableForm_Atm{
+            .p-inputtext {
+                width: 25vw;
+            }
+        }
 
         @media (max-width: 600px) {
             .atm-select.p-selectbutton {
