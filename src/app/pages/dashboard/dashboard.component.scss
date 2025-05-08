@@ -27,9 +27,12 @@
     justify-items: start;
 }
 
-.heading-color{
-    color:var(--primary-color);
+.heading-color {
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: .5px;
 }
+
 
 .background-ban{
     margin: 0px -28px;

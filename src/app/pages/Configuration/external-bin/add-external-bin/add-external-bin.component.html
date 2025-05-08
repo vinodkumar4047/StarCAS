@@ -1,0 +1,65 @@
+<div class="add-ExternalBin col-span-12 xl:col-span-12">
+    <h2 class="mb-8">External BIN</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="extBinForm">
+            <div class="flex justify-between ">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl  heading-color">
+                        Add External BIN
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 px-4">
+
+                    <p-button severity="danger" label="Download PDF" icon="pi pi-file-pdf" />
+                    <p-button severity="success" label="Download Excel" icon="pi pi-file-excel" />
+
+                </div>
+
+            </div>
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="institutionOpt" formControlName="Instution" optionValue="code"
+                        optionLabel="name" inputId="Instution" styleClass="w-full" />
+                    <label for="Instution">Select Instution <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="BIN" formControlName="BIN" type="text" />
+                    <label for="BIN">BIN <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="Description" formControlName="Description" type="text" />
+                    <label for="Description">Description <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+            </div>
+            <div class="mx-4 ">
+                
+                <p-fileupload  name="demo[]" 
+                [customUpload]="true"
+                (uploadHandler)="onUpload($event)"
+                [multiple]="true" 
+                accept=".jpg,.png,.pdf,.doc,.docx,.xls,.xlsx,image/*,application/msword,application/pdf"
+                maxFileSize="1000000" 
+                mode="advanced">
+              
+                    <ng-template #empty>
+                        <div class="draganddrop">Drag and drop files to here to upload.</div>
+                    </ng-template>
+                    <ng-template #content>
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                        </ul>  
+                        <p-button  *ngIf="uploadedFiles.length" label="reset" severity="primary" outlined="" icon="pi pi-refresh" (click)="resetFile()" />
+                    </ng-template>
+                </p-fileupload>
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
+    </div>
+</div>

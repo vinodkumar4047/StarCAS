@@ -25,7 +25,20 @@
             border-width: 0 0 2px 0;
         }
 
+        .nodata {
+            position: relative;
+            height: 15vh;
 
+            td.nodata-text {
+                position: absolute !important;
+                top: 35% !important;
+                left: 50% !important;
+                font-size: 16px;
+                color: var(--primary-color);
+                padding: 0;
+                border: none !important;
+            }
+        }
     }
 
 }
