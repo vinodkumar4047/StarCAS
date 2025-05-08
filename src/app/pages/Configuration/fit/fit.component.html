@@ -1,1 +1,78 @@
-<p>fit works!</p>
+<div class="Fit-component">
+    <h2 class="mb-8">FIT</h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
+            (viewEvent)="edit($event,'View')" [addButton]="'Add FIT'" />
+    </div>
+
+    <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    Confirm Deletion
+                </span>
+                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
+                    (click)="delete_visible = false"></button>
+            </div>
+        </ng-template>
+        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
+            Are you sure you want to delete?
+        </div>
+        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
+        <div class="flex justify-end gap-2">
+            <p-button label="No" severity="secondary" (click)="delete_visible = false" />
+            <p-button label="Yes, Delete" severity="danger" (click)="delateData()" />
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+    class="EDIT_BRANCH_DIALOG">
+    <ng-template pTemplate="header">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-lg font-semibold custom-text-color">
+                {{tpCheck == true ? 'View Your Details':'Edit Your Details'}}
+            </span>
+            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                (click)="editVisible = false"></button>
+        </div>
+    </ng-template>
+
+    <!-- Table-like layout  -->
+    <div *ngIf="Edit_data">
+        <div class="table-row">
+            <div class="table-cell heading">Record ID</div>
+            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.RECORDID" type="text" placeholder="Normal"
+                [disabled]="true" />
+        </div>
+        <div class="table-row">
+            <div class="table-cell heading">INST ID</div>
+            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder="Normal"
+                [disabled]="true" />
+
+        </div>
+        <div class="table-row">
+            <div class="table-cell heading">Security ID</div>
+            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.SECURITYID" type="text"
+                placeholder="Normal" [disabled]="tpCheck" />
+
+        </div>
+        <div class="table-row">
+            <div class="table-cell heading">Indirect State</div>
+            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INDIRECTSTATE" type="text" placeholder="Normal" [disabled]="tpCheck" />
+
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell heading">Fitercord</div>
+            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.FITRECORD" type="text" placeholder="Normal" [disabled]="tpCheck" />
+
+        </div>
+    </div>
+    <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
+        <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
+        <p-button label="Save" (click)="editVisible = false" />
+    </div>
+</p-dialog>
+</div>
