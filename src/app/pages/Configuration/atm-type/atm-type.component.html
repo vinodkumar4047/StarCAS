@@ -1,1 +1,41 @@
-<p>atm-type works!</p>
+<div class="atm-type-controller">
+    <div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0;">ATM Type Details </h2>
+    </div>
+    <div class="card">
+        <div class="flex gap-2 items-center mb-8">
+            <div class="font-semibold text-xl heading-color">
+                View ATM Type Discription
+            </div>
+        </div>
+
+
+        <div class=" body">
+
+            <div class="card flex flex-col items-center gap-2 justify-center">
+                <div>Select ATM Type*</div>
+                <p-selectbutton class="atm-select" [options]="stateOptions" [(ngModel)]="value" optionLabel="label"
+                    optionValue="value" aria-labelledby="basic" (onChange)="onATMTypeChange($event.value)" />
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="table" class="card">
+        <p-table [value]="filteredProducts" stripedRows [tableStyle]="{'min-width': '50rem'}">
+            <ng-template #header class="p-datatable-thead">
+                <tr>
+                    <th>ATM Type</th>
+                    <th>Description</th>
+                    <th> Driver Channel</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td>{{product.ATMTYPEID}}</td>
+                    <td>{{product.ATMTYPEDESCRIPTION}}</td>
+                    <td>{{product.DRIVERCHANNEL}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

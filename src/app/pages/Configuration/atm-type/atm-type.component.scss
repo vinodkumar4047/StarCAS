@@ -1,0 +1,69 @@
+::ng-deep {
+    .atm-type-controller {
+        .body {
+            // padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            border-style: outset
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .backIcon {
+            span.pi.pi-arrow-left.p-button-icon {
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .atm-select.p-selectbutton {
+            align-items: center;
+
+            .p-togglebutton-content {
+                height: 40px;
+                width: 125px;
+                border-radius: 10px !important;
+            }
+
+            .p-togglebutton-checked .p-togglebutton-content {
+                background: var(--primary-color);
+                color: #fff;
+            }
+        }
+
+        .atm-select.p-selectbutton {
+            display: flex;
+        }
+
+        @media (max-width: 600px) {
+            .p-togglebutton-content {
+                width: 100px;
+                height: 36px;
+            }
+
+            .atm-select.p-selectbutton {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+            }
+        }
+
+        .p-datatable-thead>tr>th {
+            vertical-align: middle;
+            border-color: #3b82f6;
+        }
+    }
+
+}

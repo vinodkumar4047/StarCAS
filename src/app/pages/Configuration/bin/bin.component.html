@@ -104,7 +104,8 @@
         </ng-template>
     </p-table>
     <!-- SHOW POPUP  -->
-    <p-dialog [modal]="true" [(visible)]="show_visible" [style]="{ width: '50rem' }" [closable]="false">
+    <p-dialog [modal]="true" [(visible)]="show_visible" [style]="{ width: '50rem' }" [closable]="false"
+        class="BIN_SHOW_DIALOG">
 
         <!-- Custom header template -->
         <ng-template pTemplate="header">
@@ -115,31 +116,21 @@
                 </button>
             </div>
         </ng-template>
-
-        <!-- <div class="grid grid-cols-2 gap-4">
-            <div class="flex flex-col gap-2">
-                <label for="username">Institution Id *</label>
-                <input pInputText id="TEST" aria-describedby="username-help" [disabled]="true" placeholder="TEST" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Code *</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Code" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Map Code *</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Map Code" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Name*</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Name" />
-            </div>
-        </div> -->
-
-
-
-        <div class="flex justify-end gap-2 mt-4">
-            <!-- <p-button label="Cancel" severity="secondary" (click)=": boolean = false; = false" />
-            <p-button label="Save" (click)="visible = false" /> -->
+        <div class="card">
+            <p-table [value]="products" stripedRows>
+                <ng-template #header>
+                    <tr>
+                        <th style="border-color: #234e94; font-weight: 900;">Txn Code</th>
+                        <th style="border-color: #234e94; font-weight: 900;">Txn Description</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{product.TXNCODE}}</td>
+                        <td>{{product.TXNDESC}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </p-dialog>
 </div>

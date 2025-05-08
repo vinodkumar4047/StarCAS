@@ -57,4 +57,45 @@
     .custom-text-color {
         color: var(--p-button-primary-background);
     }
+
+    .BIN_SHOW_DIALOG {
+        .heading {
+            font-weight: bold;
+            /* Slight background for headings */
+        }
+
+        .hovBut:hover {
+            background-color: #607D8B;
+        }
+
+        .p-dialog {
+            border: 0;
+        }
+
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .custom-text-color {
+            color: #ffffff;
+            font-size: 25px
+        }
+
+        .p-dialog-header {
+            background: var(--p-button-primary-background);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            // border-bottom: 1px solid #ddd;
+            /* Light border between rows */
+        }
+    }
 }

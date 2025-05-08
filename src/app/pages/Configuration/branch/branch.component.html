@@ -61,7 +61,8 @@
 </div>
 
 <!-- ✅ Single Dialog outside table  VIEW LAYOUT-->
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false">
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+    class="VIEW_BRANCH_DIALOG">
     <ng-template pTemplate="header">
         <div class="flex justify-between items-center w-full">
             <span class="text-lg font-semibold custom-text-color">
@@ -92,14 +93,17 @@
     </div>
 </p-dialog>
 
+
 <!-- ✅ Single Dialog outside table  EDIT LAYOUT-->
-<p-dialog [(visible)]="edit_visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false">
+<p-dialog [(visible)]="edit_visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+    class="EDIT_BRANCH_DIALOG">
     <ng-template pTemplate="header">
         <div class="flex justify-between items-center w-full">
             <span class="text-lg font-semibold custom-text-color">
                 Edit Your Details
             </span>
-            <button pButton icon="pi pi-times" class="change p-button-sm" (click)="edit_visible = false"></button>
+            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                (click)="edit_visible = false"></button>
         </div>
     </ng-template>
 
@@ -107,11 +111,13 @@
     <div *ngIf="Edit_data">
         <div class="table-row">
             <div class="table-cell heading">Inst Id</div>
-            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder="Normal" />
+            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder="Normal"
+                [disabled]="true" />
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Id</div>
-            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTNAME" type="text" placeholder="Normal" />
+            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTNAME" type="text" placeholder="Normal"
+                [disabled]="true" />
 
         </div>
         <div class="table-row">

@@ -2,7 +2,8 @@
     <h2 class="mb-8">ATM Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-       <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="mult"
-       (addEvent)="addOrEdit('add',$event)" (editEvent)="addOrEdit('edit',$event)" (viewEvent)="addOrEdit('add',$event)"[addButton]="'Add ATM'"/>
+        <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields"
+            (addEvent)="addOrEdit('add',$event)" (editEvent)="addOrEdit('edit',$event)"
+            (viewEvent)="addOrEdit('add',$event)" [addButton]="'Add ATM'" />
     </div>
 </div>

@@ -34,9 +34,6 @@
         outline: none;
     }
 
-    .custom-text-color {
-        color: var(--p-button-primary-background);
-    }
 
     .change {
         color: #171515;
@@ -63,44 +60,109 @@
         color: white;
     }
 
-    ::ng-deep .table-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding: 16px;
-    }
 
-    ::ng-deep .table-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 0;
-        border-bottom: 1px solid #ddd;
-        /* Light border between rows */
-    }
+
+
 
     ::ng-deep .table-cell {
-        flex: 1;
+        // flex: 1;
         padding: 8px 16px;
         text-align: left;
         /* Align text to the left */
-        border-right: 1px solid #ddd;
+        // border-right: 1px solid #ddd;
         /* Border between columns */
+        width: 16vw;
     }
 
-    ::ng-deep .heading {
-        font-weight: bold;
-        background-color: #f1f1f1;
-        /* Slight background for headings */
+    .VIEW_BRANCH_DIALOG {
+        .heading {
+            font-weight: bold;
+            background-color: #f1f1f1;
+            /* Slight background for headings */
+        }
+
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .p-dialog-header {
+            background: var(--p-button-primary-background);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .custom-text-color {
+            color: #ffffff;
+            font-size: 25px
+        }
+
+        .p-dialog {
+            border: 0;
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #ffffff
+                /* Light border between rows */
+        }
+
+        .table-cell:last-child {
+            border-right: none;
+            /* Remove right border for last column */
+        }
+
+        .table-row:last-child .table-cell {
+            border-bottom: none;
+            /* Remove bottom border for last row */
+        }
     }
 
-    ::ng-deep .table-cell:last-child {
-        border-right: none;
-        /* Remove right border for last column */
-    }
 
-    ::ng-deep .table-row:last-child .table-cell {
-        border-bottom: none;
-        /* Remove bottom border for last row */
+
+    .EDIT_BRANCH_DIALOG {
+        .heading {
+            font-weight: bold;
+            /* Slight background for headings */
+        }
+
+        .hovBut:hover {
+            background-color: #607D8B;
+        }
+
+        .p-dialog {
+            border: 0;
+        }
+
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .custom-text-color {
+            color: #ffffff;
+            font-size: 25px
+        }
+
+        .p-dialog-header {
+            background: var(--p-button-primary-background);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            // border-bottom: 1px solid #ddd;
+            /* Light border between rows */
+        }
     }
 
 }
