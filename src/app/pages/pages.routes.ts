@@ -19,6 +19,11 @@ import { PortComponent } from './Configuration/port/port.component';
 import { TransactionComponent } from './Configuration/transaction/transaction.component';
 import { AddEditViewAtmDetailsComponent } from './Configuration/atm/add-edit-view-atm-details/add-edit-view-atm-details.component';
 import { AddExternalBinComponent } from './Configuration/external-bin/add-external-bin/add-external-bin.component';
+import { ATMMonitoringComponent } from './monitorning/atm-monitoring/atm-monitoring.component';
+import { HSMMonitoringComponent } from './monitorning/hsm-monitoring/hsm-monitoring.component';
+import { NetworkMonitoringComponent } from './monitorning/network-monitoring/network-monitoring.component';
+import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
+import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -41,6 +46,11 @@ export default [
     { path: 'casset', component: CASSETComponent },
     { path: 'port', component: PortComponent },
     { path: 'transaction', component: TransactionComponent },
+    { path: 'atm_Monitoring', component: ATMMonitoringComponent },
+    { path: 'hsm_Monitoring', component: HSMMonitoringComponent },
+    { path: 'network_Monitoring', component: NetworkMonitoringComponent },
+    { path: 'transaction_Search', component: TransactionSearchComponent },
+    { path: 'txn_Monitoring', component: TxnMonitoringComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

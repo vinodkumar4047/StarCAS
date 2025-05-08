@@ -1,0 +1,50 @@
+<!-- Header Section with Background and Title -->
+<div class="" style="display: flex; justify-content: flex-start;">
+    <h2 style="font-size: 1.8rem;"> TRANSACTION SEARCH Details</h2>
+</div>
+<div class="card">
+    <div class="grid grid-cols-3 gap-4">
+        <div class="flex-auto">
+            <label for="icondisplay" class="font-bold block mb-2"> From Date* </label>
+            <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+        </div>
+        <div>
+            <div class="flex-auto">
+                <label for="icondisplay" class="font-bold block mb-2"> TO Date* </label>
+                <p-calendar [(ngModel)]="date" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+            </div>
+        </div>
+        <div>
+            <label class="font-bold block mb-2">Criteria*</label>
+            <div class="flex  items-start gap-4">
+                <p-speeddial [model]="[]" [visible]="isSpeedDialOpen" direction="right" (onClick)="toggleRadioContent()"
+                    [showIcon]="'pi pi-plus'" [hideIcon]="'pi pi-times'"
+                    [style]="{ 'justify-content': 'flex-start' }"></p-speeddial>
+
+                <!-- Radio Buttons in straight line -->
+                <div *ngIf="showRadioOptions" class="flex gap-4 items-center">
+                    <div class="flex items-center gap-2">
+                        <p-radiobutton name="criteria" value="RefNum" [(ngModel)]="ingredient" inputId="ingredient1" />
+                        <label for="ingredient1">RefNum Based</label>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <p-radiobutton name="criteria" value="Account" [(ngModel)]="ingredient" inputId="ingredient2" />
+                        <label for="ingredient2">Account</label>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <p-radiobutton name="criteria" value="CHN" [(ngModel)]="ingredient" inputId="ingredient3" />
+                        <label for="ingredient3">CHN</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="table-row">
+        <div class="table-cell heading">Inst Id</div>
+        <input class="table-cell" pInputText type="text" placeholder="Normal" [disabled]="true" />
+    </div>
+</div>

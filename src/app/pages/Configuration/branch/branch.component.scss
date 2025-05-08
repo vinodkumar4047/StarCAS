@@ -71,13 +71,13 @@
         /* Align text to the left */
         // border-right: 1px solid #ddd;
         /* Border between columns */
-        width: 16vw;
+        width: 13vw;
     }
 
     .VIEW_BRANCH_DIALOG {
         .heading {
             font-weight: bold;
-            background-color: #f1f1f1;
+            // background-color: #f1f1f1;
             /* Slight background for headings */
         }
 
@@ -113,6 +113,7 @@
 
         .table-cell:last-child {
             border-right: none;
+            background-color: #dbeafe;
             /* Remove right border for last column */
         }
 

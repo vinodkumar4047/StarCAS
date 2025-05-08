@@ -93,27 +93,27 @@ export class AppMenu {
                         {
                             label: 'Network Monitoring',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/auth/login']
+                            routerLink: ['/pages/network_Monitoring']
                         },
                         {
                             label: 'HSM Monitoring',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/hsm_Monitoring']
                         },
                         {
                             label: 'Txn Monitoring',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/txn_Monitoring']
                         },
                         {
                             label: 'ATM Monitoring',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/atm_Monitoring']
                         },
                         {
                             label: 'Transaction Search',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/transaction_Search']
                         },
                     ]
                 }]
