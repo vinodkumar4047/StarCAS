@@ -1,0 +1,51 @@
+<div class="add-fit col-span-12 xl:col-span-12">
+    <h2 class="mb-8">FIT Details</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="fitForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        Add FIT Details
+                    </div>
+                </div>
+               
+            </div> 
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                    <p-floatlabel variant="on">
+    
+                        <p-select [options]="InstIDOpt" formControlName="INSTID" optionValue="code"
+                            optionLabel="name" inputId="INSTID" styleClass="w-full" />
+                        <label for="INSTID">Select INST ID <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <p-select [options]="atmIDOpt" formControlName="ATMID" optionValue="code"
+                            optionLabel="name" inputId="ATMID" styleClass="w-full" />
+                        <label for="ATMID">Select ATM ID <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <p-select [options]="logicalOpt" formControlName="logicalGroup" optionValue="code"
+                            optionLabel="name" inputId="logicalGroup" styleClass="w-full" />
+                        <label for="logicalGroup">Select Logical Group <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState" type="text" />
+                        <label for="indirectState">Indirect State <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="BINValue" formControlName="BINValue" type="text" />
+                        <label for="BINValue">BIN Value <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                </div>
+                <div class="flex flex-row-reverse mx-4 my-8">
+                    <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+                </div>
+        </form>
+    </div>
+</div>
+                

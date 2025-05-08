@@ -24,6 +24,7 @@ import { HSMMonitoringComponent } from './monitorning/hsm-monitoring/hsm-monitor
 import { NetworkMonitoringComponent } from './monitorning/network-monitoring/network-monitoring.component';
 import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
 import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
+import { AddFitComponent } from './Configuration/fit/add-fit/add-fit.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -43,6 +44,7 @@ export default [
     { path: 'externalBin', component: ExternalBinComponent },
     { path: 'add_externalBin', component: AddExternalBinComponent },
     { path: 'fit', component: FitComponent },
+    { path: 'add_fit', component: AddFitComponent },
     { path: 'casset', component: CASSETComponent },
     { path: 'port', component: PortComponent },
     { path: 'transaction', component: TransactionComponent },

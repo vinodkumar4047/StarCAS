@@ -2,15 +2,15 @@
     <h2 class="mb-8">External BIN</h2>
     <div class="card !mb-4">
         <form [formGroup]="extBinForm">
-            <div class="flex justify-between ">
+            <div class="flex flex-wrap justify-between mb-4">
                 <div class="flex gap-2 items-center mb-8">
                     <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
                         class="backIcon"></p-button>
-                    <div class="font-semibold text-xl  heading-color">
+                    <div class="font-semibold text-xl heading-color">
                         Add External BIN
                     </div>
                 </div>
-                <div class="flex justify-center gap-4 px-4">
+                <div class="flex flex-wrap justify-center gap-4 px-4">
 
                     <p-button severity="danger" label="Download PDF" icon="pi pi-file-pdf" />
                     <p-button severity="success" label="Download Excel" icon="pi pi-file-excel" />

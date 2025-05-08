@@ -4,10 +4,12 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-external-bin',
-  imports: [TableComponent,DialogModule,ButtonModule,CommonModule],
+  imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
   templateUrl: './external-bin.component.html',
   styleUrl: './external-bin.component.scss'
 })
@@ -38,6 +40,15 @@ export class ExternalBinComponent {
   { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
 
+  editVisible:any;
+  Edit_data:any={
+    INSTID: '',
+    BRANCHID: '',
+    MAPCODE: '',
+    BRANCHNAME: ''
+  };
+tpCheck!:boolean;
+
 constructor(private router: Router) { };
 
   ngOnInit(){
@@ -46,6 +57,14 @@ constructor(private router: Router) { };
 
   delateData(){
     this.delete_visible = false
+  }
+
+  edit(data:any,type:any){
+    this.Edit_data = data?.data;
+    console.log(data);
+    this.tpCheck = type == 'View' ? true:false;
+    this.editVisible = true;
+
   }
 
   addOrEdit(type:any,data:any){

@@ -1,7 +1,8 @@
 <p-table [value]="tableData" [paginator]="true" [rows]="10" scrollable="true" scrollHeight="flex" scrollDirection="both"
-    [columns]="cols" [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[10,15,20]"
-    tableStyleClass="p-datatable-scrollable" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
-    size="small">
+    [columns]="cols" [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[10,15,20]" sortMode="multiple"
+    [customSort]="true" (sortFunction)="customSort($event)" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
+    tableStyleClass="p-datatable-scrollable"  size="small">
+  
     <ng-template #caption>
         <div class="flex justify-between mb-4">
             <div>
@@ -34,15 +35,16 @@
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" >
+            <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : null">
                 {{ col.header }}
+                <p-sortIcon [ngStyle]="{'margin-left': '5px'}" *ngIf="col.sort" [field]="col.field"></p-sortIcon>
             </th>
         </tr>
     </ng-template>
 
     <ng-template #body let-row let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
+            <td *ngFor="let col of columns" style="height: 35px;">
                 <span *ngIf="col.header != 'Action'">{{ row[col.field] }}</span>
                 <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
                     <p-button *ngIf="col.type?.includes('add')" text severity="primary" class=" p-button-icon-only"

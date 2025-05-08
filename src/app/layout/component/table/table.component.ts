@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -19,7 +20,8 @@ import { TooltipModule } from 'primeng/tooltip';
     ButtonModule,
   ],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrl: './table.component.scss',
+ 
 })
 export class TableComponent {
 
@@ -71,5 +73,11 @@ export class TableComponent {
   otherEvents(data: any, event: any, type:any) {
     this.event.emit({ data: data, event: event, type: type });
   }
+
+  customSort(event:SortEvent){
+    console.log(event,'event=====');
+    
+  }
+
 
 }
