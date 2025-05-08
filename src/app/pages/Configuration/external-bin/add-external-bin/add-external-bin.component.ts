@@ -11,7 +11,8 @@ import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-add-external-bin',
-  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, FileUpload, SelectModule, FloatLabel],
+  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, FileUpload,
+    SelectModule, FloatLabel],
   templateUrl: './add-external-bin.component.html',
   styleUrl: './add-external-bin.component.scss'
 })
@@ -33,17 +34,25 @@ export class AddExternalBinComponent {
   }
 
   onUpload(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-    console.log(this.uploadedFiles, 'this.uploadedFiles');
+    const files = event.files;
+    console.log('Files received:', files);
+    this.uploadedFiles = files;
+  }
 
+  resetFile(){
+    this.uploadedFiles = [];
   }
 
   goBack() {
     this.location.back();
   }
   onSubmit() {
-
+    if (this.extBinForm.valid) {
+      console.log('Form Data:', this.extBinForm.value);
+      // Process the form data here 
+  } else {
+      console.log('Form is invalid', this.extBinForm);
+      this.extBinForm.markAllAsTouched();
+  }
   }
 }
