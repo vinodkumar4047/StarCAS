@@ -10,8 +10,8 @@ import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-add-fit',
-  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, FileUpload,
-      SelectModule, FloatLabel],
+  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
+    SelectModule, FloatLabel],
   templateUrl: './add-fit.component.html',
   styleUrl: './add-fit.component.scss'
 })

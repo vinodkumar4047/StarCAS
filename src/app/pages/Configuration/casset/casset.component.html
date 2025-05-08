@@ -1,1 +1,28 @@
-<p>casset works!</p>
+<div class="casette-component">
+    <h2 class="mb-8">Casette</h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+             (addEvent)="edit($event)" [updateButton]="'Update Casette'" />
+    </div>
+
+    <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+    class="EDIT_BRANCH_DIALOG">
+    <ng-template pTemplate="header">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-lg font-semibold custom-text-color">
+                Update Casette
+            </span>
+            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                (click)="editVisible = false"></button>
+        </div>
+    </ng-template>
+    <div class="flex flex-wrap m-8 justify-evenly content-center gap-4 items-center">
+        <p-floatlabel class="w-full md:w-56 " variant="on">
+            <p-select class="update" appendTo="body" [(ngModel)]="atmId" inputId="on_label" [options]="atmIdOpt" optionLabel="name" styleClass="w-full" />
+            <label for="on_label">ATM ID</label>
+        </p-floatlabel>
+            <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
+    </div>
+</p-dialog>
+</div>

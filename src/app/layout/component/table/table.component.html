@@ -44,7 +44,7 @@
 
     <ng-template #body let-row let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
+            <td *ngFor="let col of columns" style="height: 35px;">
                 <span *ngIf="col.header != 'Action'">{{ row[col.field] }}</span>
                 <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
                     <p-button *ngIf="col.type?.includes('add')" text severity="primary" class=" p-button-icon-only"
