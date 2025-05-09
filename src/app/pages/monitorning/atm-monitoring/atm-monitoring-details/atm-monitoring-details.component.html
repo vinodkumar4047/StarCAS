@@ -1,0 +1,288 @@
+<div class="atm-Monitoring-details p-8">
+    <h2 class="mb-8">ATM Monitoring</h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <p-tabs value="0" scrollable>
+            <p-tablist>
+                <p-tab value="0" class="all">
+                    <i class="pi pi-th-large"></i>&nbsp;All ATM's
+                </p-tab>
+                <p-tab value="1" class="good">
+                    <i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp;Good ATM's
+                </p-tab>
+                <p-tab value="2" class="offline">
+                    <i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp;Off-Line ATM's
+                </p-tab>
+                <p-tab value="3" class="warning">
+                    <i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp;Warning ATM's
+                </p-tab>
+                <p-tab value="4" class="outSer">
+                    <i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp;Out Of Service ATM's
+                </p-tab>
+                <p-tab value="5" class="lowcash">
+                    <i class="pi pi-money-bill" style="color: #660033;"></i>&nbsp;Low Cash ATM's
+                </p-tab>
+                <p-tab value="6" class="crit">
+                    <i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp;Critical ATM's
+                </p-tab>
+                <p-tab value="7" class="supervisor">
+                    <i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp;Supervisor ATM's
+                </p-tab>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel value="0">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                           All ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div [ngSwitch]="atm.atmStatus">
+                            <!-- Good -->
+                            <div *ngSwitchCase="'G'" class="atm-box color-good">
+                                <img src="assets/images/output-onlinepngtools (2).png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Offline -->
+                            <div *ngSwitchCase="'O'" class="atm-box color-offline">
+                                <img src="assets/images/red-atm.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Warning -->
+                            <div *ngSwitchCase="'W'" class="atm-box color-warning">
+                                <img src="assets/images/warning-atm.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Out of Service -->
+                            <div *ngSwitchCase="'N'" class="atm-box color-out">
+                                <img src="assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Low Cash -->
+                            <div *ngSwitchCase="'L'" class="atm-box color-lowcash">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Critical -->
+                            <div *ngSwitchCase="'C'" class="atm-box color-critical">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                            <!-- Supervisor -->
+                            <div *ngSwitchCase="'S'" class="atm-box color-supervisor">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   
+                </p-tabpanel>
+                
+                <p-tabpanel value="1">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Good Status ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'G'">
+                            <!-- Good -->
+                            <div class="atm-box color-good">
+                                <img src="assets/images/output-onlinepngtools (2).png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="2">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Off-Line Status ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'O'">
+                            <div class="atm-box color-offline">
+                                <img src="assets/images/red-atm.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="3">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Warning Status ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'W'">
+                            <div class="atm-box color-warning">
+                                <img src="assets/images/warning-atm.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="4">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Out Of Service ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'N'">
+                      
+                            <div  class="atm-box color-out">
+                                <img src="assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="5">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Low Cash Status ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'L'">
+                            <div class="atm-box color-lowcash">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="6">
+                    <div class="flex gap-2 items-center mb-8">
+                        <div class="font-semibold text-xl heading-color">
+                          Critical Status ATM'S
+                        </div>
+                    </div>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'C'">
+                            <div class="atm-box color-critical">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+                <p-tabpanel value="7">
+                    <p class="m-0">All ATM's</p>
+                    <div class="p-inputgroup mb-3">
+                        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <input
+                          type="text"
+                          pInputText
+                          placeholder="Search ATM by name"
+                          (input)="onSearchInput($event)"
+                        />
+                      </div>
+                <div class="flex flex-wrap">
+                     <div *ngFor="let atm of filteredATMList">
+                        <div *ngIf="atm.atmStatus == 'S'">
+                            <div class="atm-box color-supervisor">
+                                <img src="../../../../../assets/images/out-off-service.png" alt="">
+                                <div>{{ atm.atmName }}</div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    </div>
+</div>
