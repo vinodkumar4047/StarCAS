@@ -1,1 +1,15 @@
-<p>hsm-monitoring works!</p>
+<div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;"> HSM Monitor Details </h2>
+</div>
+
+<div class="card">
+    <span class="imge"> <img class="im1" src="assets/images/hsm_img.png" alt="">
+    </span>
+    <div class="atmDetails">
+        <!-- <h2 class="mb-8">HSM Monitor</h2> -->
+
+        <div style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+            <app-table [tableData]="atmData" [cols]="cols" [multipleButton]="" (viewEvent)="addOrEdit()" />
+        </div>
+    </div>
+</div>

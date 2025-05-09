@@ -7,9 +7,10 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgIf } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-transaction-search',
-  imports: [CalendarModule, FormsModule, ToastModule, SpeedDialModule,
+  imports: [CalendarModule, FormsModule, ToastModule, SpeedDialModule,ButtonModule,
     InputTextModule, NgIf, RadioButtonModule],
   templateUrl: './transaction-search.component.html',
   styleUrl: './transaction-search.component.scss',
