@@ -156,37 +156,37 @@ export class AppMenu {
                         {
                             label: 'INTERNATIONAL TXN ENABLED',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/auth/login']
+                            routerLink: ['/pages/internationalTXNEnadisable']
                         },
                         {
                             label: 'TXN ALLOW WITHOUT PIN',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/txnAllowWithoutPin']
                         },
                         {
                             label: 'RISK COUNTRY BLOCK',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/riskCountryBlock']
                         },
                         {
                             label: 'TXN ALLOW FOR RISK COUNTRY',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/txnAllowedRiskCountry']
                         },
                         {
                             label: 'MCC BLOCK',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/mccBlock']
                         },
                         {
                             label: 'TXN ALLOW FOR BLOCKED MCC',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/txnAllowBlockedMCC']
                         },
                         {
                             label: 'RISK ECOM SITE BLOCK',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/riskEcomSiteBlock']
                         },
                     ]
                 }]

@@ -25,6 +25,14 @@ import { NetworkMonitoringComponent } from './monitorning/network-monitoring/net
 import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
 import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
 import { AddFitComponent } from './Configuration/fit/add-fit/add-fit.component';
+import { Component } from '@angular/core';
+import { InternationalTXNEnabledDisabledComponent } from './riskManagement/international-txn-enabled-disabled/international-txn-enabled-disabled.component';
+import { MCCBLOCKComponent } from './riskManagement/mcc-block/mcc-block.component';
+import { RiskCOUNTRYBLOCKComponent } from './riskManagement/risk-country-block/risk-country-block.component';
+import { RiskEcomSiteBLOCKComponent } from './riskManagement/risk-ecom-site-block/risk-ecom-site-block.component';
+import { TXNALLOWWithoutPINComponent } from './riskManagement/t-xn-allow-without-pin/t-xn-allow-without-pin.component';
+import { TxnAllowBlockedMCCComponent } from './riskManagement/txn-allow-blocked-mcc/txn-allow-blocked-mcc.component';
+import { TxnAllowedRiskCountryComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-country.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -53,6 +61,14 @@ export default [
     { path: 'network_Monitoring', component: NetworkMonitoringComponent },
     { path: 'transaction_Search', component: TransactionSearchComponent },
     { path: 'txn_Monitoring', component: TxnMonitoringComponent },
+    { path: 'internationalTXNEnadisable', component: InternationalTXNEnabledDisabledComponent },
+    { path: 'mccBlock', component: MCCBLOCKComponent },
+    { path: 'riskCountryBlock', component: RiskCOUNTRYBLOCKComponent },
+    { path: 'riskEcomSiteBlock', component: RiskEcomSiteBLOCKComponent },
+    { path: 'txnAllowWithoutPin', component: TXNALLOWWithoutPINComponent },
+    { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
+    { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
+
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

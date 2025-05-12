@@ -16,7 +16,7 @@ export class NewWindowServiceService {
   constructor(
     private appRef: ApplicationRef,
     private injector: Injector
-  ) {}
+  ) { }
 
   openNewWindow(component: Type<any>): Window | null {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
