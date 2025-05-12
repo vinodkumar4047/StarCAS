@@ -33,6 +33,7 @@ import { RiskEcomSiteBLOCKComponent } from './riskManagement/risk-ecom-site-bloc
 import { TXNALLOWWithoutPINComponent } from './riskManagement/t-xn-allow-without-pin/t-xn-allow-without-pin.component';
 import { TxnAllowBlockedMCCComponent } from './riskManagement/txn-allow-blocked-mcc/txn-allow-blocked-mcc.component';
 import { TxnAllowedRiskCountryComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-country.component';
+import { AtmMonitoringDetailsComponent } from './monitorning/atm-monitoring/atm-monitoring-details/atm-monitoring-details.component';
 
 export default [
     { path: 'documentation', component: Documentation },
