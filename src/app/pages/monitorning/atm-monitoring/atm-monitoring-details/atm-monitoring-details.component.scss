@@ -190,10 +190,10 @@
 
 
         .flex.gap-6>div {
-            background: #f9f9f9;
+            background: #f1f1f1;
             padding: 0.75rem 1.25rem;
             border-radius: 6px;
-            border: 1px solid #eee;
+            border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
         }
 
@@ -219,7 +219,7 @@
             padding: 1rem;
             border: 1px solid #ccc;
             margin-bottom: 1rem;
-            background-color: #f9f9f9;
+            background-color: #f1f1f1;
             border-radius: 4px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -292,12 +292,13 @@
 
         .atm-details-row {
             display: flex;
-            border: 1px solid #dcdcdc;
+            border: 1px solid #ddd;
             border-radius: 6px;
             height: 40px;
             width: auto;
             flex-wrap: wrap;
             align-items: center;
+            overflow: hidden;
         }
 
         .atm-details-cell {
@@ -312,7 +313,7 @@
         }
 
         .heading-cell.atm-details-cell {
-            background: #dcdcdc;
+            background: #f1f1f1;
         }
 
         .atm-details-cell strong {
@@ -344,7 +345,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 6px;
-            background-color: #f9f9f9;
+            background-color: #f1f1f1;
             display: flex;
             flex-direction: column;
           }
@@ -364,14 +365,17 @@
           }
           
           .ok-status {
-            background-color: #e8f5e9;
+            background-color: #d8fcdb;
             color: #388e3c;
+            border: 1px solid #ddd;
           }
           
           .error-status {
-            background-color: #ffebee;
+            background-color: #ffd7dd;
             color: #c62828;
+            border: 1px solid #ddd;
           }
+          
           
           @media (max-width: 600px) {
             .status-grid {

@@ -51,27 +51,27 @@
 
                     <div class="status-legend">
                         <div class="legend-item" style="color: #4caf50;">
-                          <i class="pi pi-check-circle" ></i> Good – ATMs are operational
+                            <i class="pi pi-check-circle"></i> Good – ATMs are operational
                         </div>
                         <div class="legend-item" style="color: #ff0000;">
-                          <i class="pi pi-times-circle" ></i> Offline – ATMs are unreachable
+                            <i class="pi pi-times-circle"></i> Offline – ATMs are unreachable
                         </div>
                         <div class="legend-item" style="color: #f38f00;">
-                          <i class="pi pi-exclamation-triangle" ></i> Warning – ATM has issues
+                            <i class="pi pi-exclamation-triangle"></i> Warning – ATM has issues
                         </div>
                         <div class="legend-item" style="color: #9fa0a2;">
-                          <i class="pi pi-ban" ></i> Out of Service – ATM not working
+                            <i class="pi pi-ban"></i> Out of Service – ATM not working
                         </div>
                         <div class="legend-item" style="color: #03663a;">
-                          <i class="pi pi-money-bill" ></i> Low Cash – ATM running low on cash
+                            <i class="pi pi-money-bill"></i> Low Cash – ATM running low on cash
                         </div>
                         <div class="legend-item" style="color: #8b0000;">
-                          <i class="pi pi-exclamation-circle" ></i> Critical – Urgent ATM issue
+                            <i class="pi pi-exclamation-circle"></i> Critical – Urgent ATM issue
                         </div>
                         <div class="legend-item" style="color: #3c3cd1;">
-                          <i class="pi pi-eye" ></i> Supervisor – Supervisor attention needed
+                            <i class="pi pi-eye"></i> Supervisor – Supervisor attention needed
                         </div>
-                      </div>
+                    </div>
 
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
@@ -142,9 +142,9 @@
                     </div>
                     <div class="status-legend">
                         <div class="legend-item" style="color: #4caf50;">
-                          <i class="pi pi-check-circle" ></i> Good – ATMs are operational
+                            <i class="pi pi-check-circle"></i> Good – ATMs are operational
                         </div>
-                      </div>
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'G'">
@@ -172,10 +172,10 @@
                     </div>
                     <div class="status-legend">
                         <div class="legend-item" style="color: #ff0000;">
-                          <i class="pi pi-times-circle" ></i> Offline – ATMs are unreachable
+                            <i class="pi pi-times-circle"></i> Offline – ATMs are unreachable
                         </div>
-                
-                      </div>
+
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'O'">
@@ -202,10 +202,10 @@
                     </div>
                     <div class="status-legend">
                         <div class="legend-item" style="color: #f38f00;">
-                          <i class="pi pi-exclamation-triangle" ></i> Warning – ATM has issues
+                            <i class="pi pi-exclamation-triangle"></i> Warning – ATM has issues
                         </div>
-                        
-                      </div>
+
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'W'">
@@ -231,12 +231,12 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                      
+
                         <div class="legend-item" style="color: #9fa0a2;">
-                          <i class="pi pi-ban" ></i> Out of Service – ATM not working
+                            <i class="pi pi-ban"></i> Out of Service – ATM not working
                         </div>
-                     
-                      </div>
+
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'N'">
@@ -262,12 +262,12 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                       
+
                         <div class="legend-item" style="color: #03663a;">
-                          <i class="pi pi-money-bill" ></i> Low Cash – ATM running low on cash
+                            <i class="pi pi-money-bill"></i> Low Cash – ATM running low on cash
                         </div>
-                    
-                      </div>
+
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'L'">
@@ -293,12 +293,12 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        
+
                         <div class="legend-item" style="color: #8b0000;">
-                          <i class="pi pi-exclamation-circle" ></i> Critical – Urgent ATM issue
+                            <i class="pi pi-exclamation-circle"></i> Critical – Urgent ATM issue
                         </div>
-                       
-                      </div>
+
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'C'">
@@ -325,9 +325,9 @@
                     </div>
                     <div class="status-legend">
                         <div class="legend-item" style="color: #3c3cd1;">
-                          <i class="pi pi-eye" ></i> Supervisor – Supervisor attention needed
+                            <i class="pi pi-eye"></i> Supervisor – Supervisor attention needed
                         </div>
-                      </div>
+                    </div>
                     <div class="flex flex-wrap">
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'S'">
@@ -348,35 +348,43 @@
         [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true" class="MONI_DIALOG">
         <div class="atm-details-grid">
             <div class="atm-details-row">
-                <div class="atm-details-cell "><strong>ATM ID</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.atmId }}</div>
+                <div class="atm-details-cell "><strong>ATM ID</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmId }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>ATM Type</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.atmTypeId }}</div>
+                <div class="atm-details-cell"><strong>ATM Type</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmTypeId }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Terminal ID</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.terminalId }}</div>
+                <div class="atm-details-cell"><strong>Terminal ID</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.terminalId }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Max Note Dispense</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.maxNoteDispense }}</div>
+                <div class="atm-details-cell"><strong>Max Note Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxNoteDispense }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Location</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.atmLocation }}</div>
+                <div class="atm-details-cell"><strong>Location</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmLocation }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Logical Group</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.atmLogicalGroup }}</div>
+                <div class="atm-details-cell"><strong>Logical Group</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmLogicalGroup }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
+                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
             </div>
             <div class="atm-details-row">
-                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div><div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
+                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
             </div>
         </div>
         <div class="flex flex-wrap my-8 gap-4 justify-around">
-            <p-button label="Hardware Fitness" severity="info" raised (click)="onHardwareDialog()"/>
-            <p-button label="Config Details" severity="info" raised />
-            <p-button label="Supply Status" severity="info" raised />
-            <p-button label="Sensor Status" severity="info" raised />
+            <p-button label="Hardware Fitness" severity="info" raised (click)="onHardwareDialog()" />
+            <p-button label="Config Details" severity="info" raised (click)="onConfigDialog()" />
+            <p-button label="Supply Status" severity="info" raised (click)="onsSupplyDialog()" />
+            <p-button label="Sensor Status" severity="info" raised (click)="openSensorDialog()"/>
         </div>
 
         <h4 class="my-2 heading-color">Denomination Details</h4>
@@ -408,24 +416,68 @@
 
     </p-dialog>
 
-    <p-dialog 
-  [header]="headerDia"
-  [(visible)]="displayHardwareDialog" 
-  [modal]="true" 
-  [style]="{width: '60rem'}" 
-  [responsive]="true"
-  [closable]="true"
-  class="MONI_DIALOG">
+    <p-dialog [header]="headerDia" [(visible)]="displayHardwareDialog" [modal]="true" [style]="{width: '60rem'}"
+        [responsive]="true" [closable]="true" class="MONI_DIALOG">
 
-  <div class="status-grid">
-    <div class="status-item" *ngFor="let key of statusKeys">
-      <div class="status-label">{{ key }}</div>
-      <div class="status-value" [ngClass]="statuses[key] == 'no error' ? 'ok-status' : 'error-status'">
-        {{ statuses[key] }}
-      </div>
-    </div>
-  </div>
+        <div class="status-grid">
+            <div class="status-item" *ngFor="let key of statusKeys">
+                <div class="status-label">{{ key }}</div>
+                <div class="status-value" [ngClass]="statuses[key] == 'no error' ? 'ok-status' : 'error-status'">
+                    {{ statuses[key] }}
+                </div>
+            </div>
+        </div>
 
-</p-dialog>
+    </p-dialog>
+    <p-dialog [header]="headerDia" [(visible)]="displayConfigDialog" [modal]="true" [style]="{width: '60rem'}"
+    [responsive]="true" [closable]="true" class="MONI_DIALOG">
+        <p-table [value]="configEntries" class="p-datatable-striped p-datatable-sm" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="background: #f1f1f1;font-weight: bold;">Component</th>
+                    <th style="font-weight: bold;">Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entry>
+                <tr>
+                    <td style="background: #f1f1f1;font-weight: 500;">{{ entry.component }}</td>
+                    <td style="font-weight: 500;">
+                        {{ entry.status || 'N/A' }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-dialog>
+    <p-dialog [header]="headerDia" [(visible)]="displaySupplyDialog" [modal]="true" [style]="{width: '60rem'}"
+    [responsive]="true" [closable]="true" class="MONI_DIALOG">
+        <p-table [value]="SupplyStatus" class="p-datatable-striped p-datatable-sm" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="background: #f1f1f1;font-weight: bold;">Component</th>
+                    <th style="font-weight: bold;">Status</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-entry>
+                <tr>
+                    <td style="background: #f1f1f1;font-weight: 500;">{{ entry.component }}</td>
+                    <td style="font-weight: 500;">
+                        {{ entry.status || 'N/A' }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-dialog>
+    <p-dialog [header]="headerDia" [(visible)]="displaySensorDialog" [modal]="true" [style]="{width: '60rem'}"
+    [responsive]="true" [closable]="true" class="MONI_DIALOG">
+        <div class="status-grid">
+          <div *ngFor="let item of statusData" class="status-item">
+            <div class="status-label">{{ item.component }}</div>
+            <div class="status-value" [ngClass]="item.status == 'active' ? 'ok-status' : 'error-status'">{{ item.status }}</div>
+          </div>
+        </div>
+        
+      </p-dialog>
+
 
 </div>
