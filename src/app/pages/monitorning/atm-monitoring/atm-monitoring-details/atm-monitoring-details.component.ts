@@ -9,7 +9,7 @@ import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-atm-monitoring-details',
-  imports: [TabsModule,CommonModule,ButtonModule,InputTextModule,InputGroupAddonModule,Dialog,TableModule ],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule],
   templateUrl: './atm-monitoring-details.component.html',
   styleUrl: './atm-monitoring-details.component.scss',
   // encapsulation:ViewEncapsulation.None
@@ -49,10 +49,10 @@ export class AtmMonitoringDetailsComponent {
   ];
   atmSearchTerm: string = '';
   filteredATMList: any[] = [];
-  lenOfData:any
+  lenOfData: any
   visible: boolean = false;
-  mainDailogDetails:any = { atmStatus: '', atmName: '' };
-  headerDia:any;
+  mainDailogDetails: any = { atmStatus: '', atmName: '' };
+  headerDia: any;
   atmDetails = {
     atmId: "TEST006",
     atmTypeId: "ndc+atm",
@@ -84,7 +84,7 @@ export class AtmMonitoringDetailsComponent {
     "SYSTEM DESK": "no error",
     "MAGNETIC CARD READER/WRITER": "no error",
     "CASH HANDLER": "no error",
-    "DEPOSITORY": "no error",
+    "DEPOSITORY": "fatal error",
     "RECEIPT PRINTER": "no error",
     "JOURNAL PRINTER": "no error",
     "ENHANCED THERMAL STATEMENT PRINTER": "no error",
@@ -97,13 +97,65 @@ export class AtmMonitoringDetailsComponent {
     "CASSETTE TYPE 2": "no error",
     "CASSETTE TYPE 3": "no error",
     "CASSETTE TYPE 4": "no error",
-    "STATEMENT PRINTER": "error"
+    "STATEMENT PRINTER": "fatal error"
   };
-  
+  displayConfigDialog: boolean = false;
 
-   constructor(private cd: ChangeDetectorRef) {
-   }
-  
+  configEntries = [
+    { component: 'SYSTEM DISK', status: 'hard disk present' },
+    { component: 'ENCRYPTOR', status: 'double length keys, restricted mode with epp encryptor' },
+    { component: 'MAGNETIC CARD READER/WRITER', status: 'track 2 smart card reader' },
+    { component: 'SECURITY CAMERA', status: 'not configured' },
+    { component: 'CASH HANDLER', status: 'configured' },
+    { component: 'DOOR ACCESS', status: 'not configured' },
+    { component: 'DEPOSITERY', status: 'not configured' },
+    { component: 'FLEX DISK', status: 'not configured' },
+    { component: 'RECEIPT PRINTER', status: 'Thermal printer - sideways printing, no black mark' },
+    { component: 'TEMPER INDICATING BINS', status: 'secure cash, insecure cards, insecure ppd deposits or no ppd' },
+    { component: 'NIGHT SAFE DEPOSITERY', status: 'not configured' },
+    { component: 'CARDHOLDER KEYBOARD', status: '' },
+    { component: 'OPERATOR KEYBOARD', status: 'keyboard plus fdks (enhanced)' },
+    { component: 'STATEMENT PRINTER', status: 'Not configured' },
+    { component: 'RDHOLDER DISPLAY/VOICE', status: 'Voice not supported null FDKs' }
+  ];
+
+  displaySupplyDialog: boolean = false;
+
+  SupplyStatus = [
+    { component: 'CARD CAPTURE BIN', status: 'good state' },
+    { component: 'SUPCASTYPE1', status: 'media out' },
+    { component: 'CASH HANDLER REJECT BIN', status: 'good state' },
+    { component: 'SUPCASTYPE2', status: 'good state' },
+    { component: 'DEPOSIT BIN', status: 'not configured' },
+    { component: 'SUPCASTYPE3', status: 'media out' },
+    { component: 'RECEIPT PAPER', status: 'media out' },
+    { component: 'SUPCASTYPE4', status: 'media low' },
+    { component: 'JOURNAL PAPER', status: 'good state' },
+    { component: 'SUPSTMTPAPER', status: 'not configured' },
+    { component: 'NIGHT SAFE', status: 'not configured' },
+    { component: 'SUPSTMTRIBBON', status: 'good state' }
+  ];
+
+  displaySensorDialog: boolean = false;
+
+  statusData = [
+    { component: 'SUPERVISOR MODE', status: 'inactive' },
+    { component: 'CARD BIN', status: 'active' },
+    { component: 'VIBRATION AND/OR HEAT SENSOR', status: 'inactive' },
+    { component: 'CURRENCY REJECT BIN', status: 'active' },
+    { component: 'DOOR CONTACT SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION1', status: 'active' },
+    { component: 'ELECTRONICS ENCLOUSRE SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION2', status: 'active' },
+    { component: 'DEPOSIT BIN', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION3', status: 'active' },
+    { component: 'SILENT SIGNAL SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION4', status: 'active' }
+  ];
+
+  constructor(private cd: ChangeDetectorRef) {
+  }
+
   ngOnInit() {
     this.filteredATMList = this.dataATM; // initialize with full list
     this.lenOfData = {
@@ -126,7 +178,7 @@ export class AtmMonitoringDetailsComponent {
     }, 1000);
 
   }
-  
+
   onSearchInput(event: any) {
     const term = event.target.value.toLowerCase();
     this.filteredATMList = this.dataATM.filter(atm =>
@@ -134,21 +186,33 @@ export class AtmMonitoringDetailsComponent {
     );
   }
 
-  showDialog(data:any) {
-      this.visible = true;
-      this.mainDailogDetails = data;
-      this.headerDia = 'Detail of '+this.mainDailogDetails?.atmName;
-      console.log(this.headerDia,this.mainDailogDetails,'this.headerDiathis.mainDailogDetails?.atmName;');
-      
+  showDialog(data: any) {
+    this.visible = true;
+    this.mainDailogDetails = data;
+    this.headerDia = 'Detail of ' + this.mainDailogDetails?.atmName;
+    console.log(this.headerDia, this.mainDailogDetails, 'this.headerDiathis.mainDailogDetails?.atmName;');
+
   }
 
 
-get statusKeys(): string[] {
-  return Object.keys(this.statuses);
-}
+  get statusKeys(): string[] {
+    return Object.keys(this.statuses);
+  }
 
-onHardwareDialog(){
-  this.displayHardwareDialog = true
-}
+  onHardwareDialog() {
+    this.displayHardwareDialog = true
+  }
+
+  onConfigDialog() {
+    this.displayConfigDialog = true
+  }
+
+  onsSupplyDialog() {
+    this.displaySupplyDialog = true
+  }
+
+  openSensorDialog() {
+    this.displaySensorDialog = true;
+  }
 
 }
