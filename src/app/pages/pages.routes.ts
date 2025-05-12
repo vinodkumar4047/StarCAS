@@ -25,6 +25,7 @@ import { NetworkMonitoringComponent } from './monitorning/network-monitoring/net
 import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
 import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
 import { AddFitComponent } from './Configuration/fit/add-fit/add-fit.component';
+import { AtmMonitoringDetailsComponent } from './monitorning/atm-monitoring/atm-monitoring-details/atm-monitoring-details.component';
 
 export default [
     { path: 'documentation', component: Documentation },

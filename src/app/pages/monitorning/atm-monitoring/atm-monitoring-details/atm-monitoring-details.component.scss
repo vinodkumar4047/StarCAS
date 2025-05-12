@@ -132,11 +132,272 @@
         .color-supervisor {
             background: #3c3cd140;
         }
+
         .heading-color {
             color: var(--primary-color);
             font-weight: bold;
             letter-spacing: .5px;
-    }
+        }
+
+        span.count {
+            height: 25px;
+            width: 25px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+
+        .p-tab-active span.count {
+            background: var(--primary-color);
+            color: white !important;
+        }
+
+        input.searchInp {
+            height: 40px;
+            border: 2px solid var(--primary-color);
+            border-left: none;
+            border-top: none;
+            border-right: none;
+            border-radius: 6px;
+            text-align: left;
+            padding: 0 0 0 30px;
+            outline: none;
+        }
+
+        .p-inputgroup {
+            width: 300px;
+        }
+
+        .p-dialog .p-dialog-content {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 14px;
+            padding: 1.5rem;
+        }
+
+        .p-dialog .p-dialog-header {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+        }
+
+        .field {
+            margin-bottom: 1rem;
+        }
+
+
+        .flex.gap-6>div {
+            background: #f9f9f9;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .p-table th {
+            background-color: #f0f0f5;
+            text-align: left;
+            color: #333;
+        }
+
+        .p-table td {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .p-table {
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .status-legend {
+            padding: 1rem;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* Start with 3 columns */
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .legend-item i {
+            margin-right: 0.5rem;
+            font-size: 16px;
+        }
+
+        .MONI_DIALOG {
+            // .heading {
+            //     font-weight: bold;
+            //     /* Slight background for headings */
+            // }
+
+            .p-button-text.p-button-secondary:not(:disabled):hover {
+                border-radius: 6px;
+                background-color: #ffffff;
+                color: var(--primary-color);
+            }
+
+            .p-button-text.p-button-secondary {
+                border-radius: 6px;
+                color: #fff;
+                outline: none;
+                height: 35px;
+            }
+
+            .p-dialog {
+                border: 0;
+            }
+
+            // .table-container {
+            //     display: flex;
+            //     flex-direction: column;
+            //     width: 100%;
+            //     padding: 16px;
+            // }
+
+            .p-dialog-title {
+                color: #ffffff;
+                font-size: 25px
+            }
+
+            .p-dialog-header {
+                background: var(--primary-color);
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+        }
+
+        .atm-details-grid {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+            /* Adds space between rows */
+        }
+
+        .atm-details-row {
+            display: flex;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            height: 40px;
+            width: auto;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .atm-details-cell {
+            flex: 1;
+            /* Distributes space equally */
+            padding: 10px;
+            box-sizing: border-box;
+            /* Ensures padding is included in width calculation */
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .heading-cell.atm-details-cell {
+            background: #dcdcdc;
+        }
+
+        .atm-details-cell strong {
+            display: block;
+            /* Ensures the label and data are on separate lines */
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .p-datatable-thead > tr > th{
+            border-color: var(--primary-color);
+            border-style: solid;
+            border-width: 0 0 2px 0;
+            font-size: 16px;
+        }
+        button.p-ripple.p-button.p-component.p-button-info.p-button-raised {
+            width: 14vw;
+            font-size: 16px;
+            height: 8vh;
+            min-width: 175px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+          
+          .status-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+          }
+          
+          .status-label {
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #2c3e50;
+          }
+          
+          .status-value {
+            font-size: 13px;
+            padding: 4px 6px;
+            border-radius: 4px;
+            width: fit-content;
+          }
+          
+          .ok-status {
+            background-color: #e8f5e9;
+            color: #388e3c;
+          }
+          
+          .error-status {
+            background-color: #ffebee;
+            color: #c62828;
+          }
+          
+          @media (max-width: 600px) {
+            .status-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+          
+
+        @media (max-width: 768px) {
+            .status-legend {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 columns on smaller screens */
+            }
+
+            .atm-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Media Query for very small screens (e.g., mobile portrait) */
+        @media (max-width: 480px) {
+            .status-legend {
+                grid-template-columns: 1fr;
+                /* 1 column on very small screens */
+            }
+        }
 
     }
 }
