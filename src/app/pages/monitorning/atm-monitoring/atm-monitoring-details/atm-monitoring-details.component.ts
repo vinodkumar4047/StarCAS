@@ -9,7 +9,7 @@ import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-atm-monitoring-details',
-  imports: [TabsModule,CommonModule,ButtonModule,InputTextModule,InputGroupAddonModule,Dialog,TableModule ],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule],
   templateUrl: './atm-monitoring-details.component.html',
   styleUrl: './atm-monitoring-details.component.scss',
   // encapsulation:ViewEncapsulation.None
@@ -49,10 +49,10 @@ export class AtmMonitoringDetailsComponent {
   ];
   atmSearchTerm: string = '';
   filteredATMList: any[] = [];
-  lenOfData:any
+  lenOfData: any
   visible: boolean = false;
-  mainDailogDetails:any = { atmStatus: '', atmName: '' };
-  headerDia:any;
+  mainDailogDetails: any = { atmStatus: '', atmName: '' };
+  headerDia: any;
   atmDetails = {
     atmId: "TEST006",
     atmTypeId: "ndc+atm",
@@ -121,41 +121,41 @@ export class AtmMonitoringDetailsComponent {
 
   displaySupplyDialog: boolean = false;
 
-SupplyStatus = [
-  { component: 'CARD CAPTURE BIN', status: 'good state' },
-  { component: 'SUPCASTYPE1', status: 'media out' },
-  { component: 'CASH HANDLER REJECT BIN', status: 'good state' },
-  { component: 'SUPCASTYPE2', status: 'good state' },
-  { component: 'DEPOSIT BIN', status: 'not configured' },
-  { component: 'SUPCASTYPE3', status: 'media out' },
-  { component: 'RECEIPT PAPER', status: 'media out' },
-  { component: 'SUPCASTYPE4', status: 'media low' },
-  { component: 'JOURNAL PAPER', status: 'good state' },
-  { component: 'SUPSTMTPAPER', status: 'not configured' },
-  { component: 'NIGHT SAFE', status: 'not configured' },
-  { component: 'SUPSTMTRIBBON', status: 'good state' }
-];
+  SupplyStatus = [
+    { component: 'CARD CAPTURE BIN', status: 'good state' },
+    { component: 'SUPCASTYPE1', status: 'media out' },
+    { component: 'CASH HANDLER REJECT BIN', status: 'good state' },
+    { component: 'SUPCASTYPE2', status: 'good state' },
+    { component: 'DEPOSIT BIN', status: 'not configured' },
+    { component: 'SUPCASTYPE3', status: 'media out' },
+    { component: 'RECEIPT PAPER', status: 'media out' },
+    { component: 'SUPCASTYPE4', status: 'media low' },
+    { component: 'JOURNAL PAPER', status: 'good state' },
+    { component: 'SUPSTMTPAPER', status: 'not configured' },
+    { component: 'NIGHT SAFE', status: 'not configured' },
+    { component: 'SUPSTMTRIBBON', status: 'good state' }
+  ];
 
-displaySensorDialog: boolean = false;
+  displaySensorDialog: boolean = false;
 
-statusData = [
-  { component: 'SUPERVISOR MODE', status: 'inactive' },
-  { component: 'CARD BIN', status: 'active' },
-  { component: 'VIBRATION AND/OR HEAT SENSOR', status: 'inactive' },
-  { component: 'CURRENCY REJECT BIN', status: 'active' },
-  { component: 'DOOR CONTACT SENSOR', status: 'inactive' },
-  { component: 'CURRENCY CASSETTE IN POSITION1', status: 'active' },
-  { component: 'ELECTRONICS ENCLOUSRE SENSOR', status: 'inactive' },
-  { component: 'CURRENCY CASSETTE IN POSITION2', status: 'active' },
-  { component: 'DEPOSIT BIN', status: 'inactive' },
-  { component: 'CURRENCY CASSETTE IN POSITION3', status: 'active' },
-  { component: 'SILENT SIGNAL SENSOR', status: 'inactive' },
-  { component: 'CURRENCY CASSETTE IN POSITION4', status: 'active' }
-];
+  statusData = [
+    { component: 'SUPERVISOR MODE', status: 'inactive' },
+    { component: 'CARD BIN', status: 'active' },
+    { component: 'VIBRATION AND/OR HEAT SENSOR', status: 'inactive' },
+    { component: 'CURRENCY REJECT BIN', status: 'active' },
+    { component: 'DOOR CONTACT SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION1', status: 'active' },
+    { component: 'ELECTRONICS ENCLOUSRE SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION2', status: 'active' },
+    { component: 'DEPOSIT BIN', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION3', status: 'active' },
+    { component: 'SILENT SIGNAL SENSOR', status: 'inactive' },
+    { component: 'CURRENCY CASSETTE IN POSITION4', status: 'active' }
+  ];
 
-   constructor(private cd: ChangeDetectorRef) {
-   }
-  
+  constructor(private cd: ChangeDetectorRef) {
+  }
+
   ngOnInit() {
     this.filteredATMList = this.dataATM; // initialize with full list
     this.lenOfData = {
@@ -178,7 +178,7 @@ statusData = [
     }, 1000);
 
   }
-  
+
   onSearchInput(event: any) {
     const term = event.target.value.toLowerCase();
     this.filteredATMList = this.dataATM.filter(atm =>
@@ -186,33 +186,33 @@ statusData = [
     );
   }
 
-  showDialog(data:any) {
-      this.visible = true;
-      this.mainDailogDetails = data;
-      this.headerDia = 'Detail of '+this.mainDailogDetails?.atmName;
-      console.log(this.headerDia,this.mainDailogDetails,'this.headerDiathis.mainDailogDetails?.atmName;');
-      
+  showDialog(data: any) {
+    this.visible = true;
+    this.mainDailogDetails = data;
+    this.headerDia = 'Detail of ' + this.mainDailogDetails?.atmName;
+    console.log(this.headerDia, this.mainDailogDetails, 'this.headerDiathis.mainDailogDetails?.atmName;');
+
   }
 
 
-get statusKeys(): string[] {
-  return Object.keys(this.statuses);
-}
+  get statusKeys(): string[] {
+    return Object.keys(this.statuses);
+  }
 
-onHardwareDialog(){
-  this.displayHardwareDialog = true
-}
+  onHardwareDialog() {
+    this.displayHardwareDialog = true
+  }
 
-onConfigDialog(){
-  this.displayConfigDialog = true
-}
+  onConfigDialog() {
+    this.displayConfigDialog = true
+  }
 
-onsSupplyDialog(){
-  this.displaySupplyDialog = true
-}
+  onsSupplyDialog() {
+    this.displaySupplyDialog = true
+  }
 
-openSensorDialog() {
-  this.displaySensorDialog = true;
-}
+  openSensorDialog() {
+    this.displaySensorDialog = true;
+  }
 
 }
