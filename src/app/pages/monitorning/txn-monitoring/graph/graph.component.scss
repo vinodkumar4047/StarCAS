@@ -1,0 +1,54 @@
+::ng-deep {
+    .atm-type-controller {
+        .heading-color {
+            // color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        p-button.btnrel {
+            position: absolute;
+            /* left: 0; */
+            right: 11px;
+            top: 10px;
+        }
+    }
+
+    .Terminal_Wise {
+        margin: 2rem;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+    }
+
+    .TransTypeWise {
+        margin: 2rem;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+    }
+
+    .ResponseWise {
+        margin: 2rem;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+    }
+
+    .TransactionStatus {
+        margin: 2rem;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+    }
+
+    .lab {
+        justify-content: end;
+        align-items: end;
+    }
+
+    .box {
+        margin: 2rem;
+    }
+
+    canvas {
+        height: 350px !important;
+    }
+
+}

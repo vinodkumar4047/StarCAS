@@ -8,19 +8,19 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-atm-monitoring',
-  imports: [TabsModule,CommonModule,ButtonModule,InputTextModule],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule],
   templateUrl: './atm-monitoring.component.html',
   styleUrl: './atm-monitoring.component.scss',
   // encapsulation:ViewEncapsulation.None
 })
 export class ATMMonitoringComponent {
-  constructor(private newWindowService: NewWindowService,private cd: ChangeDetectorRef,) {}
+  constructor(private newWindowService: NewWindowService, private cd: ChangeDetectorRef,) { }
 
-  openWindow(){ 
+  openWindow() {
     // this.newWindowService.openNewWindow(AtmMonitoringDetailsComponent);
     const url = '/atm_Monitoring_details'; // Correct path routing
     window.open(url, '_blank');
     // this.cd.detectChanges();
-                                          
+
   }
 }

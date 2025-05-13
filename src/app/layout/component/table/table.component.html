@@ -1,6 +1,6 @@
 <p-table [value]="tableData" [paginator]="true" [rows]="10" scrollable="true" scrollHeight="flex" scrollDirection="both"
     [columns]="cols" [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[10,15,20]" sortMode="multiple"
-    [customSort]="true" (sortFunction)="customSort($event)" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
+    [customSort]="true" (sortFunction)="customSort($event)" [paginator]="paginator" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
     tableStyleClass="p-datatable-scrollable"  size="small">
   
     <ng-template #caption>
