@@ -80,7 +80,15 @@ export class UpdateCasetteComponent {
 
   onSubmit(){
     console.log(this.denominationForm.value,'denominationForm');
-    this.atmId = null;
+   
+    if (this.denominationForm.valid) {
+      console.log('Form Data:', this.denominationForm.value); 
+      this.atmId = null;
+      // Process the form data here 
+  } else {
+      console.log('Form is invalid', this.denominationForm);
+      this.denominationForm.markAllAsTouched();
+  }
     
   }
 

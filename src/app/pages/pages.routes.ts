@@ -35,6 +35,11 @@ import { TxnAllowBlockedMCCComponent } from './riskManagement/txn-allow-blocked-
 import { TxnAllowedRiskCountryComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-country.component';
 import { AtmMonitoringDetailsComponent } from './monitorning/atm-monitoring/atm-monitoring-details/atm-monitoring-details.component';
 import { UpdateCasetteComponent } from './Configuration/casset/update-casette/update-casette.component';
+import { AdminCardComponent } from './utility/admin-card/admin-card.component';
+import { EmailUpdateComponent } from './utility/email-update/email-update.component';
+import { SafManagementComponent } from './utility/saf-management/saf-management.component';
+import { MobileUpdateComponent } from './utility/mobile-update/mobile-update.component';
+import { AddEmailComponent } from './utility/email-update/add-email/add-email.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -71,6 +76,11 @@ export default [
     { path: 'txnAllowWithoutPin', component: TXNALLOWWithoutPINComponent },
     { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
+     { path: 'admin_card', component: AdminCardComponent },
+    { path: 'email_update', component: EmailUpdateComponent },
+    { path: 'add_email_update', component: AddEmailComponent },
+    { path: 'saf', component: SafManagementComponent },
+    { path: 'mobile_update', component: MobileUpdateComponent },
 
     { path: '**', redirectTo: '/notfound' }
 
