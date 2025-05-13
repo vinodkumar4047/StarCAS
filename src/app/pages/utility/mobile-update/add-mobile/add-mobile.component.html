@@ -1,0 +1,39 @@
+<div class="add-Mobile col-span-12 xl:col-span-12">
+    <h2 class="mb-8">Mobile Details</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="MobileForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        Add Mobile Number
+                    </div>
+                </div>
+
+            </div>
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                <div class="flex flex-col gap-2">
+                    <label for="Criteria">Criteria <span style="color: red; font-size: 16px;">*</span> </label>
+                    <p-selectbutton [options]="EMVOptions" optionLabel="label" formControlName="Criteria"
+                        optionValue="value" class="atm-select" aria-labelledby="basic" id="Criteria" />
+                </div>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="Mobile Number" type="text" formControlName="Mobile" />
+                    <label for="Mobile Number">{{ MobileForm.value.Criteria == '1'?'Add Mobile Number ':'Delete Mobile Number '}}
+                        <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="institution" optionValue="code" formControlName="GroupID" optionLabel="name"
+                        inputId="Group ID" styleClass="w-full" />
+                    <label for="Group ID">Group ID <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
+    </div>
+</div>

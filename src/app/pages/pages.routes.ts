@@ -40,6 +40,7 @@ import { EmailUpdateComponent } from './utility/email-update/email-update.compon
 import { SafManagementComponent } from './utility/saf-management/saf-management.component';
 import { MobileUpdateComponent } from './utility/mobile-update/mobile-update.component';
 import { AddEmailComponent } from './utility/email-update/add-email/add-email.component';
+import { AddMobileComponent } from './utility/mobile-update/add-mobile/add-mobile.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -81,7 +82,7 @@ export default [
     { path: 'add_email_update', component: AddEmailComponent },
     { path: 'saf', component: SafManagementComponent },
     { path: 'mobile_update', component: MobileUpdateComponent },
-
+    { path: 'add_mobile_update', component: AddMobileComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
