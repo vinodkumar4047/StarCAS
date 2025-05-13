@@ -1,0 +1,68 @@
+<div class="update-casset col-span-12 xl:col-span-12">
+    <h2 class="mb-8">Casette</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="denominationForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        Update Casette
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap  content-center gap-4 items-center w-full mb-4">
+                <p-floatlabel class="w-full" variant="on">
+                    <p-select class="update" appendTo="body" [ngModelOptions]="{standalone: true}" [(ngModel)]="atmId"
+                        inputId="on_label" [options]="atmIdOpt" optionLabel="name" styleClass="w-full" />
+                    <label for="on_label">ATM ID</label>
+                </p-floatlabel>
+            </div>
+            <div *ngIf="atmId" class="my-8">
+                <div class="form-grid">
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="batchId" type="text" formControlName="batchId" />
+                    <label for="batchId">Current Batch Id <span style="color: red;">*</span></label>
+                </p-floatlabel>
+
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="atmId" type="text" formControlName="atmId" />
+                    <label for="atmId">ATMID <span style="color: red;">*</span></label>
+                </p-floatlabel>
+            </div>
+            <div formArrayName="denominationsArray">
+                <p-table [value]="denominations" editable="true" showGridlines [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Denomination Id</th>
+                            <th>Denomination</th>
+                            <th>Currency Code</th>
+                            <th>No of Notes Loaded</th>
+                            <th>No of Notes Dispensed</th>
+                            <th>No of Notes Remaining</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                        <tr [formGroupName]="i">
+                            <td>{{ rowData.id }}</td>
+                            <td>{{ rowData.denomination }}</td>
+                            <td>{{ rowData.currencyCode }}</td>
+                            <td>
+                                <input type="number" pInputText formControlName="notesLoaded" />
+                            </td>
+                            <td>{{ rowData.notesDispensed }}</td>
+                            <td>{{ rowData.notesRemaining }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8">
+                    <p-button label="Update" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+                </div>
+            </div>
+            
+
+        </form>
+        <!-- </form> -->
+    </div>
+</div>

@@ -210,22 +210,22 @@ export class AppMenu {
                         {
                             label: 'Email Update',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/auth/login']
+                            routerLink: ['/pages/email_update']
                         },
                         {
                             label: 'Modile Update',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/mobile_update']
                         },
                         {
                             label: 'SAF Management',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/saf']
                         },
                         {
                             label: 'Admin card',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/auth/access']
+                            routerLink: ['/pages/admin_card']
                         },
                     ]
                 }]
