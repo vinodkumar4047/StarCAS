@@ -28,7 +28,7 @@ export class AddFitComponent {
  logicalOpt: any = [
     { name: 'All', code: '1' }
   ];
-  constructor(private location: Location, private sanitizer: DomSanitizer, private fb: FormBuilder) { }
+  constructor(private location: Location, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.fitForm = this.fb.group({
