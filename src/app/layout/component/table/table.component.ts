@@ -21,9 +21,10 @@ import { TooltipModule } from 'primeng/tooltip';
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
- 
+
 })
 export class TableComponent {
+  @Input() paginator: boolean = true;
 
   @Input() tableData: any;
   @Input() cols: any;
@@ -70,13 +71,13 @@ export class TableComponent {
     this.deleteEvent.emit({ data: data, event: event });
   }
 
-  otherEvents(data: any, event: any, type:any) {
+  otherEvents(data: any, event: any, type: any) {
     this.event.emit({ data: data, event: event, type: type });
   }
 
-  customSort(event:SortEvent){
-    console.log(event,'event=====');
-    
+  customSort(event: SortEvent) {
+    console.log(event, 'event=====');
+
   }
 
 

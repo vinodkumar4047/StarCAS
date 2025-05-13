@@ -1,1 +1,30 @@
-<p>risk-country-block works!</p>
+<div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;"> COUNTRY BLOCK </h2>
+</div>
+<div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+    <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" (addEvent)="edit($event)"
+        (addEvent)="addOrEdit('Add',$event)" (editEvent)="addOrEdit('Edit',$event)"
+        (deleteEvent)="delete_visible = true" (viewEvent)="addOrEdit('View',$event)" [addButton]="'Add Country'" />
+</div>
+
+<div class="AddtxnDetails">
+    <div class="card flex justify-center">
+        <!-- <p-button (click)="showDialog()" label="Show" /> -->
+        <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <span class="p-text-secondary block mb-8">Update your information.</span>
+            <div class="flex items-center gap-4 mb-4">
+                <label for="username" class="font-semibold w-24">Username</label>
+                <input pInputText id="username" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex items-center gap-4 mb-8">
+                <label for="email" class="font-semibold w-24">Email</label>
+                <input pInputText id="email" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex justify-end gap-2">
+                <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                <p-button label="Save" (click)="visible = false" />
+            </div>
+        </p-dialog>
+    </div>
+
+</div>

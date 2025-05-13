@@ -1,0 +1,104 @@
+<div class="atm-type-controller">
+    <div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0;">ATM Type Details </h2>
+    </div>
+    <div class="card m-8">
+        <div class="flex gap-2 items-center mb-8 justify-between">
+            <div class="font-semibold text-xl heading-color">
+                <span> Approval : 81.134% Technical Decline : 18.866% Bussiness Decline : 0.000%</span>
+            </div>
+            <div class="flex gap-2">
+                <p-button icon="pi pi-align-center" />
+                <p-button icon="pi pi-sync" />
+                <!-- <p-button icon="pi pi-angle-double-left" /> -->
+
+            </div>
+        </div>
+        <div class="box">
+            <div class="grid grid-cols-5 gap-2">
+                <div class="flex flex-col gap-2">
+                    <label for="username">Branch</label>
+
+                    <form [formGroup]="formGroup">
+                        <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name"
+                            placeholder="Select a City" />
+                    </form>
+
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="username">Terminal</label>
+
+                    <form [formGroup]="formGroup">
+                        <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name"
+                            placeholder="Select a City" />
+                    </form>
+
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="username">From Date</label>
+                    <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="username">To Date</label>
+                    <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                </div>
+                <div class="flex flex-col gap-2 lab">
+                    <p-button label="Submite" severity="info" />
+                </div>
+            </div>
+        </div>
+
+        <div class=" body">
+            <div class="Terminal_Wise">
+                <div class="text-center relative">
+                    <h1>Terminal Wise</h1>
+                    <p-button icon="pi pi-align-justify" class="btnrel" />
+                </div>
+
+                <div class="card ">
+                    <p-chart class="trem" type="line" [data]="data" [options]="options" class="h-[30rem]" />
+                </div>
+            </div>
+
+            <div class="TransTypeWise">
+                <div class="text-center relative">
+                    <h1>Transaction Type Wise</h1>
+                    <p-button icon="pi pi-align-justify" class="btnrel" />
+                </div>
+                <div class="card">
+                    <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" class="h-[30rem]"></p-chart>
+                </div>
+
+            </div>
+
+            <div class="ResponseWise">
+                <div class="text-center relative">
+                    <h1>Response Wise</h1>
+                    <p-button icon="pi pi-align-justify" class="btnrel" />
+                </div>
+                <div class="card flex justify-center">
+                    <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"
+                        class="w-full md:w-[30rem]"></p-chart>
+                </div>
+
+
+            </div>
+
+            <div class="TransactionStatus">
+                <div class="text-center relative">
+                    <h1>TransactionS tatus</h1>
+                    <p-button icon="pipi-align-justify" class="btnrel" />
+                </div>
+
+                <div class="card">
+                    <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"
+                        class="h-[30rem]"></p-chart>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
