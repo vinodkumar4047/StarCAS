@@ -1,0 +1,58 @@
+::ng-deep {
+    .admin-card {
+        .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .p-floatlabel {
+            display: flex;
+        }
+
+        .p-inputtext {
+            height: 40px;
+            width: 100%;
+        }
+
+        p-datepicker {
+            height: 40px;
+            width: 100%;
+        }
+
+          p-datepicker.ng-invalid.ng-touched {
+            border-color: red;
+
+            .p-datepicker-input {
+                border-color: red;
+            }
+        }
+
+        .ng-invalid.ng-touched {
+            border-color: red;
+        }
+
+        .p-inputtext:disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select.p-disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select {
+            height: 40px;
+        }
+
+        .p-select-label {
+            align-self: center;
+        }
+
+        .btn-pos {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}

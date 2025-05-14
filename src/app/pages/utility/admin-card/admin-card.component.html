@@ -1,1 +1,33 @@
-<p>admin-card works!</p>
+<div class="admin-card col-span-12 xl:col-span-12">
+    <h2 class="mb-8"> Admin Card</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="AdminForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <div class="font-semibold text-xl heading-color">
+                        Admin Card Generate
+                    </div>
+                </div>
+            </div>
+            <div class="mx-4 mb-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-center">
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="ATMID" type="text" formControlName="institutionName" />
+                    <label for="ATMID">Insituation Name <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="ATMID" type="number" formControlName="maximumCard" />
+                    <label for="ATMID">Maximums Cards <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-datepicker inputId="on_label" styleClass="w-full" showIcon iconDisplay="input"
+                        formControlName="expDate" />
+                    <label for="on_label">Expiry Date <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+            </div>
+            <div class="btn-pos mx-4">
+                <p-button label="Generate" severity="primary" raised icon="pi pi-save" (click)="onGenerate()" />
+                <p-button label="Reset" severity="primary" outlined icon="pi pi-refresh" (click)="reset()" />
+            </div>
+        </form>
+    </div>
+</div>
