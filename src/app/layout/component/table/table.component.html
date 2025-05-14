@@ -5,15 +5,15 @@
     size="small">
 
     <ng-template #caption>
-        <div class="flex justify-between mb-4">
+        <div class="flex flex-wrap justify-between mb-4">
             <div>
                 <p-button class="mr-2" *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
                 <p-button class="mr-2" *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil"
                     (click)="add($event)" />
-                <div *ngIf="multipleButton?.length > 0">
+                <div *ngIf="multipleButton?.length > 0" class="multiBtn">
                     <div *ngFor="let btn of multipleButton">
-                        <p-button [label]="btn?.label" icon="btn?.icon" class="mr-2"
-                            (click)="otherEvents(btn?.data??'',$event,btn?.type)" />
+                        <p-button [label]="btn?.label" [icon]="btn?.icon" class="mr-2"
+                            (click)="otherEvents(btn?.data??'',$event,btn?.type)" [variant]="btn?.variant" [severity]="btn?.severity" />
                     </div>
                 </div>
             </div>

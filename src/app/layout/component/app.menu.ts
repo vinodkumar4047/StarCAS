@@ -239,12 +239,12 @@ export class AppMenu {
                         {
                             label: 'Profile',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/auth/login']
+                            routerLink: ['/pages/profile']
                         },
                         {
                             label: 'User',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/auth/error']
+                            routerLink: ['/pages/user']
                         },
                     ]
                 }]

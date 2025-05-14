@@ -1,0 +1,83 @@
+<div class="add-user-controller col-span-12 xl:col-span-12">
+    <h2 class="mb-8">User Details</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="userForm">
+            <div class="flex justify-between">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div *ngIf="this.routeData?.type == 'addUser'" class="font-semibold text-xl  heading-color">
+                        Add Users
+                    </div>
+                    <div *ngIf="this.routeData?.type == 'view'" class="font-semibold text-xl  heading-color">
+                        View Users
+                    </div>
+                    <div *ngIf="this.routeData?.type == 'edit'" class="font-semibold text-xl  heading-color">
+                        Edit Users
+                    </div>
+                </div>
+                <p-button *ngIf="this.routeData?.type == 'edit' && !this.saveCheck" label="Edit user Details"
+                    severity="warn" raised icon="pi pi-pencil" (click)="editEnable()" />
+            </div>
+            <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="profileOtp" formControlName="Profile" optionValue="PROFILEID" optionLabel="PROFILE_NAME"
+                        inputId="Profile" styleClass="w-full" />
+                    <label for="Profile">Profile <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="branchOpt" formControlName="Branch" optionValue="BRANCHCODE" optionLabel="BRANCHNAME"
+                        inputId="Branch" styleClass="w-full" />
+                    <label for="Branch">Branch <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="username" type="text" formControlName="username" />
+                    <label for="username">User Name <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="firstname" type="text" formControlName="firstname" />
+                    <label for="firstname">First Name <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="lastname" type="text" formControlName="lastname" />
+                    <label for="lastname">Last Name <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-datepicker inputId="DOB" styleClass="w-full" showIcon iconDisplay="input"
+                        formControlName="DOB" />
+                    <label for="DOB">DOB <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="email" type="text" formControlName="email" />
+                    <label for="email">E-Mail Id <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="mobile" type="text" formControlName="mobile" />
+                    <label for="mobile">Mobile No. <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="address" type="text" formControlName="address" />
+                    <label for="address">Address <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="city" type="text" formControlName="city" />
+                    <label for="city">City <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="countryOpt" formControlName="country" optionValue="COUNTRY" optionLabel="COUNTRY"
+                        inputId="country" styleClass="w-full" />
+                    <label for="country">Country <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+
+            </div>
+
+            <div class="flex flex-row-reverse"  *ngIf="this.saveCheck">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
+    </div>
+</div>

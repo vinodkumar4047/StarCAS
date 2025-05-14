@@ -1,0 +1,66 @@
+::ng-deep {
+    .add-user-controller {
+        .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .backIcon {
+            span.pi.pi-arrow-left.p-button-icon {
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .p-floatlabel {
+            display: flex;
+        }
+
+        .p-inputtext {
+            height: 40px;
+            width: 100%;
+        }
+
+        .ng-invalid.ng-touched {
+            border-color: red;
+        }
+
+        .p-inputtext:disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select.p-disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select {
+            height: 40px;
+        }
+
+        .p-select-label {
+            align-self: center;
+        }
+        
+        p-datepicker {
+            height: 40px;
+            width: 100%;
+        }
+
+          p-datepicker.ng-invalid.ng-touched {
+            border-color: red;
+
+            .p-datepicker-input {
+                border-color: red;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .user-select.p-selectbutton {
+                flex-direction: column; // stack items vertically if needed
+                align-items: stretch;
+            }
+        }
+    }
+}

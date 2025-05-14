@@ -41,6 +41,9 @@ import { SafManagementComponent } from './utility/saf-management/saf-management.
 import { MobileUpdateComponent } from './utility/mobile-update/mobile-update.component';
 import { AddEmailComponent } from './utility/email-update/add-email/add-email.component';
 import { AddMobileComponent } from './utility/mobile-update/add-mobile/add-mobile.component';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { ProfileDetailsComponent } from './users/profile-details/profile-details.component';
+import { AddUserComponent } from './users/user-details/add-user/add-user.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -83,6 +86,9 @@ export default [
     { path: 'saf', component: SafManagementComponent },
     { path: 'mobile_update', component: MobileUpdateComponent },
     { path: 'add_mobile_update', component: AddMobileComponent },
+    { path: 'user', component: UserDetailsComponent },
+    { path: 'add_user', component: AddUserComponent },
+    { path: 'profile', component: ProfileDetailsComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
