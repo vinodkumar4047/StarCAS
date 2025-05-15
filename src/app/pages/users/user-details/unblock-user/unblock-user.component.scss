@@ -1,0 +1,17 @@
+::ng-deep {
+    .unblock-user-controller {
+        .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .backIcon {
+            span.pi.pi-arrow-left.p-button-icon {
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+    }
+}
