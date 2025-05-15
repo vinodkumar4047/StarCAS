@@ -56,6 +56,7 @@ countryOpt:any = [
       address: ['', Validators.required],
       city: ['', Validators.required],
       country: [null, Validators.required],
+      instname:['']
     });
 
     if (this.routeData?.type == 'edit' || this.routeData?.type == 'view') {
@@ -88,6 +89,8 @@ countryOpt:any = [
 
   editEnable() {
     this.userForm.enable();
+    this.userForm.get('instname')?.disable()
+    this.userForm.get('username')?.disable()
     this.saveCheck = true;
   }
 
@@ -107,6 +110,7 @@ countryOpt:any = [
       address: data?.ADDRESS,
       city: data?.CITY,
       country: data?.COUNTRY,
+      instname:data?.INSTID
     });
 
   }

@@ -427,14 +427,13 @@ constructor(private router: Router) { };
   MultiButton(event: any) {
 
     if (event.type == 'addUser') {
-      console.log(event, 'efef====addUser');
       this.router.navigate(['/pages/add_user'], { state:{ data:event?.data , type:event?.type} });
     } else if (event.type == 'blockUser') {
-      console.log(event, 'efef====blockUser');
+      this.router.navigate(['/pages/block_user'], { state:{ data:event?.data , type:event?.type} });
     } else if (event.type == 'unblockUser') {
-      console.log(event, 'efef====unblockUser');
+      this.router.navigate(['/pages/unblock_user'], { state:{ data:event?.data , type:event?.type} });
     } else if (event.type == 'resetPassword') {
-      console.log(event, 'efef====resetPassword');
+      this.router.navigate(['/pages/reset_user_password'], { state:{ data:event?.data , type:event?.type} });
     }
   }
 
