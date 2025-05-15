@@ -24,12 +24,18 @@ export class RestService {
     );
   }
 
-  get(urlValue: string): Observable<any> {
-    const finalUrl = this.url + urlValue;
-    return this.http.get<any>(finalUrl).pipe(
-      catchError((err: any): Observable<any> => of({}))
-    );
-  }
+get(urlValue: string): Observable<any>;
+get(urlValue: string, options: { responseType: 'text' }): Observable<string>;
+get(urlValue: string, options?: any): Observable<any> {
+  const finalUrl = this.url + urlValue;
+  return this.http.get(finalUrl, options).pipe(
+    catchError((err: any): Observable<any> => {
+      console.error('HTTP GET failed:', err);
+      return of('' as any);
+    })
+  );
+}
+
 
   put(id: string | number, reqData: any, urlValue: string): Observable<any> {
     const finalUrl = `${this.url}${urlValue}/${id}`;

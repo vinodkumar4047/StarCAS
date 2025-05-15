@@ -7,15 +7,18 @@ import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-atm-control',
-  imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule, ListboxModule, ButtonModule],
+  imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule, ListboxModule, ButtonModule,ToastModule],
   templateUrl: './atm-control.component.html',
-  styleUrl: './atm-control.component.scss'
+  styleUrl: './atm-control.component.scss',
+   providers: [MessageService]
 })
 export class ATMControlComponent {
 
-  constructor(private rest: RestService) { };
+  constructor(private rest: RestService,private messageService: MessageService) { };
 
   stateOptions: any[] = [{ label: 'Logical Group', value: 'logicalGroup' }, { label: 'ATM ID', value: 'atmId' }];
   typeOptions: any[] = [{ label: 'Downloads', value: 'downloads' }, { label: 'Commands', value: 'commands' }];
@@ -71,10 +74,12 @@ export class ATMControlComponent {
           this.OptValues = res;
         } else {
           console.warn('No data received or request failed.');
+           this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'No data received or request failed.' });
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Something Went Wrong.' });
       }
     });
 
@@ -82,19 +87,21 @@ export class ATMControlComponent {
 
   buttonCheck() {
     const url = `/control/v1/atmReset?condition=${this.dwnOrCmdValue}&${this.value == 'logicalGroup' ? 'logicalGroup' : 'atmId'}=${this.dropdownValue}`;
-    this.rest.get(url).pipe(
+    this.rest.get(url, { responseType: 'text' }).pipe(
       take(1),
     ).subscribe({
       next: (res) => {
         if (res) {
-          console.log('Atm Control data:', res);
-          alert('swd')
+          console.log('Atm Control data---:', res);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: res });
         } else {
           console.warn('No data received or request failed.');
+          this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'No data received or request failed.' });
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Something Went Wrong.' });
       }
     });
   }
