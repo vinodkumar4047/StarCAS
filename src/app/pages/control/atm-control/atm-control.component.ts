@@ -74,12 +74,12 @@ export class ATMControlComponent {
           this.OptValues = res;
         } else {
           console.warn('No data received or request failed.');
-           this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'No data received or request failed.' });
+           this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No data received or request failed.' });
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Something Went Wrong.' });
+        this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Something Went Wrong.' });
       }
     });
 
@@ -96,12 +96,12 @@ export class ATMControlComponent {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: res });
         } else {
           console.warn('No data received or request failed.');
-          this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'No data received or request failed.' });
+          this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No data received or request failed.' });
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Something Went Wrong.' });
+        this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Something Went Wrong.' });
       }
     });
   }
