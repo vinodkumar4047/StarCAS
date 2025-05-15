@@ -27,8 +27,10 @@ export class RestService {
   get(urlValue: string): Observable<any> {
     const finalUrl = this.url + urlValue;
     return this.http.get<any>(finalUrl).pipe(
-      catchError((err: any): Observable<any> => of({}))
-    );
+      catchError((err: any): Observable<any> => {
+        console.error('GET error:', err); // Optional: for debugging
+        return of(null); // Better than {} — clearly indicates failure
+      }));
   }
 
   put(id: string | number, reqData: any, urlValue: string): Observable<any> {
@@ -41,7 +43,9 @@ export class RestService {
   delete(id: string | number, urlValue: string): Observable<any> {
     const finalUrl = `${this.url}${urlValue}/${id}`;
     return this.http.delete<any>(finalUrl).pipe(
-      catchError((err: any): Observable<any> => of({}))
-    );
+      catchError((err: any): Observable<any> => {
+        console.error('GET error:', err); // Optional: for debugging
+        return of(null); // Better than {} — clearly indicates failure
+      }));
   }
 }
