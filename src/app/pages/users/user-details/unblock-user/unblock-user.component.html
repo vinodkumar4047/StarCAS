@@ -1,1 +1,17 @@
-<p>unblock-user works!</p>
+<div class="unblock-user-controller col-span-12 xl:col-span-12">
+    <h2 class="mb-8">User Details</h2>
+    <div class="card !mb-4">
+        <div class="flex justify-between">
+            <div class="flex gap-2 items-center mb-8">
+                <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                    class="backIcon"></p-button>
+                <div class="font-semibold text-xl heading-color">
+                   Blocked Users
+                </div>
+            </div>
+        </div>
+        <div>
+             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="blockButton($event)" />
+        </div>
+    </div>
+</div>

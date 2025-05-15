@@ -67,6 +67,12 @@
                         pTooltip="Edit" tooltipPosition="top" icon="pi pi-pencil" (click)="edit(row,$event)" />
                     <p-button *ngIf="col.type?.includes('delete')" text severity="danger" class=" p-button-icon-only"
                         pTooltip="Delete" tooltipPosition="top" icon="pi pi-trash" (click)="delete(row,$event)" />
+                    <p-button *ngIf="col.type?.includes('Block')" raised severity="danger" class="m-2"
+                         tooltipPosition="top" label="Block" icon="pi pi-lock" (click)="otherEvents(row,$event,'Block')" />
+                     <p-button *ngIf="col.type?.includes('Unblock')" raised severity="warn" class="m-2"
+                         tooltipPosition="top" label="Unblock" icon="pi pi-lock-open" (click)="otherEvents(row,$event,'Unblock')" />
+                     <p-button *ngIf="col.type?.includes('ResetPassword')" raised severity="info" class="m-2"
+                         tooltipPosition="top" label="Reset Password" icon="pi pi-refresh" (click)="otherEvents(row,$event,'ResetPassword')" />
                 </span>
             </td>
         </tr>
