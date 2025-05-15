@@ -3,10 +3,13 @@ import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
 import { isPlatformBrowser } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { NgIf } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primeng/api';
 interface City {
   name: string;
   code: string;
@@ -15,11 +18,14 @@ interface City {
 @Component({
   selector: 'app-graph',
   imports: [ChartModule, ButtonModule, InputTextModule,
-    CalendarModule, DropdownModule, ReactiveFormsModule, FormsModule],
+    CalendarModule, DropdownModule, ReactiveFormsModule, FormsModule, NgIf, SplitButtonModule, ToastModule],
   templateUrl: './graph.component.html',
   styleUrl: './graph.component.scss'
 })
 export class GraphComponent {
+  items: MenuItem[] | undefined;
+  label1: boolean = false;
+  tex: boolean = true;
   value = 23;
   data: any;
   options: any;
@@ -32,7 +38,23 @@ export class GraphComponent {
   cities: City[] | undefined;
   formGroup: FormGroup | any;
   date2: Date | undefined;
-  constructor() { }
+  constructor() {
+    this.items = [
+      {
+        label: 'Update',
+        command: () => {
+        }
+      },
+      {
+        label: 'Delete',
+        command: () => {
+        }
+      },
+      { label: 'Angular Website', },
+      { separator: true },
+      { label: 'Upload', }
+    ];
+  }
 
   ngOnInit() {
     this.cities = [
@@ -299,4 +321,37 @@ export class GraphComponent {
       }
     };
   }
+  show(): void {
+    this.label1 = !this.label1
+    this.tex = !this.tex
+  }
+
+  splitButtonItems = [
+    {
+      label: 'Refresh',
+      icon: 'pi pi-refresh',
+      command: () => {
+        this.refreshChart();
+      }
+    },
+    {
+      label: 'Export',
+      icon: 'pi pi-download',
+      command: () => {
+        this.exportData();
+      }
+    }
+  ];
+
+  // Sample methods
+  refreshChart() {
+    console.log('Refreshing chart...');
+    // Your refresh logic here
+  }
+
+  exportData() {
+    console.log('Exporting data...');
+    // Your export logic here
+  }
+
 }

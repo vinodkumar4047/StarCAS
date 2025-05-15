@@ -1,10 +1,10 @@
 <!-- Header Section with Background and Title -->
-<div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+<!-- <div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
     <h2 style="margin: 0;">Branch Details</h2>
-</div>
+</div> -->
 
 <!-- Card and Table -->
-<div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+<!-- <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
     <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
         [rowsPerPageOptions]="[10,15,20]">
         <ng-template #caption>
@@ -20,11 +20,11 @@
                     <button pButton type="button" icon="pi pi-times" class="change p-button-sm" pTooltip="Clear"
                         tooltipPosition="top"></button>
 
-                </p-iconfield>
+                </p-iconfield> -->
 
-                <!-- <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" /> -->
+<!-- <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" /> -->
 
-            </div>
+<!-- </div>
         </ng-template>
         <ng-template #header>
             <tr>
@@ -58,6 +58,16 @@
             </tr>
         </ng-template>
     </p-table>
+</div> -->
+
+<div class="atmDetails">
+    <h2 class="mb-8"> Branch Details </h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit()" (editEvent)="editFunction($event)"
+            (viewEvent)="showFunction($event)" [addButton]="'Add ATM'" />
+    </div>
 </div>
 
 <!-- ✅ Single Dialog outside table  VIEW LAYOUT-->
@@ -76,19 +86,19 @@
     <div *ngIf="showViewData">
         <div class="table-row">
             <div class="table-cell heading">Inst Id</div>
-            <div class="table-cell">{{ showViewData.INSTID }}</div>
+            <div class="table-cell">{{ showViewData?.INSTID }}</div>
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Id</div>
-            <div class="table-cell">{{ showViewData.INSTNAME }}</div>
+            <div class="table-cell">{{ showViewData?.INSTNAME }}</div>
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Map Code</div>
-            <div class="table-cell">{{ showViewData.INSTROUTETYPE }}</div>
+            <div class="table-cell">{{ showViewData?.INSTROUTETYPE }}</div>
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Name</div>
-            <div class="table-cell">{{ showViewData.INSTTYPE }}</div>
+            <div class="table-cell">{{ showViewData?.INSTTYPE }}</div>
         </div>
     </div>
 </p-dialog>
@@ -155,5 +165,45 @@
     <div class="flex justify-end gap-2">
         <p-button label="No" severity="secondary" (click)="delete_visible = false" />
         <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
+    </div>
+</p-dialog>
+
+
+
+<!-- ADD POPUP -->
+<p-dialog [modal]="true" [(visible)]="ADDvisible" [style]="{ width: '50rem' }" [closable]="false">
+
+    <!-- Custom header template -->
+    <ng-template pTemplate="header">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-lg font-semibold">Branch Profile Configuration</span>
+            <button pButton type="button" icon="pi pi-times" class="change p-button-sm" pTooltip="Clear"
+                tooltipPosition="top" (click)="ADDvisible = false">
+            </button>
+        </div>
+    </ng-template>
+
+    <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-2">
+            <label for="username">Institution Id *</label>
+            <input pInputText id="TEST" aria-describedby="username-help" [disabled]="true" placeholder="TEST" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">Branch Code *</label>
+            <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Code" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">Branch Map Code *</label>
+            <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Map Code" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">Branch Name*</label>
+            <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Name" />
+        </div>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="visible = false" />
     </div>
 </p-dialog>

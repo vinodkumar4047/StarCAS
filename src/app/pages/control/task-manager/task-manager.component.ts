@@ -17,16 +17,19 @@ import { RippleModule } from 'primeng/ripple';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TagModule } from 'primeng/tag';
+import { DialogModule } from 'primeng/dialog';
+import { TableComponent } from '../../../layout/component/table/table.component';
 
 @Component({
   selector: 'app-task-manager',
   imports: [TooltipModule,
-    TableModule,  // Only import TableModule
     CommonModule,
     FormsModule,
     InputIconModule,
     IconFieldModule,
-    ButtonModule
+    ButtonModule,
+    TableComponent,
+    DialogModule,
   ],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
@@ -55,7 +58,39 @@ export class TaskManagerComponent {
     { name: 'Task S', taskId: 'T019', status: 'Pending', startDate: '2025-04-19', startTime: '02:45 PM' },
     { name: 'Task T', taskId: 'T020', status: 'In Progress', startDate: '2025-04-20', startTime: '03:00 PM' },
   ];
-  clear(able: Table){
+  clear(able: Table) {
 
   }
+
+
+  globalFilterFields: any = [
+    'taskname',
+    'taskid',
+    'status',
+    'startdate',
+    'starttime',
+  ];
+
+  atmData = [
+    { "taskname": "EzChannelMgr", "taskid": "24210", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
+    { "taskname": "EzCommMgr", "taskid": "24211", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
+    { "taskname": "EzEventMgr", "taskid": "24214", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
+    { "taskname": "EzPOSSRVR_1", "taskid": "24217", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
+    { "taskname": "EzCASSRVR_1", "taskid": "24219", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" }
+  ];
+
+  cols = [
+    { field: 'taskname', header: 'TASK_NAME' },
+    { field: 'taskid', header: 'TASK_ID' },
+    { field: 'status', header: 'STATUS' },
+    { field: 'startdate', header: 'START_DATE' },
+    { field: 'starttime', header: 'START_TIME' },
+
+  ];
+  delete_visible: any;
+
+  addOrEdit(data1: any, data: any) {
+
+  }
+
 }

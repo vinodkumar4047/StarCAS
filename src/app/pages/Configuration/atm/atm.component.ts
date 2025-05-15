@@ -19,7 +19,7 @@ import { DialogModule } from 'primeng/dialog';
     IconFieldModule,
     ButtonModule,
     TableComponent,
-      DialogModule,
+    DialogModule,
   ],
   templateUrl: './atm.component.html',
   styleUrl: './atm.component.scss'
@@ -33,7 +33,7 @@ export class ATMComponent {
     'ipAddress',
     'acquirerBranch'
   ];
-  
+
   atmData = [
     {
       "instId": "TEST",
@@ -116,18 +116,18 @@ export class ATMComponent {
       "ipAddress": "10.93.102.222",
       "acquirerBranch": "010",
     }
-  ];  
+  ];
 
   cols = [
     { field: 'instId', header: 'INST ID' },
-  { field: 'atmId', header: 'ATM ID' },
-  { field: 'atmTypeId', header: 'ATM TYPE ID' },
-  { field: 'logicalGroup', header: 'LOGICAL GROUP' },
-  { field: 'ipAddress', header: 'IP ADDRESS' },
-  { field: 'acquirerBranch', header: 'ACQUIRER BRANCH' },
-  { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
+    { field: 'atmId', header: 'ATM ID' },
+    { field: 'atmTypeId', header: 'ATM TYPE ID' },
+    { field: 'logicalGroup', header: 'LOGICAL GROUP' },
+    { field: 'ipAddress', header: 'IP ADDRESS' },
+    { field: 'acquirerBranch', header: 'ACQUIRER BRANCH' },
+    // { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
-delete_visible: any;
+  delete_visible: any;
 
   constructor(private router: Router) { };
 
@@ -142,16 +142,16 @@ delete_visible: any;
       "TerminalId": "dwefer",
       "AcquirerBin": "dwed",
       "AcquirerInstitution": {
-          "name": "Test Bank 1",
-          "code": "1"
+        "name": "Test Bank 1",
+        "code": "1"
       },
       "AcquirerBranch": {
-          "name": "Test Branch",
-          "code": "2"
+        "name": "Test Branch",
+        "code": "2"
       },
       "ATMKeylen": {
-          "name": "32",
-          "code": "32"
+        "name": "32",
+        "code": "32"
       },
       "ATMMasterKey": "dwedfer",
       "ATMCommonKey": "gtrgfrg",
@@ -165,41 +165,41 @@ delete_visible: any;
       "Header": "1",
       "ATMStatus": "0",
       "productDetails": [
-          {
-              "selectedProduct": true,
-              "denomValue": "refewr",
-              "currencyCode": "fewrf"
-          },
-          {
-              "selectedProduct": true,
-              "denomValue": "cas",
-              "currencyCode": "cs"
-          },
-          {
-              "selectedProduct": false
-          },
-          {
-              "selectedProduct": false
-          },
-          {
-              "selectedProduct": false
-          },
-          {
-              "selectedProduct": false
-          },
-          {
-              "selectedProduct": false
-          },
-          {
-              "selectedProduct": false
-          }
+        {
+          "selectedProduct": true,
+          "denomValue": "refewr",
+          "currencyCode": "fewrf"
+        },
+        {
+          "selectedProduct": true,
+          "denomValue": "cas",
+          "currencyCode": "cs"
+        },
+        {
+          "selectedProduct": false
+        },
+        {
+          "selectedProduct": false
+        },
+        {
+          "selectedProduct": false
+        },
+        {
+          "selectedProduct": false
+        },
+        {
+          "selectedProduct": false
+        },
+        {
+          "selectedProduct": false
+        }
       ]
+    }
+    this.router.navigate(['/pages/add_edit_atm'], { state: { data: data, type: type } });
+    console.log(details);
+
   }
-      this.router.navigate(['/pages/add_edit_atm'], { state:{ data:data , type:type} });
-      console.log(details);
-      
-  }
-  delateData(){
+  delateData() {
     this.delete_visible = false
   }
 }

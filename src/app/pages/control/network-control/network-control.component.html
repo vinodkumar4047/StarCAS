@@ -1,10 +1,7 @@
-<div class="flex-container">
-    <div class="card">
-        <div class="card-details">
-            <p class="title-head">Card Title</p>
-            <p class="title-body">here are the details of the cards</p>
+<div class="atmDetails">
+    <h2 class="mb-8"> Network Control </h2>
 
-        </div>
-        <button class="submit-button">More Info</button>
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" />
     </div>
 </div>

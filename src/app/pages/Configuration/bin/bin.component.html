@@ -11,7 +11,7 @@
         [rowsPerPageOptions]="[10,15,20]">
         <ng-template #caption>
             <div class="flex w-full align-items-center gap-2 justify-content-between ">
-                <p-button label="Add" [outlined]="true" icon="pi pi-plus" (click)="addFunction()" />
+                <!-- <p-button label="Add" [outlined]="true" icon="pi pi-plus" (click)="addFunction()" /> -->
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -24,47 +24,7 @@
 
                 </p-iconfield>
 
-                <!-- ADD POPUP -->
-                <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [closable]="false">
 
-                    <!-- Custom header template -->
-                    <ng-template pTemplate="header">
-                        <div class="flex justify-between items-center w-full">
-                            <span class="text-lg font-semibold">Branch Profile Configuration</span>
-                            <button pButton type="button" icon="pi pi-times" class="change p-button-sm" pTooltip="Clear"
-                                tooltipPosition="top" (click)="visible = false">
-                            </button>
-                        </div>
-                    </ng-template>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="username">Institution Id *</label>
-                            <input pInputText id="TEST" aria-describedby="username-help" [disabled]="true"
-                                placeholder="TEST" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="username">Branch Code *</label>
-                            <input pInputText id="username" aria-describedby="username-help"
-                                placeholder="Branch Code" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="username">Branch Map Code *</label>
-                            <input pInputText id="username" aria-describedby="username-help"
-                                placeholder="Branch Map Code" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="username">Branch Name*</label>
-                            <input pInputText id="username" aria-describedby="username-help"
-                                placeholder="Branch Name" />
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end gap-2 mt-4">
-                        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                        <p-button label="Save" (click)="visible = false" />
-                    </div>
-                </p-dialog>
 
             </div>
         </ng-template>

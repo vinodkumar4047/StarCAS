@@ -1,11 +1,10 @@
 <!-- Header Section with Background and Title -->
-<div class=""
-    style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
+<!-- <div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
     <h2 style="margin: 0;">Task Manager Details</h2>
-</div>
+</div> -->
 
 <!-- Card and Table -->
-<div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+<!-- <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
     <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
         [rowsPerPageOptions]="[10,15,20]">
         <ng-template #caption>
@@ -39,4 +38,12 @@
             </tr>
         </ng-template>
     </p-table>
+</div> -->
+
+<div class="atmDetails">
+    <h2 class="mb-8"> Task Manager Details </h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="" />
+    </div>
 </div>

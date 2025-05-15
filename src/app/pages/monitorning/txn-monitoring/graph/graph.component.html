@@ -4,17 +4,17 @@
     </div>
     <div class="card m-8">
         <div class="flex gap-2 items-center mb-8 justify-between">
-            <div class="font-semibold text-xl heading-color">
-                <span> Approval : 81.134% Technical Decline : 18.866% Bussiness Decline : 0.000%</span>
+            <div *ngIf="tex" class="font-semibold text-xl heading-color">
+                <span *ngIf="tex"> Approval : 81.134% Technical Decline : 18.866% Bussiness Decline : 0.000%</span>
             </div>
+            <div></div>
             <div class="flex gap-2">
-                <p-button icon="pi pi-align-center" />
+                <p-button (click)="show()" icon="pi pi-align-center" />
                 <p-button icon="pi pi-sync" />
-                <!-- <p-button icon="pi pi-angle-double-left" /> -->
 
             </div>
         </div>
-        <div class="box">
+        <div class="box" *ngIf="label1">
             <div class="grid grid-cols-5 gap-2">
                 <div class="flex flex-col gap-2">
                     <label for="username">Branch</label>
@@ -52,7 +52,7 @@
             <div class="Terminal_Wise">
                 <div class="text-center relative">
                     <h1>Terminal Wise</h1>
-                    <p-button icon="pi pi-align-justify" class="btnrel" />
+                    <p-splitbutton icon="pi pi-align-justify" class="btnrel" [model]="items" />
                 </div>
 
                 <div class="card ">
@@ -87,7 +87,7 @@
             <div class="TransactionStatus">
                 <div class="text-center relative">
                     <h1>TransactionS tatus</h1>
-                    <p-button icon="pipi-align-justify" class="btnrel" />
+                    <p-button icon="pi pi-align-justify" class="btnrel" />
                 </div>
 
                 <div class="card">
