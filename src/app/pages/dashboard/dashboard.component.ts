@@ -4,7 +4,7 @@ import { MenuModule } from 'primeng/menu';
 import { Product, ProductService } from '../service/product.service';
 import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
-import { debounceTime, Subscription ,of} from 'rxjs';
+import { debounceTime, Subscription, of } from 'rxjs';
 import { LayoutService } from '../../layout/service/layout.service';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
@@ -103,10 +103,10 @@ export class DashboardComponent {
     "BLOCKEDDATE": null,
     "PASS_COUNT": null
   }
-  cardsInfo:any;
-  constructor(private productService: ProductService, public layoutService: LayoutService, 
+  cardsInfo: any;
+  constructor(private productService: ProductService, public layoutService: LayoutService,
     private confirmationService: ConfirmationService, private messageService: MessageService,
-  private rest:RestService) {
+    private rest: RestService) {
     this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
       // this.initChart();
     });
@@ -117,8 +117,8 @@ export class DashboardComponent {
     this.productService.getProductsSmall().then((data) => (this.products = data));
   }
 
- 
-  
+
+
   getCardDetails() {
     const url = '/dashboard/v1/details?instid=SCB'
     this.rest.get(url)
@@ -126,15 +126,15 @@ export class DashboardComponent {
         catchError(error => {
           console.error('Error fetching branch data:', error);
           this.cardsInfo = []; // fallback or reset
-          return of([]); 
+          return of([]);
         })
       )
       .subscribe((res: any[]) => {
-        console.log(res,'res---');
+        console.log(res, 'res---');
         this.cardsInfo = res;
       });
   }
-  
+
 
   triggerFileInputClick(): void {
     this.fileInput.nativeElement.click();
@@ -163,8 +163,8 @@ export class DashboardComponent {
 
 
   onImageSelected(event: Event): void {
-    console.log(event,'evernt');
-    
+    console.log(event, 'evernt');
+
     const input = event.target as HTMLInputElement;
     if (input?.files?.[0]) {
       const file = input.files[0];

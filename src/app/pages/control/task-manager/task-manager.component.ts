@@ -19,7 +19,9 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { TagModule } from 'primeng/tag';
 import { DialogModule } from 'primeng/dialog';
 import { TableComponent } from '../../../layout/component/table/table.component';
-
+import { RestService } from '../../../layout/service/rest.service';
+import { catchError, take } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-task-manager',
   imports: [TooltipModule,
@@ -30,12 +32,16 @@ import { TableComponent } from '../../../layout/component/table/table.component'
     ButtonModule,
     TableComponent,
     DialogModule,
+
   ],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
 })
+
 export class TaskManagerComponent {
+  taskManagerData: any;
   // 20 Mock Data for Tasks
+  constructor(private restApi: RestService) { }
   customers = [
     { name: 'Task A', taskId: 'T001', status: 'In Progress', startDate: '2025-04-01', startTime: '08:00 AM' },
     { name: 'Task B', taskId: 'T002', status: 'Completed', startDate: '2025-04-02', startTime: '09:30 AM' },
@@ -61,32 +67,45 @@ export class TaskManagerComponent {
   clear(able: Table) {
 
   }
+  ngOnInit() {
+    this.getDataTaskman()
+  }
+  getDataTaskman() {
+    this.restApi.get('/control/v1/taskManager').pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.taskManagerData = res;
+          console.log('taskManager data:', res);
+        } else {
+          console.warn('No data received or request failed.');
+        }
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+      }
+    });
+  }
 
 
   globalFilterFields: any = [
-    'taskname',
-    'taskid',
+    'taskName',
+    'taskId',
     'status',
-    'startdate',
-    'starttime',
-  ];
-
-  atmData = [
-    { "taskname": "EzChannelMgr", "taskid": "24210", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
-    { "taskname": "EzCommMgr", "taskid": "24211", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
-    { "taskname": "EzEventMgr", "taskid": "24214", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
-    { "taskname": "EzPOSSRVR_1", "taskid": "24217", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" },
-    { "taskname": "EzCASSRVR_1", "taskid": "24219", "tracelevel": "6", "status": "RUNNING", "startdate": "12/05/25", "starttime": "14:49:04" }
+    'startDate',
+    'startTime',
   ];
 
   cols = [
-    { field: 'taskname', header: 'TASK_NAME' },
-    { field: 'taskid', header: 'TASK_ID' },
+    { field: 'taskName', header: 'TASK_NAME' },
+    { field: 'taskId', header: 'TASK_ID' },
     { field: 'status', header: 'STATUS' },
-    { field: 'startdate', header: 'START_DATE' },
-    { field: 'starttime', header: 'START_TIME' },
+    { field: 'startDate', header: 'START_DATE' },
+    { field: 'startTime', header: 'START_TIME' },
 
   ];
+
   delete_visible: any;
 
   addOrEdit(data1: any, data: any) {

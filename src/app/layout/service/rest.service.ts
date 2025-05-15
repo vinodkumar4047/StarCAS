@@ -11,13 +11,16 @@ export class RestService {
   url: string;
 
   constructor(private http: HttpClient, public router: Router) {
-    this.url = environment.apiHost;
+    this.url = environment.apiHost + '/api';
   }
 
   post(reqData: any, urlValue: string): Observable<any> {
     const finalUrl = this.url + urlValue;
     return this.http.post<any>(finalUrl, reqData).pipe(
-      catchError((err: any): Observable<any> => of({}))
+      catchError((err: any): Observable<any> => {
+        console.error('GET error:', err); // Optional: for debugging
+        return of(null); // Better than {} — clearly indicates failure
+      })
     );
   }
 
