@@ -6,106 +6,96 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
 import { RestService } from '../../../layout/service/rest.service';
-import { catchError, of } from 'rxjs';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-atm-control',
-  imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule,ListboxModule,ButtonModule],
+  imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule, ListboxModule, ButtonModule],
   templateUrl: './atm-control.component.html',
   styleUrl: './atm-control.component.scss'
 })
 export class ATMControlComponent {
 
-  constructor( private rest:RestService){};
-  
+  constructor(private rest: RestService) { };
+
   stateOptions: any[] = [{ label: 'Logical Group', value: 'logicalGroup' }, { label: 'ATM ID', value: 'atmId' }];
   typeOptions: any[] = [{ label: 'Downloads', value: 'downloads' }, { label: 'Commands', value: 'commands' }];
   value: string = 'logicalGroup';
   typevalue: String = 'downloads';
-  ATMValues = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-  ];
-
-  LogicValues = [
-    { name: 'INDIA', code: 'IND' },
-    { name: 'FRANCE', code: 'FR' },
-    { name: 'USA', code: 'USA' },
-    { name: 'RUSSIA', code: 'RUS' },
-    { name: 'GERMENY', code: 'GER' }
-  ];
+  OptValues: any = [];
   dwnOrCmdValue: any = null;
   dropdownValue: any = null;
   downloadValues = [
-    { name: 'Load All', code: '01' },
-    { name: 'Load State', code: '02' },
-    { name: 'Load Screen', code: '03' },
-    { name: 'Load Misc', code: '04' },
-    { name: 'Load Misc-E', code: '05' },
-    { name: 'Load Fit', code: '06' },
-    { name: 'Load Config ID', code: '07' }
+    { name: 'Load All', code: 'Load-All' },
+    { name: 'Load State', code: 'Load-State' },
+    { name: 'Load Screen', code: 'Load-Screen' },
+    { name: 'Load Misc', code: 'Load-Misc' },
+    { name: 'Load Misc-E', code: 'Load-Misc-E' },
+    { name: 'Load Fit', code: 'Load-Fit' },
+    { name: 'Load Key', code: 'Load-Key' },
+    { name: 'Load Config ID', code: 'LoadConfig-Id' }
   ];
 
   commandValues = [
-    { name: 'Go In Service', code: '11' },
-    { name: 'Go Out Service', code: '12' },
-    { name: 'Get Config Info', code: '13' },
-    { name: 'Get Supply Count', code: '14' },
+    { name: 'Go In Service', code: 'In-Service' },
+    { name: 'Go Out Service', code: 'Out-Service' },
+    { name: 'Get Config Info', code: 'Config-Info' },
+    { name: 'Get Supply Count', code: 'Supply-Count' },
+    { name: 'Ej Pulling', code: 'Ej-Pulling' }
   ];
 
-  ngOnInit(){
+  ngOnInit() {
     this.listApi('logicalGroup');
   }
 
-  resetTop(){
+  resetTop() {
     this.dropdownValue = null;
     this.reset();
   }
 
-  reset(){
+  reset() {
     this.dwnOrCmdValue = null;
   }
 
-  atmControllerApi(){
-    console.log(this.dwnOrCmdValue ,this.dropdownValue,'----dropdownValue' );
-    
+  listApi(type: any) {
+    this.resetTop();
+    console.log(type, 'type=============');
+
+    const endpoint = type == 'atmId' ? 'atm-list' : 'logical-group-list'
+    const url = `/control/v1/${endpoint}?instId=SCB`;
+    this.rest.get(url).pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          console.log('Atm Control data:', res);
+          this.OptValues = res;
+        } else {
+          console.warn('No data received or request failed.');
+        }
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+      }
+    });
+
   }
 
-  listApi(type:any){
-    this.resetTop(); 
-    console.log(type,'type=============');
-    if(type == 'atmId'){
-     
-       const url = ''
-        this.rest.get(url)
-          .pipe(
-            catchError(error => {
-              console.error('Error fetching atmId data:', error);
-            
-              return of([]); 
-            })
-          )
-          .subscribe((res: any[]) => {
-            console.log(res,'res---');
-          
-          });
-    }else{
-      const url = ''
-      this.rest.get(url)
-        .pipe(
-          catchError(error => {
-            console.error('Error fetching logicalGroup data:', error);
-          
-            return of([]); 
-          })
-        )
-        .subscribe((res: any[]) => {
-          console.log(res,'res---');
-        
-        });
-    }
-   
+  buttonCheck() {
+    const url = `/control/v1/atmReset?condition=${this.dwnOrCmdValue}&${this.value == 'logicalGroup' ? 'logicalGroup' : 'atmId'}=${this.dropdownValue}`;
+    this.rest.get(url).pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          console.log('Atm Control data:', res);
+          alert('swd')
+        } else {
+          console.warn('No data received or request failed.');
+        }
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+      }
+    });
   }
 }
