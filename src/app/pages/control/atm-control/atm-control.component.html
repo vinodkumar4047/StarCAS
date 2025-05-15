@@ -8,8 +8,9 @@
             <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
                 class="atm-select" aria-labelledby="basic" (onChange)="listApi(value)"  />
             <div class="my-4" *ngIf="value">
-                <p-select [(ngModel)]="dropdownValue" [options]=" value == 'logicalGroup' ? LogicValues : ATMValues"
-                    optionLabel="name"
+                <p-select [(ngModel)]="dropdownValue" [options]=" OptValues"
+                    [optionLabel]="value == 'logicalGroup' ? 'LOGICALGROUP':'ATMID'"
+                    [optionValue]="value == 'logicalGroup' ? 'LOGICALGROUP':'ATMID'"
                     [placeholder]="value == 'logicalGroup' ? 'Select Logical Group' : 'Select ATM ID'"
                     class="atm-ContDropDown" [filter]="true" filterBy="name" [showClear]="true"/>
                 
@@ -20,14 +21,14 @@
                 <div class="font-semibold text-xl mb-8 heading-color">
                     Downloads
                 </div>
-                <p-listbox [options]="downloadValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                <p-listbox [options]="downloadValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name" optionValue="code" (click)="buttonCheck()"
                     class="w-full md:w-56" />
             </div>
             <div class="mx-8 flex flex-col">
                 <div class="font-semibold text-xl mb-8 heading-color">
                     Commands
                 </div>
-                <p-listbox [options]="commandValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name"
+                <p-listbox [options]="commandValues" [(ngModel)]="dwnOrCmdValue" optionLabel="name" optionValue="code" (click)="buttonCheck()"
                     class="w-full md:w-56" />
             </div>
         </div>
