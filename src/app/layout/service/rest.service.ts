@@ -47,7 +47,9 @@ get(urlValue: string, options?: any): Observable<any> {
   delete(id: string | number, urlValue: string): Observable<any> {
     const finalUrl = `${this.url}${urlValue}/${id}`;
     return this.http.delete<any>(finalUrl).pipe(
-      catchError((err: any): Observable<any> => of({}))
-    );
+      catchError((err: any): Observable<any> => {
+        console.error('GET error:', err); // Optional: for debugging
+        return of(null); // Better than {} — clearly indicates failure
+      }));
   }
 }
