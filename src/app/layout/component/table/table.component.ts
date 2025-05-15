@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Checkbox } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-table',
@@ -19,7 +19,8 @@ import { TooltipModule } from 'primeng/tooltip';
     InputIconModule,
     IconFieldModule,
     ButtonModule,
-    Checkbox
+    Checkbox,
+    ProgressSpinnerModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -27,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TableComponent {
   @Input() paginator: boolean = true;
+  @Input() loading: boolean = false;
 
   @Input() tableData: any;
   @Input() cols: any;
@@ -45,6 +47,7 @@ export class TableComponent {
   constructor() { }
 
   ngOnInit() {
+    console.log('loading', this.loading);
 
   }
 

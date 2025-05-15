@@ -24,13 +24,14 @@ import { take } from 'rxjs/operators';
 })
 export class PortManagerComponent {
   portManagerData: any;
+  loading: boolean = true;
 
   constructor(private restApi: RestService) { };
 
   ngOnInit() {
     this.getDataPortman()
   }
-  
+
   globalFilterFields: any = [
     'portName',
     'ipAddress',
@@ -49,6 +50,7 @@ export class PortManagerComponent {
   ];
 
   getDataPortman() {
+    this.loading = true;
     this.restApi.get('/control/v1/portManager').pipe(
       take(1),
     ).subscribe({
@@ -58,10 +60,13 @@ export class PortManagerComponent {
           console.log('taskManager data:', res);
         } else {
           console.warn('No data received or request failed.');
-        }
+        } setTimeout(() => {
+          this.loading = false;
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
+        this.loading = false;
       }
     });
   };

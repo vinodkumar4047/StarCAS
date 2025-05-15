@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
-import { Table } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +9,6 @@ import { DialogModule } from 'primeng/dialog';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
-
 @Component({
   selector: 'app-task-manager',
   imports: [TooltipModule,
@@ -21,7 +19,6 @@ import { take } from 'rxjs/operators';
     ButtonModule,
     TableComponent,
     DialogModule,
-
   ],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
@@ -29,13 +26,13 @@ import { take } from 'rxjs/operators';
 
 export class TaskManagerComponent {
   taskManagerData: any;
-
+  loading: boolean = true;
   constructor(private restApi: RestService) { };
 
   ngOnInit() {
     this.getDataTaskman()
   };
-  
+
   globalFilterFields: any = [
     'taskName',
     'taskId',
@@ -53,6 +50,7 @@ export class TaskManagerComponent {
   ];
 
   getDataTaskman() {
+    this.loading = true;
     this.restApi.get('/control/v1/taskManager').pipe(
       take(1),
     ).subscribe({
@@ -60,12 +58,16 @@ export class TaskManagerComponent {
         if (res) {
           this.taskManagerData = res;
           console.log('taskManager data:', res);
+
         } else {
           console.warn('No data received or request failed.');
-        }
+        } setTimeout(() => {
+          this.loading = false;
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
+        this.loading = false;
       }
     });
   };
