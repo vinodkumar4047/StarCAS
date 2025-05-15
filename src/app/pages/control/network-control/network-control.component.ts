@@ -24,6 +24,7 @@ import { take } from 'rxjs/operators';
 })
 export class NetworkControlComponent {
   networkConGetData: any;
+  loading: boolean = true;
 
   constructor(private restApi: RestService) { };
 
@@ -48,6 +49,7 @@ export class NetworkControlComponent {
   ];
 
   getDataPortman() {
+    this.loading = true;
     this.restApi.get('/control/v1/network').pipe(
       take(1),
     ).subscribe({
@@ -57,10 +59,14 @@ export class NetworkControlComponent {
           console.log('taskManager data:', res);
         } else {
           console.warn('No data received or request failed.');
-        }
+        } setTimeout(() => {
+          this.loading = false;
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
+        this.loading = false;
+
       }
     });
   };

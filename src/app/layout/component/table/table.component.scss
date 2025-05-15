@@ -46,6 +46,16 @@
             align-items: center;
             gap: 5px;
         }
+
+    }
+
+    .p-progressspinner-circle {
+        stroke: var(--primary-color) !important;
+
+    }
+
+    .loader {
+        justify-content: center;
     }
 
 }
