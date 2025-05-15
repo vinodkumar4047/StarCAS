@@ -40,6 +40,13 @@ import { EmailUpdateComponent } from './utility/email-update/email-update.compon
 import { SafManagementComponent } from './utility/saf-management/saf-management.component';
 import { MobileUpdateComponent } from './utility/mobile-update/mobile-update.component';
 import { AddEmailComponent } from './utility/email-update/add-email/add-email.component';
+import { AddMobileComponent } from './utility/mobile-update/add-mobile/add-mobile.component';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { ProfileDetailsComponent } from './users/profile-details/profile-details.component';
+import { AddUserComponent } from './users/user-details/add-user/add-user.component';
+import { ResetPasswordComponent } from './users/user-details/reset-password/reset-password.component';
+import { UnblockUserComponent } from './users/user-details/unblock-user/unblock-user.component';
+import { BlockUserComponent } from './users/user-details/block-user/block-user.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -81,7 +88,13 @@ export default [
     { path: 'add_email_update', component: AddEmailComponent },
     { path: 'saf', component: SafManagementComponent },
     { path: 'mobile_update', component: MobileUpdateComponent },
-
+    { path: 'add_mobile_update', component: AddMobileComponent },
+    { path: 'user', component: UserDetailsComponent },
+    { path: 'add_user', component: AddUserComponent },
+    { path: 'block_user', component: BlockUserComponent },
+    { path: 'unblock_user', component: UnblockUserComponent },
+    { path: 'reset_user_password', component: ResetPasswordComponent },
+    { path: 'profile', component: ProfileDetailsComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

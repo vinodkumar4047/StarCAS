@@ -1,18 +1,19 @@
 <p-table [value]="tableData" [paginator]="true" [rows]="10" scrollable="true" scrollHeight="flex" scrollDirection="both"
     [columns]="cols" [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[10,15,20]" sortMode="multiple"
-    [customSort]="true" (sortFunction)="customSort($event)" [paginator]="paginator" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
-    tableStyleClass="p-datatable-scrollable"  size="small">
-  
+    [customSort]="true" (sortFunction)="customSort($event)" [paginator]="paginator"
+    [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2 tableStyleClass="p-datatable-scrollable"
+    size="small">
+
     <ng-template #caption>
-        <div class="flex justify-between mb-4">
+        <div class="flex flex-wrap justify-between mb-4">
             <div>
                 <p-button class="mr-2" *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
                 <p-button class="mr-2" *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil"
                     (click)="add($event)" />
-                <div *ngIf="multipleButton?.length > 0">
+                <div *ngIf="multipleButton?.length > 0" class="multiBtn">
                     <div *ngFor="let btn of multipleButton">
-                        <p-button [label]="btn?.label" icon="btn?.icon" class="mr-2"
-                            (click)="otherEvents(btn?.data??'',$event,btn?.type)" />
+                        <p-button [label]="btn?.label" [icon]="btn?.icon" class="mr-2"
+                            (click)="otherEvents(btn?.data??'',$event,btn?.type)" [variant]="btn?.variant" [severity]="btn?.severity" />
                     </div>
                 </div>
             </div>
@@ -35,17 +36,28 @@
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : null">
-                {{ col.header }}
-                <p-sortIcon [ngStyle]="{'margin-left': '5px'}" *ngIf="col.sort" [field]="col.field"></p-sortIcon>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : null"
+                [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
+                style="padding-left: 10px;" [style.min-width.px]="135">
+                <span>{{ col.header }}</span>
+                <span> 
+                    <p-sortIcon [ngStyle]="{'margin-left': '5px'}" *ngIf="col.sort"[field]="col.field"></p-sortIcon>
+                </span>
+
             </th>
         </tr>
     </ng-template>
 
     <ng-template #body let-row let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns" style="height: 35px;">
-                <span *ngIf="col.header != 'Action'">{{ row[col.field] }}</span>
+            <td *ngFor="let col of columns"
+                [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
+                style="height: 35px; padding-left: 10px;">
+                <span *ngIf="col.header != 'Action' && col.header != 'Select'">{{ row[col.field] }}</span>
+                <span *ngIf="col.header === 'Select'">
+                    <p-checkbox [binary]="true" [value]="row.selected"
+                        (onChange)="emitRowSelection(row, $event)"></p-checkbox>
+                </span>
                 <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
                     <p-button *ngIf="col.type?.includes('add')" text severity="primary" class=" p-button-icon-only"
                         pTooltip="Add" tooltipPosition="top" icon="pi pi-plus" (click)="add($event)" />

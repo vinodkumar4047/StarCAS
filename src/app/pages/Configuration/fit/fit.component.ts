@@ -69,10 +69,10 @@ delete_visible: any
   
   cols = [
     { field: 'INSTID', header: 'INST ID' },
-    { field: 'ATMID', header: 'ATM ID',sort:true },
-  { field: 'SECURITYID', header: 'Security ID',sort:true },
-  { field: 'FITRECORD', header: 'Fitercord',sort:true },
-  { field: 'RECORDID', header: 'Record ID',sort:true },
+    { field: 'ATMID', header: 'ATM ID',sort:true,type: 'string' },
+  { field: 'SECURITYID', header: 'Security ID',sort:true,type: 'number' },
+  { field: 'FITRECORD', header: 'Fitercord',sort:true,type: 'string' },
+  { field: 'RECORDID', header: 'Record ID',sort:true,type: 'number' },
   { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
 
