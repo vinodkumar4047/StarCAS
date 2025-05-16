@@ -77,7 +77,7 @@ export class TxnAllowBlockedMCCComponent {
 
   editVisible:any;
   Edit_data:any={
-    BLOCKEDMERCHANTLOCATION: '',
+    MCARD_NO: '',
     FROMDATE: '',
     TODATE: '',
     INSTID: ''

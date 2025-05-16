@@ -154,37 +154,37 @@ export class AppMenu {
                     icon: 'pi pi-fw pi-user',
                     items: [
                         {
-                            label: 'INTERNATIONAL TXN ENABLED',
+                            label: 'International TXN Enabled',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/internationalTXNEnadisable']
                         },
                         {
-                            label: 'TXN ALLOW WITHOUT PIN',
+                            label: 'TXN Allow Without PIN',
                             icon: 'pi pi-fw pi-times-circle',
                             routerLink: ['/pages/txnAllowWithoutPin']
                         },
                         {
-                            label: 'RISK COUNTRY BLOCK',
+                            label: 'Risk Country Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/riskCountryBlock']
                         },
                         {
-                            label: 'TXN ALLOW FOR RISK COUNTRY',
+                            label: 'TXN Allow For Risk Country',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowedRiskCountry']
                         },
                         {
-                            label: 'MCC BLOCK',
+                            label: 'MCC Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/mccBlock']
                         },
                         {
-                            label: 'TXN ALLOW FOR BLOCKED MCC',
+                            label: 'TXN Allow For Blocked MCC',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowBlockedMCC']
                         },
                         {
-                            label: 'RISK ECOM SITE BLOCK',
+                            label: 'Risk Ecom Site Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/riskEcomSiteBlock']
                         },

@@ -49,6 +49,8 @@ import { BlockUserComponent } from './users/user-details/block-user/block-user.c
 import { AddEcomComponent } from './riskManagement/risk-ecom-site-block/add-ecom/add-ecom.component';
 import { AddCardComponent } from './riskManagement/txn-allow-blocked-mcc/add-card/add-card.component';
 import { AddMccComponent } from './riskManagement/mcc-block/add-mcc/add-mcc.component';
+import { AddCardCountryComponent } from './riskManagement/txn-allowed-risk-country/add-card-country/add-card-country.component';
+import { AddRiskCountryComponent } from './riskManagement/risk-country-block/add-risk-country/add-risk-country.component';
 
 export default [
     { path: 'crud', component: Crud },
@@ -87,6 +89,8 @@ export default [
     { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
     { path: 'add_mcc', component: AddMccComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
+    { path: 'add_cardCtry', component: AddCardCountryComponent },
+    { path: 'add_risk_ctry', component: AddRiskCountryComponent },
     { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
     { path: 'add_email_update', component: AddEmailComponent },

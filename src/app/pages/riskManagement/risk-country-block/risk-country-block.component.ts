@@ -5,74 +5,140 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableComponent } from '../../../layout/component/table/table.component';
+import { Router } from '@angular/router';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-risk-country-block',
   imports: [TableComponent, DialogModule, ButtonModule,
-    CommonModule, FormsModule, FormsModule, InputTextModule],
+    CommonModule, FormsModule, FormsModule, InputTextModule,Select],
   templateUrl: './risk-country-block.component.html',
   styleUrl: './risk-country-block.component.scss'
 })
 export class RiskCOUNTRYBLOCKComponent {
   delete_visible: any;
-  addOrEdit(data: any, data1: any) {
-    this.visible = true;
-
-  }
-  delateData() {
-
-  }
-  visible: boolean = false;
-
-  showDialog() {
-    this.visible = true;
-  }
-  rawData = [
+   rawData = [
     {
-      "ATMID": "TEST002",
-      "UPDATEDBY": "adminmaker",
-      "AUTHBY": "adminchecker",
-      "INSTID": "TEST"
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "17",
+        "COUNTRYDESC": "Afgani",
+        "TXNALLOWEDFLAG": "BLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "C",
+        "MAKER_ID": "24",
+        "CHECKER_ID": "25",
+        "CHECKER_DATE": "07-APR-2025",
+        "MAKER_DATE": "07-APR-2025",
+        "USERNAME": "demomaker"
     },
     {
-      "ATMID": "TEST005",
-      "UPDATEDBY": "adminmaker",
-      "AUTHBY": "adminchecker",
-      "INSTID": "TEST"
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "165",
+        "COUNTRYDESC": "Russia",
+        "TXNALLOWEDFLAG": "BLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "C",
+        "MAKER_ID": "24",
+        "CHECKER_ID": "3",
+        "CHECKER_DATE": "23-MAR-2022",
+        "MAKER_DATE": "24-AUG-2022",
+        "USERNAME": "demomaker"
     },
     {
-      "ATMID": "TEST007",
-      "UPDATEDBY": "adminmaker",
-      "AUTHBY": "adminchecker",
-      "INSTID": "TEST"
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "355",
+        "COUNTRYDESC": "Albania",
+        "TXNALLOWEDFLAG": "UNBLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "C",
+        "MAKER_ID": "24",
+        "CHECKER_ID": "11",
+        "CHECKER_DATE": "24-AUG-2022",
+        "MAKER_DATE": "24-AUG-2022",
+        "USERNAME": "demomaker"
     },
     {
-      "ATMID": "TEST008",
-      "UPDATEDBY": "adminmaker",
-      "AUTHBY": "adminchecker",
-      "INSTID": "TEST"
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "931",
+        "COUNTRYDESC": "Afghanistan",
+        "TXNALLOWEDFLAG": "BLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "C",
+        "MAKER_ID": "25",
+        "CHECKER_ID": "11",
+        "CHECKER_DATE": "25-AUG-2022",
+        "MAKER_DATE": "24-AUG-2022",
+        "USERNAME": "demochecker"
     },
     {
-      "ATMID": "TEST009",
-      "UPDATEDBY": "adminmaker",
-      "AUTHBY": "adminchecker",
-      "INSTID": "TEST"
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "232",
+        "COUNTRYDESC": "Afganis",
+        "TXNALLOWEDFLAG": "UNBLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "M",
+        "MAKER_ID": "25",
+        "CHECKER_ID": "3",
+        "CHECKER_DATE": "23-MAR-2022",
+        "MAKER_DATE": "24-AUG-2022",
+        "USERNAME": "demochecker"
+    },
+    {
+        "INSTID": "TEST",
+        "BLOCKEDCOUNTRYCODE": "856",
+        "COUNTRYDESC": "Laos",
+        "TXNALLOWEDFLAG": "BLOCKED",
+        "STATUS": "A",
+        "USERTYPE": "M",
+        "MAKER_ID": "25",
+        "CHECKER_ID": "11",
+        "CHECKER_DATE": "15-SEP-2022",
+        "MAKER_DATE": "16-DEC-2022",
+        "USERNAME": "demochecker"
     }
-  ];
+];
+    optvalue:any = [
+      {name:'BLOCKED',code:'BLOCKED'},
+      {name:'UNBLOCKED',code:'UNBLOCKED'}
+    ]
   cols = [
-    { field: 'ATMID', header: 'ATM ID' },
-    { field: 'UPDATEDBY', header: 'Updated By' },
-    { field: 'AUTHBY', header: 'Auth By' },
     { field: 'INSTID', header: 'INST ID' },
-    { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
+    { field: 'BLOCKEDCOUNTRYCODE', header: 'Blocked Country Code' },
+    { field: 'COUNTRYDESC', header: 'Country Desc' },
+    { field: 'TXNALLOWEDFLAG', header: 'TXN Allowed Flag' },
+    { field: 'Action', header: 'Action', type: ['view', 'edit'] },
   ];
-  globalFilterFields: any = [
+      globalFilterFields: any = [
     'INSTID',
-    'ATMID',
-    'AUTHBY',
-    'UPDATEDBY',
+    'BLOCKEDCOUNTRYCODE',
+    'COUNTRYDESC',
+    'TXNALLOWEDFLAG'
   ];
-  edit(data: any) {
-
-  }
+  
+    editVisible:any;
+    Edit_data:any={
+      BLOCKEDCOUNTRYCODE: '',
+      COUNTRYDESC: '',
+      TXNALLOWEDFLAG: '',
+      INSTID: ''
+    };
+    tpCheck!: boolean;
+  
+  constructor(private router: Router) { };
+  
+    ngOnInit(){
+  
+    }
+  
+    edit(data:any,type:any){
+      this.Edit_data = {...data?.data};
+      console.log(data);
+      this.tpCheck = type == 'View' ? true:false;
+      this.editVisible = true;
+  
+    }
+  
+    addOrEdit(type:any,data:any){
+      this.router.navigate(['/pages/add_risk_ctry'], { state:{ data:data?.data , type:type} });
+    }
 }
