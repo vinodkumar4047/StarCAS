@@ -47,6 +47,7 @@ import { AddUserComponent } from './users/user-details/add-user/add-user.compone
 import { ResetPasswordComponent } from './users/user-details/reset-password/reset-password.component';
 import { UnblockUserComponent } from './users/user-details/unblock-user/unblock-user.component';
 import { BlockUserComponent } from './users/user-details/block-user/block-user.component';
+import { UserProfileComponent } from './users/profile-details/user-profile/user-profile.component';
 
 export default [
     { path: 'documentation', component: Documentation },
@@ -83,7 +84,7 @@ export default [
     { path: 'txnAllowWithoutPin', component: TXNALLOWWithoutPINComponent },
     { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
-     { path: 'admin_card', component: AdminCardComponent },
+    { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
     { path: 'add_email_update', component: AddEmailComponent },
     { path: 'saf', component: SafManagementComponent },
@@ -95,6 +96,7 @@ export default [
     { path: 'unblock_user', component: UnblockUserComponent },
     { path: 'reset_user_password', component: ResetPasswordComponent },
     { path: 'profile', component: ProfileDetailsComponent },
+    { path: 'user_profile', component: UserProfileComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

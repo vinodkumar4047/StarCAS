@@ -1,0 +1,113 @@
+<div class="add-fit col-span-12 xl:col-span-12">
+    <h2 class="mb-8"> Profile Details </h2>
+    <div class="card !mb-4">
+        <form [formGroup]="fitForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        {{ formTitle }}
+                    </div>
+                </div>
+            </div>
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                <p-floatlabel *ngIf="formType == 'add'" variant="on">
+
+                    <p-select [options]="InstIDOpt" formControlName="INSTID" optionValue="code" optionLabel="name"
+                        inputId="INSTID" styleClass="w-full" />
+                    <label for="INSTID">Institution Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Profile Name<span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'add'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="BINValue" formControlName="BINValue" type="text" />
+                    <label for="BINValue">Category <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="logicalOpt" formControlName="logicalGroup" optionValue="code"
+                        optionLabel="name" inputId="logicalGroup" styleClass="w-full" />
+                    <label for="logicalGroup">Profile Discription<span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <!---------------------- EXTRA VIEW INPUTS -------------------------------------------->
+                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Config/Edited by <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Configured date <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Auth/De-auth by <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Authorized/Deauth date<span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Status <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'edit'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Profile ID <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'edit'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Profile For <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel *ngIf="formType == 'edit'" variant="on">
+
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                        type="text" />
+                    <label for="indirectState">Inst ID <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+            </div>
+
+            <!-- Module Access Tree -->
+            <div class="field mb-4">
+                <label class="block mb-2 font-semibold text-xl heading-color">Module Access</label>
+                <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]"
+                 [ngClass]="{ 'tree-view-mode': formType === 'view' }"  [(selection)]="selectedFiles"></p-tree>
+            </div>
+            <div *ngIf="formType !== 'view'" class="flex flex-row-reverse mx-4 my-8">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
+
+    </div>
+</div>

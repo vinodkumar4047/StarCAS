@@ -1,0 +1,65 @@
+::ng-deep {
+    .add-fit {
+        .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .backIcon {
+            span.pi.pi-arrow-left.p-button-icon {
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .p-floatlabel {
+            display: flex;
+        }
+
+        .p-inputtext {
+            height: 40px;
+            width: 100%;
+        }
+
+        .ng-invalid.ng-touched {
+            border-color: red;
+        }
+
+        .p-inputtext:disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select.p-disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select {
+            height: 40px;
+        }
+
+        .p-select-label {
+            align-self: center;
+        }
+
+        .draganddrop {
+            height: 35vh;
+            width: 100%;
+            border: 2px dashed #c7b4b4;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 20px;
+            align-content: center;
+        }
+    }
+
+}
+
+::ng-deep .tree-view-mode {
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}

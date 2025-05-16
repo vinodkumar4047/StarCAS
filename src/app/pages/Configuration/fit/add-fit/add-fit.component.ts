@@ -16,7 +16,7 @@ import { SelectModule } from 'primeng/select';
   styleUrl: './add-fit.component.scss'
 })
 export class AddFitComponent {
-  fitForm:any;
+  fitForm: any;
   routeData: any = history.state;
   uploadedFiles: any[] = [];
   InstIDOpt: any = [
@@ -25,7 +25,7 @@ export class AddFitComponent {
   atmIDOpt: any = [
     { name: 'Test', code: '1' }, { name: 'Test 2', code: '2' }
   ];
- logicalOpt: any = [
+  logicalOpt: any = [
     { name: 'All', code: '1' }
   ];
   constructor(private location: Location, private fb: FormBuilder) { }
@@ -47,9 +47,9 @@ export class AddFitComponent {
     if (this.fitForm.valid) {
       console.log('Form Data:', this.fitForm.value);
       // Process the form data here 
-  } else {
+    } else {
       console.log('Form is invalid', this.fitForm);
       this.fitForm.markAllAsTouched();
-  }
+    }
   }
 }

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
-  imports: [TableComponent,CommonModule,ButtonModule,DialogModule],
+  imports: [TableComponent, CommonModule, ButtonModule, DialogModule],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })
@@ -422,27 +422,27 @@ export class UserDetailsComponent {
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" }
   ];
-delete_visible: boolean = false;
-constructor(private router: Router) { };
+  delete_visible: boolean = false;
+  constructor(private router: Router) { };
   MultiButton(event: any) {
 
     if (event.type == 'addUser') {
-      this.router.navigate(['/pages/add_user'], { state:{ data:event?.data , type:event?.type} });
+      this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'blockUser') {
-      this.router.navigate(['/pages/block_user'], { state:{ data:event?.data , type:event?.type} });
+      this.router.navigate(['/pages/block_user'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'unblockUser') {
-      this.router.navigate(['/pages/unblock_user'], { state:{ data:event?.data , type:event?.type} });
+      this.router.navigate(['/pages/unblock_user'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'resetPassword') {
-      this.router.navigate(['/pages/reset_user_password'], { state:{ data:event?.data , type:event?.type} });
+      this.router.navigate(['/pages/reset_user_password'], { state: { data: event?.data, type: event?.type } });
     }
   }
 
-  delateData(){
+  delateData() {
     this.delete_visible = false;
   }
 
-  editView(event:any,type:any){
-      this.router.navigate(['/pages/add_user'], { state:{ data:event?.data , type:type} });
+  editView(event: any, type: any) {
+    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type } });
   }
-  
+
 }
