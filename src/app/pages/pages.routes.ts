@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Documentation } from './documentation/documentation';
 import { Crud } from './crud/crud';
 import { Empty } from './empty/empty';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -47,10 +46,14 @@ import { AddUserComponent } from './users/user-details/add-user/add-user.compone
 import { ResetPasswordComponent } from './users/user-details/reset-password/reset-password.component';
 import { UnblockUserComponent } from './users/user-details/unblock-user/unblock-user.component';
 import { BlockUserComponent } from './users/user-details/block-user/block-user.component';
+import { AddEcomComponent } from './riskManagement/risk-ecom-site-block/add-ecom/add-ecom.component';
+import { AddCardComponent } from './riskManagement/txn-allow-blocked-mcc/add-card/add-card.component';
+import { AddMccComponent } from './riskManagement/mcc-block/add-mcc/add-mcc.component';
+import { AddCardCountryComponent } from './riskManagement/txn-allowed-risk-country/add-card-country/add-card-country.component';
+import { AddRiskCountryComponent } from './riskManagement/risk-country-block/add-risk-country/add-risk-country.component';
 import { UserProfileComponent } from './users/profile-details/user-profile/user-profile.component';
 
 export default [
-    { path: 'documentation', component: Documentation },
     { path: 'crud', component: Crud },
     { path: 'empty', component: Empty },
     { path: 'dashboard', component: DashboardComponent },
@@ -81,9 +84,14 @@ export default [
     { path: 'mccBlock', component: MCCBLOCKComponent },
     { path: 'riskCountryBlock', component: RiskCOUNTRYBLOCKComponent },
     { path: 'riskEcomSiteBlock', component: RiskEcomSiteBLOCKComponent },
+    { path: 'add_EcomSite', component: AddEcomComponent },
+    { path: 'add_mcc_card', component: AddCardComponent },
     { path: 'txnAllowWithoutPin', component: TXNALLOWWithoutPINComponent },
     { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
+    { path: 'add_mcc', component: AddMccComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
+    { path: 'add_cardCtry', component: AddCardCountryComponent },
+    { path: 'add_risk_ctry', component: AddRiskCountryComponent },
     { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
     { path: 'add_email_update', component: AddEmailComponent },

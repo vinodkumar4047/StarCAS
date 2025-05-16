@@ -1,0 +1,38 @@
+<div class="add-EcomSite col-span-12 xl:col-span-12">
+    <h2 class="mb-8">EcomSite Block</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="EcomSiteForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        Add Location Details
+                    </div>
+                </div>
+            </div> 
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                   
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="INSTID" formControlName="INSTID" type="text" />
+                        <label for="INSTID">Institution Id <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="BlockEcomSite" formControlName="BlockEcomSite" type="text" />
+                        <label for="BlockEcomSite">Block Ecom Site <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                      <p-floatlabel variant="on">
+                    <p-datepicker selectionMode="range" inputId="FromToDate" styleClass="w-full" showIcon iconDisplay="input"
+                        formControlName="FromToDate" />
+                    <label for="FromToDate">From Date - To Date <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                </div>
+                <div class="flex flex-row-reverse mx-4 my-8">
+                    <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+                </div>
+        </form>
+    </div>
+</div>
+                

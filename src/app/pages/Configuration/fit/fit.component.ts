@@ -97,7 +97,7 @@ constructor(private router: Router) { };
   }
 
   edit(data:any,type:any){
-    this.Edit_data = data?.data;
+    this.Edit_data = {...data?.data};
     console.log(data);
     this.tpCheck = type == 'View' ? true:false;
     this.editVisible = true;
