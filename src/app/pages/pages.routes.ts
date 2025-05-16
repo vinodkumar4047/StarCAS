@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Documentation } from './documentation/documentation';
 import { Crud } from './crud/crud';
 import { Empty } from './empty/empty';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -49,7 +48,6 @@ import { UnblockUserComponent } from './users/user-details/unblock-user/unblock-
 import { BlockUserComponent } from './users/user-details/block-user/block-user.component';
 
 export default [
-    { path: 'documentation', component: Documentation },
     { path: 'crud', component: Crud },
     { path: 'empty', component: Empty },
     { path: 'dashboard', component: DashboardComponent },

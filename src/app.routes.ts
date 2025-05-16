@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Documentation } from './app/pages/documentation/documentation';
 import { Landing } from './app/pages/landing/landing';
 import { Notfound } from './app/pages/notfound/notfound';
 import { LayoutComponent } from './app/layout/component/layout/layout.component';
@@ -13,8 +12,6 @@ export const appRoutes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: '/landing', pathMatch: 'full', },
-            { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
-            { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
         ]
     },
