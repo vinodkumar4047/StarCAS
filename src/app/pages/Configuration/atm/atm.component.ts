@@ -125,7 +125,7 @@ export class ATMComponent {
     { field: 'logicalGroup', header: 'LOGICAL GROUP' },
     { field: 'ipAddress', header: 'IP ADDRESS' },
     { field: 'acquirerBranch', header: 'ACQUIRER BRANCH' },
-    // { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
+    { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
   delete_visible: any;
 
