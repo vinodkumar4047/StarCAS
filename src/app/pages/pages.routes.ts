@@ -46,6 +46,9 @@ import { AddUserComponent } from './users/user-details/add-user/add-user.compone
 import { ResetPasswordComponent } from './users/user-details/reset-password/reset-password.component';
 import { UnblockUserComponent } from './users/user-details/unblock-user/unblock-user.component';
 import { BlockUserComponent } from './users/user-details/block-user/block-user.component';
+import { AddEcomComponent } from './riskManagement/risk-ecom-site-block/add-ecom/add-ecom.component';
+import { AddCardComponent } from './riskManagement/txn-allow-blocked-mcc/add-card/add-card.component';
+import { AddMccComponent } from './riskManagement/mcc-block/add-mcc/add-mcc.component';
 
 export default [
     { path: 'crud', component: Crud },
@@ -78,10 +81,13 @@ export default [
     { path: 'mccBlock', component: MCCBLOCKComponent },
     { path: 'riskCountryBlock', component: RiskCOUNTRYBLOCKComponent },
     { path: 'riskEcomSiteBlock', component: RiskEcomSiteBLOCKComponent },
+    { path: 'add_EcomSite', component: AddEcomComponent },
+    { path: 'add_mcc_card', component: AddCardComponent },
     { path: 'txnAllowWithoutPin', component: TXNALLOWWithoutPINComponent },
     { path: 'txnAllowBlockedMCC', component: TxnAllowBlockedMCCComponent },
+    { path: 'add_mcc', component: AddMccComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
-     { path: 'admin_card', component: AdminCardComponent },
+    { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
     { path: 'add_email_update', component: AddEmailComponent },
     { path: 'saf', component: SafManagementComponent },

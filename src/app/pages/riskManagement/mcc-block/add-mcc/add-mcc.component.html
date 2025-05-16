@@ -1,0 +1,39 @@
+<div class="add-Mcc col-span-12 xl:col-span-12">
+    <h2 class="mb-8">MCC Block</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="MccForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        MCC Configuration
+                    </div>
+                </div>
+            </div>
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="INSTID" formControlName="INSTID" type="text" />
+                    <label for="INSTID">Institution Id <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+
+                <p-floatlabel variant="on">
+                    <p-select [options]="MccCodeopt" formControlName="MccCode" optionValue="MCC_CODE"
+                        optionLabel="MCC_DESC" inputId="MccCode" styleClass="w-full" />
+                    <label for="MccCode">MCC Code <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="StatusOpt" formControlName="Status" optionValue="code" optionLabel="name"
+                        inputId="Status" styleClass="w-full" />
+                    <label for="Status">Status <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8">
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </form>
+    </div>
+</div>
