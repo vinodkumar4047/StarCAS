@@ -1,5 +1,5 @@
 ::ng-deep {
-    .atm-type-controller {
+    .atm-type-controller-chart {
         .heading-color {
             // color: var(--primary-color);
             font-weight: bold;
@@ -57,5 +57,9 @@
     canvas {
         height: 350px !important;
     }
+    .p-tieredmenu-overlay {
+    top: 35px !important;
+    left: -100px !important;
+}
 
 }

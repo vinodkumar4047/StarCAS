@@ -39,7 +39,7 @@
         <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : null"
                 [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
-                style="padding-left: 10px;" [style.min-width.px]="135">
+                style="padding-left: 10px;" [style.min-width.px]="150">
                 <span>{{ col.header }}</span>
                 <span>
                     <p-sortIcon [ngStyle]="{'margin-left': '5px'}" *ngIf="col.sort" [field]="col.field"></p-sortIcon>
