@@ -4,12 +4,13 @@ import { ButtonModule } from 'primeng/button';
 import { isPlatformBrowser } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgIf } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
 interface City {
   name: string;
   code: string;
@@ -17,8 +18,8 @@ interface City {
 
 @Component({
   selector: 'app-graph',
-  imports: [ChartModule, ButtonModule, InputTextModule,
-    CalendarModule, DropdownModule, ReactiveFormsModule, FormsModule, NgIf, SplitButtonModule, ToastModule],
+  imports: [ChartModule, ButtonModule, InputTextModule,DatePickerModule ,
+    CalendarModule, SelectModule, ReactiveFormsModule, FormsModule, NgIf, SplitButtonModule, ToastModule],
   templateUrl: './graph.component.html',
   styleUrl: './graph.component.scss'
 })
