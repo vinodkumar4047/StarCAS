@@ -1,8 +1,9 @@
-<!-- Header Section with Background and Title -->
-<div class="" style="display: flex; justify-content: flex-start;">
-    <h2 style="font-size: 1.8rem;"> TRANSACTION SEARCH Details</h2>
-</div>
-<div class="card">
+<div class="search-txn">
+    <!-- Header Section with Background and Title -->
+    <div class="" style="display: flex; justify-content: flex-start;">
+        <h2 style="font-size: 1.8rem;"> Transaction Search Details</h2>
+    </div>
+    <!-- <div class="card">
     <div class="grid grid-cols-3 gap-4">
         <div class="flex-auto">
             <label for="icondisplay" class="font-bold block mb-2"> From Date* </label>
@@ -21,7 +22,6 @@
                     [showIcon]="'pi pi-plus'" [hideIcon]="'pi pi-times'"
                     [style]="{ 'justify-content': 'flex-start' }"></p-speeddial>
 
-                <!-- Radio Buttons in straight line -->
                 <div *ngIf="showRadioOptions" class="flex gap-4 items-center">
                     <div class="flex items-center gap-2">
                         <p-radiobutton name="criteria" value="RefNum" [(ngModel)]="ingredient" inputId="ingredient1" />
@@ -48,4 +48,38 @@
         <p-button class="tran_view_button" label="View" icon="pi pi-eye" />
 
     </div>
+</div> -->
+    <form [formGroup]="searchForm">
+        <div class="card">
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+
+                <p-floatlabel variant="on">
+                    <p-datepicker selectionMode="range" inputId="FromToDate" styleClass="w-full" showIcon
+                        iconDisplay="input" formControlName="FromToDate" />
+                    <label for="FromToDate">From Date - To Date <span
+                            style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="RefNum" formControlName="RefNum" type="text" />
+                    <label for="RefNum">Ref Number <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <div class="radiobutton flex flex-col gap-4">
+                    <label>Criteria <span style="color: red; font-size: 16px;">*</span> </label>
+                    <div class=" flex gap-4">
+                        <div *ngFor="let category of categories" class="field-checkbox">
+                            <p-radiobutton [inputId]="category.key" [value]="category.key" formControlName="Criteria" />
+                            <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8 justify-center">
+                <p-button label="Search" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+            </div>
+        </div>
+    </form>
 </div>
