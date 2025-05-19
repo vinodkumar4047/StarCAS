@@ -19,145 +19,145 @@ export class NodeServiceService {
           {
             label: 'Institution',
             data: 'Institution',
-            icon: 'pi pi-users',
+            icon: 'pi pi-building',
             children: [
               {
                 label: 'View Institution',
                 data: 'View_Institution',
-                icon: 'pi pi-users',
+                icon: 'pi pi-eye',
               }
             ]
           },
           {
             label: 'Branch',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-sitemap',
             children: [
               {
                 label: 'Delete Authorize Branch',
                 data: 'Delete_Authorize_Branch',
-                icon: 'pi pi-users',
+                icon: 'pi pi-times-circle',
               },
               {
                 label: 'Authorize Branch',
                 data: 'Authorize_Branch',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               }
             ]
           },
           {
             label: 'Bin',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-trash',
             children: [
               {
                 label: ' View Bin',
                 data: ' View_Bin',
-                icon: 'pi pi-users',
+                icon: 'pi pi-eye',
               },
             ]
           },
           {
             label: 'ATM Type',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-credit-card',
             children: [
               {
                 label: 'View ATM Type',
                 data: 'View_ATM_Type',
-                icon: 'pi pi-users',
+                icon: 'pi pi-eye',
               },
               {
                 label: 'Authorize Branch',
                 data: 'Authorize_Branch',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               }
             ]
           },
           {
             label: 'ATM',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-credit-card',
             children: [
               {
                 label: 'Authorize ATM',
                 data: 'Authorize_ATM',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               },
               {
                 label: 'Authorize Delete ATM',
                 data: 'Authorize_Delete_ATM',
-                icon: 'pi pi-users',
+                icon: 'pi pi-times-circle',
               }
             ]
           },
           {
             label: 'External Bin',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-trash',
             children: [
               {
                 label: 'Authorize External Bin',
                 data: 'Authorize_External_Bin',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               },
               {
                 label: 'Delete Authorize External Bin',
                 data: 'Delete_Authorize_External_Bin',
-                icon: 'pi pi-users',
+                icon: 'pi pi-times-circle',
               }
             ]
           },
           {
             label: 'Fit',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-cog',
             children: [
               {
                 label: 'Authorize Fit',
                 data: 'Authorize Fite',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               },
               {
                 label: 'Authorize Delete Fit',
                 data: 'Authorize Delete Fit',
-                icon: 'pi pi-users',
+                icon: 'pi pi-times-circle',
               }
             ]
           },
           {
             label: 'CASSET',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-box',
             children: [
               {
                 label: 'Authorize',
                 data: 'View_ATM_Type',
-                icon: 'pi pi-users',
+                icon: 'pi pi-check-circle',
               },
             ]
           },
           {
             label: 'Port',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-share-alt',
             children: [
               {
                 label: 'View Port',
                 data: 'View Port',
-                icon: 'pi pi-users',
+                icon: 'pi pi-eye',
               },
             ]
           },
           {
             label: 'Transaction',
             data: 'role_mgmt',
-            icon: 'pi pi-lock',
+            icon: 'pi pi-exchange',
             children: [
               {
                 label: 'View Transaction',
                 data: 'View Transaction',
-                icon: 'pi pi-users',
+                icon: 'pi pi-eye',
               },
             ]
           },
@@ -192,12 +192,12 @@ export class NodeServiceService {
           {
             label: 'Fraud & Risk Txn Monitoring',
             data: 'Fraud & Risk Txn Monitoring',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-shield'
           },
           {
             label: 'Fraud  Monitoring',
             data: 'Fraud  Monitoring',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-ban'
           },
           {
             label: 'Transaction Search',
@@ -215,27 +215,22 @@ export class NodeServiceService {
           {
             label: 'Task Manager',
             data: 'Task Manager',
-            icon: 'pi pi-wallet'
+            icon: 'pi pi-list'
           },
           {
             label: 'Port Manager',
             data: 'Port Manager',
-            icon: 'pi pi-money-bill'
-          },
-          {
-            label: 'Channel Mgr',
-            data: 'Channel Mgr',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-plug'
           },
           {
             label: 'Network Control',
             data: 'Network Control',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-sitemap'
           },
           {
             label: 'ATM Control',
             data: 'ATM Control',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-desktop'
           },
         ]
       }
@@ -249,37 +244,37 @@ export class NodeServiceService {
           {
             label: 'INTERNATIONAL TXN ENABLED',
             data: 'INTERNATIONAL TXN ENABLED',
-            icon: 'pi pi-wallet'
+            icon: 'pi pi-globe'
           },
           {
             label: 'TXN ALLOW WITHOUT PIN',
             data: 'TXN ALLOW WITHOUT PIN',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-unlock'
           },
           {
             label: 'RISK COUNTRY BLOCK',
             data: 'RISK COUNTRY BLOCK',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-ban'
           },
           {
             label: 'TXN ALLOW FOR RISK COUNTRY',
             data: 'TXN ALLOW FOR RISK COUNTRY',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-check-circle'
           },
           {
             label: 'MCC BLOCK',
             data: 'MCC BLOCK',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-lock'
           },
           {
             label: 'TXN ALLOW FOR BLOCKED MCC',
             data: 'TXN ALLOW FOR BLOCKED MCC',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-check'
           },
           {
             label: 'RISK ECOM SITE BLOCK',
             data: 'RISK ECOM SITE BLOCK',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-shield'
           },
         ]
       },
@@ -374,22 +369,22 @@ export class NodeServiceService {
           {
             label: ' Email Update',
             data: ' Email Update',
-            icon: 'pi pi-wallet'
+            icon: 'pi pi-envelope'
           },
           {
             label: 'Mobile Update',
             data: 'Mobile Update',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-mobile'
           },
           {
             label: ' SAF Management',
             data: ' SAF Management',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-database'
           },
           {
             label: 'Admin Card',
             data: 'Admin Card',
-            icon: 'pi pi-money-bill'
+            icon: 'pi pi-id-card'
           }
         ]
       },
