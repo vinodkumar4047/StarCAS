@@ -52,6 +52,7 @@ import { AddMccComponent } from './riskManagement/mcc-block/add-mcc/add-mcc.comp
 import { AddCardCountryComponent } from './riskManagement/txn-allowed-risk-country/add-card-country/add-card-country.component';
 import { AddRiskCountryComponent } from './riskManagement/risk-country-block/add-risk-country/add-risk-country.component';
 import { UserProfileComponent } from './users/profile-details/user-profile/user-profile.component';
+import { AddOfflinePinConfigComponent } from './riskManagement/t-xn-allow-without-pin/add-offline-pin-config/add-offline-pin-config.component';
 
 export default [
     { path: 'crud', component: Crud },
@@ -91,6 +92,7 @@ export default [
     { path: 'add_mcc', component: AddMccComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
     { path: 'add_cardCtry', component: AddCardCountryComponent },
+    { path: 'add_offline', component: AddOfflinePinConfigComponent },
     { path: 'add_risk_ctry', component: AddRiskCountryComponent },
     { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
