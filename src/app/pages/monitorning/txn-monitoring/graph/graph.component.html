@@ -1,10 +1,10 @@
 <div class="atm-type-controller-chart p-8">
-        <h2  class="mb-8">ATM Type Details </h2>
+    <h2 class="mb-8">ATM Type Details </h2>
 
     <div class="card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <div class="flex gap-2 items-center mb-8 justify-between">
+        <div class="flex gap-2 items-center mb-8 justify-between flex-wrap">
             <div *ngIf="tex" class="font-semibold text-xl heading-color">
-                <span *ngIf="tex"> Approval : 81.134% Technical Decline : 18.866% Bussiness Decline : 0.000%</span>
+                <span *ngIf="tex"> Approval : <span style="color: #198819">81.134%</span> &nbsp;&nbsp; Technical Decline : <span style="color: #eb3b3b;">18.866%</span> &nbsp;&nbsp; Bussiness Decline : <span style="color: #eb3b3b;">0.000%</span></span>
             </div>
             <div></div>
             <div class="flex gap-2">
@@ -14,12 +14,12 @@
             </div>
         </div>
         <div class="box" *ngIf="label1">
-            <div class="grid grid-cols-5 gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 gap-4">
                 <div class="flex flex-col gap-2">
                     <label for="username">Branch</label>
 
                     <form [formGroup]="formGroup">
-                        <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name"
+                        <p-select formControlName="selectedCity" [options]="cities" optionLabel="name"
                             placeholder="Select a City" />
                     </form>
 
@@ -28,28 +28,28 @@
                     <label for="username">Terminal</label>
 
                     <form [formGroup]="formGroup">
-                        <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name"
+                        <p-select formControlName="selectedCity" [options]="cities" optionLabel="name"
                             placeholder="Select a City" />
                     </form>
 
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="username">From Date</label>
-                    <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                    <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="username">To Date</label>
-                    <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                    <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
                 </div>
-                <div class="flex flex-col gap-2 lab">
-                    <p-button label="Submit" severity="info" />
+                <div class="flex justify-end items-end">
+                    <p-button label="Filter" severity="info" icon="pi pi-filter" />
                 </div>
             </div>
         </div>
 
         <div class=" body">
             <div class="Terminal_Wise">
-                <div class="text-center relative">
+                <div class="flex flex-wrap justify-between items-center relative p-4">
                     <h1>Terminal Wise</h1>
                     <p-splitbutton icon="pi pi-align-justify" class="btnrel" [model]="items" />
                 </div>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="TransTypeWise">
-                <div class="text-center relative">
+                <div class="flex flex-wrap justify-between items-center relative p-4">
                     <h1>Transaction Type Wise</h1>
                     <p-button icon="pi pi-align-justify" class="btnrel" />
                 </div>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="ResponseWise">
-                <div class="text-center relative">
+                <div class="flex flex-wrap justify-between items-center relative p-4">
                     <h1>Response Wise</h1>
                     <p-button icon="pi pi-align-justify" class="btnrel" />
                 </div>
@@ -84,7 +84,7 @@
             </div>
 
             <div class="TransactionStatus">
-                <div class="text-center relative">
+                <div class="flex flex-wrap justify-between items-center relative p-4">
                     <h1>TransactionS tatus</h1>
                     <p-button icon="pi pi-align-justify" class="btnrel" />
                 </div>

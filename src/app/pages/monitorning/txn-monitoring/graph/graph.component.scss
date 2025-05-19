@@ -6,19 +6,33 @@
             letter-spacing: .5px;
         }
 
-        p-button.btnrel {
-            position: absolute;
-            /* left: 0; */
-            right: 11px;
-            top: 10px;
+        // p-button.btnrel {
+        //     position: absolute;
+        //     /* left: 0; */
+        //     right: 11px;
+        //     top: 10px;
+        // }
+
+        // p-splitbutton.btnrel {
+        //     position: absolute;
+        //     /* left: 0; */
+        //     right: 11px;
+        //     top: 10px;
+        // }
+
+        .p-select {
+            height: 40px;
         }
 
-        p-splitbutton.btnrel {
-            position: absolute;
-            /* left: 0; */
-            right: 11px;
-            top: 10px;
+        p-select {
+            width: 100%;
         }
+
+        .p-datepicker {
+            height: 40px;
+            width: 100%;
+        }
+
     }
 
     .Terminal_Wise {
@@ -52,14 +66,20 @@
 
     .box {
         margin: 2rem;
+        border: 1px solid #f1f1f1;
+        padding: 15px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        box-shadow: 0px 1px 4px #c5c5c5;
     }
 
     canvas {
         height: 350px !important;
     }
+
     .p-tieredmenu-overlay {
-    top: 35px !important;
-    left: -100px !important;
-}
+        top: 35px !important;
+        left: -100px !important;
+    }
 
 }
