@@ -1,65 +1,3 @@
-<!-- Header Section with Background and Title -->
-<!-- <div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
-    <h2 style="margin: 0;">Branch Details</h2>
-</div> -->
-
-<!-- Card and Table -->
-<!-- <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-    <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
-        [rowsPerPageOptions]="[10,15,20]">
-        <ng-template #caption>
-            <div class="flex w-full align-items-center gap-2 justify-content-between ">
-                <p-button label="Add" [outlined]="true" icon="pi pi-plus" />
-                <p-iconfield iconPosition="left" class="ml-auto">
-                    <p-inputicon>
-                        <i class="pi pi-search"></i>
-                    </p-inputicon>
-                    <input pInputText type="text" class="searchInp mr-1" placeholder="Search keyword" />
-                    <button pButton type="button" icon="pi pi-search" class="change p-button-sm mr-2" pTooltip="Search"
-                        tooltipPosition="top"></button>
-                    <button pButton type="button" icon="pi pi-times" class="change p-button-sm" pTooltip="Clear"
-                        tooltipPosition="top"></button>
-
-                </p-iconfield> -->
-
-<!-- <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" /> -->
-
-<!-- </div>
-        </ng-template>
-        <ng-template #header>
-            <tr>
-                <th>
-                    INST ID</th>
-                <th>BRANCH ID</th>
-                <th>BRANCH MAP CODE</th>
-                <th>BRANCH NAME</th>
-                <th>Actions</th>
-
-
-            </tr>
-        </ng-template>
-        <ng-template #body let-customer>
-            <tr>
-                <td>{{ customer.INSTID }}</td>
-                <td>{{ customer.INSTNAME }}</td>
-                <td>{{ customer.INSTROUTETYPE }}</td>
-                <td>{{ customer.INSTTYPE }}</td>
-                <span class="flex gap-2">
-                    <button pButton type="button" icon="pi pi-eye" class="change p-button-icon-only" pTooltip="View"
-                        tooltipPosition="top" (click)="showFunction(customer)"></button>
-                    <button pButton type="button" icon="pi pi-file-edit" class="change p-button-icon-only"
-                        pTooltip="Edit" tooltipPosition="top" (click)="editFunction(customer)"></button>
-                    <button pButton type="button" icon="pi pi-trash" class="change p-button-icon-only" pTooltip="Delete"
-                        tooltipPosition="top" (click)="deleteItem()"></button>
-                </span>
-
-
-
-            </tr>
-        </ng-template>
-    </p-table>
-</div> -->
-
 <div class="atmDetails">
     <h2 class="mb-8"> Branch Details </h2>
 
@@ -90,15 +28,15 @@
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Id</div>
-            <div class="table-cell">{{ showViewData?.INSTNAME }}</div>
+            <div class="table-cell">{{ showViewData?.BRANCHCODE }}</div>
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Map Code</div>
-            <div class="table-cell">{{ showViewData?.INSTROUTETYPE }}</div>
+            <div class="table-cell">{{ showViewData?.BRANCHMAPCODE }}</div>
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Name</div>
-            <div class="table-cell">{{ showViewData?.INSTTYPE }}</div>
+            <div class="table-cell">{{ showViewData?.BRANCHNAME }}</div>
         </div>
     </div>
 </p-dialog>
@@ -126,19 +64,18 @@
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Id</div>
-            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTNAME" type="text" placeholder=""
+            <input class="table-cell" pInputText [(ngModel)]="Edit_data.BRANCHCODE" type="text" placeholder=""
                 [disabled]="true" />
 
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Map Code</div>
-            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTROUTETYPE" type="text"
-                placeholder="" />
+            <input class="table-cell" pInputText [(ngModel)]="Edit_data.BRANCHMAPCODE" type="text" placeholder="" />
 
         </div>
         <div class="table-row">
             <div class="table-cell heading">Branch Name</div>
-            <input class="table-cell" pInputText [(ngModel)]="Edit_data.INSTTYPE" type="text" placeholder="" />
+            <input class="table-cell" pInputText [(ngModel)]="Edit_data.BRANCHNAME" type="text" placeholder="" />
 
         </div>
     </div>
