@@ -7,6 +7,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-port',
@@ -17,14 +18,28 @@ import { TableComponent } from '../../../layout/component/table/table.component'
     IconFieldModule,
     ButtonModule,
     TableComponent,
-    DialogModule,],
+    DialogModule,
+    InputTextModule],
   templateUrl: './port.component.html',
   styleUrl: './port.component.scss'
 })
 export class PortComponent {
-  addOrEdit(data?: any) {
+  tpCheck!: boolean;
+  editVisible: any;
+  Edit_data: any;
 
-  }
+  addOrEdit(data?: any, type?: any) {
+    if (data) {
+      this.Edit_data = { ...data?.data }
+      console.log(' this.Edit_data', this.Edit_data);
+
+    } else {
+      this.Edit_data = null;
+    }
+    this.tpCheck = type == 'View' ? true : false;
+    this.editVisible = true;
+  };
+
   globalFilterFields: any = [
     'DEVICEGROUPID',
     'INSTID',
@@ -33,6 +48,7 @@ export class PortComponent {
     'ID',
     'IPADDRESS'
   ];
+
   cols = [
     { field: 'DEVICEGROUPID', header: 'DEVICE GROUP ID' },
     { field: 'INSTID', header: 'INST ID' },
@@ -42,6 +58,7 @@ export class PortComponent {
     { field: 'IPADDRESS', header: 'IP ADDRESS' },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
+
   atmData = [{ "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL002", "IPADDRESS": "10.93.101.223" },
   { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL003", "IPADDRESS": "10.93.101.224" },
   { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL004", "IPADDRESS": "10.93.101.225" },
@@ -64,4 +81,5 @@ export class PortComponent {
   { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "00SCB111", "IPADDRESS": "172.36.52.78" },
   { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "TEST071", "IPADDRESS": "140.32.32" },
   { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "00SCB115", "IPADDRESS": "12.25.325" }]
+
 }

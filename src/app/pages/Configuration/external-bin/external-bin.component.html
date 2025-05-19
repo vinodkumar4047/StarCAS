@@ -28,45 +28,46 @@
     </p-dialog>
 
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
-    class="EDIT_BRANCH_DIALOG">
-    <ng-template pTemplate="header">
-        <div class="flex justify-between items-center w-full">
-            <span class="text-lg font-semibold custom-text-color">
-                {{tpCheck == true ? 'View Your Details':'Edit Your Details'}}
-            </span>
-            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
-                (click)="editVisible = false"></button>
-        </div>
-    </ng-template>
+        class="EDIT_BRANCH_DIALOG">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    {{tpCheck == true ? 'View Your Details':'Edit Your Details'}}
+                </span>
+                <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                    (click)="editVisible = false"></button>
+            </div>
+        </ng-template>
 
-    <!-- Table-like layout  -->
-    <div *ngIf="Edit_data">
-        <div class="table-row">
-            <div class="table-cell heading">Record ID</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.RECORDID" type="text" placeholder=""
-                [disabled]="true" />
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">INST ID</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
-                [disabled]="true" />
+        <!-- Table-like layout  -->
+        <div *ngIf="Edit_data">
+            <div class="table-row">
+                <div class="table-cell heading">Record ID</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.RECORDID" type="text" placeholder=""
+                    [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">INST ID</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
+                    [disabled]="true" />
 
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">BIN</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BIN" type="text"
-                placeholder="" [disabled]="tpCheck" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">BIN</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BIN" type="text" placeholder=""
+                    [disabled]="tpCheck" />
 
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">Description</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.DESCRIPTION" type="text" placeholder="" [disabled]="tpCheck" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Description</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.DESCRIPTION" type="text"
+                    placeholder="" [disabled]="tpCheck" />
 
+            </div>
         </div>
-    </div>
-    <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
-        <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
-        <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
-    </div>
-</p-dialog>
+        <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
+            <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
+            <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
+        </div>
+    </p-dialog>
 </div>

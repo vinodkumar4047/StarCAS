@@ -31,10 +31,6 @@ export class BranchComponent {
   showViewData: any = null;
   Edit_data: any
   ADDvisible: boolean = false;
-  // delete_visible: boolean = false;
-  // customers = [{ INSTID: "TEST", INSTNAME: "TEST BANK", INSTROUTETYPE: "CBS", INSTTYPE: "FIN", INSTCURRENCYCODE: "925", MAXATMPINCOUNT: 3, MAXTELEPINCOUNT: 3 },
-  // { INSTID: "TEST", INSTNAME: "TEST BANK", INSTROUTETYPE: "EXTNTWK", INSTTYPE: "EXTNTWK", INSTCURRENCYCODE: "925", MAXATMPINCOUNT: 3, MAXTELEPINCOUNT: 3 },
-  // { INSTID: "TEST", INSTNAME: "TEST BANK", INSTROUTETYPE: "EXTNTWK", INSTTYPE: "EXTNTWK", INSTCURRENCYCODE: "925", MAXATMPINCOUNT: 3, MAXTELEPINCOUNT: 3 }];
   clear(able: Table) {
 
   }
@@ -55,24 +51,20 @@ export class BranchComponent {
   }
   globalFilterFields: any = [
     'INSTID',
-    'INSTNAME',
-    'INSTROUTETYPE',
-    'INSTCURRENCYCODE',
-    'MAXATMPINCOUNT',
-    'MAXTELEPINCOUNT'
+    'BRANCHCODE',
+    'BRANCHMAPCODE',
+    'BRANCHNAME',
   ];
 
-  customers = [{ "INSTID": "TEST", "INSTNAME": "TEST BANK", "INSTROUTETYPE": "CBS", "INSTTYPE": "FIN", "INSTCURRENCYCODE": "925", "MAXATMPINCOUNT": 3, "MAXTELEPINCOUNT": 3 },
-  { "INSTID": "TEST", "INSTNAME": "TEST BANK", "INSTROUTETYPE": "EXTNTWK", "INSTTYPE": "EXTNTWK", "INSTCURRENCYCODE": "925", "MAXATMPINCOUNT": 3, "MAXTELEPINCOUNT": 3 },
-  { "INSTID": "TEST", "INSTNAME": "TEST BANK", "INSTROUTETYPE": "EXTNTWK", "INSTTYPE": "EXTNTWK", "INSTCURRENCYCODE": "925", "MAXATMPINCOUNT": 3, "MAXTELEPINCOUNT": 3 }];
+  customers = [{ "INSTID": "TEST", "BRANCHCODE": "634", "BRANCHNAME": "HEAD OFFICE", "BRANCHMAPCODE": "001", "STATUS": "A", "USERTYPE": "C", "MAKER_ID": "24", "CHECKER_ID": "24", "CHECKER_DATE": "05-JUL-2024", "MAKER_DATE": "05-JUL-2024", "USERNAME": "demomaker" },
+  { "INSTID": "TEST", "BRANCHCODE": "453", "BRANCHNAME": "TEST OFFICE", "BRANCHMAPCODE": "002", "STATUS": "A", "USERTYPE": "C", "MAKER_ID": "24", "CHECKER_ID": "24", "CHECKER_DATE": "05-JUL-2024", "MAKER_DATE": "05-JUL-2024", "USERNAME": "demomaker" },
+  { "INSTID": "TEST", "BRANCHCODE": "903", "BRANCHNAME": "ADMIN OFFICE", "BRANCHMAPCODE": "003", "STATUS": "A", "USERTYPE": "C", "MAKER_ID": "24", "CHECKER_ID": "24", "CHECKER_DATE": "05-JUL-2024", "MAKER_DATE": "05-JUL-2024", "USERNAME": "demomaker" },
+  { "INSTID": "TEST", "BRANCHCODE": "387", "BRANCHNAME": "CGS OFFICE", "BRANCHMAPCODE": "004", "STATUS": "A", "USERTYPE": "C", "MAKER_ID": "24", "CHECKER_ID": "24", "CHECKER_DATE": "05-JUL-2024", "MAKER_DATE": "05-JUL-2024", "USERNAME": "demomaker" }]
   cols = [
     { field: 'INSTID', header: 'INST ID' },
-    { field: 'INSTNAME', header: 'ATM ID' },
-    { field: 'INSTROUTETYPE', header: 'ATM TYPE ID' },
-    { field: 'INSTTYPE', header: 'LOGICAL GROUP' },
-    { field: 'INSTCURRENCYCODE', header: 'IP ADDRESS' },
-    { field: 'MAXATMPINCOUNT', header: 'ACQUIRER BRANCH' },
-    { field: 'MAXTELEPINCOUNT', header: 'ACQUIRER BRANCH' },
+    { field: 'BRANCHCODE', header: 'BRANCH ID' },
+    { field: 'BRANCHMAPCODE', header: 'BRANCH MAP CODE' },
+    { field: 'BRANCHNAME', header: 'BRANCH NAME' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
   delete_visible: any;

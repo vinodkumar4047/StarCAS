@@ -9,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-external-bin',
-  imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
+  imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,],
   templateUrl: './external-bin.component.html',
   styleUrl: './external-bin.component.scss'
 })

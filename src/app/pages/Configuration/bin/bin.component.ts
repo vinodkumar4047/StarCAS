@@ -8,6 +8,7 @@ import { Table, TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableComponent } from '../../../layout/component/table/table.component';
 
 @Component({
   selector: 'app-bin',
@@ -19,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
     IconFieldModule,
     DialogModule,
     ButtonModule,
+    TableComponent,
     InputTextModule],
   templateUrl: './bin.component.html',
   styleUrl: './bin.component.scss'
@@ -34,12 +36,30 @@ export class BinComponent {
   clear(able: Table) {
 
   }
-
+  globalFilterFields: any = [
+    'INSTID',
+    'BIN',
+    'BINDESC',
+    'PRODUCTCODE',
+    'PRODUCTNAME',
+    'BINTYPE',
+    'ROUTETYPE'
+  ];
+  cols = [
+    { field: 'INSTID', header: 'Institution ID' },
+    { field: 'BIN', header: 'Bin' },
+    { field: 'BINDESC', header: 'Bin Description' },
+    { field: 'PRODUCTCODE', header: 'Product Code' },
+    { field: 'PRODUCTNAME', header: 'Product Type' },
+    { field: 'BINTYPE', header: 'Bin Type' },
+    { field: 'ROUTETYPE', header: 'Bin Route Type' },
+    { field: 'Action', header: 'Action', type: ['view'] },
+  ];
   addFunction() {
     this.visible = true;
     // alert("fucntion triger")
   }
-  showFucntion() {
+  showFucntion(data: any) {
     this.show_visible = true;
   }
 }

@@ -1,8 +1,37 @@
-<div class="atmDetails">
+<div class="TransactionDetails">
     <h2 class="mb-8">Transaction Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="addOrEdit()" />
+            (viewEvent)="addOrEdit($event)" />
     </div>
+    <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+        class="EDIT_BRANCH_DIALOG">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    {{tpCheck == true ? 'View Your Details':'Edit Your Details'}}
+                </span>
+                <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                    (click)="editVisible = false"></button>
+            </div>
+        </ng-template>
+
+        <!-- Table-like layout  -->
+        <div *ngIf="Edit_data">
+            <div class="table-row">
+                <div class="table-cell heading">TRANSACTION CODE</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.TXNCODE" type="text" placeholder=""
+                    [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">TRANSACTION DESCRIPTION</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.TXNDESC" type="text" placeholder=""
+                    [disabled]="true" />
+
+            </div>
+
+        </div>
+
+    </p-dialog>
 </div>

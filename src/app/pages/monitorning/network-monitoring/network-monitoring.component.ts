@@ -23,23 +23,25 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 })
 export class NetworkMonitoringComponent {
   addOrEdit(data?: any) {
+  };
 
-  }
   globalFilterFields: any = [
     'TXNCODE',
     'TXNDESC',
   ];
+
   cols = [
     { field: 'INSTID', header: ' INST ID ' },
     { field: 'PORTID', header: 'PORT ID' },
-    { field: '', header: 'PORT NAME' },
+    { field: 'PORTID', header: 'PORT NAME' },
     { field: 'PORTSTATUS', header: 'PORT STATUS' },
     { field: 'NETWORKID', header: 'NETWORK ID' },
     { field: 'NETWORKNAME', header: 'NETWORK NAME' },
     { field: 'TIMEOUT', header: 'TIMEOUT' },
-    { field: 'NETWORKSTATUS', header: 'NETWORK STATUS'},
+    { field: 'NETWORKSTATUS', header: 'NETWORK STATUS' },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
+
   atmData = [{ "PORTID": "TEST002", "PORTSTATUS": 0, "PORTGROUP": "ATM", "LOGDATE": 1646677800000, "LOGTIME": 222659, "INSTID": "TEST", "NETWORKID": "INTERSWTNTWK", "NETWORKNAME": "VISA TPP NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzInterSw8583", "PORTNAME": "TEST002", "NETWORKSTATUS": 2, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
   { "PORTID": "TEST002", "PORTSTATUS": 0, "PORTGROUP": "ATM", "LOGDATE": 1646677800000, "LOGTIME": 222659, "INSTID": "TEST", "NETWORKID": "USGPOS_NTWK", "NETWORKNAME": "USGPOS NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzUSGPOS8583", "PORTNAME": "TEST002", "NETWORKSTATUS": 2, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
   { "PORTID": "TEST003", "PORTSTATUS": 1, "PORTGROUP": "CBS", "LOGDATE": 1717525800000, "LOGTIME": 15827, "INSTID": "TEST", "NETWORKID": "RCBSLCBS", "NETWORKNAME": "ROKEL COMMERCIAL NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzHost8583", "PORTNAME": "TEST003", "NETWORKSTATUS": 2, "KEYREQ": "N", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },

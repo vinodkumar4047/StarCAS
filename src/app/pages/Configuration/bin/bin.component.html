@@ -1,68 +1,13 @@
-<!-- Header Section with Background and Title -->
-<div class="" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
-    <h2 style="margin: 0;">
-        BIN Details
-    </h2>
-</div>
+<div class="atmDetails">
+    <h2 class="mb-8"> BIN Details </h2>
 
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields"
+            (viewEvent)="showFucntion($event)" />
+    </div>
+</div>
 <!-- Card and Table -->
 <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-    <p-table [value]="customers" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
-        [rowsPerPageOptions]="[10,15,20]">
-        <ng-template #caption>
-            <div class="flex w-full align-items-center gap-2 justify-content-between ">
-                <!-- <p-button label="Add" [outlined]="true" icon="pi pi-plus" (click)="addFunction()" /> -->
-                <p-iconfield iconPosition="left" class="ml-auto">
-                    <p-inputicon>
-                        <i class="pi pi-search"></i>
-                    </p-inputicon>
-                    <input pInputText type="text" class="searchInp mr-1" placeholder="Search keyword" />
-                    <button pButton type="button" icon="pi pi-search" class="change p-button-sm mr-2" pTooltip="Search"
-                        tooltipPosition="top"></button>
-                    <button pButton type="button" icon="pi pi-times" class="change p-button-sm" pTooltip="Clear"
-                        tooltipPosition="top"></button>
-
-                </p-iconfield>
-
-
-
-            </div>
-        </ng-template>
-        <ng-template #header>
-            <tr>
-
-                <th>
-                    Institution ID</th>
-                <th>Bin</th>
-                <th>Bin Description</th>
-                <th>Product Code</th>
-                <th>Product Type</th>
-                <th>Bin Type</th>
-                <th>Bin Route Type</th>
-                <th>Transaction List</th>
-
-
-            </tr>
-        </ng-template>
-        <ng-template #body let-customer>
-            <tr>
-                <td>{{ customer.INSTID }}</td>
-                <td>{{ customer.BIN }}</td>
-                <td>{{ customer.BINDESC }}</td>
-                <td>{{ customer.PRODUCTCODE }}</td>
-                <td>{{ customer.PRODUCTNAME }}</td>
-                <td>{{ customer.BINTYPE }}</td>
-                <td>{{ customer.ROUTETYPE }}</td>
-
-
-                <span class="flex gap-2 center-button">
-                    <button pButton type="button" icon="pi pi-eye" class="change p-button-icon-only" pTooltip="View"
-                        tooltipPosition="top" (click)="showFucntion()"></button>
-                </span>
-
-            </tr>
-        </ng-template>
-    </p-table>
     <!-- SHOW POPUP  -->
     <p-dialog [modal]="true" [(visible)]="show_visible" [style]="{ width: '50rem' }" [closable]="false"
         class="BIN_SHOW_DIALOG">
