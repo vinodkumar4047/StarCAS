@@ -1,9 +1,9 @@
 ::ng-deep {
-    .search-txn {
+    .add-offline {
         .heading-color {
-            color: var(--primary-color);
-            font-weight: bold;
-            letter-spacing: .5px;
+                color: var(--primary-color);
+                font-weight: bold;
+                letter-spacing: .5px;
         }
 
         .backIcon {
@@ -13,7 +13,7 @@
                 font-weight: bold;
             }
         }
-
+        
         .p-floatlabel {
             display: flex;
         }
@@ -31,6 +31,17 @@
             background: #e2e8f047;
         }
 
+        .p-select.p-disabled {
+            background: #e2e8f047;
+        }
+
+        .p-select {
+            height: 40px;
+        }
+
+        .p-select-label {
+            align-self: center;
+        }
         .draganddrop {
             height: 35vh;
             width: 100%;
@@ -43,32 +54,17 @@
             font-size: 20px;
             align-content: center;
         }
-
-        p-datepicker {
+         p-datepicker {
             height: 40px;
             width: 100%;
         }
 
-        p-datepicker.ng-invalid.ng-touched {
+          p-datepicker.ng-invalid.ng-touched {
             border-color: red;
 
             .p-datepicker-input {
                 border-color: red;
             }
-        }
-
-        .p-radiobutton-checked .p-radiobutton-box {
-            background: #fff;
-        }
-
-        .p-radiobutton-checked .p-radiobutton-box .p-radiobutton-icon {
-            background: var(--primary-color);
-        }
-        .p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:hover).p-radiobutton-checked .p-radiobutton-box .p-radiobutton-icon{
-            background: var(--primary-color);
-        }
-        .p-radiobutton-checked:not(.p-disabled):has(.p-radiobutton-input:hover) .p-radiobutton-box{
-            background: #fff;
         }
 
     }
