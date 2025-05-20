@@ -53,7 +53,8 @@ export class ProfileDetailsComponent {
   delete_visible: any;
   addOrEdit(event: any, type: any) {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
-  }
+  };
+
   viewProfile(event: any, type: any) {
 
   }
