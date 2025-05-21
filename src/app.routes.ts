@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: '/landing', pathMatch: 'full', },
+            { path: '', redirectTo: '/auth/login', pathMatch: 'full', },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
         ]
     },

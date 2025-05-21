@@ -89,7 +89,7 @@ export class TopbarComponent {
        this.selectedMember = member;
         console.log(member,'member----');
         if(member.name == 'Log Out'){
-            this.router.navigate(['/landing']);
+            this.router.navigate(['/auth/login']);
         }else if(member.name == 'My Profile'){
           this.router.navigate(['/pages/edit_profile']);
         }else if(member.name == 'Change Password'){
