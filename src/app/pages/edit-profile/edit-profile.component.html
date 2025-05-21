@@ -1,0 +1,105 @@
+<div class="edit-profile col-span-12 xl:col-span-12">
+    <h2 class="mb-8">Your Profile</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="profileForm">
+            <div class="flex justify-between">
+                <div class="flex gap-2 items-center mb-8">
+                    <div class="font-semibold text-xl  heading-color">
+                        Edit Your Profile
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-warp flex-row gap-16 items-center px-8 background-ban">
+                <p-confirmpopup />
+                <div class="mb-4 profile-img">
+                    <div *ngIf="!imageUrl">
+                        <div class="default-profile-head"> </div>
+                        <div class="default-profile-body"> </div>
+                    </div>
+                    <p-button icon="pi pi-camera" p-button class="img-profile" rounded
+                        (click)="upload($event)"></p-button>
+
+                    <!-- Hidden File Input -->
+                    <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*"
+                        style="display: none;" />
+                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image"
+                        class="rounded-circle object-cover d-block" />
+
+                </div>
+                <div class="mb-8 profile-details ">
+                    <!-- <div class="font-semibold text-xl ">{{userInfo.FIRSTNAME}} {{userInfo.LASTNAME}}</div> -->
+                    <div class="font-semibold text-xl pb-1 heading-color">Victor Blackwood</div>
+                    <div class="font-semibold text-base pb-1">Victor_047</div>
+                    <div class="font-semibold text-base ">Chennai, India.</div>
+                </div>
+            </div>
+            <div class="mx-4 mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="UserName" type="text" formControlName="UserName" />
+                    <label for="UserName">User Name <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText styleClass="w-full" id="ProfileName" type="text" formControlName="ProfileName" />
+                    <label for="ProfileName">Profile Name <span style="color: red;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="InstName" formControlName="InstName" type="text" />
+                    <label for="InstName">Inst Name <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="CBSUserName" formControlName="CBSUserName" type="text" />
+                    <label for="CBSUserName">CBS User Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="FirstName" formControlName="FirstName" type="text" />
+                    <label for="FirstName">First Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="LastName" formControlName="LastName" type="text" />
+                    <label for="LastName">Last Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="DOB" formControlName="DOB" type="text" />
+                    <label for="DOB">DOB (dd/MM/yyyy) <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="EmailId" formControlName="EmailId" type="text" />
+                    <label for="EmailId">Email Id <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="MobileNo" formControlName="MobileNo" type="text" />
+                    <label for="MobileNo">Mobile No <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="Address" formControlName="Address" type="text" />
+                    <label for="Address">Address <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <input pInputText styleClass="w-full" id="City" formControlName="City" type="text" />
+                    <label for="City">City <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+
+                    <p-select [options]="countryOpt" formControlName="Country" optionValue="COUNTRYID"
+                        optionLabel="COUNTRYNAME" inputId="Country" styleClass="w-full" />
+                    <label for="Country">Country <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+            </div>
+
+
+            <div class="flex flex-row-reverse my-8 mx-4">
+                <p-button label="Update" severity="primary" raised icon="pi pi-save" (click)="onSubmit()"/>
+            </div>
+        </form>
+    </div>
+</div>
