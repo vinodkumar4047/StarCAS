@@ -1,9 +1,9 @@
-<div class="login"><app-floating-configurator />
+<div class="login">
     <div class="relative flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden px-4 bg-pattern">
 
         <div
             class="flex w-full max-w-6xl bg-white dark:bg-surface-900 rounded-3xl overflow-hidden shadow-lg flex-col lg:flex-row">
-
+            <app-floating-configurator style="background: transparent;z-index: 99;" />
 
             <!-- Left: Image Section with Background -->
             <div class="w-full lg:w-1/2 hidden lg:flex items-center justify-center relative overflow-hidden">
@@ -13,11 +13,11 @@
                 </div>
 
                 <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-b from-primary/70 to-primary/50 z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/90 to-primary/50 z-10"></div>
 
                 <!-- Foreground Content -->
                 <div class="text-center text-white relative z-20 px-6">
-                    <h2 class="text-4xl font-bold mb-4">Welcome to Star CAS!</h2>
+                    <h2 class="text-4xl font-bold mb-4" style="color: white;">Welcome to Star CAS!</h2>
                     <p class="text-lg font-medium">Please sign in to access your dashboard.</p>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12">
                 <div class="w-full max-w-md">
                     <img src="../../../../assets/images/starcas-logo.png" alt="Login Illustration"
-                        class="mb-6 rounded-lg w-full" style="background: white;padding: 0 4rem;" />
+                        class="mb-6 rounded-lg w-full" style="background: white;padding: 1rem 4rem;" />
                     <!-- SelectButton Tab Switcher -->
                     <p-selectButton [options]="loginOptions" [(ngModel)]="selectedLogin" optionLabel="label"
                         class="mb-6 w-full" [unselectable]="false">
