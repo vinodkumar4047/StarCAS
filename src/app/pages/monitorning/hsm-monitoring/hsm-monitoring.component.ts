@@ -59,7 +59,12 @@ export class HSMMonitoringComponent {
     ).subscribe({
       next: (res) => {
         if (res) {
-          this.hsmMonitoringrData = res;
+          this.hsmMonitoringrData = res.map((data: any) => {
+            return {
+              ...data,
+              hsmStatus: data.hsmStatus === 1 ? 'CONNECTED' : 'NOT CONNECTED',
+            }
+          })
           console.log('taskManager data:', this.hsmMonitoringrData);
 
         } else {

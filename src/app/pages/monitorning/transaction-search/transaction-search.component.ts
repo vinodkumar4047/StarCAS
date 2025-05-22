@@ -11,8 +11,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { DatePicker } from 'primeng/datepicker';
 @Component({
   selector: 'app-transaction-search',
-  imports: [ FormsModule, ToastModule, SpeedDialModule, ButtonModule,ReactiveFormsModule,
-    InputTextModule, RadioButtonModule, CommonModule, FloatLabelModule,DatePicker],
+  imports: [FormsModule, ToastModule, SpeedDialModule, ButtonModule, ReactiveFormsModule,
+    InputTextModule, RadioButtonModule, CommonModule, FloatLabelModule, DatePicker],
   templateUrl: './transaction-search.component.html',
   styleUrl: './transaction-search.component.scss',
   providers: [MessageService]
@@ -25,44 +25,44 @@ export class TransactionSearchComponent {
   showRadioOptions = false;
   isSpeedDialOpen = false;
   ingredient!: string;
-   categories: any = [
-        { name: 'RefNum Based ', key: '0' },
-        { name: 'Account', key: '1' },
-        { name: 'CHN', key: '2' },
-    ];
-  searchForm:any;
+  categories: any = [
+    { name: 'RefNum Based ', key: '0' },
+    { name: 'Account', key: '1' },
+    { name: 'CHN', key: '2' },
+  ];
+  searchForm: any;
   routeData: any = history.state;
-  countryOpt:any =[
+  countryOpt: any = [
     {
-        "BLOCKEDCOUNTRYCODE": "61",
-        "COUNTRYDESC": "Australia"
+      "BLOCKEDCOUNTRYCODE": "61",
+      "COUNTRYDESC": "Australia"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "931",
-        "COUNTRYDESC": "Afghanistan"
+      "BLOCKEDCOUNTRYCODE": "931",
+      "COUNTRYDESC": "Afghanistan"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "17",
-        "COUNTRYDESC": "Afgani"
+      "BLOCKEDCOUNTRYCODE": "17",
+      "COUNTRYDESC": "Afgani"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "165",
-        "COUNTRYDESC": "Russia"
+      "BLOCKEDCOUNTRYCODE": "165",
+      "COUNTRYDESC": "Russia"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "22",
-        "COUNTRYDESC": "ASIA"
+      "BLOCKEDCOUNTRYCODE": "22",
+      "COUNTRYDESC": "ASIA"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "856",
-        "COUNTRYDESC": "Laos"
+      "BLOCKEDCOUNTRYCODE": "856",
+      "COUNTRYDESC": "Laos"
     },
     {
-        "BLOCKEDCOUNTRYCODE": "374",
-        "COUNTRYDESC": "Armenia"
+      "BLOCKEDCOUNTRYCODE": "374",
+      "COUNTRYDESC": "Armenia"
     }
-];
- constructor(private messageService: MessageService,private fb: FormBuilder) { }
+  ];
+  constructor(private messageService: MessageService, private fb: FormBuilder) { }
 
   toggleRadioContent() {
     this.isSpeedDialOpen = !this.isSpeedDialOpen;
@@ -81,9 +81,9 @@ export class TransactionSearchComponent {
     if (this.searchForm.valid) {
       console.log('Form Data:', this.searchForm.value);
       // Process the form data here 
-  } else {
+    } else {
       console.log('Form is invalid', this.searchForm);
       this.searchForm.markAllAsTouched();
-  }
+    }
   }
 }

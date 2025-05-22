@@ -52,9 +52,11 @@
     <ng-template #body let-row let-columns="columns">
         <tr>
             <td *ngFor="let col of columns"
+                [ngClass]="componentHeader === 'txnmtr' ? (row.isApproved ? 'approved-row' : 'rejected-row') : ''"
                 [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
                 style="height: 35px; padding-left: 10px;">
-                <span *ngIf="col.header != 'Action' && col.header != 'Select'" [ngClass]="componentHeader==''?'':row[col.field]">{{ row[col.field] }}</span>
+                <span *ngIf="col.header != 'Action' && col.header != 'Select'"
+                    [ngClass]="componentHeader==''?'':row[col.field]">{{ row[col.field] }}</span>
                 <span *ngIf="col.header === 'Select'">
                     <p-checkbox [binary]="true" [value]="row.selected"
                         (onChange)="emitRowSelection(row, $event)"></p-checkbox>
