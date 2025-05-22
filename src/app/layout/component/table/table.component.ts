@@ -29,7 +29,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 export class TableComponent {
   @Input() paginator: boolean = true;
   @Input() loading: boolean = false;
-
+  @Input() componentHeader: any = '';
   @Input() tableData: any;
   @Input() cols: any;
   @Input() globalFilterFields: any;
