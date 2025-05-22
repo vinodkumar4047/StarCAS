@@ -4,44 +4,41 @@
             <i class="pi pi-bars"></i>
         </button>
         <a class="layout-topbar-logo" routerLink="/">
-          <p-image [src]="img" alt="Star CAS LOGO"/>
+            <p-image [src]="img" alt="Star CAS LOGO" />
         </a>
     </div>
 
     <div class="layout-topbar-actions">
         <div class="layout-config-menu">
             <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
-                <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
+                <i
+                    [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
             </button>
-            <div class="relative">
-                <button
-                    class="layout-topbar-action layout-topbar-action-highlight"
-                    pStyleClass="@next"
-                    enterFromClass="hidden"
-                    enterActiveClass="animate-scalein"
-                    leaveToClass="hidden"
-                    leaveActiveClass="animate-fadeout"
-                    [hideOnOutsideClick]="true"
-                >
+            <!-- <div class="relative">
+                <button class="layout-topbar-action layout-topbar-action-highlight" pStyleClass="@next"
+                    enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
+                    leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
                     <i class="pi pi-palette"></i>
                 </button>
                 <app-configurator />
-            </div>
+            </div> -->
         </div>
 
-        <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
+        <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden"
+            enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout"
+            [hideOnOutsideClick]="true">
             <i class="pi pi-ellipsis-v"></i>
         </button>
 
         <div class="layout-topbar-menu hidden lg:block">
             <div class="layout-topbar-menu-content">
                 <button type="button" class="layout-topbar-action">
-                    <i class="pi pi-calendar"></i>
-                    <span>Calendar</span>
+                    <i class="pi pi-bell"></i>
+                    <span>Notification</span>
                 </button>
-                <button type="button" class="layout-topbar-action">
-                    <i class="pi pi-inbox"></i>
-                    <span>Messages</span>
+                <button type="button" class="layout-topbar-action" (click)="toggleFullScreen()">
+                    <i [ngClass]="isFullScreen ? 'pi pi-arrow-down-left-and-arrow-up-right-to-center':'pi pi-arrow-up-right-and-arrow-down-left-from-center'"></i>
+                    <span>Full Screen</span>
                 </button>
                 <button type="button" class="layout-topbar-action" (click)="toggle($event)">
                     <i class="pi pi-user"></i>
@@ -49,19 +46,21 @@
                 </button>
                 <p-popover #op>
                     <div class="flex flex-col gap-4">
-                      <div>
-                        <ul class="list-none p-0 m-0 flex flex-col">
-                          <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                            <div (click)="profileAction(member)" class="flex items-center gap-3">
-                              <!-- Use PrimeNG icons based on member name -->
-                              <i [class]="getIconForMember(member.name)" class="p-2"></i>
-                              <span class="font-medium">{{ member.name }}</span>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
+                        <div>
+                            <ul class="list-none p-0 m-0 flex flex-col">
+                                <li *ngFor="let member of members"
+                                    class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
+                                     (click)="profileAction(member)">
+                                    <div  class="flex items-center gap-3">
+                                        <!-- Use PrimeNG icons based on member name -->
+                                        <i [class]="getIconForMember(member.name)" class="p-2"></i>
+                                        <span class="font-medium">{{ member.name }}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                  </p-popover>
+                </p-popover>
             </div>
         </div>
     </div>

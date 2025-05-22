@@ -1,0 +1,16 @@
+<div class="locate-atm col-span-12 xl:col-span-12">
+    <h2 class="mb-8">ATM Location</h2>
+    <div class="card mb-4">
+        <div class="flex justify-between">
+            <div class="flex gap-2 items-center mb-8">
+                <div class="font-semibold text-xl heading-color"> Check ATM Location </div>
+            </div>
+             <p-button (click)="goFullScreen()" label="Go Fullscreen"
+         [raised]="true" severity="warn" icon="pi pi-arrow-up-right-and-arrow-down-left-from-center" />
+        </div>
+        
+        <iframe #mapFrame width="100%" style="border:0;" [src]="mapUrl" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>

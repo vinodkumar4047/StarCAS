@@ -4,7 +4,6 @@ import { MenuItem } from 'primeng/api';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
-import { AppConfigurator } from '../app.configurator';
 import { LayoutService } from '../../service/layout.service';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { ImageModule } from 'primeng/image';
@@ -13,7 +12,7 @@ import { ImageModule } from 'primeng/image';
     templateUrl: './topbar.component.html',
     styleUrl: './topbar.component.scss',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, PopoverModule,ImageModule],
+    imports: [RouterModule, CommonModule, StyleClassModule, PopoverModule, ImageModule],
 })
 export class TopbarComponent {
     items!: MenuItem[];
@@ -22,21 +21,64 @@ export class TopbarComponent {
     selectedMember = null;
 
     members = [
-        { name: 'My Profile', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
-        { name: 'Change Password', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-        { name: 'ATM Location', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
-        { name: 'Log Out', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
-    ];
+        { name: 'My Profile' },
+        { name: 'Change Password' },
+        { name: 'ATM Location' },
+        { name: 'Log Out' },
+    ];     
+    isFullScreen = false;
     constructor(public layoutService: LayoutService, private router : Router) { }
+  // Check if the browser supports fullscreen API
+  isFullscreen(): boolean {
+    return (
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).mozFullScreenElement ||
+      (document as any).msFullscreenElement
+    ) !== null;
+  }
 
+  // Toggle between entering and exiting full-screen mode
+  toggleFullScreen() {
+    if (this.isFullScreen) {
+      this.exitFullScreen();
+    } else {
+      this.enterFullScreen();
+    }
+  }
+
+  // Enter full-screen mode
+  enterFullScreen() {
+    const element = document.documentElement as HTMLElement; // Type assertion
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if ((element as any).webkitRequestFullscreen) { // Safari
+      (element as any).webkitRequestFullscreen();
+    } else if ((element as any).mozRequestFullScreen) { // Firefox
+      (element as any).mozRequestFullScreen();
+    } else if ((element as any).msRequestFullscreen) { // IE/Edge
+      (element as any).msRequestFullscreen();
+    }
+    this.isFullScreen = true;
+  }
+
+  // Exit full-screen mode
+  exitFullScreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if ((document as any).webkitExitFullscreen) {
+      (document as any).webkitExitFullscreen();
+    } else if ((document as any).mozCancelFullScreen) {
+      (document as any).mozCancelFullScreen();
+    } else if ((document as any).msExitFullscreen) {
+      (document as any).msExitFullscreen();
+    }
+    this.isFullScreen = false;
+  }
 
     toggle(event: any) {
         this.op.toggle(event);
-    }
-
-    selectMember(member: any) {
-        this.selectedMember = member;
-        this.op.hide();
     }
 
     toggleDarkMode() {
@@ -44,10 +86,18 @@ export class TopbarComponent {
     }
 
     profileAction(member:any){
+       this.selectedMember = member;
         console.log(member,'member----');
         if(member.name == 'Log Out'){
-            this.router.navigate(['/landing']);
+            this.router.navigate(['/auth/login']);
+        }else if(member.name == 'My Profile'){
+          this.router.navigate(['/pages/edit_profile']);
+        }else if(member.name == 'Change Password'){
+          this.router.navigate(['/pages/change_password']);
+        }else if(member.name == 'ATM Location'){
+          this.router.navigate(['/pages/atm_location'])
         }
+        this.op.hide();     
     }
 
     getIconForMember(name: string): string {

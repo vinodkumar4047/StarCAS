@@ -1,169 +1,98 @@
-.p-datatable-frozen-tbody {
-    font-weight: bold;
-}
+ ::ng-deep {
+     .branchDetails {
+         .p-datatable-frozen-tbody {
+             font-weight: bold;
+         }
 
-.p-datatable-scrollable .p-frozen-column {
-    font-weight: bold;
-}
+         .p-datatable-scrollable .p-frozen-column {
+             font-weight: bold;
+         }
 
-.background-ban {
-    margin: 0px -28px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--primary-color) 30%, transparent), transparent);
-    padding: 25px 25px 0;
-}
+         .background-ban {
+             margin: 0px -28px;
+             background: linear-gradient(180deg, color-mix(in srgb, var(--primary-color) 30%, transparent), transparent);
+             padding: 25px 25px 0;
+         }
 
-:host ::ng-deep {
-    .p-progressbar {
-        height: .5rem;
-        background-color: #D8DADC;
+         .p-progressbar {
+             height: .5rem;
+             background-color: #D8DADC;
 
-        .p-progressbar-value {
-            background-color: #607D8B;
-        }
-    }
+             .p-progressbar-value {
+                 background-color: #607D8B;
+             }
+         }
 
-    input.searchInp {
-        height: 40px;
-        border: 3px solid #3b82f6;
-        border-left: none;
-        border-top: none;
-        border-right: none;
-        /* border-radius: 10px; */
-        text-align: left;
-        padding: 0 0 0 30px;
-        outline: none;
-    }
+         .EDIT_BRANCH_DIALOG {
+             .heading {
+                 font-weight: bold;
+                 /* Slight background for headings */
+             }
 
+             .hovBut:hover {
+                 background-color: #ffffff;
+                 color: var(--primary-color);
+             }
 
-    .change {
-        color: #171515;
-        background: #fbfbfb;
-        border: 1px solid #ffffff;
-    }
+             .p-dialog {
+                 border: 0;
+             }
 
-    ::ng-deep .p-dialog-content {
-        height: calc(100% - 5rem);
-        /* adjust based on your header/footer height */
-        overflow: auto;
-    }
+             .table-container {
+                 display: flex;
+                 flex-direction: column;
+                 width: 100%;
+                 padding: 16px;
+             }
 
-    ::ng-deep .custom-dialog-content .dialog-close-button .p-button {
-        background-color: #f0f0f0;
-        border-color: transparent;
-        color: #333;
-        transition: background-color 0.3s ease;
-    }
+             .custom-text-color {
+                 color: #ffffff;
+                 font-size: 25px
+             }
 
-    ::ng-deep .custom-dialog-content .dialog-close-button .p-button:hover {
-        background-color: var(--primary-color);
-        /* or your theme color like #007ad9 */
-        color: white;
-    }
+             .p-dialog-header {
+                 background: var(--p-button-primary-background);
+                 border-top-left-radius: 10px;
+                 border-top-right-radius: 10px;
+             }
 
+             .table-row {
+                 display: flex;
+                 justify-content: center;
+                 padding: 12px 0;
+                 // border-bottom: 1px solid #ddd;
+                 /* Light border between rows */
+             }
+         }
 
+         .p-dialog-content {
+             height: calc(100% - 5rem);
+             /* adjust based on your header/footer height */
+             overflow: auto;
+         }
 
+         .custom-dialog-content .dialog-close-button .p-button {
+             background-color: #f0f0f0;
+             border-color: transparent;
+             color: #333;
+             transition: background-color 0.3s ease;
+         }
 
+         .custom-dialog-content .dialog-close-button .p-button:hover {
+             background-color: var(--primary-color);
+             /* or your theme color like #007ad9 */
+             color: white;
+         }
 
-    ::ng-deep .table-cell {
-        // flex: 1;
-        padding: 8px 16px;
-        text-align: left;
-        /* Align text to the left */
-        // border-right: 1px solid #ddd;
-        /* Border between columns */
-        width: 13vw;
-    }
+         .table-cell {
+             // flex: 1;
+             padding: 8px 16px;
+             text-align: left;
+             /* Align text to the left */
+             // border-right: 1px solid #ddd;
+             /* Border between columns */
+             width: 13vw;
+         }
+     }
 
-    .VIEW_BRANCH_DIALOG {
-        .heading {
-            font-weight: bold;
-            // background-color: #f1f1f1;
-            /* Slight background for headings */
-        }
-
-        .table-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding: 16px;
-        }
-
-        .p-dialog-header {
-            background: var(--p-button-primary-background);
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .custom-text-color {
-            color: #ffffff;
-            font-size: 25px
-        }
-
-        .p-dialog {
-            border: 0;
-        }
-
-        .table-row {
-            display: flex;
-            justify-content: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #ffffff
-                /* Light border between rows */
-        }
-
-        .table-cell:last-child {
-            border-right: none;
-            background-color: #dbeafe;
-            /* Remove right border for last column */
-        }
-
-        .table-row:last-child .table-cell {
-            border-bottom: none;
-            /* Remove bottom border for last row */
-        }
-    }
-
-
-
-    .EDIT_BRANCH_DIALOG {
-        .heading {
-            font-weight: bold;
-            /* Slight background for headings */
-        }
-
-        .hovBut:hover {
-            background-color: #607D8B;
-        }
-
-        .p-dialog {
-            border: 0;
-        }
-
-        .table-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding: 16px;
-        }
-
-        .custom-text-color {
-            color: #ffffff;
-            font-size: 25px
-        }
-
-        .p-dialog-header {
-            background: var(--p-button-primary-background);
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .table-row {
-            display: flex;
-            justify-content: center;
-            padding: 12px 0;
-            // border-bottom: 1px solid #ddd;
-            /* Light border between rows */
-        }
-    }
-
-}
+ }

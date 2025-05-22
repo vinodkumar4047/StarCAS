@@ -1,0 +1,12 @@
+::ng-deep{
+    .locate-atm{
+          .heading-color {
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+        iframe{
+            height: 55vh;
+        }
+    }
+}

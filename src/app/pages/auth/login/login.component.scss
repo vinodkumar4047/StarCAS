@@ -1,0 +1,39 @@
+::ng-deep {
+    .app-dark{
+        .bg-pattern {
+            background-color: #003564c4 !important;
+        }
+    }
+    .login {
+        .bg-pattern {
+            background-color: #b6d9fc;
+            /* fallback color */
+            background-image: url('../../../../assets/images/light-wool.png');
+            background-repeat: repeat;
+            background-size: auto;
+        }
+
+        .p-selectbutton {
+            justify-content: center;
+
+            .p-togglebutton-content {
+                height: 25px;
+                width: 125px;
+                border-radius: 10px !important;
+                font-size: 12px;
+            }
+
+            .p-togglebutton-checked .p-togglebutton-content {
+                background: var(--primary-color);
+                color: #fff;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .p-selectbutton {
+                flex-direction: column; // stack items vertically if needed
+                align-items: stretch;
+            }
+        }
+    }
+}

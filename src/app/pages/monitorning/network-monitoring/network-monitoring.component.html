@@ -1,8 +1,96 @@
-<div class="atmDetails">
-    <h2 class="mb-8">Transaction Details</h2>
+<div class="networkMonitor">
+    <h2 class="mb-8">Network Monitor</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+        <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
             (viewEvent)="addOrEdit()" />
     </div>
+
+    <p-dialog header="Network Details" [(visible)]="display" [style]="{width: '50vw'}">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-column">
+          <label for="portId">Port ID:</label>
+          <input pInputText id="portId" [value]="networkRowData.portId" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="networkId">Network ID:</label>
+          <input pInputText id="networkId" [value]="networkRowData.networkId" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="portStatus">Port Status:</label>
+          <input pInputText id="portStatus" [value]="networkRowData.portStatus" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="networkName">Network Name:</label>
+          <input pInputText id="networkName" [value]="networkRowData.networkName" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="portGroup">Port Group:</label>
+          <input pInputText id="portGroup" [value]="networkRowData.portGroup" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="networkPropertyId">Network Property ID:</label>
+          <input pInputText id="networkPropertyId" [value]="networkRowData.networkPropertyId" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="logDate">Log Date:</label>
+          <input pInputText id="logDate" [value]="networkRowData.logDate" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="timeout">Timeout:</label>
+          <input pInputText id="timeout" [value]="networkRowData.timeout" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="logTime">Log Time:</label>
+          <input pInputText id="logTime" [value]="networkRowData.logTime" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="channelName">Channel Name:</label>
+          <input pInputText id="channelName" [value]="networkRowData.channelName" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="portName">Port Name:</label>
+          <input pInputText id="portName" [value]="networkRowData.portName" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="networkFlag">Network Flag:</label>
+          <input pInputText id="networkFlag" [value]="networkRowData.networkFlag" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="networkStatus">Network Status:</label>
+          <input pInputText id="networkStatus" [value]="networkRowData.networkStatus" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="keyReq">Key Required:</label>
+          <input pInputText id="keyReq" [value]="networkRowData.keyReq" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="cutoverReq">Cutover Required:</label>
+          <input pInputText id="cutoverReq" [value]="networkRowData.cutoverReq" disabled />
+        </div>
+
+        <div class="flex flex-column">
+          <label for="echoAcqInstCode">Echo Acq Inst Code:</label>
+          <input pInputText id="echoAcqInstCode" [value]="networkRowData.echoAcqInstCode" disabled />
+        </div>
+      </div>
+
+      <p-footer>
+        <button pButton type="button" label="Close" icon="pi pi-times" (click)="display=false"></button>
+      </p-footer>
+    </p-dialog>
 </div>

@@ -1,0 +1,12 @@
+::ng-deep {
+    .networkMonitor {
+        .NOT.CONNECTED {
+            font-weight: bold;
+            color: red;
+        }
+        .CONNECTED {
+            font-weight: bold;
+            color: forestgreen;
+        }
+    }
+}

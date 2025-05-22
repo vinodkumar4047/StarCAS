@@ -26,24 +26,24 @@ import { TableComponent } from '../../../layout/component/table/table.component'
   styleUrl: './branch.component.scss'
 })
 export class BranchComponent {
-  visible: boolean = false;
   edit_visible: boolean = false;
   showViewData: any = null;
-  Edit_data: any
+  Edit_data: any = {
+    INSTID:'',
+    BRANCHCODE:'',
+    BRANCHMAPCODE:'',
+    BRANCHNAME:''
+  };
   ADDvisible: boolean = false;
+  tpCheck: any;
   clear(able: Table) {
 
   }
-  showFunction(customer?: any) {
-    console.log('showViewData', customer);
 
-    this.showViewData = customer.data || customer;
-    this.visible = true;
-    console.log('showViewData', this.showViewData);
-  }
-  editFunction(customer?: any) {
-    this.Edit_data = customer.data || customer;
+  editFunction(customer: any, type:any) {
+     this.Edit_data = {...customer.data};  
     this.edit_visible = true;
+    this.tpCheck = type == 'view' ? true:false;
   }
   deleteItem() {
     console.log('Item deleted!');

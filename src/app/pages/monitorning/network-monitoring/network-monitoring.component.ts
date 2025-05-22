@@ -7,6 +7,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
+import { take } from 'rxjs';
+import { RestService } from '../../../layout/service/rest.service';
 
 @Component({
   selector: 'app-network-monitoring',
@@ -17,35 +19,88 @@ import { TableComponent } from '../../../layout/component/table/table.component'
     IconFieldModule,
     ButtonModule,
     TableComponent,
-    DialogModule,],
+    DialogModule],
   templateUrl: './network-monitoring.component.html',
   styleUrl: './network-monitoring.component.scss'
 })
 export class NetworkMonitoringComponent {
-  addOrEdit(data?: any) {
-  };
-
+  loading: boolean = false;
+  networkData: any = [];
+  display: boolean = false;
+  networkRowData:any = {
+        "portId": "",
+        "portStatus": "",
+        "portGroup": "",
+        "logDate": "",
+        "logTime": "",
+        "instId": "",
+        "networkId": "",
+        "networkName": "",
+        "networkPropertyId": "",
+        "timeout": "30",
+        "channelName": "EzMercury8583",
+        "portName": "TEST008",
+        "networkStatus": "1",
+        "keyReq": "Y",
+        "cutoverReq": "N",
+        "echoAcqInstCode": "639807",
+        "networkFlag": "1"
+    }
   globalFilterFields: any = [
-    'TXNCODE',
-    'TXNDESC',
+    'instId',
+    'portId',
+    'portStatus',
+    'networkId',
+    'networkName',
+    'timeout',
+    'networkStatusText'
   ];
 
   cols = [
-    { field: 'INSTID', header: ' INST ID ' },
-    { field: 'PORTID', header: 'PORT ID' },
-    { field: 'PORTID', header: 'PORT NAME' },
-    { field: 'PORTSTATUS', header: 'PORT STATUS' },
-    { field: 'NETWORKID', header: 'NETWORK ID' },
-    { field: 'NETWORKNAME', header: 'NETWORK NAME' },
-    { field: 'TIMEOUT', header: 'TIMEOUT' },
-    { field: 'NETWORKSTATUS', header: 'NETWORK STATUS' },
+    { field: 'instId', header: ' Inst ID ' },
+    { field: 'portId', header: 'Port ID' },
+    { field: 'portId', header: 'Port Name' },
+    { field: 'portStatus', header: 'Port Status' },
+    { field: 'networkId', header: 'Network ID' },
+    { field: 'networkName', header: 'Network Name' },
+    { field: 'timeout', header: 'Timeout' },
+    { field: 'networkStatusText', header: 'Network Status', },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
 
-  atmData = [{ "PORTID": "TEST002", "PORTSTATUS": 0, "PORTGROUP": "ATM", "LOGDATE": 1646677800000, "LOGTIME": 222659, "INSTID": "TEST", "NETWORKID": "INTERSWTNTWK", "NETWORKNAME": "VISA TPP NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzInterSw8583", "PORTNAME": "TEST002", "NETWORKSTATUS": 2, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
-  { "PORTID": "TEST002", "PORTSTATUS": 0, "PORTGROUP": "ATM", "LOGDATE": 1646677800000, "LOGTIME": 222659, "INSTID": "TEST", "NETWORKID": "USGPOS_NTWK", "NETWORKNAME": "USGPOS NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzUSGPOS8583", "PORTNAME": "TEST002", "NETWORKSTATUS": 2, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
-  { "PORTID": "TEST003", "PORTSTATUS": 1, "PORTGROUP": "CBS", "LOGDATE": 1717525800000, "LOGTIME": 15827, "INSTID": "TEST", "NETWORKID": "RCBSLCBS", "NETWORKNAME": "ROKEL COMMERCIAL NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzHost8583", "PORTNAME": "TEST003", "NETWORKSTATUS": 2, "KEYREQ": "N", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
-  { "PORTID": "TEST006", "PORTSTATUS": 1, "PORTGROUP": "ATM", "LOGDATE": 1717439400000, "LOGTIME": 155702, "INSTID": "TEST", "NETWORKID": "NSSL_NTWK", "NETWORKNAME": "NSSL NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzNSSL8583", "PORTNAME": "TEST006", "NETWORKSTATUS": 1, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" },
-  { "PORTID": "TEST008", "PORTSTATUS": 1, "PORTGROUP": "NETWORK", "LOGDATE": 1684953000000, "LOGTIME": 212034, "INSTID": "TEST", "NETWORKID": "MERCURYNTWK", "NETWORKNAME": "MERCURY NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzMercury8583", "PORTNAME": "TEST008", "NETWORKSTATUS": 1, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "639807", "NETWORKFLAG": "1" },
-  { "PORTID": "TEST010", "PORTSTATUS": 0, "PORTGROUP": "GUI", "LOGDATE": 1618165800000, "LOGTIME": 103538, "INSTID": "TEST", "NETWORKID": "TESTSWTNTWK", "NETWORKNAME": "TEST TPP NETWORK", "NETWORKPROPERTYID": "1", "TIMEOUT": 30, "CHANNELNAME": "EzInterTestSw8583", "PORTNAME": "TEST010", "NETWORKSTATUS": 2, "KEYREQ": "Y", "CUTOVERREQ": "N", "ECHOACQINSTCODE": "63980700", "NETWORKFLAG": "1" }]
+  constructor(private restApi: RestService) { };
+
+  ngOnInit() {
+    this.getnetworkData();
+  }
+  addOrEdit() {
+    this.display = true;
+  }
+  getnetworkData() {
+    this.loading = true;
+    this.restApi.get('/monitoring/v1/network').pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.networkData = res.map((a: any) => {
+            return {
+              ...a,
+              networkStatusText: a.networkStatus == 1 ? 'CONNECTED' : 'NOT CONNECTED',
+            };
+          });
+          console.log('taskManager data:', res);
+        } else {
+          console.warn('No data received or request failed.');
+        } setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.loading = false;
+
+      }
+    });
+  };
 }

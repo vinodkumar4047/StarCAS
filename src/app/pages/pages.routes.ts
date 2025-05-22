@@ -53,6 +53,9 @@ import { AddCardCountryComponent } from './riskManagement/txn-allowed-risk-count
 import { AddRiskCountryComponent } from './riskManagement/risk-country-block/add-risk-country/add-risk-country.component';
 import { UserProfileComponent } from './users/profile-details/user-profile/user-profile.component';
 import { AddOfflinePinConfigComponent } from './riskManagement/t-xn-allow-without-pin/add-offline-pin-config/add-offline-pin-config.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AtmLocationsComponent } from './atm-locations/atm-locations.component';
 
 export default [
     { path: 'crud', component: Crud },
@@ -107,6 +110,9 @@ export default [
     { path: 'reset_user_password', component: ResetPasswordComponent },
     { path: 'profile', component: ProfileDetailsComponent },
     { path: 'user_profile', component: UserProfileComponent },
+    { path: 'edit_profile', component: EditProfileComponent },
+    { path: 'change_password', component: ChangePasswordComponent },
+    { path: 'atm_location', component: AtmLocationsComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
