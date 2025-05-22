@@ -9,7 +9,7 @@
         <!-- <h2 class="mb-8">HSM Monitor</h2> -->
 
         <div style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-            <app-table [tableData]="atmData" [cols]="cols" [multipleButton]="" (viewEvent)="addOrEdit()" />
+            <app-table [tableData]="this.hsmMonitoringrData" [cols]="cols" [loading]="loading" />
         </div>
     </div>
 </div>

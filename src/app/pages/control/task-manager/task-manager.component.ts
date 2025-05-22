@@ -63,7 +63,7 @@ export class TaskManagerComponent {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
-        }, 1000);
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);

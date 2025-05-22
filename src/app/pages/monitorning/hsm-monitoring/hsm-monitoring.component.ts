@@ -7,7 +7,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
-
+import { RestService } from '../../../layout/service/rest.service';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-hsm-monitoring',
   imports: [TooltipModule,
@@ -22,26 +23,55 @@ import { TableComponent } from '../../../layout/component/table/table.component'
   styleUrl: './hsm-monitoring.component.scss'
 })
 export class HSMMonitoringComponent {
-  addOrEdit(data?: any) {
+  hsmMonitoringrData: any;
+  loading: boolean = true;
+  constructor(private restApi: RestService) { };
 
+  ngOnInit() {
+    this.getHsmData()
   }
+
   globalFilterFields: any = [
-    'TXNCODE',
-    'TXNDESC',
+    'hsmName',
+    'hsmProtocol',
+    'hsmType',
+    'hsmAddress',
+    'hsmPort',
+    'connectionInterval',
+    'hsmTimeOut'
   ];
+
   cols = [
-    { field: 'HSMNAME', header: 'HSM NAME' },
-    { field: 'HSMPROTOCOL', header: 'PROTOCOL' },
-    { field: 'HSMTYPE', header: 'MODEL' },
-    { field: 'HSMADDRESS', header: 'IP' },
-    { field: 'HSMPORT', header: 'PORT' },
-    { field: 'HSMTIMEOUT', header: 'HSMTIME OUT' },
-    { field: 'CONNECTIONINTERVAL', header: 'CONNECTION INTERVAL' },
-
-    { field: 'HSMSTATUS', header: 'HSM STATUS' },
+    { field: 'hsmName', header: 'HSM NAME' },
+    { field: 'hsmProtocol', header: 'PROTOCOL' },
+    { field: 'hsmType', header: 'MODEL' },
+    { field: 'hsmAddress', header: 'IP' },
+    { field: 'hsmPort', header: 'PORT' },
+    { field: 'hsmTimeOut', header: 'HSMTIME OUT' },
+    { field: 'connectionInterval', header: 'CONNECTION INTERVAL' },
+    { field: 'hsmStatus', header: 'HSM STATUS' },
   ];
-  atmData = [{ "HSMNAME": "PRIMARY", "HSMPROTOCOL": "TCPIP", "HSMTYPE": "RACAL", "HSMADDRESS": "10.93.121.92", "HSMPORT": 1500, "HEADERLEN": 2, "HEADERTYPE": "HEX", "HSMHEADERLEN": 4, "HSMTIMEOUT": 10, "CONNECTIONINTERVAL": 5, "HSMSTATUS": 0 },
-  { "HSMNAME": "SECONDARY", "HSMPROTOCOL": "TCPIP", "HSMTYPE": "THALES", "HSMADDRESS": "10.93.101.84", "HSMPORT": 1500, "HEADERLEN": 2, "HEADERTYPE": "HEX", "HSMHEADERLEN": 4, "HSMTIMEOUT": 10, "CONNECTIONINTERVAL": 5, "HSMSTATUS": 0 },
-  { "HSMNAME": "PRIMARY", "HSMPROTOCOL": "TCPIP", "HSMTYPE": "UTIMACO", "HSMADDRESS": "88.84.134.109", "HSMPORT": 10202, "HEADERLEN": 6, "HEADERTYPE": "HEX", "HSMHEADERLEN": 4, "HSMTIMEOUT": 10, "CONNECTIONINTERVAL": 5, "HSMSTATUS": 0 }]
 
+  getHsmData() {
+    this.loading = true;
+    this.restApi.get('/monitoring/v1/hsm').pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.hsmMonitoringrData = res;
+          console.log('taskManager data:', this.hsmMonitoringrData);
+
+        } else {
+          console.warn('No data received or request failed.');
+        } setTimeout(() => {
+          this.loading = false;
+        }, 6000);
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.loading = false;
+      }
+    });
+  }
 }
