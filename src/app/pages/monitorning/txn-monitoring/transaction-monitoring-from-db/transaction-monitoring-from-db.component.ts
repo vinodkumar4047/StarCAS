@@ -19,7 +19,6 @@ import { TableModule } from 'primeng/table';
     InputIconModule,
     IconFieldModule,
     ButtonModule,
-    TableComponent,
     DialogModule, TableModule],
   templateUrl: './transaction-monitoring-from-db.component.html',
   styleUrl: './transaction-monitoring-from-db.component.scss'

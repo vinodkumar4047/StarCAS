@@ -71,7 +71,7 @@ export class HSMMonitoringComponent {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
-        }, 6000);
+        }, 1000);
       },
       error: (err) => {
         console.error('Subscription error:', err);

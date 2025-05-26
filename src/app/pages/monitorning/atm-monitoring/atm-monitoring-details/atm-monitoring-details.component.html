@@ -76,36 +76,36 @@
                                 <div *ngSwitchCase="'G'" (click)="showDialog(atm)" class="atm-box color-good">
                                     <img src="assets/images/output-onlinepngtools (2).png" alt="">
                                     <div><i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                                 <div *ngSwitchCase="'O'" (click)="showDialog(atm)" class="atm-box color-offline">
                                     <img src="assets/images/red-atm.png" alt="">
-                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmName
+                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmId
                                         }}</div>
                                 </div>
                                 <div *ngSwitchCase="'W'" (click)="showDialog(atm)" class="atm-box color-warning">
                                     <img src="assets/images/warning-atm.png" alt="">
                                     <div> <i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                                 <div *ngSwitchCase="'N'" (click)="showDialog(atm)" class="atm-box color-out">
                                     <img src="assets/images/out-off-service.png" alt="">
-                                    <div> <i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmName }}
+                                    <div> <i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmId }}
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="'L'" (click)="showDialog(atm)" class="atm-box color-lowcash">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmName
+                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmId
                                         }}</div>
                                 </div>
                                 <div *ngSwitchCase="'C'" (click)="showDialog(atm)" class="atm-box color-critical">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
                                     <div><i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                                 <div *ngSwitchCase="'S'" (click)="showDialog(atm)" class="atm-box color-supervisor">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmName }}</div>
+                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                                 <div (click)="showDialog(atm)" class="atm-box color-good">
                                     <img src="assets/images/output-onlinepngtools (2).png" alt="">
                                     <div><i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                             <div *ngIf="atm.atmStatus == 'O'">
                                 <div (click)="showDialog(atm)" class="atm-box color-offline">
                                     <img src="assets/images/red-atm.png" alt="">
-                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmName
+                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmId
                                         }}</div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                                 <div (click)="showDialog(atm)" class="atm-box color-warning">
                                     <img src="assets/images/warning-atm.png" alt="">
                                     <div><i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
 
                                 <div (click)="showDialog(atm)" class="atm-box color-out">
                                     <img src="assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmName }}</div>
+                                    <div><i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                             <div *ngIf="atm.atmStatus == 'L'">
                                 <div (click)="showDialog(atm)" class="atm-box color-lowcash">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmName
+                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmId
                                         }}</div>
                                 </div>
                             </div>
@@ -273,7 +273,7 @@
                                 <div (click)="showDialog(atm)" class="atm-box color-critical">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
                                     <div> <i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp; {{
-                                        atm.atmName }}</div>
+                                        atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                             <div *ngIf="atm.atmStatus == 'S'">
                                 <div (click)="showDialog(atm)" class="atm-box color-supervisor">
                                     <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmName }}</div>
+                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>

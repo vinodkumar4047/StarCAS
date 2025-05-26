@@ -6,6 +6,8 @@ import { TabsModule } from 'primeng/tabs';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
+import { RestService } from '../../../../layout/service/rest.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-atm-monitoring-details',
@@ -15,43 +17,47 @@ import { TableModule } from 'primeng/table';
   // encapsulation:ViewEncapsulation.None
 })
 export class AtmMonitoringDetailsComponent {
-  dataATM = [
-    { atmStatus: 'G', atmName: 'TN000' },
-    { atmStatus: 'O', atmName: 'TN001' },
-    { atmStatus: 'W', atmName: 'TN002' },
-    { atmStatus: 'N', atmName: 'TN003' },
-    { atmStatus: 'L', atmName: 'TN004' },
-    { atmStatus: 'C', atmName: 'TN005' },
-    { atmStatus: 'S', atmName: 'TN006' },
-    { atmStatus: 'G', atmName: 'TN007' },
-    { atmStatus: 'W', atmName: 'TN008' },
-    { atmStatus: 'O', atmName: 'TN009' },
-    { atmStatus: 'N', atmName: 'TN010' },
-    { atmStatus: 'L', atmName: 'TN011' },
-    { atmStatus: 'G', atmName: 'TN012' },
-    { atmStatus: 'C', atmName: 'TN013' },
-    { atmStatus: 'S', atmName: 'TN014' },
-    { atmStatus: 'W', atmName: 'TN015' },
-    { atmStatus: 'G', atmName: 'TN016' },
-    { atmStatus: 'O', atmName: 'TN017' },
-    { atmStatus: 'C', atmName: 'TN018' },
-    { atmStatus: 'N', atmName: 'TN019' },
-    { atmStatus: 'L', atmName: 'TN020' },
-    { atmStatus: 'G', atmName: 'TN021' },
-    { atmStatus: 'W', atmName: 'TN022' },
-    { atmStatus: 'O', atmName: 'TN023' },
-    { atmStatus: 'S', atmName: 'TN024' },
-    { atmStatus: 'L', atmName: 'TN025' },
-    { atmStatus: 'C', atmName: 'TN026' },
-    { atmStatus: 'N', atmName: 'TN027' },
-    { atmStatus: 'W', atmName: 'TN028' },
-    { atmStatus: 'G', atmName: 'TN029' }
-  ];
+  atmMonitoringrData: any[] = [];
+  dataATM: { atmId: string, atmStatus: string }[] = [];
+  // dataATM = [
+  //   { atmStatus: 'G', atmId: 'TN000' },
+  //   { atmStatus: 'O', atmId: 'TN001' },
+  //   { atmStatus: 'W', atmId: 'TN002' },
+  //   { atmStatus: 'N', atmId: 'TN003' },
+  //   { atmStatus: 'L', atmId: 'TN004' },
+  //   { atmStatus: 'C', atmId: 'TN005' },
+  //   { atmStatus: 'S', atmId: 'TN006' },
+  //   { atmStatus: 'G', atmId: 'TN007' },
+  //   { atmStatus: 'W', atmId: 'TN008' },
+  //   { atmStatus: 'O', atmId: 'TN009' },
+  //   { atmStatus: 'N', atmId: 'TN010' },
+  //   { atmStatus: 'L', atmId: 'TN011' },
+  //   { atmStatus: 'G', atmId: 'TN012' },
+  //   { atmStatus: 'C', atmId: 'TN013' },
+  //   { atmStatus: 'S', atmId: 'TN014' },
+  //   { atmStatus: 'W', atmId: 'TN015' },
+  //   { atmStatus: 'G', atmId: 'TN016' },
+  //   { atmStatus: 'O', atmId: 'TN017' },
+  //   { atmStatus: 'C', atmId: 'TN018' },
+  //   { atmStatus: 'N', atmId: 'TN019' },
+  //   { atmStatus: 'L', atmId: 'TN020' },
+  //   { atmStatus: 'G', atmId: 'TN021' },
+  //   { atmStatus: 'W', atmId: 'TN022' },
+  //   { atmStatus: 'O', atmId: 'TN023' },
+  //   { atmStatus: 'S', atmId: 'TN024' },
+  //   { atmStatus: 'L', atmId: 'TN025' },
+  //   { atmStatus: 'C', atmId: 'TN026' },
+  //   { atmStatus: 'N', atmId: 'TN027' },
+  //   { atmStatus: 'W', atmId: 'TN028' },
+  //   { atmStatus: 'G', atmId: 'TN029' }
+  // ];
   atmSearchTerm: string = '';
   filteredATMList: any[] = [];
   lenOfData: any
+  lenOfData1: any
+
   visible: boolean = false;
-  mainDailogDetails: any = { atmStatus: '', atmName: '' };
+  mainDailogDetails: any = { atmStatus: '', atmId: '' };
   headerDia: any;
   atmDetails = {
     atmId: "TEST006",
@@ -153,20 +159,21 @@ export class AtmMonitoringDetailsComponent {
     { component: 'CURRENCY CASSETTE IN POSITION4', status: 'active' }
   ];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private restApi: RestService) {
   }
 
   ngOnInit() {
-    this.filteredATMList = this.dataATM; // initialize with full list
-    this.lenOfData = {
-      good: this.dataATM.filter(atm => atm?.atmStatus == 'G').length,
-      offline: this.dataATM.filter(atm => atm?.atmStatus == 'O').length,
-      warn: this.dataATM.filter(atm => atm?.atmStatus == 'W').length,
-      outOfService: this.dataATM.filter(atm => atm?.atmStatus == 'N').length,
-      lowCash: this.dataATM.filter(atm => atm?.atmStatus == 'L').length,
-      critical: this.dataATM.filter(atm => atm?.atmStatus == 'C').length,
-      supervisor: this.dataATM.filter(atm => atm?.atmStatus == 'S').length,
-    };
+    this.atmMonitoringGetData()
+    // this.filteredATMList = this.dataATM; // initialize with full list
+    // this.lenOfData = {
+    //   good: this.dataATM.filter(atm => atm?.atmStatus == 'G').length,
+    //   offline: this.dataATM.filter(atm => atm?.atmStatus == 'O').length,
+    //   warn: this.dataATM.filter(atm => atm?.atmStatus == 'W').length,
+    //   outOfService: this.dataATM.filter(atm => atm?.atmStatus == 'N').length,
+    //   lowCash: this.dataATM.filter(atm => atm?.atmStatus == 'L').length,
+    //   critical: this.dataATM.filter(atm => atm?.atmStatus == 'C').length,
+    //   supervisor: this.dataATM.filter(atm => atm?.atmStatus == 'S').length,
+    // };
     this.denominationArray = Object.entries(this.atmDetails.denominations).map(
       ([denomination, data]: [string, any]) => ({
         denomination,
@@ -179,18 +186,68 @@ export class AtmMonitoringDetailsComponent {
 
   }
 
+  atmMonitoringGetData() {
+    const instId = 'SCB';
+    this.restApi.get(`/monitoring/v1/atmMonitoringDetails?instId=${instId}`).pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          const statusMap = [
+            { key: 'onlineAtms', status: 'G' },       // Good
+            { key: 'offlineAtms', status: 'O' },      // Offline
+            { key: 'warningAtms', status: 'W' },      // Warning
+            { key: 'lowCashAtms', status: 'L' },      // Low Cash
+            { key: 'outOfCashAtms', status: 'L' },    // Treat same as Low Cash
+            { key: 'outOfServiceAtms', status: 'N' }, // Out of Service
+            { key: 'criticalAtms', status: 'C' },     // Critical
+            { key: 'supervisorAtms', status: 'S' }    // Supervisor
+          ];
+
+          // Flatten into individual ATM entries with status code
+          this.dataATM = statusMap.flatMap(({ key, status }) => {
+            const atmList = res[key] || [];
+            return atmList.map((atmId: string) => ({ atmId, atmStatus: status }));
+          });
+          this.filteredATMList = this.dataATM; // initialize with full list
+
+          // Compute lengths
+          this.lenOfData = {
+            good: this.dataATM.filter(atm => atm?.atmStatus === 'G').length,
+            offline: this.dataATM.filter(atm => atm?.atmStatus === 'O').length,
+            warn: this.dataATM.filter(atm => atm?.atmStatus === 'W').length,
+            outOfService: this.dataATM.filter(atm => atm?.atmStatus === 'N').length,
+            lowCash: this.dataATM.filter(atm => atm?.atmStatus === 'L').length,
+            critical: this.dataATM.filter(atm => atm?.atmStatus === 'C').length,
+            supervisor: this.dataATM.filter(atm => atm?.atmStatus === 'S').length,
+          };
+
+          console.log('Flattened ATM Data:', this.dataATM);
+          console.log('Status Counts:', this.lenOfData);
+        } else {
+          console.warn('No data received or request failed.');
+        }
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+      }
+    });
+  }
+
+
+
   onSearchInput(event: any) {
     const term = event.target.value.toLowerCase();
     this.filteredATMList = this.dataATM.filter(atm =>
-      atm.atmName.toLowerCase().includes(term)
+      atm.atmId.toLowerCase().includes(term)
     );
   }
 
   showDialog(data: any) {
     this.visible = true;
     this.mainDailogDetails = data;
-    this.headerDia = 'Detail of ' + this.mainDailogDetails?.atmName;
-    console.log(this.headerDia, this.mainDailogDetails, 'this.headerDiathis.mainDailogDetails?.atmName;');
+    this.headerDia = 'Detail of ' + this.mainDailogDetails?.atmId;
+    console.log(this.headerDia, this.mainDailogDetails, 'this.headerDiathis.mainDailogDetails?.atmId;');
 
   }
 
