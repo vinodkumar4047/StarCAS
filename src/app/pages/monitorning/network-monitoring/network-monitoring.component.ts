@@ -9,6 +9,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { take } from 'rxjs';
 import { RestService } from '../../../layout/service/rest.service';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-network-monitoring',
@@ -19,7 +20,7 @@ import { RestService } from '../../../layout/service/rest.service';
     IconFieldModule,
     ButtonModule,
     TableComponent,
-    DialogModule],
+    DialogModule,TableModule],
   templateUrl: './network-monitoring.component.html',
   styleUrl: './network-monitoring.component.scss'
 })
@@ -37,14 +38,14 @@ export class NetworkMonitoringComponent {
         "networkId": "",
         "networkName": "",
         "networkPropertyId": "",
-        "timeout": "30",
-        "channelName": "EzMercury8583",
-        "portName": "TEST008",
-        "networkStatus": "1",
-        "keyReq": "Y",
-        "cutoverReq": "N",
-        "echoAcqInstCode": "639807",
-        "networkFlag": "1"
+        "timeout": "",
+        "channelName": "",
+        "portName": "",
+        "networkStatus": "",
+        "keyReq": "",
+        "cutoverReq": "",
+        "echoAcqInstCode": "",
+        "networkFlag": ""
     }
   globalFilterFields: any = [
     'instId',
@@ -73,7 +74,9 @@ export class NetworkMonitoringComponent {
   ngOnInit() {
     this.getnetworkData();
   }
-  addOrEdit() {
+  viewEvent(event:any) {
+    console.log(event,'eeeeeeeeee');
+    this.networkRowData = event.data;
     this.display = true;
   }
   getnetworkData() {

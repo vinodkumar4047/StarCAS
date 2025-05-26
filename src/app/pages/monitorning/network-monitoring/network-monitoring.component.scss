@@ -8,5 +8,80 @@
             font-weight: bold;
             color: forestgreen;
         }
+               .EDIT_BRANCH_DIALOG {
+    .p-dialog-header {
+      background: var(--p-button-primary-background);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .custom-text-color {
+      color: #ffffff;
+      font-size: 25px;
+    }
+
+    .hovBut:hover {
+      background-color: #ffffff;
+      color: var(--primary-color);
+    }
+
+    .table-wrapper {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    // .network-table {
+    //   width: 100%;
+    //   border-collapse: collapse;
+    // }
+
+    // .network-table th,
+    // .network-table td {
+    //   text-align: left;
+    //   padding: 12px 16px;
+    //   border-bottom: 1px solid #e0e0e0;
+    // }
+
+    // .network-table th {
+    //   background-color: #f7f7f7;
+    //   font-weight: bold;
+    //   width: 40%;
+    // }
+
+    // .network-table td {
+    //   background-color: #ffffff;
+    //   word-break: break-word;
+    // }
+
+       .custom-table-style {
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            .row {
+                display: flex;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .row:last-child {
+                border-bottom: none;
+            }
+
+            .label-cell {
+                color: var(--primary-color);
+                width: 30%;
+                background-color: #f4f4f4;
+                padding: 0.75rem 1rem;
+                font-weight: bold;
+                border-right: 1px solid #ccc;
+            }
+
+            .value-cell {
+                width: 70%;
+                padding: 0.75rem 1rem;
+            }
+
+  }
     }
 }
