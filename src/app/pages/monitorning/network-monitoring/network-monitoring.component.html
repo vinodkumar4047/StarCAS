@@ -3,94 +3,156 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="addOrEdit()" />
+            (viewEvent)="viewEvent($event)" />
     </div>
 
-    <p-dialog header="Network Details" [(visible)]="display" [style]="{width: '50vw'}">
-      <div class="grid grid-cols-2 gap-4">
-        <div class="flex flex-column">
-          <label for="portId">Port ID:</label>
-          <input pInputText id="portId" [value]="networkRowData.portId" disabled />
-        </div>
+    <p-dialog [(visible)]="display" [modal]="true" [style]="{ width: '50rem' }" [closable]="false" class="EDIT_BRANCH_DIALOG">
+  <ng-template pTemplate="header">
+    <div class="flex justify-between items-center w-full">
+      <span class="text-lg font-semibold custom-text-color">Network Details</span>
+      <button pButton icon="pi pi-times" class="change hovBut p-button-sm" (click)="display = false"></button>
+    </div>
+  </ng-template>
 
-        <div class="flex flex-column">
-          <label for="networkId">Network ID:</label>
-          <input pInputText id="networkId" [value]="networkRowData.networkId" disabled />
-        </div>
+  <!-- <div class="table-wrapper">
+    <table class="network-table m-4">
+      <tbody>
+        <tr>
+          <th>Port ID</th>
+          <td>{{ networkRowData.portId }}</td>
+        </tr>
+        <tr>
+          <th>Network ID</th>
+          <td>{{ networkRowData.networkId }}</td>
+        </tr>
+        <tr>
+          <th>Port Status</th>
+          <td>{{ networkRowData.portStatus }}</td>
+        </tr>
+        <tr>
+          <th>Network Name</th>
+          <td>{{ networkRowData.networkName }}</td>
+        </tr>
+        <tr>
+          <th>Port Group</th>
+          <td>{{ networkRowData.portGroup }}</td>
+        </tr>
+        <tr>
+          <th>Network Property ID</th>
+          <td>{{ networkRowData.networkPropertyId }}</td>
+        </tr>
+        <tr>
+          <th>Log Date</th>
+          <td>{{ networkRowData.logDate }}</td>
+        </tr>
+        <tr>
+          <th>Timeout</th>
+          <td>{{ networkRowData.timeout }}</td>
+        </tr>
+        <tr>
+          <th>Log Time</th>
+          <td>{{ networkRowData.logTime }}</td>
+        </tr>
+        <tr>
+          <th>Channel Name</th>
+          <td>{{ networkRowData.channelName }}</td>
+        </tr>
+        <tr>
+          <th>Port Name</th>
+          <td>{{ networkRowData.portName }}</td>
+        </tr>
+        <tr>
+          <th>Network Flag</th>
+          <td>{{ networkRowData.networkFlag }}</td>
+        </tr>
+        <tr>
+          <th>Network Status</th>
+          <td>{{ networkRowData.networkStatus }}</td>
+        </tr>
+        <tr>
+          <th>Key Required</th>
+          <td>{{ networkRowData.keyReq }}</td>
+        </tr>
+        <tr>
+          <th>Cutover Required</th>
+          <td>{{ networkRowData.cutoverReq }}</td>
+        </tr>
+        <tr>
+          <th>Echo Acq Inst Code</th>
+          <td>{{ networkRowData.echoAcqInstCode }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+<div class="custom-table-style m-4">
+    <div class="row">
+      <div class="label-cell">Port ID</div>
+      <div class="value-cell">{{ networkRowData.portId }}</div>
+    </div>
+    <div class="row">
+      <div class="label-cell">Network ID</div>
+      <div class="value-cell">{{ networkRowData.networkId }}</div>
+    </div>
+    <div class="row">
+      <div class="label-cell">Port Status</div>
+      <div class="value-cell">{{ networkRowData.portStatus }}</div>
+    </div>
+    <div class="row">
+      <div class="label-cell">Network Name</div>
+      <div class="value-cell">{{ networkRowData.networkName }}</div>
+    </div>
+    <div class="row">
+      <div class="label-cell">Port Group</div>
+      <div class="value-cell">{{ networkRowData.portGroup }}</div>
+    </div>
+     <div class="row">
+      <div class="label-cell">Network Property ID</div>
+      <div class="value-cell">{{ networkRowData.networkPropertyId }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Log Date</div>
+      <div class="value-cell">{{ networkRowData.logDate }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Timeout</div>
+      <div class="value-cell">{{ networkRowData.timeout }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Log Time</div>
+      <div class="value-cell">{{ networkRowData.logTime }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Channel Name</div>
+      <div class="value-cell">{{ networkRowData.channelName }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Port Name</div>
+      <div class="value-cell">{{ networkRowData.portName }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Network Flag</div>
+      <div class="value-cell">{{ networkRowData.networkFlag }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Network Status</div>
+      <div class="value-cell">{{ networkRowData.networkStatus }}</div>
+    </div>
+        <div class="row">
+      <div class="label-cell">Key Required</div>
+      <div class="value-cell">{{ networkRowData.keyReq }}</div>
+    </div>
+         <div class="row">
+      <div class="label-cell">Cutover Required</div>
+      <div class="value-cell">{{ networkRowData.cutoverReq }}</div>
+    </div>
+        <div class="row">
+      <div class="label-cell">Echo Acq Inst Code</div>
+      <div class="value-cell">{{ networkRowData.echoAcqInstCode }}</div>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="button" label="Close" icon="pi pi-times" (click)="display = false"></button>
+  </p-footer>
+</p-dialog>
 
-        <div class="flex flex-column">
-          <label for="portStatus">Port Status:</label>
-          <input pInputText id="portStatus" [value]="networkRowData.portStatus" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="networkName">Network Name:</label>
-          <input pInputText id="networkName" [value]="networkRowData.networkName" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="portGroup">Port Group:</label>
-          <input pInputText id="portGroup" [value]="networkRowData.portGroup" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="networkPropertyId">Network Property ID:</label>
-          <input pInputText id="networkPropertyId" [value]="networkRowData.networkPropertyId" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="logDate">Log Date:</label>
-          <input pInputText id="logDate" [value]="networkRowData.logDate" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="timeout">Timeout:</label>
-          <input pInputText id="timeout" [value]="networkRowData.timeout" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="logTime">Log Time:</label>
-          <input pInputText id="logTime" [value]="networkRowData.logTime" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="channelName">Channel Name:</label>
-          <input pInputText id="channelName" [value]="networkRowData.channelName" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="portName">Port Name:</label>
-          <input pInputText id="portName" [value]="networkRowData.portName" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="networkFlag">Network Flag:</label>
-          <input pInputText id="networkFlag" [value]="networkRowData.networkFlag" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="networkStatus">Network Status:</label>
-          <input pInputText id="networkStatus" [value]="networkRowData.networkStatus" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="keyReq">Key Required:</label>
-          <input pInputText id="keyReq" [value]="networkRowData.keyReq" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="cutoverReq">Cutover Required:</label>
-          <input pInputText id="cutoverReq" [value]="networkRowData.cutoverReq" disabled />
-        </div>
-
-        <div class="flex flex-column">
-          <label for="echoAcqInstCode">Echo Acq Inst Code:</label>
-          <input pInputText id="echoAcqInstCode" [value]="networkRowData.echoAcqInstCode" disabled />
-        </div>
-      </div>
-
-      <p-footer>
-        <button pButton type="button" label="Close" icon="pi pi-times" (click)="display=false"></button>
-      </p-footer>
-    </p-dialog>
 </div>
