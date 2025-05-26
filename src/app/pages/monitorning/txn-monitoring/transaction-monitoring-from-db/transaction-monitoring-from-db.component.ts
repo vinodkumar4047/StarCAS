@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators';
 import { RestService } from '../../../../layout/service/rest.service';
 import { style } from '@angular/animations';
 import { TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
 @Component({
   selector: 'app-transaction-monitoring-from-db',
   imports: [TooltipModule,
@@ -19,11 +20,12 @@ import { TableModule } from 'primeng/table';
     InputIconModule,
     IconFieldModule,
     ButtonModule,
-    DialogModule, TableModule],
+    DialogModule, TableModule, ProgressBarModule],
   templateUrl: './transaction-monitoring-from-db.component.html',
   styleUrl: './transaction-monitoring-from-db.component.scss'
 })
 export class TransactionMonitoringFromDBComponent {
+  isLoading: boolean = false;
   transactionMonitoringrData: any[] = [];
   loading: boolean = true;
   private intervalId: any;
@@ -63,6 +65,7 @@ export class TransactionMonitoringFromDBComponent {
   ];
 
   transactionGetData() {
+    this.isLoading = true;
     const instId = 'SCB';
     this.restApi.get(`/monitoring/v1/transaction?instId=${instId}`).pipe(
       take(1),
@@ -86,6 +89,8 @@ export class TransactionMonitoringFromDBComponent {
       },
       error: (err) => {
         console.error('Subscription error:', err);
+      }, complete: () => {
+        this.isLoading = false; // Stop loading bar
       }
     });
   };
@@ -93,6 +98,6 @@ export class TransactionMonitoringFromDBComponent {
   startAutoRefresh() {
     this.intervalId = setInterval(() => {
       this.transactionGetData(); // Fetch data every 60 seconds
-    }, 60000); // 60000 milliseconds = 60 seconds
+    }, 10000); // 60000 milliseconds = 60 seconds
   }
 }

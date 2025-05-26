@@ -382,8 +382,8 @@
         <div class="status-grid">
             <div class="status-item" *ngFor="let key of statusKeys">
                 <div class="status-label">{{ key }}</div>
-                <div class="status-value" [ngClass]="statuses[key] == 'no error' ? 'ok-status' : 'error-status'">
-                    {{ statuses[key] }}
+                <div class="status-value" [ngClass]="hardwareFitness[key] == 'No error' ? 'ok-status' : 'error-status'">
+                    {{ hardwareFitness[key] }}
                 </div>
             </div>
         </div>
@@ -430,9 +430,10 @@
         [responsive]="true" [closable]="true" class="MONI_DIALOG">
         <div class="status-grid">
             <div *ngFor="let item of statusData" class="status-item">
-                <div class="status-label">{{ item.component }}</div>
-                <div class="status-value" [ngClass]="item.status == 'active' ? 'ok-status' : 'error-status'">
-                    {{item.status }}</div>
+                <div class="status-label">{{ item.key }}</div>
+                <div class="status-value"
+                    [ngClass]="item.value.toLowerCase() == 'active' ? 'ok-status' : 'error-status'">
+                    {{item.value }}</div>
             </div>
         </div>
     </p-dialog>

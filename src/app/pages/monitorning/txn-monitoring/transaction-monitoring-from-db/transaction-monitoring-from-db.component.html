@@ -1,6 +1,9 @@
 <div class="trnxMonitor flex justify-around ">
     <h2 class="mb-8">Network Monitor</h2>
 </div>
+<!-- Progress Bar -->
+<p-progressbar *ngIf="isLoading" mode="indeterminate" [style]="{ height: '6px', marginBottom: '10px' }">
+</p-progressbar>
 <div>
     <p-table [value]="transactionMonitoringrData" [resizableColumns]="true" styleClass="p-datatable-gridlines"
         [tableStyle]="{'width': '100%', 'table-layout': 'fixed'}">
