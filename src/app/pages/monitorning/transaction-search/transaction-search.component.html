@@ -59,11 +59,21 @@
                     <label for="FromToDate">From Date - To Date <span
                             style="color: red;font-size: 16px;">*</span></label>
                 </p-floatlabel>
-                <p-floatlabel variant="on">
+                  <!-- Dynamic Inputs Based on Criteria -->
+    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '0'">
+        <input pInputText styleClass="w-full" formControlName="RefNum" type="text" />
+        <label>Ref Number <span style="color: red; font-size: 16px;">*</span></label>
+    </p-floatlabel>
 
-                    <input pInputText styleClass="w-full" id="RefNum" formControlName="RefNum" type="text" />
-                    <label for="RefNum">Ref Number <span style="color: red; font-size: 16px;">*</span> </label>
-                </p-floatlabel>
+    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '1'">
+        <input pInputText styleClass="w-full" formControlName="Account" type="text" />
+        <label>Account <span style="color: red; font-size: 16px;">*</span></label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '2'">
+        <input pInputText styleClass="w-full" formControlName="CHN" type="text" />
+        <label>CHN <span style="color: red; font-size: 16px;">*</span></label>
+    </p-floatlabel>
                 <div class="radiobutton flex flex-col gap-4">
                     <label>Criteria <span style="color: red; font-size: 16px;">*</span> </label>
                     <div class=" flex gap-4">

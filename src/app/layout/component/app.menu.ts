@@ -19,16 +19,22 @@ import { AppMenuitem } from './app.menuitem';
 })
 export class AppMenu {
     model: MenuItem[] = [];
-
+    userRole: any = localStorage.getItem('userRole');
     ngOnInit() {
         this.model = [
             {
-                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/pages/dashboard'] }]
+                items: [{ 
+                    label: 'Dashboard', 
+                    icon: 'pi pi-fw pi-home', 
+                    visible: this.userRole == 'user' || this.userRole == 'admin', 
+                    routerLink: ['/pages/dashboard'] 
+                }]
             },
             {
                 items: [{
                     label: 'Configuration',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user',
                     items: [
                         {
                             label: 'Institution',
@@ -88,6 +94,7 @@ export class AppMenu {
                 items: [{
                     label: 'Monitorning',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user',
                     items: [
                         {
                             label: 'Network Monitoring',
@@ -122,6 +129,7 @@ export class AppMenu {
                 items: [{
                     label: 'Control',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user',
                     items: [
                         {
                             label: 'Task Manager',
@@ -151,41 +159,49 @@ export class AppMenu {
                 items: [{
                     label: 'Risk Management',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user' || this.userRole == 'admin',
                     items: [
                         {
                             label: 'International TXN Enabled',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/internationalTXNEnadisable']
+                            routerLink: ['/pages/internationalTXNEnadisable'],
+                            visible: this.userRole == 'user' || this.userRole == 'admin',
                         },
                         {
                             label: 'TXN Allow Without PIN',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/pages/txnAllowWithoutPin']
+                            routerLink: ['/pages/txnAllowWithoutPin'],
+                            visible: this.userRole == 'user' || this.userRole == 'admin',
                         },
                         {
                             label: 'Risk Country Block',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/riskCountryBlock']
+                            routerLink: ['/pages/riskCountryBlock'],
+                            visible: this.userRole == 'user',
                         },
                         {
                             label: 'TXN Allow For Risk Country',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/txnAllowedRiskCountry']
+                            routerLink: ['/pages/txnAllowedRiskCountry'],
+                            visible: this.userRole == 'user' ,
                         },
                         {
                             label: 'MCC Block',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/mccBlock']
+                            routerLink: ['/pages/mccBlock'],
+                            visible: this.userRole == 'user' ,
                         },
                         {
                             label: 'TXN Allow For Blocked MCC',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/txnAllowBlockedMCC']
+                            routerLink: ['/pages/txnAllowBlockedMCC'],
+                            visible: this.userRole == 'user' ,
                         },
                         {
                             label: 'Risk Ecom Site Block',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/riskEcomSiteBlock']
+                            routerLink: ['/pages/riskEcomSiteBlock'],
+                            visible: this.userRole == 'user' ,
                         },
                     ]
                 }]
@@ -195,6 +211,7 @@ export class AppMenu {
                 items: [{
                     label: 'Reports',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user',
                     routerLink: ['/pages/report']
                 }]
             },
@@ -203,6 +220,7 @@ export class AppMenu {
                 items: [{
                     label: 'Utility',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user',
                     items: [
                         {
                             label: 'Email Update',
@@ -232,6 +250,7 @@ export class AppMenu {
                 items: [{
                     label: 'User Management',
                     icon: 'pi pi-fw pi-user',
+                    visible: this.userRole == 'user' || this.userRole == 'admin',
                     items: [
                         {
                             label: 'Profile',
@@ -242,6 +261,25 @@ export class AppMenu {
                             label: 'User',
                             icon: 'pi pi-fw pi-times-circle',
                             routerLink: ['/pages/user']
+                        },
+                    ]
+                }]
+            },
+             {
+                items: [{
+                    label: 'License Generation',
+                    icon: 'pi pi-fw pi-id-card',
+                    visible: this.userRole == 'admin',
+                    items: [
+                        {
+                            label: 'Encrypt License',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/pages/encrypt']
+                        },
+                        {
+                            label: 'License Decryption',
+                            icon: 'pi pi-fw pi-key',
+                            routerLink: ['/pages/decrypt']
                         },
                     ]
                 }]

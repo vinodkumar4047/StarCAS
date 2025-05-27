@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DatePicker } from 'primeng/datepicker';
+import { RestService } from '../../../layout/service/rest.service';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-transaction-search',
   imports: [FormsModule, ToastModule, SpeedDialModule, ButtonModule, ReactiveFormsModule,
@@ -62,7 +64,7 @@ export class TransactionSearchComponent {
       "COUNTRYDESC": "Armenia"
     }
   ];
-  constructor(private messageService: MessageService, private fb: FormBuilder) { }
+  constructor(private messageService: MessageService, private fb: FormBuilder, private restApi: RestService) { }
 
   toggleRadioContent() {
     this.isSpeedDialOpen = !this.isSpeedDialOpen;
@@ -70,17 +72,65 @@ export class TransactionSearchComponent {
   }
   ngOnInit() {
     this.searchForm = this.fb.group({
-      RefNum: ['', Validators.required],
+      RefNum: [''],
+      Account: [''],
+      CHN: [''],
       Criteria: ['0', Validators.required],
       FromToDate: ['', Validators.required]
     });
     this.searchForm.get('INSTID')?.disable();
   }
 
+  formatDate(date: Date): string {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
   onSubmit() {
     if (this.searchForm.valid) {
       console.log('Form Data:', this.searchForm.value);
       // Process the form data here 
+
+   const formValue = this.searchForm.value;
+  const [fromDate, toDate] = formValue.FromToDate;
+
+  let payload: any = {
+    fromDate: this.formatDate(fromDate),
+    toDate: this.formatDate(toDate),
+    chnBased: '',
+    accountBased: '',
+    refnumBased: ''
+  };
+
+  switch (formValue.Criteria) {
+    case '0':
+      payload.refnumBased = formValue.RefNum;
+      break;
+    case '1':
+      payload.accountBased = formValue.Account;
+      break;
+    case '2':
+      payload.chnBased = formValue.CHN;
+      break;
+  };
+  
+  console.log('Final Payload:', payload);
+
+      this.restApi.post(payload, '/monitoring/v1/transactionSearch').pipe(
+        take(1),
+      ).subscribe({
+        next: (res) => {
+          console.log('response', res);
+
+        },
+        error: (err) => {
+          console.error('Subscription error:', err);
+        }
+      });
+
     } else {
       console.log('Form is invalid', this.searchForm);
       this.searchForm.markAllAsTouched();

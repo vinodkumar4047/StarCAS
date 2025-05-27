@@ -147,6 +147,12 @@ export class AppMenuitem {
         }
 
         this.layoutService.onMenuStateChange({ key: this.key });
+        if (this.item.routerLink && !this.item.items) {
+        this.layoutService.layoutState.update((prev) => ({
+            ...prev,
+            staticMenuDesktopInactive: !prev.staticMenuDesktopInactive
+        }));
+    }
         
     }
 

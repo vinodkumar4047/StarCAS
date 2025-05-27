@@ -1,0 +1,35 @@
+<div class="Encrypt col-span-12 xl:col-span-12">
+    <h2 class="mb-8"> License Generation </h2>
+    <div class="card !mb-4">
+        <form [formGroup]="encryptForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <div class="font-semibold text-xl heading-color">
+                       Encrypt License
+                    </div>
+                </div>
+            </div> 
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                   
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="INSTID" formControlName="INSTID" type="text" />
+                        <label for="INSTID">Inst Id <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="on">
+    
+                        <input pInputText styleClass="w-full" id="serverIP" formControlName="serverIP" type="text" />
+                        <label for="serverIP">Server IP <span style="color: red; font-size: 16px;">*</span> </label>
+                    </p-floatlabel>
+                      <p-floatlabel variant="on">
+                    <p-datepicker inputId="expireDate" styleClass="w-full" showIcon iconDisplay="input"
+                        formControlName="expireDate" />
+                    <label for="expireDate">Expire Date <span style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                </div>
+                <div class="flex flex-row-reverse mx-4 my-8">
+                    <p-button label="Submit" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+                </div>
+        </form>
+    </div>
+</div>

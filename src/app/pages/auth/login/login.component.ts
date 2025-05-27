@@ -39,12 +39,15 @@ rememberAdmin: boolean = false;
 onUserLogin() {
   // Add user login logic here
   console.log('User Login', this.userEmail, this.userPassword);
+  localStorage.setItem('userRole', 'user');
   this.router.navigate(['/pages/dashboard']);
+  
 }
 
 onAdminLogin() {
   // Add admin login logic here
   console.log('Admin Login', this.adminEmail, this.adminPassword);
+   localStorage.setItem('userRole', 'admin');
   this.router.navigate(['/pages/dashboard']);
 }
 

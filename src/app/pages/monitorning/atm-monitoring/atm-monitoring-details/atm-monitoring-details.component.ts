@@ -220,7 +220,7 @@ export class AtmMonitoringDetailsComponent {
           this.dataATM = statusMap.flatMap(({ key, status }) => {
             const atmList = res[key] || [];
             return atmList.map((atmId: string) => ({ atmId, atmStatus: status }));
-          });
+          }).sort((a, b) => a.atmId.localeCompare(b.atmId));
           this.filteredATMList = this.dataATM; // initialize with full list
 
           // Compute lengths
@@ -247,39 +247,66 @@ export class AtmMonitoringDetailsComponent {
   }
 
   getAtmDetails(atmId: string) {
+  const instId = 'SCB';
+  const url = `/monitoring/v1/atmDetails/${atmId}?instId=${instId}`;
 
-    const instId = 'SCB';
-    const url = `/monitoring/v1/atmDetails/${atmId}?instId=${instId}`;
+  this.restApi.get(url).pipe(take(1)).subscribe({
+    next: (res) => {
+      if (res) {
+        this.hardwareFitness = res.hardwareFitnessResponse || {};
+        this.configDetails = res.configDetailsResponse || {};
+        this.configEntries = this.convertConfigToEntries(this.configDetails);
 
-    this.restApi.get(url).pipe(take(1)).subscribe({
-      next: (res) => {
-        if (res) {
+        this.sensorStatus = res.sensorStatusResponse || {};
+        this.supplyStatus = res.supplyStatusResponse || {};
+        this.SupplyStatus = this.convertConfigToEntries(this.supplyStatus);
+        const denomData = res.atmDenomDetailsResponse?.[0];
+        if (denomData) {
+          const values = denomData.denomValue.split(',').map(Number);
+          const loadedNotes = denomData.denomNotesLoaded.split(',').map(Number);
+          const dispensedNotes = denomData.denomDispensed.split(',').map(Number);
 
-          this.hardwareFitness = res.hardwareFitnessResponse || {};
-          this.configDetails = res.configDetailsResponse || {};
-          // ✅ Convert to array for p-table
-          this.configEntries = this.convertConfigToEntries(this.configDetails);
-          console.log('this.configEntries', this.configEntries);
+          let totalLoaded = 0;
+          let totalDispensed = 0;
+          let totalAvailable = 0;
 
-          this.sensorStatus = res.sensorStatusResponse || {};
-          console.log(this.sensorStatus);
+          this.denominationArray = values.map((value: any, index: any) => {
+            const loaded = loadedNotes[index];
+            const dispensed = dispensedNotes[index] ;
+            const available = loaded - dispensed;
 
-          this.supplyStatus = res.supplyStatusResponse || {};
-          this.SupplyStatus = this.convertConfigToEntries(this.supplyStatus);
-          console.log(this.supplyStatus);
+            totalLoaded += loaded;
+            totalDispensed += dispensed;
+            totalAvailable += available;
 
-          // Optional: store other parts too if needed
-          this.atmDenominations = res.atmDenomDetailsResponse || [];
-          this.atmDetails1 = res.atmDetailsResponse || null;
-        } else {
-          console.warn('No details returned from API');
+            return {
+              denomination: value,
+              loaded,
+              dispensed,
+              available
+            };
+          });
+
+          this.atmDetails = {
+            ...res.atmDetailsResponse,
+            atmId:atmId,
+            totals: {
+              loaded: totalLoaded,
+              dispensed: totalDispensed,
+              available: totalAvailable
+            }
+          };
         }
-      },
-      error: (err) => {
-        console.error('Failed to fetch ATM details:', err);
+      } else {
+        console.warn('No details returned from API');
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Failed to fetch ATM details:', err);
+    }
+  });
+}
+
 
   convertConfigToEntries(config: any): { component: string; status: string }[] {
     if (!config) return [];
