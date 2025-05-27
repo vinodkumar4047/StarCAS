@@ -67,7 +67,7 @@ import { LayoutService } from '../service/layout.service';
             transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ],
-    providers: [LayoutService]
+    
 })
 export class AppMenuitem {
     @Input() item!: MenuItem;
@@ -88,7 +88,7 @@ export class AppMenuitem {
 
     constructor(
         public router: Router,
-        private layoutService: LayoutService
+        public layoutService: LayoutService
     ) {
         this.menuSourceSubscription = this.layoutService.menuSource$.subscribe((value) => {
             Promise.resolve(null).then(() => {
@@ -147,6 +147,7 @@ export class AppMenuitem {
         }
 
         this.layoutService.onMenuStateChange({ key: this.key });
+        
     }
 
     get submenuAnimation() {

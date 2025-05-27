@@ -12,7 +12,8 @@ import { FooterComponent } from '../footer/footer.component';
     standalone: true,
     imports: [CommonModule, TopbarComponent, SidebarComponent, RouterModule, FooterComponent],
       templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  styleUrl: './layout.component.scss',
+  providers: [LayoutService]
 })
 export class LayoutComponent {
     overlayMenuOpenSubscription: Subscription;
