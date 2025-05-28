@@ -67,7 +67,7 @@ import { LayoutService } from '../service/layout.service';
             transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ],
-    
+
 })
 export class AppMenuitem {
     @Input() item!: MenuItem;
@@ -147,13 +147,13 @@ export class AppMenuitem {
         }
 
         this.layoutService.onMenuStateChange({ key: this.key });
-        if (this.item.routerLink && !this.item.items) {
-        this.layoutService.layoutState.update((prev) => ({
-            ...prev,
-            staticMenuDesktopInactive: !prev.staticMenuDesktopInactive
-        }));
-    }
-        
+        //     if (this.item.routerLink && !this.item.items) {
+        //     this.layoutService.layoutState.update((prev) => ({
+        //         ...prev,
+        //         staticMenuDesktopInactive: !prev.staticMenuDesktopInactive
+        //     }));
+        // }
+
     }
 
     get submenuAnimation() {

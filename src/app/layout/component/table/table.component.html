@@ -39,7 +39,7 @@
         <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : null"
                 [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
-                style="padding-left: 10px;" [style.min-width.px]="150">
+                style="padding-left: 10px;" [style.min-width.px]="100">
                 <span>{{ col.header }}</span>
                 <span>
                     <p-sortIcon [ngStyle]="{'margin-left': '5px'}" *ngIf="col.sort" [field]="col.field"></p-sortIcon>
@@ -54,7 +54,7 @@
             <td *ngFor="let col of columns"
                 [ngClass]="componentHeader === 'txnmtr' ? (row.isApproved ? 'approved-row' : 'rejected-row') : ''"
                 [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
-                style="height: 35px; padding-left: 10px;">
+                style="height: 35px; padding:0 10px;  ">
                 <span *ngIf="col.header != 'Action' && col.header != 'Select'"
                     [ngClass]="componentHeader==''?'':row[col.field]">{{ row[col.field] }}</span>
                 <span *ngIf="col.header === 'Select'">
