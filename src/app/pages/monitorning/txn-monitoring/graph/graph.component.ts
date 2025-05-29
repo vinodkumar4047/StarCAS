@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,6 +17,7 @@ interface City {
 }
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-graph',
   imports: [ChartModule, ButtonModule, InputTextModule,DatePickerModule ,
     CalendarModule, SelectModule, ReactiveFormsModule, FormsModule, NgIf, SplitButtonModule, ToastModule],

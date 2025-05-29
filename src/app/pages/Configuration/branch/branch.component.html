@@ -4,7 +4,7 @@
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
             (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit()" (editEvent)="editFunction($event, 'edit')"
-            (viewEvent)="editFunction($event , 'view')" [addButton]="'Add ATM'" />
+            (viewEvent)="editFunction($event , 'view')" [addButton]="userRole != 'maker'?null:'Add ATM'"  [multipleButton]="userRole != 'maker'?buttonsList:''"/>
     </div>
 
 

@@ -1,10 +1,11 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-floating-configurator',
     imports: [ButtonModule, StyleClassModule, AppConfigurator],
     template: `

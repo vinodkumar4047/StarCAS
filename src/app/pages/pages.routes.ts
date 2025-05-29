@@ -23,7 +23,7 @@ import { NetworkMonitoringComponent } from './monitorning/network-monitoring/net
 import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
 import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
 import { AddFitComponent } from './Configuration/fit/add-fit/add-fit.component';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { InternationalTXNEnabledDisabledComponent } from './riskManagement/international-txn-enabled-disabled/international-txn-enabled-disabled.component';
 import { MCCBLOCKComponent } from './riskManagement/mcc-block/mcc-block.component';
 import { RiskCOUNTRYBLOCKComponent } from './riskManagement/risk-country-block/risk-country-block.component';

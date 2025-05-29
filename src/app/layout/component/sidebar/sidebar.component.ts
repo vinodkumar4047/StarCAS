@@ -1,7 +1,8 @@
-import { Component,ElementRef} from '@angular/core';
+import { ChangeDetectionStrategy, Component,ElementRef} from '@angular/core';
 import { AppMenu } from '../app.menu';
 
-@Component({  
+@Component({
+changeDetection:ChangeDetectionStrategy.OnPush,  
   selector: 'app-sidebar',
     standalone: true,
     imports: [AppMenu],

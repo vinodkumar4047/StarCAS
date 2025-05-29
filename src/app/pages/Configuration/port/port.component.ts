@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-port',
   imports: [TooltipModule,
     CommonModule,

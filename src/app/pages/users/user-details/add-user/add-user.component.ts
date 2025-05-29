@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-add-user',
   imports: [CommonModule, Select, DatePicker, InputText, ButtonModule, FloatLabel, FormsModule, ReactiveFormsModule],
   templateUrl: './add-user.component.html',

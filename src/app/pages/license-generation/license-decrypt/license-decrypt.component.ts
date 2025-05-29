@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FileUpload } from 'primeng/fileupload';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-license-decrypt',
   imports:  [ FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, FileUpload ],
   templateUrl: './license-decrypt.component.html',

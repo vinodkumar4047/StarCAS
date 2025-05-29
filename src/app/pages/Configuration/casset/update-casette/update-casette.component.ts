@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -8,6 +8,7 @@ import { Select } from 'primeng/select';
 import { TableModule } from 'primeng/table';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-update-casette',
   imports: [CommonModule, ButtonModule, FormsModule, FloatLabel, Select, InputText, TableModule, ReactiveFormsModule],
   templateUrl: './update-casette.component.html',

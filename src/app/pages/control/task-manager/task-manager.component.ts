@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-task-manager',
   imports: [TooltipModule,
     CommonModule,

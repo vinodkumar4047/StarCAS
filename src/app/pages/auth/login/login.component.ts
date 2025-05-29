@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -11,6 +11,7 @@ import { SelectButton } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-login',
   standalone: true,
   imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule,
@@ -39,7 +40,11 @@ rememberAdmin: boolean = false;
 onUserLogin() {
   // Add user login logic here
   console.log('User Login', this.userEmail, this.userPassword);
-  localStorage.setItem('userRole', 'user');
+  if(this.userEmail == 'checker'){
+      localStorage.setItem('userRole', 'checker');
+  }else{
+      localStorage.setItem('userRole', 'maker');
+  }
   this.router.navigate(['/pages/dashboard']);
   
 }

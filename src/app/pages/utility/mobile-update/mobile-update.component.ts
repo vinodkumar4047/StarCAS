@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-mobile-update',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule],
   templateUrl: './mobile-update.component.html',
@@ -56,10 +57,13 @@ mobileGroups = [
       "groupId": "",
       "mobileList": []
     };
-
+userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router){}
 
   ngOnInit() {
+       this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
     this.transformedmobileGroups = this.mobileGroups.map(group => {
       return {
         groupId: group.groupId,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -11,6 +11,7 @@ import { LayoutService } from '../../layout/service/layout.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-edit-profile',
   imports: [CommonModule,FloatLabel,Select,InputText,ButtonModule,ConfirmPopupModule,FormsModule,ReactiveFormsModule],
   templateUrl: './edit-profile.component.html',

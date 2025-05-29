@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-fit',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
   templateUrl: './fit.component.html',
@@ -85,11 +86,17 @@ delete_visible: any
     RECORDID: ''
   };
 tpCheck!:boolean;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete FIT', icon: 'pi pi-user-minus', type: 'deleteAuthorizedFIT', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize FIT', icon: 'pi pi-verified', type: 'authorizedFIT', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
-  ngOnInit(){
-
+    ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   delateData(){

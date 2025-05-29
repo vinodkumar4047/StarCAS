@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-risk-ecom-site-block',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
   templateUrl: './risk-ecom-site-block.component.html',
@@ -127,11 +128,17 @@ export class RiskEcomSiteBLOCKComponent {
     TODATE: '',
     INSTID: ''
   };
-
+  buttonsList: any = [
+    { label: 'Authorize Delete Ecom Site', icon: 'pi pi-user-minus', type: 'deleteAuthorizedEcomSite', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Ecom Site', icon: 'pi pi-verified', type: 'authorizedEcomSite', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
   ngOnInit(){
-
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   delateData(){

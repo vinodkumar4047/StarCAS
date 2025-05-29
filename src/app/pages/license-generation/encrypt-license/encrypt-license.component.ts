@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePicker } from 'primeng/datepicker';
@@ -7,6 +7,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
 selector: 'app-encrypt-license',
   imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
           DatePicker, FloatLabel],

@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-menu',
     standalone: true,
     imports: [CommonModule, AppMenuitem, RouterModule],
     template: `<ul class="layout-menu">
-        <ng-container *ngFor="let item of model; let i = index">
+        <ng-container *ngFor="let item of model; let i = index;">
 
             <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
             <li *ngIf="item.separator" class="menu-separator"></li>
@@ -26,7 +27,7 @@ export class AppMenu {
                 items: [{ 
                     label: 'Dashboard', 
                     icon: 'pi pi-fw pi-home', 
-                    visible: this.userRole == 'user' || this.userRole == 'admin', 
+                    visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin', 
                     routerLink: ['/pages/dashboard'] 
                 }]
             },
@@ -34,57 +35,67 @@ export class AppMenu {
                 items: [{
                     label: 'Configuration',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker',
                     items: [
                         {
                             label: 'Institution',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/institution']
+                            routerLink: ['/pages/institution'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Branch',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/pages/branch']
+                            routerLink: ['/pages/branch'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Bin',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/bin']
+                            routerLink: ['/pages/bin'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'ATM Type',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/atmType']
+                            routerLink: ['/pages/atmType'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'ATM',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/atm']
+                            routerLink: ['/pages/atm'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'External Bin',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/externalBin']
+                            routerLink: ['/pages/externalBin'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Fit',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/fit']
+                            routerLink: ['/pages/fit'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'CASSET',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/casset']
+                            routerLink: ['/pages/casset'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Port',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/port']
+                            routerLink: ['/pages/port'],
+                            visible: this.userRole === 'maker',
                         },
                         {
                             label: 'Transaction',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/transaction']
+                            routerLink: ['/pages/transaction'],
+                            visible: this.userRole === 'maker',
                         },
                     ]
                 }]
@@ -94,31 +105,48 @@ export class AppMenu {
                 items: [{
                     label: 'Monitorning',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker',
                     items: [
                         {
                             label: 'Network Monitoring',
                             icon: 'pi pi-fw pi-sign-in',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/network_Monitoring']
                         },
                         {
                             label: 'HSM Monitoring',
                             icon: 'pi pi-fw pi-times-circle',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/hsm_Monitoring']
                         },
                         {
                             label: 'Txn Monitoring',
                             icon: 'pi pi-fw pi-lock',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/txn_Monitoring']
                         },
                         {
                             label: 'ATM Monitoring',
                             icon: 'pi pi-fw pi-lock',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/atm_Monitoring']
+                        },
+                         {
+                            label: 'Fraud Monitoring',
+                            icon: 'pi pi-fw pi-lock',
+                            visible:this.userRole === 'checker',
+                           
+                        },
+                        {
+                            label: 'Fraud & Risk Txn Monitoring',
+                            icon: 'pi pi-fw pi-lock',
+                            visible: this.userRole === 'checker',
+                            
                         },
                         {
                             label: 'Transaction Search',
                             icon: 'pi pi-fw pi-lock',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/transaction_Search']
                         },
                     ]
@@ -129,27 +157,36 @@ export class AppMenu {
                 items: [{
                     label: 'Control',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker',
                     items: [
                         {
                             label: 'Task Manager',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/task_Manager']
+                            routerLink: ['/pages/task_Manager'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Port Manager',
                             icon: 'pi pi-fw pi-times-circle',
-                            routerLink: ['/pages/port_Manager']
+                            routerLink: ['/pages/port_Manager'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
+                        },
+                         {
+                            label: 'Channel Manager',
+                            icon: 'pi pi-fw pi-times-circle',
+                            visible: this.userRole === 'checker',
                         },
                         {
                             label: 'Network Control',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/network_Control']
+                            routerLink: ['/pages/network_Control'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'ATM Control',
                             icon: 'pi pi-fw pi-lock',
-                            routerLink: ['/pages/atm_control']
+                            routerLink: ['/pages/atm_control'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                     ]
                 }]
@@ -159,49 +196,49 @@ export class AppMenu {
                 items: [{
                     label: 'Risk Management',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user' || this.userRole == 'admin',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin',
                     items: [
                         {
                             label: 'International TXN Enabled',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/internationalTXNEnadisable'],
-                            visible: this.userRole == 'user' || this.userRole == 'admin',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin',
                         },
                         {
                             label: 'TXN Allow Without PIN',
                             icon: 'pi pi-fw pi-times-circle',
                             routerLink: ['/pages/txnAllowWithoutPin'],
-                            visible: this.userRole == 'user' || this.userRole == 'admin',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin',
                         },
                         {
                             label: 'Risk Country Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/riskCountryBlock'],
-                            visible: this.userRole == 'user',
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'TXN Allow For Risk Country',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowedRiskCountry'],
-                            visible: this.userRole == 'user' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
                         },
                         {
                             label: 'MCC Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/mccBlock'],
-                            visible: this.userRole == 'user' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
                         },
                         {
                             label: 'TXN Allow For Blocked MCC',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowBlockedMCC'],
-                            visible: this.userRole == 'user' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
                         },
                         {
                             label: 'Risk Ecom Site Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/riskEcomSiteBlock'],
-                            visible: this.userRole == 'user' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
                         },
                     ]
                 }]
@@ -211,7 +248,7 @@ export class AppMenu {
                 items: [{
                     label: 'Reports',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker',
                     routerLink: ['/pages/report']
                 }]
             },
@@ -220,7 +257,7 @@ export class AppMenu {
                 items: [{
                     label: 'Utility',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker',
                     items: [
                         {
                             label: 'Email Update',
@@ -250,7 +287,7 @@ export class AppMenu {
                 items: [{
                     label: 'User Management',
                     icon: 'pi pi-fw pi-user',
-                    visible: this.userRole == 'user' || this.userRole == 'admin',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin',
                     items: [
                         {
                             label: 'Profile',

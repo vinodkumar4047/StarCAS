@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableComponent } from '../../../layout/component/table/table.component';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-bin',
   imports: [TooltipModule,
     TableModule,  // Only import TableModule

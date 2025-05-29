@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePicker } from 'primeng/datepicker';
@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-add-mcc',
   imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
     Select, FloatLabel],

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm',
   imports: [
     TooltipModule,
@@ -128,10 +129,18 @@ export class ATMComponent {
     { field: 'Action', header: 'Action' ,type:['view','edit','delete']},
   ];
   delete_visible: any;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete ATM', icon: 'pi pi-user-minus', type: 'deleteAuthorizedATM', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize ATM', icon: 'pi pi-verified', type: 'AuthorizedATM', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router) { };
 
-
+  ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
+  }
   addOrEdit(type: any, details: any) {
     const data = {
       "ATMID": details?.data?.atmId,

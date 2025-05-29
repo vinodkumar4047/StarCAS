@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { Location } from '@angular/common';
@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabel } from 'primeng/floatlabel';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-add-edit-view-atm-details',
     imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, InputGroupModule, ReactiveFormsModule,
         CheckboxModule, TableModule, InputGroupAddonModule, SelectModule, SelectButtonModule, FloatLabel],

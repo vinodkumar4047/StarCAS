@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { $t, updatePreset, updateSurfacePalette } from '@primeng/themes';
@@ -37,6 +37,7 @@ declare type SurfacesType = {
 };
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-configurator',
     standalone: true,
     imports: [CommonModule, FormsModule, SelectButtonModule],

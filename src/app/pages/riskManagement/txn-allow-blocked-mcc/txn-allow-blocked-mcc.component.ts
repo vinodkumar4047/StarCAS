@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-txn-allow-blocked-mcc',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
   templateUrl: './txn-allow-blocked-mcc.component.html',
@@ -83,11 +84,16 @@ export class TxnAllowBlockedMCCComponent {
     INSTID: ''
   };
   tpCheck!: boolean;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete MCC Allowed', icon: 'pi pi-user-minus', type: 'deleteAuthorizedMCCAllowed', variant: 'outlined', severity: "danger" },
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
-  ngOnInit(){
-
+   ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   delateData(){

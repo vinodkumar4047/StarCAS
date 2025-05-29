@@ -1,10 +1,11 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from "../../../../layout/component/table/table.component";
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-block-user',
   imports: [CommonModule, ButtonModule, TableComponent],
   templateUrl: './block-user.component.html',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from "../../../layout/component/table/table.component";
 import { Select, SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-casset',
   imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, FormsModule],
   templateUrl: './casset.component.html',
@@ -62,6 +63,7 @@ export class CASSETComponent {
     { field: 'INSTID', header: 'INST ID' },
   ];
 
+  userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router) { };
 
   ngOnInit() {

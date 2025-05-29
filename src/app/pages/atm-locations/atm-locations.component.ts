@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-locations',
   imports: [CommonModule,ButtonModule],
   templateUrl: './atm-locations.component.html',

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Select } from 'primeng/select';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-risk-country-block',
   imports: [TableComponent, DialogModule, ButtonModule,
     CommonModule, FormsModule, FormsModule, InputTextModule,Select],
@@ -123,13 +124,17 @@ export class RiskCOUNTRYBLOCKComponent {
       INSTID: ''
     };
     tpCheck!: boolean;
-  
+    buttonsList: any = [
+    { label: 'Authorize Country', icon: 'pi pi-verified', type: 'AuthorizedCountry', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router) { };
   
-    ngOnInit(){
-  
-    }
-  
+     ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
+  }
     edit(data:any,type:any){
       this.Edit_data = {...data?.data};
       console.log(data);

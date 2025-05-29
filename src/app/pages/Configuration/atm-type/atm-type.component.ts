@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -15,6 +15,7 @@ interface City {
 }
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-type',
   imports: [FormsModule, DropdownModule, FloatLabelModule, InputTextModule,
     ButtonModule, SelectButtonModule, TableModule, NgIf],

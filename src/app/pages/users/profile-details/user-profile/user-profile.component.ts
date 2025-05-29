@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -9,6 +9,7 @@ import { Tree } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { NodeServiceService } from '../node-service.service';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-user-profile',
   imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
     SelectModule, FloatLabel, Tree],

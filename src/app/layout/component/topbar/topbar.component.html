@@ -1,90 +1,81 @@
 <div class="layout-topbar">
-    <div class="layout-topbar-logo-container">
-        <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
-            <i class="pi pi-bars"></i>
-        </button>
-        <a class="layout-topbar-logo" routerLink="/">
-            <p-image [src]="img" alt="Star CAS LOGO" />
-        </a>
+  <!-- Logo and Menu Button -->
+  <div class="layout-topbar-logo-container">
+    <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
+      <i class="pi pi-bars"></i>
+    </button>
+    <a class="layout-topbar-logo" routerLink="/">
+      <p-image [src]="img" alt="Star CAS LOGO" />
+    </a>
+  </div>
+
+  <!-- Right Side Actions -->
+  <div class="layout-topbar-actions">
+    <!-- Theme Toggle -->
+    <button class="layout-topbar-action" (click)="toggleDarkMode()">
+      <i [ngClass]="{ 'pi': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
+    </button>
+
+    <!-- Notifications -->
+    <button (click)="togglepo1($event)" class="layout-topbar-action">
+      <p-overlaybadge value="3" severity="danger">
+        <i class="pi pi-bell"></i>
+      </p-overlaybadge>
+      <span>Notifications</span>
+    </button>
+
+    <p-popover #op1>
+      <div class="popover-content">
+        <span class="font-medium block mb-2" (click)="selectMember(members1)">
+          <p-avatar image="../../../../assets/images/download.png" styleClass="mr-2" shape="circle" />
+          ATM Team
+        </span>
+        <ul class="popover-list">
+          <li *ngFor="let member of members1" (click)="atmLocationAction()">
+            <span class="font-medium">{{ member.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </p-popover>
+
+    <!-- Fullscreen -->
+    <button class="layout-topbar-action" (click)="toggleFullScreen()">
+      <i [ngClass]="isFullScreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></i>
+      <span>Full Screen</span>
+    </button>
+
+    <!-- User Profile Section -->
+    <div class="user-status profile-box" (click)="toggle($event)">
+      <ng-container *ngIf="userImageUrl; else profileIcon">
+        <img [src]="userImageUrl" alt="User Profile" class="profile-img" />
+      </ng-container>
+      <ng-template #profileIcon>
+        <div class="profile-icon-circle">
+          <i class="pi pi-user"></i>
+        </div>
+      </ng-template>
+
+      <div class="profile-details">
+        <div class="name">
+          Victor Blackwood
+          <span>{{ userRole === 'admin' ? '(Admin)' : userRole === 'maker' ? '(Maker)' : '(Checker)' }}</span>
+        </div>
+        <div class="online-container">
+          online <div class="online-dot"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="layout-topbar-actions">
-        <div class="layout-config-menu">
-            <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
-                <i
-                    [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
-            </button>
-            <!-- <div class="relative">
-                <button class="layout-topbar-action layout-topbar-action-highlight" pStyleClass="@next"
-                    enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
-                    leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
-                    <i class="pi pi-palette"></i>
-                </button>
-                <app-configurator />
-            </div> -->
-        </div>
-
-        <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden"
-            enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout"
-            [hideOnOutsideClick]="true">
-            <i class="pi pi-ellipsis-v"></i>
-        </button>
-
-        <div class="layout-topbar-menu hidden lg:block">
-            <div class="layout-topbar-menu-content">
-                <button (click)="togglepo1($event)" type="button" class="layout-topbar-action">
-                    <p-overlaybadge value="3" severity="danger">
-                        <i class="pi pi-bell"></i>
-                    </p-overlaybadge>
-                    <!-- <i class="pi pi-bell"></i> -->
-                    <span>Notif cation</span>
-                </button>
-                <p-popover #op1>
-                    <div class="flex flex-col gap-4">
-                        <div>
-                            <span (click)="selectMember(members1)" class="font-medium block mb-2">
-                                <p-avatar image="../../../../assets/images/download.png" styleClass="mr-2"
-                                    shape="circle" />
-                                ATM Team </span>
-                            <ul class="list-none p-0 m-0 flex flex-col">
-                                <li *ngFor="let member of members1"
-                                    class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-                                    (click)="atmLocationAction()">
-                                    <div>
-                                        <span class="font-medium">{{ member.name }}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </p-popover>
-                <button type="button" class="layout-topbar-action" (click)="toggleFullScreen()">
-                    <i
-                        [ngClass]="isFullScreen ? 'pi pi-arrow-down-left-and-arrow-up-right-to-center':'pi pi-arrow-up-right-and-arrow-down-left-from-center'"></i>
-                    <span>Full Screen</span>
-                </button>
-                <button type="button" class="layout-topbar-action" (click)="toggle($event)">
-                    <i class="pi pi-user"></i>
-                    <span>Profile</span>
-                </button>
-                <p-popover #op>
-                    <div class="flex flex-col gap-4">
-                        <div>
-                            <ul class="list-none p-0 m-0 flex flex-col">
-                                <li *ngFor="let member of members"
-                                    class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-                                    (click)="profileAction(member)">
-                                    <div class="flex items-center gap-3">
-                                        <!-- Use PrimeNG icons based on member name -->
-                                        <i [class]="getIconForMember(member.name)" class="p-2"></i>
-                                        <span class="font-medium">{{ member.name }}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </p-popover>
-            </div>
-        </div>
-    </div>
+    <!-- Profile Popover -->
+    <p-popover #op>
+      <div class="popover-content">
+        <ul class="popover-list">
+          <li *ngFor="let member of members" (click)="profileAction(member)">
+            <i [class]="getIconForMember(member.name)"></i>
+            <span class="font-medium">{{ member.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </p-popover>
+  </div>
 </div>

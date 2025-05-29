@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { Product, ProductService } from '../service/product.service';
@@ -14,6 +14,7 @@ import { RestService } from '../../layout/service/rest.service';
 import { catchError } from 'rxjs/operators';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-dashboard',
   imports: [
     CommonModule,

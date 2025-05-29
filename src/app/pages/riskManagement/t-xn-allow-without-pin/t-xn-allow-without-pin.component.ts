@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -7,6 +7,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-t-xn-allow-without-pin',
   imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, FormsModule, InputTextModule],
   templateUrl: './t-xn-allow-without-pin.component.html',
@@ -94,11 +95,17 @@ export class TXNALLOWWithoutPINComponent {
     TODATE: ''
   };
   tpCheck!: boolean;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete Offline Allowed PIN', icon: 'pi pi-user-minus', type: 'AuthorizeDeleteOfflineAllowedPIN', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Offline Allowed PIN', icon: 'pi pi-verified', type: 'AuthorizeOfflineAllowedPIN', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
   ngOnInit(){
-
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   edit(type:any,data:any){

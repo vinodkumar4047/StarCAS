@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-layout',
     standalone: true,
     imports: [CommonModule, TopbarComponent, SidebarComponent, RouterModule, FooterComponent],

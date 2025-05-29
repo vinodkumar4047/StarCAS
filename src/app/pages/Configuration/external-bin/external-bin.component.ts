@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-external-bin',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,],
   templateUrl: './external-bin.component.html',
@@ -48,11 +49,17 @@ export class ExternalBinComponent {
     BRANCHNAME: ''
   };
 tpCheck!:boolean;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete External BIN', icon: 'pi pi-user-minus', type: 'deleteAuthorizedExternalBIN', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize External BIN', icon: 'pi pi-verified', type: 'addAuthorizedExternalBIN', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
-  ngOnInit(){
-
+    ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   delateData(){

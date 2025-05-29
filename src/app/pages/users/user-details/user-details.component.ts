@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from "../../../layout/component/table/table.component";
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -6,6 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-user-details',
   imports: [TableComponent, CommonModule, ButtonModule, DialogModule],
   templateUrl: './user-details.component.html',
@@ -399,6 +400,7 @@ export class UserDetailsComponent {
       "PROFILE_NAME": "demoadmin2"
     }
   ];
+  userRole: any = localStorage.getItem('userRole');
   globalFilterFields: any = [
     "USERID",
     "USERNAME",
@@ -416,11 +418,24 @@ export class UserDetailsComponent {
     { field: 'ADDED_BY', header: 'ADDED BY', sort: true, type: 'string' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ]
-  buttonsList: any = [
+  buttonsList: any = this.userRole == 'admin'?[
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
-    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" }
+    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
+    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
+  ]:this.userRole == 'maker'?[
+    { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
+    { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
+    { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
+    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
+  ]:[
+    { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
+    { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
+    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
+    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
   ];
   delete_visible: boolean = false;
   constructor(private router: Router) { };

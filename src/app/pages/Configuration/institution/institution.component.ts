@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { Table, TableModule } from 'primeng/table';
 import { InputIconModule } from 'primeng/inputicon';
@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TableComponent } from '../../../layout/component/table/table.component';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-institution',
   imports: [TooltipModule,
     TableModule,  // Only import TableModule

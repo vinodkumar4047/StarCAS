@@ -5,8 +5,8 @@
     size="small">
 
     <ng-template #caption>
-        <div class="flex flex-wrap justify-between mb-4">
-            <div>
+        <div class="flex justify-between mb-4 flex-wrap md:flex-nowrap">
+            <div class="buttonSet">
                 <p-button class="mr-2" *ngIf="addButton" [label]="addButton" icon="pi pi-plus" (click)="add($event)" />
                 <p-button class="mr-2" *ngIf="updateButton" [label]="updateButton" icon="pi pi-pencil"
                     (click)="add($event)" />

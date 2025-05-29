@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabsModule } from 'primeng/tabs';
@@ -10,6 +10,7 @@ import { RestService } from '../../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-monitoring-details',
   imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule],
   templateUrl: './atm-monitoring-details.component.html',

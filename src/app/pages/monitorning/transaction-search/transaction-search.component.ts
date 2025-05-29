@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDial, SpeedDialModule } from 'primeng/speeddial';
@@ -12,6 +12,7 @@ import { DatePicker } from 'primeng/datepicker';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-transaction-search',
   imports: [FormsModule, ToastModule, SpeedDialModule, ButtonModule, ReactiveFormsModule,
     InputTextModule, RadioButtonModule, CommonModule, FloatLabelModule, DatePicker],

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { Router } from '@angular/router';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-profile-details',
   imports: [TooltipModule,
     CommonModule,
@@ -51,6 +52,14 @@ export class ProfileDetailsComponent {
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
   delete_visible: any;
+
+  userRole: any = localStorage.getItem('userRole');
+  buttonsList: any = this.userRole == 'admin' ? [
+    { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuthorizedProfile', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'AuthorizedProfile', variant: 'outlined', severity: "info" }
+  ] : [
+    { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuthorizedProfile', variant: 'outlined', severity: "danger" },
+  ]
   addOrEdit(event: any, type: any) {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
   };

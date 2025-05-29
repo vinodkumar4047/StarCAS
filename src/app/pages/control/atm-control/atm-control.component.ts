@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -10,6 +10,7 @@ import { take } from 'rxjs';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-control',
   imports: [CommonModule, SelectButtonModule, FormsModule, SelectModule, ListboxModule, ButtonModule,ToastModule],
   templateUrl: './atm-control.component.html',

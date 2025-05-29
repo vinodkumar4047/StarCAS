@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -13,6 +13,7 @@ import { style } from '@angular/animations';
 import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-transaction-monitoring-from-db',
   imports: [TooltipModule,
     CommonModule,

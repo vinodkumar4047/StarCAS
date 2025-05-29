@@ -1,5 +1,5 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.scss',
@@ -39,6 +40,8 @@ export class TopbarComponent {
     { name: 'Log Out' },
   ];
   isFullScreen = false;
+  userRole: any = localStorage.getItem('userRole');
+  userImageUrl:any = 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk';
   constructor(public layoutService: LayoutService, private router: Router) { }
   // Check if the browser supports fullscreen API
   isFullscreen(): boolean {

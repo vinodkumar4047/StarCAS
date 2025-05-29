@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-txn-allowed-risk-country',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule],
   templateUrl: './txn-allowed-risk-country.component.html',
@@ -110,11 +111,17 @@ export class TxnAllowedRiskCountryComponent {
     TODATE: '',
     INSTID: ''
   };
-
+  buttonsList: any = [
+    { label: 'Authorize Delete Card', icon: 'pi pi-user-minus', type: 'deleteAuthorizedCard', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Card', icon: 'pi pi-verified', type: 'authorizedCard', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
-  ngOnInit(){
-
+   ngOnInit(){
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   delateData(){

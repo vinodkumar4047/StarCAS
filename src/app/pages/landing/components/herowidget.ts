@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'hero-widget',
     imports: [ButtonModule, RippleModule],
     template: `

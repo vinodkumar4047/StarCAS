@@ -1,11 +1,12 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from '../../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-reset-password',
   imports: [CommonModule, ButtonModule, TableComponent,DialogModule],
   templateUrl: './reset-password.component.html',

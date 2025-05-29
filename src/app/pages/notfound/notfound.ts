@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-notfound',
     standalone: true,
     imports: [RouterModule, AppFloatingConfigurator, ButtonModule],

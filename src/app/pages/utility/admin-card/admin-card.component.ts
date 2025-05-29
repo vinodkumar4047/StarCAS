@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -7,6 +7,7 @@ import { InputText } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-admin-card',
   imports: [CommonModule, ButtonModule, FormsModule, ReactiveFormsModule, InputText, FloatLabel, DatePickerModule],
   templateUrl: './admin-card.component.html',

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -8,6 +8,7 @@ import { TableComponent } from "../../../layout/component/table/table.component"
 import { Dialog } from 'primeng/dialog';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-saf-management',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, FloatLabel, Select, TableComponent, Dialog],
   templateUrl: './saf-management.component.html',

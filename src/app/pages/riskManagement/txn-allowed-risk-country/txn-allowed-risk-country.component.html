@@ -4,7 +4,7 @@
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
-            (viewEvent)="edit($event,'View')" [addButton]="'Add Card'" />
+            (viewEvent)="edit($event,'View')" [addButton]="userRole != 'maker'?null:'Add Card'" [multipleButton]="userRole != 'maker'?buttonsList:''"/>
     </div>
 
     <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">

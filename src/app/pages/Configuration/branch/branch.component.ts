@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableComponent } from '../../../layout/component/table/table.component';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-branch',
   imports: [TooltipModule,
     TableModule,  // Only import TableModule
@@ -29,26 +30,15 @@ export class BranchComponent {
   edit_visible: boolean = false;
   showViewData: any = null;
   Edit_data: any = {
-    INSTID:'',
-    BRANCHCODE:'',
-    BRANCHMAPCODE:'',
-    BRANCHNAME:''
+    INSTID: '',
+    BRANCHCODE: '',
+    BRANCHMAPCODE: '',
+    BRANCHNAME: ''
   };
   ADDvisible: boolean = false;
   tpCheck: any;
-  clear(able: Table) {
 
-  }
 
-  editFunction(customer: any, type:any) {
-     this.Edit_data = {...customer.data};  
-    this.edit_visible = true;
-    this.tpCheck = type == 'view' ? true:false;
-  }
-  deleteItem() {
-    console.log('Item deleted!');
-    this.delete_visible = true;
-  }
   globalFilterFields: any = [
     'INSTID',
     'BRANCHCODE',
@@ -68,8 +58,31 @@ export class BranchComponent {
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
   delete_visible: any;
-
+  buttonsList: any = [
+    { label: 'Authorize Delete Offline Allowed PIN', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Offline Allowed PIN', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
+  ngOnInit() {
+    this.cols = this.userRole === 'maker'
+      ? this.cols
+      : this.cols.filter(col => col.field !== 'Action');
+  }
   addOrEdit(data1?: any, data?: any) {
     this.ADDvisible = !this.ADDvisible
   }
+  clear(able: Table) {
+
+  }
+
+  editFunction(customer: any, type: any) {
+    this.Edit_data = { ...customer.data };
+    this.edit_visible = true;
+    this.tpCheck = type == 'view' ? true : false;
+  }
+  deleteItem() {
+    console.log('Item deleted!');
+    this.delete_visible = true;
+  }
+
 }

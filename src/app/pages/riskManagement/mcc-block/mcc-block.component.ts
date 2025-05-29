@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Select } from 'primeng/select';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-mcc-block',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule,FormsModule,InputTextModule,Select],
   templateUrl: './mcc-block.component.html',
@@ -104,11 +105,16 @@ export class MCCBLOCKComponent {
     INSTID: ''
   };
   tpCheck!: boolean;
-
+  buttonsList: any = [
+    { label: 'Authorize MCC', icon: 'pi pi-verified', type: 'authorizedMCC', variant: 'outlined', severity: "info" }
+  ]
+  userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
 
   ngOnInit(){
-
+    this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
   }
 
   edit(data:any,type:any){

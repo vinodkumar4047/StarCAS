@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormsModule, ValueChangeEvent } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -12,6 +12,7 @@ import { RestService } from '../../../layout/service/rest.service';
 import { TableModule } from 'primeng/table';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-network-monitoring',
   imports: [TooltipModule,
     CommonModule,

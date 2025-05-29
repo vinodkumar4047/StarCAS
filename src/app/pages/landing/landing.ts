@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
@@ -12,6 +12,7 @@ import { PricingWidget } from './components/pricingwidget';
 import { FooterWidget } from './components/footerwidget';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
     selector: 'app-landing',
     standalone: true,
     imports: [RouterModule, TopbarWidget, HeroWidget, FeaturesWidget, HighlightsWidget, PricingWidget, FooterWidget, RippleModule, StyleClassModule, ButtonModule, DividerModule],

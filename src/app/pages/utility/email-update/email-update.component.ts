@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { TableComponent } from "../../../layout/component/table/table.component";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
+changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-email-update',
   imports: [TableComponent,DialogModule,ButtonModule,CommonModule],
   templateUrl: './email-update.component.html',
@@ -61,9 +62,13 @@ export class EmailUpdateComponent {
       "groupId": "",
       "emailList": []
     };
+    userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router){}
 
   ngOnInit() {
+       this.cols = this.userRole === 'maker'
+  ? this.cols
+  : this.cols.filter(col => col.field !== 'Action');
     this.transformedEmailGroups = this.emailGroups.map(group => {
       return {
         groupId: group.groupId,
