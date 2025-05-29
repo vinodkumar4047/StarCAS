@@ -1,1 +1,64 @@
-<p>report works!</p>
+<div class="report col-span-12 xl:col-span-12">
+    <h2 class="mb-8">Report Details</h2>
+    <div class="card !mb-4">
+        <div class="flex flex-wrap justify-between mb-4">
+            <div class="flex gap-2 items-center mb-8">
+                <div class="font-semibold text-xl heading-color">
+                    Reports
+                </div>
+            </div>
+        </div>
+        <div class="mx-4 ">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"
+                class="atm-select" aria-labelledby="basic" />
+
+            <div class="acc card justify-center" *ngIf="value == '0'">
+                <p-accordion value="0">
+                    <p-accordion-panel value="0">
+                        <p-accordion-header>MIS Reports</p-accordion-header>
+                        <p-accordion-content >
+                          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <p-button label="ATM Cash Scroll Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('CashScroll')"></p-button>
+                                <p-button label="ATM Transaction Status Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('TransactionStatus')"></p-button>
+                                <p-button label="ATM Live Denom Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('LiveDenom')"></p-button>
+                            </div>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+
+                    <p-accordion-panel value="1">
+                        <p-accordion-header>Summary Reports</p-accordion-header>
+                        <p-accordion-content>
+                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <p-button label="Consolidated Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('Consolidated')"></p-button>
+                                <p-button label="OFUS Txn Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('OFUS')"></p-button>
+                                <p-button label="Network Summary Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('NetworkSummary')"></p-button>
+                            </div>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+                </p-accordion>
+            </div>
+
+               <div class="acc card justify-center" *ngIf="value == '1'">
+                <p-accordion value="0">
+                    <p-accordion-panel value="0">
+                        <p-accordion-header>Terminal Transaction Reports</p-accordion-header>
+                        <p-accordion-content >
+                          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <p-button label="ATM Transaction Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('ATMTransaction')"></p-button>
+                            </div>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+
+                    <p-accordion-panel value="1">
+                        <p-accordion-header>Audit Reports</p-accordion-header>
+                        <p-accordion-content>
+                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <p-button label="Audit Report" [raised]="true" styleClass="w-full" (click)="reportNavigate('Audit')"></p-button>
+                            </div>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+</div>

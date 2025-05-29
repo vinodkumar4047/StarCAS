@@ -1,0 +1,110 @@
+<div class="reportGen col-span-12 xl:col-span-12">
+    <h2 class="mb-8">Report Details</h2>
+    <div class="card !mb-4">
+        <form [formGroup]="reportGenForm">
+            <div class="flex flex-wrap justify-between mb-4">
+                <div class="flex gap-2 items-center mb-8">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                        {{header}}
+                    </div>
+                </div>
+            </div>
+            <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
+                <div class="radiobutton flex flex-col gap-4"
+                    *ngIf="(type != 'LiveDenom' && type !='OFUS' && type!='NetworkSummary'&& type !='ATMTransaction'&& type != 'Audit')">
+                    <label>Criteria <span style="color: red; font-size: 16px;">*</span> </label>
+                    <div class=" flex gap-4">
+                        <div *ngFor="let category of categories" class="field-checkbox">
+                            <p-radiobutton [inputId]="category.key" [value]="category.key" formControlName="Criteria"  (onClick)="onCriteriaChange(category.key)" />
+                            <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                        </div>
+                    </div>
+                </div>
+                <p-floatlabel variant="on"
+                    *ngIf="(type != 'LiveDenom' && reportGenForm.get('Criteria')?.value !== 'Batch ID')">
+                    <p-datepicker selectionMode="range" inputId="FromToDate" styleClass="w-full" showIcon
+                        iconDisplay="input" formControlName="FromToDate" />
+                    <label for="FromToDate">From Date - To Date <span
+                            style="color: red;font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="reportGenForm.get('Criteria')?.value === 'Account'">
+                    <input pInputText styleClass="w-full" formControlName="Account" type="text" />
+                    <label>Account <span style="color: red; font-size: 16px;">*</span></label>
+                </p-floatlabel>
+
+                <p-floatlabel variant="on" *ngIf="reportGenForm.get('Criteria')?.value === 'CHN'">
+                    <input pInputText styleClass="w-full" formControlName="CHN" type="text" />
+                    <label>CHN <span style="color: red; font-size: 16px;">*</span></label>
+                </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="( type=='OFUS'||type=='NetworkSummary' )">
+
+                    <p-select [options]="atmIDOpt" formControlName="NetworkSection" optionValue="code"
+                        optionLabel="name" inputId="NetworkSection" styleClass="w-full" />
+                    <label for="NetworkSection">Network Section <span style="color: red; font-size: 16px;">*</span>
+                    </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on"
+                    *ngIf="!((reportGenForm.get('Criteria')?.value === 'Account'||reportGenForm.get('Criteria')?.value === 'CHN')&& type=='TransactionStatus') && (type != 'LiveDenom' && type !='Consolidated'&& type!='NetworkSummary' && type != 'Audit')">
+
+                    <p-select [options]="InstIDOpt" formControlName="BranchName" optionValue="code" optionLabel="name"
+                        inputId="BranchName" styleClass="w-full" />
+                    <label for="BranchName">Branch Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on"
+                    *ngIf="!((reportGenForm.get('Criteria')?.value === 'Account'||reportGenForm.get('Criteria')?.value === 'CHN')&& type=='TransactionStatus')&& (type !='Consolidated'&& type!='NetworkSummary'&& type != 'Audit')">
+
+                    <p-select [options]="atmIDOpt" formControlName="ATMName" optionValue="code" optionLabel="name"
+                        inputId="ATMName" styleClass="w-full" />
+                    <label for="ATMName">ATM Name <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="( type=='Consolidated')">
+
+                    <p-select [options]="atmIDOpt" formControlName="ReportType" optionValue="code" optionLabel="name"
+                        inputId="ReportType" styleClass="w-full" />
+                    <label for="ReportType">Report Type <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="( type=='Consolidated')">
+
+                    <p-select [options]="atmIDOpt" formControlName="AtmId" optionValue="code" optionLabel="name"
+                        inputId="AtmId" styleClass="w-full" />
+                    <label for="AtmId">ATM ID <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="( type=='Consolidated')">
+
+                    <p-select [options]="atmIDOpt" formControlName="Network" optionValue="code" optionLabel="name"
+                        inputId="Network" styleClass="w-full" />
+                    <label for="Network">Network <span style="color: red; font-size: 16px;">*</span> </label>
+                </p-floatlabel>
+            </div>
+            <div class="flex flex-row-reverse mx-4 my-8">
+                <!-- Download Button -->
+                <p-button type="button" label="Generate" icon="pi pi-print" styleClass="ml-3 mx-2"
+                    [disabled]="!selectedFileType" (click)="onSubmit()" />
+
+                <!-- File type selector -->
+                <p-button type="button" outlined [label]="selectedFileType?.label || 'Select File Type'"
+                    [icon]="selectedFileType?.icon || 'pi pi-file'" iconPos="left" (click)="op.toggle($event)"
+                    [styleClass]="'min-w-48 ' + (selectedFileType?.colorClass || '')" [severity]="selectedFileType?.severity || 'primary'"/>
+            </div>
+
+            <!-- Popover -->
+            <p-popover #op>
+                <div class="flex flex-col gap-2 p-2">
+                    <span class="font-medium block mb-2">Choose File Type</span>
+                    <ul class="list-none p-0 m-0 flex flex-col">
+                        <li *ngFor="let type of fileTypes"
+                            class="flex items-center gap-2 px-2 py-2 hover:bg-emphasis cursor-pointer rounded-border"
+                            (click)="selectFileType(type); op.hide()">
+                            <i [class]="type.icon + ' ' + type.colorClass"></i>
+                            <span>{{ type.label }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </p-popover>
+
+
+        </form>
+    </div>
+</div>

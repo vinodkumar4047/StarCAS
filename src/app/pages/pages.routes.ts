@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Crud } from './crud/crud';
 import { Empty } from './empty/empty';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskManagerComponent } from './control/task-manager/task-manager.component';
@@ -58,9 +57,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AtmLocationsComponent } from './atm-locations/atm-locations.component';
 import { EncryptLicenseComponent } from './license-generation/encrypt-license/encrypt-license.component';
 import { LicenseDecryptComponent } from './license-generation/license-decrypt/license-decrypt.component';
+import { ReportComponent } from './report/report.component';
+import { ReportGenerationComponent } from './report/report-generation/report-generation.component';
 
 export default [
-    { path: 'crud', component: Crud },
     { path: 'empty', component: Empty },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'task_Manager', component: TaskManagerComponent },
@@ -117,6 +117,8 @@ export default [
     { path: 'atm_location', component: AtmLocationsComponent },
      { path: 'encrypt', component: EncryptLicenseComponent },
     { path: 'decrypt', component: LicenseDecryptComponent },
+    { path: 'report', component: ReportComponent },
+    { path: 'report-generation', component: ReportGenerationComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
