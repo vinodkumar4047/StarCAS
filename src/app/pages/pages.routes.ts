@@ -59,6 +59,7 @@ import { EncryptLicenseComponent } from './license-generation/encrypt-license/en
 import { LicenseDecryptComponent } from './license-generation/license-decrypt/license-decrypt.component';
 import { ReportComponent } from './report/report.component';
 import { ReportGenerationComponent } from './report/report-generation/report-generation.component';
+import { AuthBranchComponent } from './Configuration/branch/auth-branch/auth-branch.component';
 
 export default [
     { path: 'empty', component: Empty },
@@ -119,6 +120,7 @@ export default [
     { path: 'decrypt', component: LicenseDecryptComponent },
     { path: 'report', component: ReportComponent },
     { path: 'report-generation', component: ReportGenerationComponent },
+     { path: 'auth-branch', component: AuthBranchComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

@@ -9,6 +9,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableComponent } from '../../../layout/component/table/table.component';
+import { Router } from '@angular/router';
 
 @Component({
 changeDetection:ChangeDetectionStrategy.OnPush,
@@ -52,17 +53,18 @@ export class BranchComponent {
   { "INSTID": "TEST", "BRANCHCODE": "387", "BRANCHNAME": "CGS OFFICE", "BRANCHMAPCODE": "004", "STATUS": "A", "USERTYPE": "C", "MAKER_ID": "24", "CHECKER_ID": "24", "CHECKER_DATE": "05-JUL-2024", "MAKER_DATE": "05-JUL-2024", "USERNAME": "demomaker" }]
   cols = [
     { field: 'INSTID', header: 'INST ID' },
-    { field: 'BRANCHCODE', header: 'BRANCH ID' },
-    { field: 'BRANCHMAPCODE', header: 'BRANCH MAP CODE' },
-    { field: 'BRANCHNAME', header: 'BRANCH NAME' },
+    { field: 'BRANCHCODE', header: 'Branch ID' },
+    { field: 'BRANCHMAPCODE', header: 'Branch Map Code' },
+    { field: 'BRANCHNAME', header: 'Branch Name' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
   delete_visible: any;
   buttonsList: any = [
-    { label: 'Authorize Delete Offline Allowed PIN', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize Offline Allowed PIN', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Delete Branch', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Branch', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
+  constructor(private router: Router) { };
   ngOnInit() {
     this.cols = this.userRole === 'maker'
       ? this.cols
@@ -71,8 +73,9 @@ export class BranchComponent {
   addOrEdit(data1?: any, data?: any) {
     this.ADDvisible = !this.ADDvisible
   }
-  clear(able: Table) {
-
+  authFunc(event:any) {
+    console.log(event,'csdcsdc-------');
+    this.router.navigate(['/pages/auth-branch'], { state: { type: event.type } });
   }
 
   editFunction(customer: any, type: any) {

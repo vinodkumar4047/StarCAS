@@ -1,0 +1,83 @@
+<div class="auth-branch col-span-12 xl:col-span-12">
+    <h2 class="mb-8"> Branch Details </h2>
+    <div class="card !mb-4">
+       
+            <div class="flex flex-wrap justify-between">
+                <div class="flex gap-2 items-center mb-4">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                       {{header}}
+                    </div>
+                </div>
+            </div> 
+
+             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+             (viewEvent)="editFunction($event , 'view')" (deleteEvent)="delete_visible = true"/>
+
+              <p-dialog [(visible)]="edit_visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+        class="EDIT_BRANCH_DIALOG">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                  View Your Details
+                </span>
+                <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                    (click)="edit_visible = false"></button>
+            </div>
+        </ng-template>
+
+        <!-- Table-like layout  -->
+        <div *ngIf="Edit_data">
+            <div class="table-row">
+                <div class="table-cell heading">INST ID</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INST_ID" type="text" placeholder=""
+                    [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Branch Id</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCH_ID" type="text" placeholder=""
+                    [disabled]="true" />
+
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Branch Map Code</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCH_MAP_CODE" type="text"
+                    placeholder="" [disabled]="true" />
+
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Branch Name</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCH_NAME" type="text" placeholder=""
+                    [disabled]="true" />
+
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4" >
+            <p-button label="De-Authorize" severity="secondary" (click)="edit_visible = false" />
+            <p-button label="Authorize" (click)="edit_visible = false" />
+        </div>
+    </p-dialog>
+
+      <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    Confirm Deletion
+                </span>
+                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
+                    (click)="delete_visible = false"></button>
+            </div>
+        </ng-template>
+        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
+            Are you sure you want to delete?
+        </div>
+        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
+        <div class="flex justify-end gap-2">
+            <p-button label="No" severity="secondary" (click)="delete_visible = false" />
+            <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
+        </div>
+    </p-dialog>
+    </div>
+</div>
+                
