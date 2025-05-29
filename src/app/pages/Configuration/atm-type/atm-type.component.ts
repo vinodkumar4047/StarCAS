@@ -26,14 +26,14 @@ export class ATMTypeComponent {
   cities: City[] | undefined;
   table: boolean = false
   selectedCity: City | undefined;
-  value: string = '';
+  value: string = 'NDC ATMs';
   filteredProducts: any;
   products = [{ ATMTYPEID: "NDC+ATM", ATMTYPEDESCRIPTION: "NDC ATMs", DRIVERCHANNEL: "EzNDCDriver" },
   { ATMTYPEID: "WINCOR", ATMTYPEDESCRIPTION: "WINCOR", DRIVERCHANNEL: "EzNDCDriver" },
   { ATMTYPEID: "D912ATM", ATMTYPEDESCRIPTION: "Diebold ATMs", DRIVERCHANNEL: "EzD912Driver" }
   ]
   ngOnInit() {
-
+    this.onATMTypeChange(this.value);
     this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },

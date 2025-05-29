@@ -7,27 +7,39 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { LayoutService } from '../../service/layout.service';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { ImageModule } from 'primeng/image';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 @Component({
-    selector: 'app-topbar',
-    templateUrl: './topbar.component.html',
-    styleUrl: './topbar.component.scss',
-    standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, PopoverModule, ImageModule],
+  selector: 'app-topbar',
+  templateUrl: './topbar.component.html',
+  styleUrl: './topbar.component.scss',
+  standalone: true,
+  imports: [RouterModule, CommonModule, StyleClassModule, PopoverModule,
+    ImageModule, BadgeModule, OverlayBadgeModule, AvatarModule],
 })
 export class TopbarComponent {
-    items!: MenuItem[];
-    @ViewChild('op') op!: Popover;
-    img:any = 'assets/images/starcas-logo.png'
-    selectedMember = null;
-
-    members = [
-        { name: 'My Profile' },
-        { name: 'Change Password' },
-        { name: 'ATM Location' },
-        { name: 'Log Out' },
-    ];     
-    isFullScreen = false;
-    constructor(public layoutService: LayoutService, private router : Router) { }
+  items!: MenuItem[];
+  @ViewChild('op') op!: Popover;
+  @ViewChild('op1') op1!: Popover;
+  img: any = 'assets/images/starcas-logo.png'
+  selectedMember = null;
+  selectedmemeber1 = null;
+  members1 = [
+    { name: 'Critical ATM TEST022' },
+    { name: 'Critical ATM TEST024' },
+    { name: 'Critical ATM TEST030' },
+    { name: 'See All Message' }
+  ];
+  members = [
+    { name: 'My Profile' },
+    { name: 'Change Password' },
+    { name: 'ATM Location' },
+    { name: 'Log Out' },
+  ];
+  isFullScreen = false;
+  constructor(public layoutService: LayoutService, private router: Router) { }
   // Check if the browser supports fullscreen API
   isFullscreen(): boolean {
     return (
@@ -77,42 +89,51 @@ export class TopbarComponent {
     this.isFullScreen = false;
   }
 
-    toggle(event: any) {
-        this.op.toggle(event);
+  toggle(event: any) {
+    this.op.toggle(event);
+  }
+  togglepo1(event: any) {
+    this.op1.toggle(event);
+  }
+  selectMember(member: any) {
+    this.selectedMember = member;
+    this.op1.hide();
+  }
+  toggleDarkMode() {
+    this.layoutService.layoutConfig.update((state: any) => ({ ...state, darkTheme: !state.darkTheme }));
+  }
+  atmLocationAction() {
+    this.router.navigate(['/pages/atm_Monitoring']);
+    this.op1.hide();
+  }
+  profileAction(member: any) {
+    this.selectedMember = member;
+    console.log(member, 'member----');
+    if (member.name == 'Log Out') {
+      this.router.navigate(['/auth/login']);
+    } else if (member.name == 'My Profile') {
+      this.router.navigate(['/pages/edit_profile']);
+    } else if (member.name == 'Change Password') {
+      this.router.navigate(['/pages/change_password']);
+    } else if (member.name == 'ATM Location') {
+      this.router.navigate(['/pages/atm_location'])
     }
+    this.op.hide();
+  }
 
-    toggleDarkMode() {
-        this.layoutService.layoutConfig.update((state: any) => ({ ...state, darkTheme: !state.darkTheme }));
+  getIconForMember(name: string): string {
+    switch (name) {
+      case 'My Profile':
+        return 'pi pi-user';  // Icon for 'My Profile'
+      case 'Change Password':
+        return 'pi pi-key';   // Icon for 'Change Password'
+      case 'ATM Location':
+        return 'pi pi-map-marker'; // Icon for 'ATM Location'
+      case 'Log Out':
+        return 'pi pi-sign-out';   // Icon for 'Log Out'
+      default:
+        return 'pi pi-question'; // Default icon for unknown names
     }
-
-    profileAction(member:any){
-       this.selectedMember = member;
-        console.log(member,'member----');
-        if(member.name == 'Log Out'){
-            this.router.navigate(['/auth/login']);
-        }else if(member.name == 'My Profile'){
-          this.router.navigate(['/pages/edit_profile']);
-        }else if(member.name == 'Change Password'){
-          this.router.navigate(['/pages/change_password']);
-        }else if(member.name == 'ATM Location'){
-          this.router.navigate(['/pages/atm_location'])
-        }
-        this.op.hide();     
-    }
-
-    getIconForMember(name: string): string {
-        switch(name) {
-          case 'My Profile':
-            return 'pi pi-user';  // Icon for 'My Profile'
-          case 'Change Password':
-            return 'pi pi-key';   // Icon for 'Change Password'
-          case 'ATM Location':
-            return 'pi pi-map-marker'; // Icon for 'ATM Location'
-          case 'Log Out':
-            return 'pi pi-sign-out';   // Icon for 'Log Out'
-          default:
-            return 'pi pi-question'; // Default icon for unknown names
-        }
-      }
+  }
 }
 
