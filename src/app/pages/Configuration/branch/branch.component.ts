@@ -74,7 +74,6 @@ export class BranchComponent {
     this.ADDvisible = !this.ADDvisible
   }
   authFunc(event:any) {
-    console.log(event,'csdcsdc-------');
     this.router.navigate(['/pages/auth-branch'], { state: { type: event.type } });
   }
 

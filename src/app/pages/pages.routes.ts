@@ -60,6 +60,9 @@ import { LicenseDecryptComponent } from './license-generation/license-decrypt/li
 import { ReportComponent } from './report/report.component';
 import { ReportGenerationComponent } from './report/report-generation/report-generation.component';
 import { AuthBranchComponent } from './Configuration/branch/auth-branch/auth-branch.component';
+import { AuthAtmComponent } from './Configuration/atm/auth-atm/auth-atm.component';
+import { AuthExternalBinComponent } from './Configuration/external-bin/auth-external-bin/auth-external-bin.component';
+import { AuthFitComponent } from './Configuration/fit/auth-fit/auth-fit.component';
 
 export default [
     { path: 'empty', component: Empty },
@@ -121,6 +124,9 @@ export default [
     { path: 'report', component: ReportComponent },
     { path: 'report-generation', component: ReportGenerationComponent },
      { path: 'auth-branch', component: AuthBranchComponent },
+     { path: 'auth-atm', component: AuthAtmComponent },
+     { path: 'auth-ext-bin', component: AuthExternalBinComponent },
+      { path: 'auth-fit', component: AuthFitComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

@@ -87,8 +87,8 @@ delete_visible: any
   };
 tpCheck!:boolean;
   buttonsList: any = [
-    { label: 'Authorize Delete FIT', icon: 'pi pi-user-minus', type: 'deleteAuthorizedFIT', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize FIT', icon: 'pi pi-verified', type: 'authorizedFIT', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Delete FIT', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize FIT', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
@@ -113,5 +113,9 @@ constructor(private router: Router) { };
 
   addOrEdit(type:any,data:any){
     this.router.navigate(['/pages/add_fit'], { state:{ data:data?.data , type:type} });
+  }
+
+    authFunction(event:any){
+     this.router.navigate(['/pages/auth-fit'], { state: { type: event.type } });
   }
 }

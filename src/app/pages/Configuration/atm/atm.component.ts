@@ -130,8 +130,8 @@ export class ATMComponent {
   ];
   delete_visible: any;
   buttonsList: any = [
-    { label: 'Authorize Delete ATM', icon: 'pi pi-user-minus', type: 'deleteAuthorizedATM', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize ATM', icon: 'pi pi-verified', type: 'AuthorizedATM', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Delete ATM', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize ATM', icon: 'pi pi-verified', type: 'Auth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router) { };
@@ -210,5 +210,9 @@ export class ATMComponent {
   }
   delateData() {
     this.delete_visible = false
+  }
+
+  authFunction(event:any){
+    this.router.navigate(['/pages/auth-atm'], { state: { type: event.type } });
   }
 }
