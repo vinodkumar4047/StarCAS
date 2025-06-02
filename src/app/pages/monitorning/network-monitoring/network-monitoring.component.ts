@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule, ValueChangeEvent } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,9 +10,9 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { take } from 'rxjs';
 import { RestService } from '../../../layout/service/rest.service';
 import { TableModule } from 'primeng/table';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-network-monitoring',
   imports: [TooltipModule,
     CommonModule,
@@ -21,7 +21,7 @@ changeDetection:ChangeDetectionStrategy.OnPush,
     IconFieldModule,
     ButtonModule,
     TableComponent,
-    DialogModule,TableModule],
+    DialogModule, TableModule],
   templateUrl: './network-monitoring.component.html',
   styleUrl: './network-monitoring.component.scss'
 })
@@ -29,25 +29,25 @@ export class NetworkMonitoringComponent {
   loading: boolean = false;
   networkData: any = [];
   display: boolean = false;
-  networkRowData:any = {
-        "portId": "",
-        "portStatus": "",
-        "portGroup": "",
-        "logDate": "",
-        "logTime": "",
-        "instId": "",
-        "networkId": "",
-        "networkName": "",
-        "networkPropertyId": "",
-        "timeout": "",
-        "channelName": "",
-        "portName": "",
-        "networkStatus": "",
-        "keyReq": "",
-        "cutoverReq": "",
-        "echoAcqInstCode": "",
-        "networkFlag": ""
-    }
+  networkRowData: any = {
+    "portId": "",
+    "portStatus": "",
+    "portGroup": "",
+    "logDate": "",
+    "logTime": "",
+    "instId": "",
+    "networkId": "",
+    "networkName": "",
+    "networkPropertyId": "",
+    "timeout": "",
+    "channelName": "",
+    "portName": "",
+    "networkStatus": "",
+    "keyReq": "",
+    "cutoverReq": "",
+    "echoAcqInstCode": "",
+    "networkFlag": ""
+  }
   globalFilterFields: any = [
     'instId',
     'portId',
@@ -70,13 +70,13 @@ export class NetworkMonitoringComponent {
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
 
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.getnetworkData();
   }
-  viewEvent(event:any) {
-    console.log(event,'eeeeeeeeee');
+  viewEvent(event: any) {
+    console.log(event, 'eeeeeeeeee');
     this.networkRowData = event.data;
     this.display = true;
   }
@@ -94,10 +94,13 @@ export class NetworkMonitoringComponent {
             };
           });
           console.log('taskManager data:', res);
+          this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
+        }
+        setTimeout(() => {
           this.loading = false;
+          this.cdr.detectChanges();
         }, 1000);
       },
       error: (err) => {

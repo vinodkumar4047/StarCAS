@@ -1,14 +1,18 @@
-<div class="txnallowedpin">
-    <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 20px;">
-        <h2 style="margin: 0;"> TXN Allowed For Offline PIN </h2>
-    </div>
+<div class="txnAuth">
+    <h2 class="mb-8"> Offline Pin Txns Details </h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit('Edit',$event)" (deleteEvent)="delete_visible = true"
-            (event)="authoTXN($event)" (viewEvent)="edit('View',$event)"
-            [addButton]="userRole == 'checker'?null:'Add Offline Pin'"
-            [multipleButton]="userRole != 'maker'?buttonsList:''" />
+        <div class="flex flex-wrap justify-between">
+            <div class="flex gap-2 items-center mb-4">
+                <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                    class="backIcon"></p-button>
+                <div class="font-semibold text-xl heading-color">
+                    {{header}}
+                </div>
+            </div>
+        </div>
+        <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+            (deleteEvent)="delete_visible = true" (viewEvent)="viewFunction( 'View',$event )" />
     </div>
     <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">
@@ -32,11 +36,11 @@
     <div class="AddtxnDetails">
         <div class="card flex justify-center">
             <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
-                class="EDIT_BRANCH_DIALOG">
+                class="view_txnAuth_DIALOG">
                 <ng-template pTemplate="header">
                     <div class="flex justify-between items-center w-full">
                         <span class="text-lg font-semibold custom-text-color">
-                            {{tpCheck == true ? 'View MCC Allowed Details':'Edit MCC Allowed Details'}}
+                            {{tpCheck == true ? 'View Deleted Ofline Txn Pin Authorization':'Edit MCC Allowed Details'}}
                         </span>
                         <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
                             (click)="editVisible = false"></button>

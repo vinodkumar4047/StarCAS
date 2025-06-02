@@ -1,23 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { TableComponent } from '../../../layout/component/table/table.component';
-import { Router } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableComponent } from '../../../../layout/component/table/table.component';
+import { Location } from '@angular/common';
 import { Select } from 'primeng/select';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-risk-country-block',
+  selector: 'app-risk-auth',
   imports: [TableComponent, DialogModule, ButtonModule,
     CommonModule, FormsModule, FormsModule, InputTextModule, Select],
-  templateUrl: './risk-country-block.component.html',
-  styleUrl: './risk-country-block.component.scss'
+  templateUrl: './risk-auth.component.html',
+  styleUrl: './risk-auth.component.scss'
 })
-export class RiskCOUNTRYBLOCKComponent {
-  delete_visible: any;
+export class RiskAuthComponent {
+  constructor(private location: Location) { }
+  header: any
+  routeData: any = history.state;
+
   rawData = [
     {
       "INSTID": "TEST",
@@ -107,7 +113,7 @@ export class RiskCOUNTRYBLOCKComponent {
     { field: 'BLOCKEDCOUNTRYCODE', header: 'Blocked Country Code' },
     { field: 'COUNTRYDESC', header: 'Country Desc' },
     { field: 'TXNALLOWEDFLAG', header: 'TXN Allowed Flag' },
-    { field: 'Action', header: 'Action', type: ['view', 'edit'] },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'viewAuth' ? 'view' : 'delete'] },
   ];
   globalFilterFields: any = [
     'INSTID',
@@ -116,26 +122,29 @@ export class RiskCOUNTRYBLOCKComponent {
     'TXNALLOWEDFLAG'
   ];
 
+  delete_visible: any;
+  visible: boolean = false;
   editVisible: any;
-  Edit_data: any = {
-    BLOCKEDCOUNTRYCODE: '',
-    COUNTRYDESC: '',
-    TXNALLOWEDFLAG: '',
-    INSTID: ''
-  };
   tpCheck!: boolean;
-  buttonsList: any = [
-    { label: 'Authorize Country', icon: 'pi pi-verified', type: 'viewAuth', variant: 'outlined', severity: "info" }
-  ]
-  userRole: any = localStorage.getItem('userRole');
-  constructor(private router: Router) { };
+  Edit_data: any = {
+    INSTID: '',
+    MCARD_NO: '',
+    FROMDATE: '',
+    TODATE: ''
+  };
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
-      ? this.cols
-      : this.cols.filter(col => col.field !== 'Action');
+    this.header = this.routeData.type == 'viewAuth' ? 'View Country Block Authorization' : 'Authorize Delete Offline Allowed PIN'
+  };
+
+
+  goBack() {
+    this.location.back();
+  };
+  delateData() {
+    this.delete_visible = false;
   }
-  edit(data: any, type: any) {
+  viewFunction(type: any, data: any) {
     this.Edit_data = { ...data?.data };
     console.log(data);
     this.tpCheck = type == 'View' ? true : false;
@@ -143,13 +152,4 @@ export class RiskCOUNTRYBLOCKComponent {
 
   }
 
-  addOrEdit(type: any, data: any) {
-    this.router.navigate(['/pages/add_risk_ctry'], { state: { data: data?.data, type: type } });
-  }
-
-  authorisk(data: any) {
-
-    console.log('riskAuthorizeData', data.type, data?.data);
-    this.router.navigate(['/pages/authorize_risk_ctry'], { state: { data: data?.data, type: data.type } });
-  }
 }

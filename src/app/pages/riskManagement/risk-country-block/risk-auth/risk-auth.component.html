@@ -1,0 +1,65 @@
+<div class="txnAuth">
+    <h2 class="mb-8"> Offline Pin Txns Details </h2>
+
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+        <div class="flex flex-wrap justify-between">
+            <div class="flex gap-2 items-center mb-4">
+                <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                    class="backIcon"></p-button>
+                <div class="font-semibold text-xl heading-color">
+                    {{header}}
+                </div>
+            </div>
+        </div>
+        <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+            (deleteEvent)="delete_visible = true" (viewEvent)="viewFunction( 'View',$event )" />
+    </div>
+    <div class="AddtxnDetails">
+        <div class="card flex justify-center">
+            <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+                class="view_riskCountryAuth_DIALOG">
+                <ng-template pTemplate="header">
+                    <div class="flex justify-between items-center w-full">
+                        <span class="text-lg font-semibold custom-text-color">
+                            {{tpCheck == true ? 'View Country Block Details':'Edit Country Block Details'}}
+                        </span>
+                        <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                            (click)="editVisible = false"></button>
+                    </div>
+                </ng-template>
+
+                <!-- Table-like layout  -->
+                <div *ngIf="Edit_data">
+                    <div class="table-row">
+                        <div class="table-cell heading">INST ID</div>
+                        <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text"
+                            placeholder="" [disabled]="true" />
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell heading">Blocked Country Code</div>
+                        <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BLOCKEDCOUNTRYCODE"
+                            type="text" placeholder="" [disabled]="true" />
+
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell heading">Country Desc</div>
+                        <input class="table-cell value" pInputText [(ngModel)]="Edit_data.COUNTRYDESC" type="text"
+                            placeholder="" [disabled]="true" />
+
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell heading">TXN Allowed</div>
+                        <p-select [options]="optvalue" [(ngModel)]="Edit_data.TXNALLOWEDFLAG" optionValue="code"
+                            optionLabel="name" class="table-cell value" [style]="{'padding': '0'}" styleClass="w-full"
+                            [disabled]="tpCheck" />
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
+                    <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
+                    <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
+                </div>
+            </p-dialog>
+        </div>
+
+    </div>
+</div>

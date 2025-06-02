@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-network-control',
   imports: [TooltipModule,
     CommonModule,
@@ -50,8 +50,8 @@ export class NetworkControlComponent {
   ];
 
   getDataPortman() {
-    this.loading = true;
-    this.restApi.get('/control/v1/network').pipe(
+    // this.loading = true;
+    this.restApi.get('/control/network').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -60,9 +60,10 @@ export class NetworkControlComponent {
           console.log('taskManager data:', res);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-        }, 1000);
+        }
+        // setTimeout(() => {
+        //   this.loading = false;
+        // }, 1000);
       },
       error: (err) => {
         console.error('Subscription error:', err);

@@ -3,50 +3,52 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
-            (viewEvent)="edit($event,'View')" [addButton]="userRole != 'maker'?null:'Add Country'" [multipleButton]="userRole != 'maker'?buttonsList:''" />
+            (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')" (event)="authorisk($event)"
+            (viewEvent)="edit($event,'View')" [addButton]="userRole != 'maker'?null:'Add Country'"
+            [multipleButton]="userRole != 'maker'?buttonsList:''" />
     </div>
 
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
-    class="EDIT_BRANCH_DIALOG">
-    <ng-template pTemplate="header">
-        <div class="flex justify-between items-center w-full">
-            <span class="text-lg font-semibold custom-text-color">
-                {{tpCheck == true ? 'View Country Block Details':'Edit Country Block Details'}}
-            </span>
-            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
-                (click)="editVisible = false"></button>
-        </div>
-    </ng-template>
+        class="view_txnAuth_DIALOG">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    {{tpCheck == true ? 'View Country Block Details':'Edit Country Block Details'}}
+                </span>
+                <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                    (click)="editVisible = false"></button>
+            </div>
+        </ng-template>
 
-    <!-- Table-like layout  -->
-    <div *ngIf="Edit_data">
-        <div class="table-row">
-            <div class="table-cell heading">INST ID</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
-                [disabled]="true" />
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">Blocked Country Code</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BLOCKEDMERCHANTCODE" type="text" placeholder=""
-                [disabled]="true" />
+        <!-- Table-like layout  -->
+        <div *ngIf="Edit_data">
+            <div class="table-row">
+                <div class="table-cell heading">INST ID</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
+                    [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Blocked Country Code</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BLOCKEDMERCHANTCODE" type="text"
+                    placeholder="" [disabled]="true" />
 
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">Country Desc</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.MERCHANTCODEDESC" type="text"
-                placeholder="" [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">Country Desc</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.MERCHANTCODEDESC" type="text"
+                    placeholder="" [disabled]="true" />
 
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">TXN Allowed</div>
+                <p-select [options]="optvalue" [(ngModel)]="Edit_data.TXNALLOWEDFLAG" optionValue="code"
+                    optionLabel="name" class="table-cell value" [style]="{'padding': '0'}" styleClass="w-full"
+                    [disabled]="tpCheck" />
+            </div>
         </div>
-        <div class="table-row">
-            <div class="table-cell heading">TXN Allowed</div>
-            <p-select [options]="optvalue" [(ngModel)]="Edit_data.TXNALLOWEDFLAG" optionValue="code" optionLabel="name"
-                     class="table-cell value" [style]="{'padding': '0'}" styleClass="w-full" [disabled]="tpCheck"/>
+        <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
+            <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
+            <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
         </div>
-    </div>
-    <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
-        <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
-        <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
-    </div>
-</p-dialog>
+    </p-dialog>
 </div>

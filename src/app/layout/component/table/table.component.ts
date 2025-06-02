@@ -10,7 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-table',
   imports: [
     TooltipModule,
@@ -80,6 +80,11 @@ export class TableComponent {
 
   otherEvents(data: any, event: any, type: any) {
     this.event.emit({ data: data, event: event, type: type });
+    // Execute command if provided
+    // const matchingBtn = this.multipleButton?.find((btn: any) => btn.type === type);
+    // if (matchingBtn?.command) {
+    //   matchingBtn.command({ data, event });
+    // }
   }
 
 

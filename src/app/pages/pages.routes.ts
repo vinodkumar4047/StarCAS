@@ -23,7 +23,7 @@ import { NetworkMonitoringComponent } from './monitorning/network-monitoring/net
 import { TxnMonitoringComponent } from './monitorning/txn-monitoring/txn-monitoring.component';
 import { TransactionSearchComponent } from './monitorning/transaction-search/transaction-search.component';
 import { AddFitComponent } from './Configuration/fit/add-fit/add-fit.component';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InternationalTXNEnabledDisabledComponent } from './riskManagement/international-txn-enabled-disabled/international-txn-enabled-disabled.component';
 import { MCCBLOCKComponent } from './riskManagement/mcc-block/mcc-block.component';
 import { RiskCOUNTRYBLOCKComponent } from './riskManagement/risk-country-block/risk-country-block.component';
@@ -60,6 +60,9 @@ import { LicenseDecryptComponent } from './license-generation/license-decrypt/li
 import { ReportComponent } from './report/report.component';
 import { ReportGenerationComponent } from './report/report-generation/report-generation.component';
 import { AuthBranchComponent } from './Configuration/branch/auth-branch/auth-branch.component';
+import { TxnAuthorizeComponent } from './riskManagement/t-xn-allow-without-pin/txn-authorize/txn-authorize.component';
+import { RiskAuthComponent } from './riskManagement/risk-country-block/risk-auth/risk-auth.component';
+import { TxnAllowedRiskAuthComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-auth/txn-allowed-risk-auth.component';
 
 export default [
     { path: 'empty', component: Empty },
@@ -98,8 +101,11 @@ export default [
     { path: 'add_mcc', component: AddMccComponent },
     { path: 'txnAllowedRiskCountry', component: TxnAllowedRiskCountryComponent },
     { path: 'add_cardCtry', component: AddCardCountryComponent },
+    { path: 'txn-allowed-risk-country-authorize', component: TxnAllowedRiskAuthComponent },
     { path: 'add_offline', component: AddOfflinePinConfigComponent },
+    { path: 'txn_autho', component: TxnAuthorizeComponent },
     { path: 'add_risk_ctry', component: AddRiskCountryComponent },
+    { path: 'authorize_risk_ctry', component: RiskAuthComponent },
     { path: 'admin_card', component: AdminCardComponent },
     { path: 'email_update', component: EmailUpdateComponent },
     { path: 'add_email_update', component: AddEmailComponent },
@@ -116,11 +122,11 @@ export default [
     { path: 'edit_profile', component: EditProfileComponent },
     { path: 'change_password', component: ChangePasswordComponent },
     { path: 'atm_location', component: AtmLocationsComponent },
-     { path: 'encrypt', component: EncryptLicenseComponent },
+    { path: 'encrypt', component: EncryptLicenseComponent },
     { path: 'decrypt', component: LicenseDecryptComponent },
     { path: 'report', component: ReportComponent },
     { path: 'report-generation', component: ReportGenerationComponent },
-     { path: 'auth-branch', component: AuthBranchComponent },
+    { path: 'auth-branch', component: AuthBranchComponent },
     { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

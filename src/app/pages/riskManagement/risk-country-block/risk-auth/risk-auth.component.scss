@@ -1,0 +1,89 @@
+ ::ng-deep {
+     .view_riskCountryAuth_DIALOG {
+         .heading {
+             font-weight: bold;
+             /* Slight background for headings */
+         }
+
+         .hovBut:hover {
+             background-color: #ffffff;
+             color: var(--primary-color);
+         }
+
+         .p-dialog {
+             border: 0;
+         }
+
+         .table-container {
+             display: flex;
+             flex-direction: column;
+             width: 100%;
+             padding: 16px;
+         }
+
+         .custom-text-color {
+             color: #ffffff;
+             font-size: 25px
+         }
+
+         .p-dialog-header {
+             background: var(--p-button-primary-background);
+             border-top-left-radius: 10px;
+             border-top-right-radius: 10px;
+         }
+
+         .table-row {
+             display: flex;
+             justify-content: center;
+             padding: 12px 0;
+             // border-bottom: 1px solid #ddd;
+             /* Light border between rows */
+         }
+     }
+
+     .p-dialog-content {
+         height: calc(100% - 5rem);
+         /* adjust based on your header/footer height */
+         overflow: auto;
+     }
+
+     .custom-dialog-content .dialog-close-button .p-button {
+         background-color: #f0f0f0;
+         border-color: transparent;
+         color: #333;
+         transition: background-color 0.3s ease;
+     }
+
+     .custom-dialog-content .dialog-close-button .p-button:hover {
+         background-color: var(--primary-color);
+         /* or your theme color like #007ad9 */
+         color: white;
+     }
+
+     .table-cell {
+         // flex: 1;
+         padding: 8px 16px;
+         text-align: left;
+         /* Align text to the left */
+         // border-right: 1px solid #ddd;
+         /* Border between columns */
+         width: 13vw;
+     }
+
+     .heading-color {
+         color: var(--primary-color);
+         font-weight: bold;
+         letter-spacing: .5px;
+     }
+
+     .backIcon {
+         span.pi.pi-arrow-left.p-button-icon {
+             font-size: 18px;
+             color: black;
+             font-weight: bold;
+         }
+     }
+
+
+
+ }

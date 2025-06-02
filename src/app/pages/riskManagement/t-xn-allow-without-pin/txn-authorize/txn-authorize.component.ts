@@ -1,21 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { TableComponent } from '../../../layout/component/table/table.component';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Router } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableComponent } from '../../../../layout/component/table/table.component';
+import { Location } from '@angular/common';
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-t-xn-allow-without-pin',
-  imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, FormsModule, InputTextModule],
-  templateUrl: './t-xn-allow-without-pin.component.html',
-  styleUrl: './t-xn-allow-without-pin.component.scss'
+  selector: 'app-txn-authorize',
+  imports: [TooltipModule,
+    TableModule,  // Only import TableModule
+    CommonModule,
+    FormsModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    DialogModule,
+    ButtonModule, TableComponent,
+    DialogModule,],
+  templateUrl: './txn-authorize.component.html',
+  styleUrl: './txn-authorize.component.scss'
 })
-export class TXNALLOWWithoutPINComponent {
-  delete_visible: any;
-  rawData = [
+export class TxnAuthorizeComponent {
+  constructor(private location: Location) { }
+  header: any
+  routeData: any = history.state;
+
+  globalFilterFields: any = [
+    'INSTID',
+    'BRANCHCODE',
+    'BRANCHMAPCODE',
+    'BRANCHNAME',
+  ];
+
+  customers = [
     {
       "INSTID": "TEST",
       "HASHED_CHN": "d94461609bf7c4a9c931f7d14dce1869149ef20e9553db90d78c804117d23a463b23fd06008fd26e41bc5b545be607124052dbb77173de456ca6c5a4cdbd10a3",
@@ -78,64 +100,34 @@ export class TXNALLOWWithoutPINComponent {
     { field: 'MCARD_NO', header: 'CHN', sort: true, type: 'string' },
     { field: 'FROMDATE', header: 'From Date', sort: true, type: 'date' },
     { field: 'TODATE', header: 'To Date', sort: true, type: 'date' },
-    { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'viewAuth' ? 'view' : 'delete'] }
   ];
-  globalFilterFields: any = [
-    'INSTID',
-    'MCARD_NO',
-    'FROMDATE',
-    'TODATE',
-  ];
+  delete_visible: any;
   visible: boolean = false;
   editVisible: any;
+  tpCheck!: boolean;
   Edit_data: any = {
     INSTID: '',
     MCARD_NO: '',
     FROMDATE: '',
     TODATE: ''
   };
-  tpCheck!: boolean;
-  buttonsList: any = [
-    {
-      label: 'Authorize Delete Offline Allowed PIN', icon: 'pi pi-user-minus',
-      type: 'deleteAuth', variant: 'outlined', severity: "danger",
-      // command: (data: any) => this.authoTXN('AuthorizeDeleteOfflineAllowedPIN', data)
-    },
-    {
-      label: 'Authorize Offline Allowed PIN', icon: 'pi pi-verified',
-      type: 'viewAuth', variant: 'outlined', severity: "info",
-      // command: (data: any) => { console.log('Command clicked', data); this.authoTXN('AuthorizeOfflineAllowedPIN', data) }
-    }
-  ]
-  userRole: any = localStorage.getItem('userRole');
-  constructor(private router: Router) { };
-
   ngOnInit() {
+    this.header = this.routeData.type == 'viewAuth' ? 'Authorize Offline Allowed PIN' : 'Authorize Delete Offline Allowed PIN'
+  };
 
-    this.cols = this.userRole === 'maker'
-      ? this.cols
-      : this.cols.filter(col => col.field !== 'Action');
+
+  goBack() {
+    this.location.back();
+  };
+  delateData() {
+    this.delete_visible = false;
   }
-  view(data: any) {
-    console.log(data);
-  }
-  edit(type: any, data: any) {
+  viewFunction(type: any, data: any) {
     this.Edit_data = { ...data?.data };
     console.log(data);
     this.tpCheck = type == 'View' ? true : false;
     this.editVisible = true;
 
-  }
-
-  addOrEdit(type: any, data: any) {
-    this.router.navigate(['/pages/add_offline'], { state: { data: data?.data, type: type } });
-  }
-
-  delateData() {
-    this.delete_visible = false;
-  }
-  authoTXN(data?: any) {
-    console.log('Routing to autho page with:', data.type, data?.data);
-    this.router.navigate(['/pages/txn_autho'], { state: { data: data?.data, type: data.type } })
   }
 }

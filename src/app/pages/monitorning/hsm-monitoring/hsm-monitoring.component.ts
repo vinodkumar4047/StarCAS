@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-hsm-monitoring',
   imports: [TooltipModule,
     CommonModule,
@@ -72,7 +72,7 @@ export class HSMMonitoringComponent {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
-        }, 1000);
+        },);
       },
       error: (err) => {
         console.error('Subscription error:', err);
