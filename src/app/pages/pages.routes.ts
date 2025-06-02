@@ -66,6 +66,8 @@ import { AuthFitComponent } from './Configuration/fit/auth-fit/auth-fit.componen
 import { TxnAuthorizeComponent } from './riskManagement/t-xn-allow-without-pin/txn-authorize/txn-authorize.component';
 import { RiskAuthComponent } from './riskManagement/risk-country-block/risk-auth/risk-auth.component';
 import { TxnAllowedRiskAuthComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-auth/txn-allowed-risk-auth.component';
+import { AuthProfileComponent } from './users/profile-details/auth-profile/auth-profile.component';
+import { AuthUserComponent } from './users/user-details/auth-user/auth-user.component';
 import { AuthorizeMCCComponent } from './riskManagement/mcc-block/authorize-mcc/authorize-mcc.component';
 import { AuthorizeDeleteMCCComponent } from './riskManagement/txn-allow-blocked-mcc/authorize-delete-mcc/authorize-delete-mcc.component';
 import { AuthorizeEcomsiteComponent } from './riskManagement/risk-ecom-site-block/authorize-ecomsite/authorize-ecomsite.component';
@@ -139,6 +141,8 @@ export default [
   { path: 'auth-atm', component: AuthAtmComponent },
   { path: 'auth-ext-bin', component: AuthExternalBinComponent },
   { path: 'auth-fit', component: AuthFitComponent },
+      { path: 'auth-profile', component: AuthProfileComponent },
+     { path: 'auth-User', component: AuthUserComponent },
   { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

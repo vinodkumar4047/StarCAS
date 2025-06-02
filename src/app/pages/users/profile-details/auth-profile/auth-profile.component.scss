@@ -1,0 +1,47 @@
+::ng-deep {
+    .anuth-prof {
+        .heading-color {
+                color: var(--primary-color);
+                font-weight: bold;
+                letter-spacing: .5px;
+        }
+
+        .backIcon {
+            span.pi.pi-arrow-left.p-button-icon {
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+         .p-dialog-content {
+             height: calc(100% - 5rem);
+             /* adjust based on your header/footer height */
+             overflow: auto;
+         }
+
+         .custom-dialog-content .dialog-close-button .p-button {
+             background-color: #f0f0f0;
+             border-color: transparent;
+             color: #333;
+             transition: background-color 0.3s ease;
+         }
+
+         .custom-dialog-content .dialog-close-button .p-button:hover {
+             background-color: var(--primary-color);
+             /* or your theme color like #007ad9 */
+             color: white;
+         }
+
+         .table-cell {
+             // flex: 1;
+             padding: 8px 16px;
+             text-align: left;
+             /* Align text to the left */
+             // border-right: 1px solid #ddd;
+             /* Border between columns */
+             width: 13vw;
+         }
+
+    }
+}
