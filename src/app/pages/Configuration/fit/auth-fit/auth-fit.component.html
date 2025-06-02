@@ -1,0 +1,59 @@
+<div class="auth-fit col-span-12 xl:col-span-12">
+    <h2 class="mb-8">FIT</h2>
+    <div class="card !mb-4">
+       
+            <div class="flex flex-wrap justify-between">
+                <div class="flex gap-2 items-center mb-4">
+                    <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
+                        class="backIcon"></p-button>
+                    <div class="font-semibold text-xl heading-color">
+                       {{header}}
+                    </div>
+                </div>
+            </div> 
+
+             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+             (viewEvent)="edit_visible = true" (deleteEvent)="delete_visible = true"/>
+
+      <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    Confirm Deletion
+                </span>
+                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
+                    (click)="delete_visible = false"></button>
+            </div>
+        </ng-template>
+        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
+            Are you sure you want to delete?
+        </div>
+        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
+        <div class="flex justify-end gap-2">
+            <p-button label="No" severity="secondary" (click)="delete_visible = false" />
+            <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
+        </div>
+    </p-dialog>
+
+    <p-dialog [modal]="true" [(visible)]="edit_visible" [closable]="false" [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    Confirm Authorization
+                </span>
+                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
+                    (click)="edit_visible = false"></button>
+            </div>
+        </ng-template>
+        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
+            Are you sure, you want to Authorize this item ?
+        </div>
+        <div class=" mb-4 text-base tracking-wide"> * Please click Ok to confirm.</div>
+        <div class="flex justify-end gap-2">
+            <p-button label="No" severity="secondary" (click)="edit_visible = false" />
+            <p-button label="Ok" severity="success" (click)="edit_visible = false" />
+        </div>
+    </p-dialog>
+    </div>
+</div>
+                

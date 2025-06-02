@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from "../../../../layout/component/table/table.component";
 import { DialogModule } from 'primeng/dialog';
@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-auth-branch',
   imports: [CommonModule, ButtonModule, TableComponent,DialogModule,FormsModule],
   templateUrl: './auth-branch.component.html',
-  styleUrl: './auth-branch.component.scss'
+  styleUrl: './auth-branch.component.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class AuthBranchComponent {
   header: any;

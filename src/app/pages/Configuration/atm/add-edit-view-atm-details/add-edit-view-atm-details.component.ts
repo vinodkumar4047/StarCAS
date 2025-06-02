@@ -138,7 +138,7 @@ export class AddEditViewAtmDetailsComponent {
         });
 
         this.initializeProductFormArrays();
-        if (this.routeData?.type == 'Edit' || this.routeData?.type == 'View') {
+        if (this.routeData?.type == 'Edit' || this.routeData?.type == 'View'|| this.routeData?.type == 'Auth') {
             this.setFormData(this.routeData?.data);
             this.atmForm.disable();
         } else {
@@ -150,7 +150,7 @@ export class AddEditViewAtmDetailsComponent {
     initializeProductFormArrays() {
         const productDetailsArray = this.atmForm.get('productDetails') as FormArray;
 
-        this.products.forEach((product: any) => {
+        this.products?.forEach((product: any) => {
             const group = this.fb.group({
                 selectedProduct: [product.check ?? false],
                 denomValue: [{ value: '', disabled: !product.check }, Validators.required],
@@ -213,7 +213,7 @@ export class AddEditViewAtmDetailsComponent {
 
     EnableDisableAllProductFields() {
         const productDetailsArray = this.atmForm.get('productDetails') as FormArray;
-        productDetailsArray.controls.forEach((group: any, index: number) => {
+        productDetailsArray?.controls?.forEach((group: any, index: number) => {
             const selectedProductControl = group.get('selectedProduct');
             const denomControl = group.get('denomValue');
             const currencyControl = group.get('currencyCode');
@@ -257,7 +257,7 @@ export class AddEditViewAtmDetailsComponent {
 
         // Set product details (form array)
         const productDetailsArray = this.atmForm.get('productDetails') as FormArray;
-        data.productDetails.forEach((product: any, index: number) => {
+        data.productDetails?.forEach((product: any, index: number) => {
             const group = productDetailsArray.at(index) as FormGroup;
 
             group.patchValue({

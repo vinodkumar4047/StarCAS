@@ -50,8 +50,8 @@ export class ExternalBinComponent {
   };
 tpCheck!:boolean;
   buttonsList: any = [
-    { label: 'Authorize Delete External BIN', icon: 'pi pi-user-minus', type: 'deleteAuthorizedExternalBIN', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize External BIN', icon: 'pi pi-verified', type: 'addAuthorizedExternalBIN', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Delete External BIN', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize External BIN', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
 constructor(private router: Router) { };
@@ -71,7 +71,10 @@ constructor(private router: Router) { };
     console.log(data);
     this.tpCheck = type == 'View' ? true:false;
     this.editVisible = true;
+  }
 
+  authFunction(event:any){
+     this.router.navigate(['/pages/auth-ext-bin'], { state: { type: event.type } });
   }
 
   addOrEdit(type:any,data:any){
