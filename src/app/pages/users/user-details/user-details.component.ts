@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableComponent } from "../../../layout/component/table/table.component";
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -6,7 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-details',
   imports: [TableComponent, CommonModule, ButtonModule, DialogModule],
   templateUrl: './user-details.component.html',
@@ -418,27 +418,34 @@ export class UserDetailsComponent {
     { field: 'ADDED_BY', header: 'ADDED BY', sort: true, type: 'string' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ]
-  buttonsList: any = this.userRole == 'admin'?[
+  buttonsList: any = this.userRole == 'admin' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
-    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
-    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
-  ]:this.userRole == 'maker'?[
+    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
+  ] : this.userRole == 'maker' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
-  ]:[
+  ] : [
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
-    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuthorized', variant: 'outlined', severity: "danger" },
-    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'addAuthorized', variant: 'outlined', severity: "info" }
+    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ];
   delete_visible: boolean = false;
   constructor(private router: Router) { };
+
+  ngOnInit() {
+    this.cols = this.userRole === 'maker'
+      ? this.cols
+      : this.cols.filter((col: any) => col.field !== 'Action');
+  }
+
   MultiButton(event: any) {
 
     if (event.type == 'addUser') {
@@ -449,6 +456,8 @@ export class UserDetailsComponent {
       this.router.navigate(['/pages/unblock_user'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'resetPassword') {
       this.router.navigate(['/pages/reset_user_password'], { state: { data: event?.data, type: event?.type } });
+    } else if (event.type == 'auth' || event.type == 'deleteAuth') {
+      this.router.navigate(['/pages/auth-User'], { state: { data: event?.data, type: event?.type } });
     }
   }
 

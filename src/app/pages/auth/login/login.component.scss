@@ -13,6 +13,10 @@
             background-size: auto;
         }
 
+          .ng-invalid.ng-touched {
+            border-color: red;
+        }
+
         .p-selectbutton {
             justify-content: center;
 
@@ -27,6 +31,7 @@
                 background: var(--primary-color);
                 color: #fff;
             }
+            
         }
 
         @media (max-width: 600px) {
