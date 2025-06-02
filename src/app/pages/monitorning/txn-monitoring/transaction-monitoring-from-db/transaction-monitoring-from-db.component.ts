@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -12,8 +12,10 @@ import { RestService } from '../../../../layout/service/rest.service';
 import { style } from '@angular/animations';
 import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-transaction-monitoring-from-db',
   imports: [TooltipModule,
     CommonModule,
@@ -30,7 +32,7 @@ export class TransactionMonitoringFromDBComponent {
   transactionMonitoringrData: any[] = [];
   loading: boolean = true;
   private intervalId: any;
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.transactionGetData();
@@ -92,6 +94,8 @@ export class TransactionMonitoringFromDBComponent {
         console.error('Subscription error:', err);
       }, complete: () => {
         this.isLoading = false; // Stop loading bar
+        this.cdr.detectChanges();
+
       }
     });
   };

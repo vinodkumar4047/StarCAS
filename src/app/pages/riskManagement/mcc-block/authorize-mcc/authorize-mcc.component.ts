@@ -1,21 +1,36 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TableComponent } from '../../../layout/component/table/table.component';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Router } from '@angular/router';
-import { Select } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableComponent } from '../../../../layout/component/table/table.component';
+import { Location } from '@angular/common';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-mcc-block',
-  imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, InputTextModule, Select],
-  templateUrl: './mcc-block.component.html',
-  styleUrl: './mcc-block.component.scss'
+  selector: 'app-authorize-mcc',
+  imports: [TooltipModule,
+    TableModule,  // Only import TableModule
+    CommonModule,
+    FormsModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    DialogModule,
+    ButtonModule, TableComponent,
+    DialogModule,],
+  templateUrl: './authorize-mcc.component.html',
+  styleUrl: './authorize-mcc.component.scss'
 })
-export class MCCBLOCKComponent {
+export class AuthorizeMCCComponent {
+  constructor(private location: Location) { }
+  header: any
+  routeData: any = history.state;
+
   globalFilterFields: any = [
     'INSTID',
     'BLOCKEDMERCHANTCODE',
@@ -23,7 +38,7 @@ export class MCCBLOCKComponent {
     'TXNALLOWEDFLAG'
   ];
 
-  rawData = [
+  customers = [
     {
       "INSTID": "TEST",
       "BLOCKEDMERCHANTCODE": 8641,
@@ -85,51 +100,39 @@ export class MCCBLOCKComponent {
       "TXNALLOWEDFLAG": "BLOCKED"
     }
   ];
-  optvalue: any = [
-    { name: 'BLOCKED', code: 'BLOCKED' },
-    { name: 'UNBLOCKED', code: 'UNBLOCKED' }
-  ]
   cols = [
     { field: 'INSTID', header: 'INST ID' },
     { field: 'BLOCKEDMERCHANTCODE', header: 'MCC Code', sort: true, type: 'number' },
     { field: 'MERCHANTCODEDESC', header: 'MCC Desc', sort: true, type: 'string' },
     { field: 'TXNALLOWEDFLAG', header: 'Allowed', sort: true, type: 'string' },
-    { field: 'Action', header: 'Action', type: ['view', 'edit'] },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'viewAuth' ? 'view' : 'delete'] }
   ];
-
+  delete_visible: any;
+  visible: boolean = false;
   editVisible: any;
-  Edit_data: any = {
-    BLOCKEDMERCHANTCODE: '',
-    MERCHANTCODEDESC: '',
-    TXNALLOWEDFLAG: '',
-    INSTID: ''
-  };
   tpCheck!: boolean;
-  buttonsList: any = [
-    { label: 'Authorize MCC', type: 'viewAuth', icon: 'pi pi-verified', variant: 'outlined', severity: "info" }
-  ]
-  userRole: any = localStorage.getItem('userRole');
-  constructor(private router: Router) { };
-
+  Edit_data: any = {
+    INSTID: '',
+    MASK_CARDNO: '',
+    FROMDATE: '',
+    TODATE: ''
+  };
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
-      ? this.cols
-      : this.cols.filter(col => col.field !== 'Action');
-  }
+    this.header = this.routeData.type == 'viewAuth' ? 'View MCC Authorization' : 'Authorize Delete Offline Allowed PIN'
+  };
 
-  edit(data: any, type: any) {
+
+  goBack() {
+    this.location.back();
+  };
+  delateData() {
+    this.delete_visible = false;
+  }
+  viewFunction(type: any, data: any) {
     this.Edit_data = { ...data?.data };
     console.log(data);
     this.tpCheck = type == 'View' ? true : false;
     this.editVisible = true;
 
-  }
-
-  addOrEdit(type: any, data: any) {
-    this.router.navigate(['/pages/add_mcc'], { state: { data: data?.data, type: type } });
-  }
-  txnalloRiskView(data: any) {
-    console.log('txn-allowed-risk-country-authorize', data)
-    this.router.navigate(['/pages/authorize_MCCC'], { state: { data: data?.data, type: data.type } });
   }
 }
