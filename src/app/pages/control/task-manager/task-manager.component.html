@@ -1,8 +1,8 @@
 <div class="atmDetails">
-    <h2 class="mb-8"> Task Manager Details </h2>
+    <h2 class="mb-8" *ngIf="!minimalView"> Task Manager Details </h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="taskManagerData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            [loading]="loading" />
+        <app-table [tableData]="taskManagerData" [cols]="cols"
+            [globalFilterFields]="minimalView ? null : globalFilterFields" [loading]="loading" />
     </div>
 </div>
