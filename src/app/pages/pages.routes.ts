@@ -71,6 +71,8 @@ import { AuthUserComponent } from './users/user-details/auth-user/auth-user.comp
 import { AuthorizeMCCComponent } from './riskManagement/mcc-block/authorize-mcc/authorize-mcc.component';
 import { AuthorizeDeleteMCCComponent } from './riskManagement/txn-allow-blocked-mcc/authorize-delete-mcc/authorize-delete-mcc.component';
 import { AuthorizeEcomsiteComponent } from './riskManagement/risk-ecom-site-block/authorize-ecomsite/authorize-ecomsite.component';
+import { FraduRiskTxnMonitoringComponent } from './monitorning/fradu-risk-txn-monitoring/fradu-risk-txn-monitoring.component';
+import { ControlMonitoringComponent } from './control/control-monitoring/control-monitoring.component';
 
 export default [
   { path: 'empty', component: Empty },
@@ -79,6 +81,7 @@ export default [
   { path: 'port_Manager', component: PortManagerComponent },
   { path: 'network_Control', component: NetworkControlComponent },
   { path: 'atm_control', component: ATMControlComponent },
+  { path: 'control_Monitoring', component: ControlMonitoringComponent },
   { path: 'institution', component: InstitutionComponent },
   { path: 'branch', component: BranchComponent },
   { path: 'bin', component: BinComponent },
@@ -96,6 +99,7 @@ export default [
   { path: 'atm_Monitoring', component: ATMMonitoringComponent },
   { path: 'hsm_Monitoring', component: HSMMonitoringComponent },
   { path: 'network_Monitoring', component: NetworkMonitoringComponent },
+  { path: 'FraduRisk_TxnMonitoring', component: FraduRiskTxnMonitoringComponent },
   { path: 'transaction_Search', component: TransactionSearchComponent },
   { path: 'txn_Monitoring', component: TxnMonitoringComponent },
   { path: 'internationalTXNEnadisable', component: InternationalTXNEnabledDisabledComponent },
@@ -141,8 +145,8 @@ export default [
   { path: 'auth-atm', component: AuthAtmComponent },
   { path: 'auth-ext-bin', component: AuthExternalBinComponent },
   { path: 'auth-fit', component: AuthFitComponent },
-      { path: 'auth-profile', component: AuthProfileComponent },
-     { path: 'auth-User', component: AuthUserComponent },
+  { path: 'auth-profile', component: AuthProfileComponent },
+  { path: 'auth-User', component: AuthUserComponent },
   { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

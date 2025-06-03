@@ -58,7 +58,7 @@ export class HSMMonitoringComponent {
 
   getHsmData() {
     this.loading = true;
-    this.restApi.get('/monitoring/v1/hsm').pipe(
+    this.restApi.get('/monitoring/hsm').pipe(
       take(1),
     ).subscribe({
       next: (res) => {

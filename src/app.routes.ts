@@ -5,6 +5,7 @@ import { LayoutComponent } from './app/layout/component/layout/layout.component'
 import { AtmMonitoringDetailsComponent } from './app/pages/monitorning/atm-monitoring/atm-monitoring-details/atm-monitoring-details.component';
 import { TransactionMonitoringFromDBComponent } from './app/pages/monitorning/txn-monitoring/transaction-monitoring-from-db/transaction-monitoring-from-db.component';
 import { GraphComponent } from './app/pages/monitorning/txn-monitoring/graph/graph.component';
+import { ControlMonitoringDetailsComponent } from './app/pages/control/control-monitoring/control-monitoring-details/control-monitoring-details.component';
 
 export const appRoutes: Routes = [
     {
@@ -17,6 +18,7 @@ export const appRoutes: Routes = [
     },
     { path: 'landing', component: Landing },
     { path: 'atm_Monitoring_details', component: AtmMonitoringDetailsComponent },
+    { path: 'control_Monitoring_Details', component: ControlMonitoringDetailsComponent },
     { path: 'trans_monitoringDP', component: TransactionMonitoringFromDBComponent },
     { path: 'graph', component: GraphComponent },
 

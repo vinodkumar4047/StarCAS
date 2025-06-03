@@ -54,7 +54,7 @@ export class PortManagerComponent {
 
   getDataPortman() {
     this.loading = true;
-    this.restApi.get('/control/v1/portManager').pipe(
+    this.restApi.get('/control/portManager').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
