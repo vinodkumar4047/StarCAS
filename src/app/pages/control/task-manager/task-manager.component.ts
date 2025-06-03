@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,8 +9,10 @@ import { DialogModule } from 'primeng/dialog';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-task-manager',
   imports: [TooltipModule,
     CommonModule,
@@ -28,7 +30,7 @@ changeDetection:ChangeDetectionStrategy.OnPush,
 export class TaskManagerComponent {
   taskManagerData: any;
   loading: boolean = true;
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.getDataTaskman()
@@ -52,7 +54,7 @@ export class TaskManagerComponent {
 
   getDataTaskman() {
     this.loading = true;
-    this.restApi.get('/control/v1/taskManager').pipe(
+    this.restApi.get('/control/taskManager').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -64,11 +66,15 @@ export class TaskManagerComponent {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
+          this.cdr.detectChanges();
+
         }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
         this.loading = false;
+        this.cdr.detectChanges();
+
       }
     });
   };

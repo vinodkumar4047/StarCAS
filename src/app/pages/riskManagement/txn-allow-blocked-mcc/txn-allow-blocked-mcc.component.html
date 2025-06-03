@@ -3,8 +3,9 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
-            (viewEvent)="edit($event,'View')" [multipleButton]="userRole != 'maker'?buttonsList:''" [addButton]="userRole != 'maker'?null:'Add Card'" />
+            (event)="txn_AllowBlocked($event)" (deleteEvent)="delete_visible = true"
+            (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')" (viewEvent)="edit($event,'View')"
+            [multipleButton]="userRole != 'maker'?buttonsList:''" [addButton]="userRole != 'maker'?null:'Add Card'" />
     </div>
 
     <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
@@ -28,46 +29,46 @@
     </p-dialog>
 
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
-    class="EDIT_BRANCH_DIALOG">
-    <ng-template pTemplate="header">
-        <div class="flex justify-between items-center w-full">
-            <span class="text-lg font-semibold custom-text-color">
-                {{tpCheck == true ? 'View MCC Details':'Edit MCC Details'}}
-            </span>
-            <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
-                (click)="editVisible = false"></button>
-        </div>
-    </ng-template>
+        class="EDIT_BRANCH_DIALOG">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    {{tpCheck == true ? 'View MCC Details':'Edit MCC Details'}}
+                </span>
+                <button pButton icon="pi pi-times" class="change hovBut p-button-sm"
+                    (click)="editVisible = false"></button>
+            </div>
+        </ng-template>
 
-    <!-- Table-like layout  -->
-    <div *ngIf="Edit_data">
-        <div class="table-row">
-            <div class="table-cell heading">INST ID</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
-                [disabled]="true" />
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">CHN</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.MCARD_NO" type="text" placeholder=""
-                [disabled]="true" />
+        <!-- Table-like layout  -->
+        <div *ngIf="Edit_data">
+            <div class="table-row">
+                <div class="table-cell heading">INST ID</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
+                    [disabled]="true" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">CHN</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.MCARD_NO" type="text" placeholder=""
+                    [disabled]="true" />
 
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">From Date</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.FROMDATE" type="text"
-                placeholder="" [disabled]="tpCheck" />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">From Date</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.FROMDATE" type="text" placeholder=""
+                    [disabled]="tpCheck" />
 
-        </div>
-        <div class="table-row">
-            <div class="table-cell heading">To Date</div>
-            <input class="table-cell value" pInputText [(ngModel)]="Edit_data.TODATE" type="text"
-            [disabled]="tpCheck" placeholder=""  />
+            </div>
+            <div class="table-row">
+                <div class="table-cell heading">To Date</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.TODATE" type="text"
+                    [disabled]="tpCheck" placeholder="" />
 
+            </div>
         </div>
-    </div>
-    <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
-        <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
-        <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
-    </div>
-</p-dialog>
+        <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
+            <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
+            <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
+        </div>
+    </p-dialog>
 </div>

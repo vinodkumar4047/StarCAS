@@ -1,27 +1,42 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { TableComponent } from '../../../layout/component/table/table.component';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableComponent } from '../../../../layout/component/table/table.component';
+import { Location } from '@angular/common';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-risk-ecom-site-block',
-  imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, InputTextModule],
-  templateUrl: './risk-ecom-site-block.component.html',
-  styleUrl: './risk-ecom-site-block.component.scss'
+  selector: 'app-authorize-ecomsite',
+  imports: [TooltipModule,
+    TableModule,  // Only import TableModule
+    CommonModule,
+    FormsModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    DialogModule,
+    ButtonModule, TableComponent,
+    DialogModule,],
+  templateUrl: './authorize-ecomsite.component.html',
+  styleUrl: './authorize-ecomsite.component.scss'
 })
-export class RiskEcomSiteBLOCKComponent {
-  delete_visible: any
+export class AuthorizeEcomsiteComponent {
+  constructor(private location: Location) { }
+  header: any
+  routeData: any = history.state;
+
   globalFilterFields: any = [
     'INSTID',
     'BLOCKEDMERCHANTLOCATION'
   ];
 
-  rawData = [
+  customers = [
     {
       "INSTID": "TEST",
       "BLOCKEDMERCHANTLOCATION": "TAMILNADU",
@@ -114,48 +129,37 @@ export class RiskEcomSiteBLOCKComponent {
       "USERNAME": "demochecker"
     }
   ];
-
   cols = [
     { field: 'INSTID', header: 'INST ID' },
     { field: 'BLOCKEDMERCHANTLOCATION', header: 'Blocked Merchant Location', sort: true, type: 'string' },
-    { field: 'Action', header: 'Action', type: ['view', 'delete'] },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'viewAuth' ? 'view' : 'delete'] }
   ];
-
+  delete_visible: any;
+  visible: boolean = false;
   editVisible: any;
+  tpCheck!: boolean;
   Edit_data: any = {
-    BLOCKEDMERCHANTLOCATION: '',
+    INSTID: '',
+    MCARD_NO: '',
     FROMDATE: '',
-    TODATE: '',
-    INSTID: ''
+    TODATE: ''
   };
-  buttonsList: any = [
-    { label: 'Authorize Delete Ecom Site', icon: 'pi pi-user-minus', type: 'deleteAuthorizedEcomSite', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize Ecom Site', icon: 'pi pi-verified', type: 'viewAuth', variant: 'outlined', severity: "info" }
-  ]
-  userRole: any = localStorage.getItem('userRole');
-  constructor(private router: Router) { };
-
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
-      ? this.cols
-      : this.cols.filter(col => col.field !== 'Action');
+    this.header = this.routeData.type == 'viewAuth' ? 'View Location Block Authorization' : 'View Location Delete Authorization'
   };
 
+
+  goBack() {
+    this.location.back();
+  };
   delateData() {
-    this.delete_visible = false
-  };
-
-  edit(data: any, type: any) {
+    this.delete_visible = false;
+  }
+  viewFunction(type: any, data: any) {
     this.Edit_data = { ...data?.data };
     console.log(data);
+    this.tpCheck = type == 'View' ? true : false;
     this.editVisible = true;
 
-  };
-
-  addOrEdit(type: any, data: any) {
-    this.router.navigate(['/pages/add_EcomSite'], { state: { data: data?.data, type: type } });
-  };
-  authorizeEcom(data: any) {
-    this.router.navigate(['/pages/authorizeEcomsite'], { state: { data: data?.data, type: data.type } });
   }
 }

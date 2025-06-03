@@ -82,7 +82,7 @@ export class NetworkMonitoringComponent {
   }
   getnetworkData() {
     this.loading = true;
-    this.restApi.get('/monitoring/v1/network').pipe(
+    this.restApi.get('/monitoring/network').pipe(
       take(1),
     ).subscribe({
       next: (res) => {

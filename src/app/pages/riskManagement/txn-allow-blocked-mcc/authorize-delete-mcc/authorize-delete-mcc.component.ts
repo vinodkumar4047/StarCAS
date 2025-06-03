@@ -1,29 +1,43 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TableComponent } from '../../../layout/component/table/table.component';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Router } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableComponent } from '../../../../layout/component/table/table.component';
+import { Location } from '@angular/common';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-txn-allow-blocked-mcc',
-  imports: [TableComponent, DialogModule, ButtonModule, CommonModule, FormsModule, InputTextModule],
-  templateUrl: './txn-allow-blocked-mcc.component.html',
-  styleUrl: './txn-allow-blocked-mcc.component.scss'
+  selector: 'app-authorize-delete-mcc',
+  imports: [TooltipModule,
+    TableModule,  // Only import TableModule
+    CommonModule,
+    FormsModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    DialogModule,
+    ButtonModule, TableComponent,
+    DialogModule,],
+  templateUrl: './authorize-delete-mcc.component.html',
+  styleUrl: './authorize-delete-mcc.component.scss'
 })
-export class TxnAllowBlockedMCCComponent {
-  delete_visible: any
+export class AuthorizeDeleteMCCComponent {
+  constructor(private location: Location) { }
+  header: any
+  routeData: any = history.state;
+
   globalFilterFields: any = [
     'INSTID',
     'MCARD_NO',
     'FROMDATE',
     'TODATE'
   ];
-
-  rawData = [
+  customers = [
     {
       "INSTID": "TEST",
       "HASHED_CHN": "d94461609bf7c4a9c931f7d14dce1869149ef20e9553db90d78c804117d23a463b23fd06008fd26e41bc5b545be607124052dbb77173de456ca6c5a4cdbd10a3",
@@ -67,53 +81,39 @@ export class TxnAllowBlockedMCCComponent {
       "TODATE": "08-DEC-22"
     }
   ];
-
   cols = [
     { field: 'INSTID', header: 'INST ID' },
     { field: 'MCARD_NO', header: 'CHN', sort: true, type: 'string' },
     { field: 'FROMDATE', header: 'From Date', sort: true, type: 'date' },
     { field: 'TODATE', header: 'To Date', sort: true, type: 'date' },
-    { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'viewAuth' ? 'view' : 'delete'] }
   ];
-
+  delete_visible: any;
+  visible: boolean = false;
   editVisible: any;
-  Edit_data: any = {
-    MCARD_NO: '',
-    FROMDATE: '',
-    TODATE: '',
-    INSTID: ''
-  };
   tpCheck!: boolean;
-  buttonsList: any = [
-    { label: 'Authorize Delete MCC Allowed', icon: 'pi pi-user-minus', type: 'deleteAuthorizedMCCAllowed', variant: 'outlined', severity: "danger" },
-  ]
-  userRole: any = localStorage.getItem('userRole');
-  constructor(private router: Router) { };
-
+  Edit_data: any = {
+    INSTID: '',
+    MASK_CARDNO: '',
+    FROMDATE: '',
+    TODATE: ''
+  };
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
-      ? this.cols
-      : this.cols.filter(col => col.field !== 'Action');
-  }
+    this.header = this.routeData.type == 'viewAuth' ? 'Authorize Offline Allowed PIN' : 'Authorize Delete Offline Allowed PIN'
+  };
 
+
+  goBack() {
+    this.location.back();
+  };
   delateData() {
-    this.delete_visible = false
+    this.delete_visible = false;
   }
-
-  edit(data: any, type: any) {
+  viewFunction(type: any, data: any) {
     this.Edit_data = { ...data?.data };
     console.log(data);
     this.tpCheck = type == 'View' ? true : false;
     this.editVisible = true;
 
-  }
-
-  addOrEdit(type: any, data: any) {
-    this.router.navigate(['/pages/add_mcc_card'], { state: { data: data?.data, type: type } });
-  };
-
-  txn_AllowBlocked(data: any) {
-    console.log('txn-allowed-risk-country-authorize', data)
-    this.router.navigate(['/pages/Authorize_Delete_MCC'], { state: { data: data?.data, type: data.type } });
   }
 }

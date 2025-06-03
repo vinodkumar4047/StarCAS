@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-menu',
     standalone: true,
     imports: [CommonModule, AppMenuitem, RouterModule],
@@ -24,11 +24,11 @@ export class AppMenu {
     ngOnInit() {
         this.model = [
             {
-                items: [{ 
-                    label: 'Dashboard', 
-                    icon: 'pi pi-fw pi-home', 
-                    visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin', 
-                    routerLink: ['/pages/dashboard'] 
+                items: [{
+                    label: 'Dashboard',
+                    icon: 'pi pi-fw pi-home',
+                    visible: this.userRole === 'maker' || this.userRole === 'checker' || this.userRole == 'admin',
+                    routerLink: ['/pages/dashboard']
                 }]
             },
             {
@@ -131,18 +131,18 @@ export class AppMenu {
                             visible: this.userRole === 'maker' || this.userRole === 'checker',
                             routerLink: ['/pages/atm_Monitoring']
                         },
-                         {
+                        {
                             label: 'Fraud Monitoring',
                             icon: 'pi pi-fw pi-lock',
-                            visible:this.userRole === 'checker',
+                            visible: this.userRole === 'checker',
                             routerLink: ['/pages/fraud_Monitoring']
-                           
+
                         },
                         {
                             label: 'Fraud & Risk Txn Monitoring',
                             icon: 'pi pi-fw pi-lock',
                             visible: this.userRole === 'checker',
-                            
+                            routerLink: ['/pages/FraduRisk_TxnMonitoring']
                         },
                         {
                             label: 'Transaction Search',
@@ -172,7 +172,7 @@ export class AppMenu {
                             routerLink: ['/pages/port_Manager'],
                             visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
-                         {
+                        {
                             label: 'Channel Manager',
                             icon: 'pi pi-fw pi-times-circle',
                             visible: this.userRole === 'checker',
@@ -187,6 +187,12 @@ export class AppMenu {
                             label: 'ATM Control',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/atm_control'],
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
+                        },
+                        {
+                            label: 'Control Monitoring',
+                            icon: 'pi pi-fw pi-lock',
+                            routerLink: ['/pages/control_Monitoring'],
                             visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                     ]
@@ -221,25 +227,25 @@ export class AppMenu {
                             label: 'TXN Allow For Risk Country',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowedRiskCountry'],
-                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'MCC Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/mccBlock'],
-                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'TXN Allow For Blocked MCC',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/txnAllowBlockedMCC'],
-                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                         {
                             label: 'Risk Ecom Site Block',
                             icon: 'pi pi-fw pi-lock',
                             routerLink: ['/pages/riskEcomSiteBlock'],
-                            visible: this.userRole === 'maker' || this.userRole === 'checker' ,
+                            visible: this.userRole === 'maker' || this.userRole === 'checker',
                         },
                     ]
                 }]
@@ -303,7 +309,7 @@ export class AppMenu {
                     ]
                 }]
             },
-             {
+            {
                 items: [{
                     label: 'License Generation',
                     icon: 'pi pi-fw pi-id-card',

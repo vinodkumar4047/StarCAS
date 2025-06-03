@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -9,8 +9,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-port-manager',
   imports: [TooltipModule,
     CommonModule,
@@ -27,7 +29,7 @@ export class PortManagerComponent {
   portManagerData: any;
   loading: boolean = true;
 
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.getDataPortman()
@@ -52,7 +54,7 @@ export class PortManagerComponent {
 
   getDataPortman() {
     this.loading = true;
-    this.restApi.get('/control/v1/portManager').pipe(
+    this.restApi.get('/control/portManager').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -63,11 +65,14 @@ export class PortManagerComponent {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
+          this.cdr.detectChanges();
         }, 1000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
         this.loading = false;
+        this.cdr.detectChanges();
+
       }
     });
   };

@@ -112,8 +112,8 @@ export class TxnAllowedRiskCountryComponent {
     INSTID: ''
   };
   buttonsList: any = [
-    { label: 'Authorize Delete Card', icon: 'pi pi-user-minus', type: 'deleteAuthorizedCard', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize Card', icon: 'pi pi-verified', type: 'authorizedCard', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Delete Card', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Card', icon: 'pi pi-verified', type: 'viewAuth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
   constructor(private router: Router) { };
@@ -140,6 +140,6 @@ export class TxnAllowedRiskCountryComponent {
   }
   txnalloRiskView(data: any) {
     console.log('txn-allowed-risk-country-authorize', data)
-    this.router.navigate(['/pages/txn-allowed-risk-country-authorize'], { state: { type: 'viewAuth' } });
+    this.router.navigate(['/pages/txn-allowed-risk-country-authorize'], { state: { data: data?.data, type: data.type } });
   }
 }

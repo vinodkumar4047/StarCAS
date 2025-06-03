@@ -9,6 +9,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-network-control',
@@ -27,7 +29,7 @@ export class NetworkControlComponent {
   networkConGetData: any;
   loading: boolean = true;
 
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.getDataPortman()
@@ -50,7 +52,7 @@ export class NetworkControlComponent {
   ];
 
   getDataPortman() {
-    // this.loading = true;
+    this.loading = true;
     this.restApi.get('/control/network').pipe(
       take(1),
     ).subscribe({
@@ -61,13 +63,17 @@ export class NetworkControlComponent {
         } else {
           console.warn('No data received or request failed.');
         }
-        // setTimeout(() => {
-        //   this.loading = false;
-        // }, 1000);
+        setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+
+        }, 1000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
         this.loading = false;
+        this.cdr.detectChanges();
+
 
       }
     });

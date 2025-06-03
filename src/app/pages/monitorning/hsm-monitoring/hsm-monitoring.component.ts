@@ -9,6 +9,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-hsm-monitoring',
@@ -24,9 +25,11 @@ import { take } from 'rxjs/operators';
   styleUrl: './hsm-monitoring.component.scss'
 })
 export class HSMMonitoringComponent {
+
+
   hsmMonitoringrData: any;
   loading: boolean = true;
-  constructor(private restApi: RestService) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
     this.getHsmData()
@@ -55,7 +58,7 @@ export class HSMMonitoringComponent {
 
   getHsmData() {
     this.loading = true;
-    this.restApi.get('/monitoring/v1/hsm').pipe(
+    this.restApi.get('/monitoring/hsm').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -77,6 +80,8 @@ export class HSMMonitoringComponent {
       error: (err) => {
         console.error('Subscription error:', err);
         this.loading = false;
+        this.cdr.detectChanges();
+
       }
     });
   }
