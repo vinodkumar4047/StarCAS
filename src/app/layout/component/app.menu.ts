@@ -135,6 +135,7 @@ export class AppMenu {
                             label: 'Fraud Monitoring',
                             icon: 'pi pi-fw pi-lock',
                             visible:this.userRole === 'checker',
+                            routerLink: ['/pages/fraud_Monitoring']
                            
                         },
                         {

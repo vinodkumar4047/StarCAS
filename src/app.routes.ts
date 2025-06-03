@@ -5,6 +5,7 @@ import { LayoutComponent } from './app/layout/component/layout/layout.component'
 import { AtmMonitoringDetailsComponent } from './app/pages/monitorning/atm-monitoring/atm-monitoring-details/atm-monitoring-details.component';
 import { TransactionMonitoringFromDBComponent } from './app/pages/monitorning/txn-monitoring/transaction-monitoring-from-db/transaction-monitoring-from-db.component';
 import { GraphComponent } from './app/pages/monitorning/txn-monitoring/graph/graph.component';
+import { FraudMonitoringDetailsComponent } from './app/pages/monitorning/fraud-monitoring/fraud-monitoring-details/fraud-monitoring-details.component';
 
 export const appRoutes: Routes = [
     {
@@ -18,6 +19,7 @@ export const appRoutes: Routes = [
     { path: 'landing', component: Landing },
     { path: 'atm_Monitoring_details', component: AtmMonitoringDetailsComponent },
     { path: 'trans_monitoringDP', component: TransactionMonitoringFromDBComponent },
+    { path: 'fraud_Monitoring_details', component: FraudMonitoringDetailsComponent },
     { path: 'graph', component: GraphComponent },
 
     { path: 'notfound', component: Notfound },

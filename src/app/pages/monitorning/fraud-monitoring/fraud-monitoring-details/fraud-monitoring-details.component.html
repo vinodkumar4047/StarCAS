@@ -1,0 +1,120 @@
+<div class="atm-Monitoring-details p-8">
+    <h2 class="mb-8">Fraud Monitoring</h2>
+    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+       {{default}} <p-tabs value="0" scrollable [tabindex]="default">
+    <p-tablist>
+        <p-tab value="0" class="all">
+            <i class="pi pi-th-large" style="color: #2196f3;"></i>&nbsp;All
+        </p-tab>
+        <p-tab value="1" class="blocked">
+            <i class="pi pi-ban" style="color: #e53935;"></i>&nbsp;Blocked Countries
+        </p-tab>
+        <p-tab value="2" class="risk">
+            <i class="pi pi-shield" style="color: #ff9800;"></i>&nbsp;Allowed Card in Risk Countries
+        </p-tab>
+        <p-tab value="3" class="ecom">
+            <i class="pi pi-globe" style="color: #fbc02d;"></i>&nbsp;Ecom Site Block
+        </p-tab>
+        <p-tab value="4" class="mcc">
+            <i class="pi pi-lock" style="color: #9e9e9e;"></i>&nbsp;Blocked MCC
+        </p-tab>
+        <p-tab value="5" class="allowedmcc">
+            <i class="pi pi-credit-card" style="color: #4caf50;"></i>&nbsp;Card Allowed in Blocked MCC
+        </p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+        <p-tabpanel value="0">
+            <ul>
+                <li>Country: USA - Status: Allowed</li>
+                <li>Country: Iran - Status: Blocked</li>
+                <li>MCC: 6011 (ATM) - Status: Allowed</li>
+                <li>Merchant: Amazon - Status: Blocked (Ecom)</li>
+            </ul>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+            <ul>
+                <li>Iran</li>
+                <li>North Korea</li>
+                <li>Syria</li>
+            </ul>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+            <ul>
+                <li>Country: Nigeria - Card: Allowed</li>
+                <li>Country: Pakistan - Card: Allowed</li>
+            </ul>
+        </p-tabpanel>
+        <p-tabpanel value="3">
+            <ul>
+                <li>Merchant: example-ecom.com - Status: Blocked</li>
+                <li>Merchant: riskyshop.net - Status: Blocked</li>
+            </ul>
+        </p-tabpanel>
+        <p-tabpanel value="4">
+            <ul>
+                <li>MCC 7995 - Gambling</li>
+                <li>MCC 5967 - Home-Based Business</li>
+            </ul>
+        </p-tabpanel>
+        <p-tabpanel value="5">
+            <ul>
+                <li>Card: Visa Gold - MCC: 7995 (Allowed)</li>
+                <li>Card: Mastercard Silver - MCC: 5967 (Allowed)</li>
+            </ul>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>
+
+    </div>
+    <!-- <p-dialog [header]="headerDia" [modal]="true" [(visible)]="visible" [style]="{ width: '65rem' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true" class="MONI_DIALOG">
+        <div class="atm-details-grid">
+            <div class="atm-details-row">
+                <div class="atm-details-cell "><strong>ATM ID</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmId }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>ATM Type</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmTypeId }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Terminal ID</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.terminalId }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Max Note Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxNoteDispense }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Location</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmLocation }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Logical Group</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.atmLogicalGroup }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
+            </div>
+            <div class="atm-details-row">
+                <div class="atm-details-cell"><strong>Max Amount Dispense</strong></div>
+                <div class="atm-details-cell heading-cell"> {{ atmDetails.maxAmountDispense }}</div>
+            </div>
+        </div>
+        <div class="flex flex-wrap my-8 gap-4 justify-around">
+            <p-button label="Hardware Fitness" severity="info" raised (click)="onHardwareDialog()" />
+            <p-button label="Config Details" severity="info" raised (click)="onConfigDialog()" />
+            <p-button label="Supply Status" severity="info" raised (click)="onsSupplyDialog()" />
+            <p-button label="Sensor Status" severity="info" raised (click)="openSensorDialog()" />
+        </div>
+        <h4 class="mt-4 mb-2 heading-color">Totals</h4>
+        <div class="flex gap-6">
+            <div><strong>Loaded:</strong> {{ atmDetails.totals.loaded }}</div>
+            <div><strong>Dispensed:</strong> {{ atmDetails.totals.dispensed }}</div>
+            <div><strong>Available:</strong> {{ atmDetails.totals.available }}</div>
+        </div>
+    </p-dialog> -->
+    
+</div>

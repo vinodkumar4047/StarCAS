@@ -68,6 +68,7 @@ import { RiskAuthComponent } from './riskManagement/risk-country-block/risk-auth
 import { TxnAllowedRiskAuthComponent } from './riskManagement/txn-allowed-risk-country/txn-allowed-risk-auth/txn-allowed-risk-auth.component';
 import { AuthProfileComponent } from './users/profile-details/auth-profile/auth-profile.component';
 import { AuthUserComponent } from './users/user-details/auth-user/auth-user.component';
+import { FraudMonitoringComponent } from './monitorning/fraud-monitoring/fraud-monitoring.component';
 
 export default [
     { path: 'empty', component: Empty },
@@ -91,6 +92,7 @@ export default [
     { path: 'port', component: PortComponent },
     { path: 'transaction', component: TransactionComponent },
     { path: 'atm_Monitoring', component: ATMMonitoringComponent },
+     { path: 'fraud_Monitoring', component: FraudMonitoringComponent },
     { path: 'hsm_Monitoring', component: HSMMonitoringComponent },
     { path: 'network_Monitoring', component: NetworkMonitoringComponent },
     { path: 'transaction_Search', component: TransactionSearchComponent },
