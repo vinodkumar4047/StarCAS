@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -28,6 +28,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 
 export class TaskManagerComponent {
+  @Input() minimalView: boolean = false;
   taskManagerData: any;
   loading: boolean = true;
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
@@ -53,6 +54,7 @@ export class TaskManagerComponent {
   ];
 
   getDataTaskman() {
+    console.log('Fetching task manager data...',);
     this.loading = true;
     this.restApi.get('/control/taskManager').pipe(
       take(1),

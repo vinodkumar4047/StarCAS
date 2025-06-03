@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule, ValueChangeEvent } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -26,6 +26,8 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './network-monitoring.component.scss'
 })
 export class NetworkMonitoringComponent {
+  @Input() minimalView1: boolean = false;
+
   loading: boolean = false;
   networkData: any = [];
   display: boolean = false;

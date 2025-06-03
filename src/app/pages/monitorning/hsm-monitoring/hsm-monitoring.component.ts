@@ -70,11 +70,12 @@ export class HSMMonitoringComponent {
             }
           })
           console.log('taskManager data:', this.hsmMonitoringrData);
-
+          this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
           this.loading = false;
+          this.cdr.detectChanges();
         },);
       },
       error: (err) => {

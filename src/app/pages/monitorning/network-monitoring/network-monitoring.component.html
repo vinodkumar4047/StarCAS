@@ -1,20 +1,22 @@
 <div class="networkMonitor">
-    <h2 class="mb-8">Network Monitor</h2>
+  <h2 class="mb-8" *ngIf="!minimalView1">Network Monitor</h2>
 
-    <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="viewEvent($event)" />
-    </div>
+  <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+    <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols"
+      [globalFilterFields]="minimalView1 ? null : globalFilterFields" [multipleButton]=""
+      (viewEvent)="viewEvent($event)" />
+  </div>
 
-    <p-dialog [(visible)]="display" [modal]="true" [style]="{ width: '50rem' }" [closable]="false" class="EDIT_BRANCH_DIALOG">
-  <ng-template pTemplate="header">
-    <div class="flex justify-between items-center w-full">
-      <span class="text-lg font-semibold custom-text-color">Network Details</span>
-      <button pButton icon="pi pi-times" class="change hovBut p-button-sm" (click)="display = false"></button>
-    </div>
-  </ng-template>
+  <p-dialog [(visible)]="display" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
+    class="EDIT_BRANCH_DIALOG">
+    <ng-template pTemplate="header">
+      <div class="flex justify-between items-center w-full">
+        <span class="text-lg font-semibold custom-text-color">Network Details</span>
+        <button pButton icon="pi pi-times" class="change hovBut p-button-sm" (click)="display = false"></button>
+      </div>
+    </ng-template>
 
-  <!-- <div class="table-wrapper">
+    <!-- <div class="table-wrapper">
     <table class="network-table m-4">
       <tbody>
         <tr>
@@ -84,75 +86,75 @@
       </tbody>
     </table>
   </div> -->
-<div class="custom-table-style m-4">
-    <div class="row">
-      <div class="label-cell">Port ID</div>
-      <div class="value-cell">{{ networkRowData.portId }}</div>
+    <div class="custom-table-style m-4">
+      <div class="row">
+        <div class="label-cell">Port ID</div>
+        <div class="value-cell">{{ networkRowData.portId }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Network ID</div>
+        <div class="value-cell">{{ networkRowData.networkId }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Port Status</div>
+        <div class="value-cell">{{ networkRowData.portStatus }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Network Name</div>
+        <div class="value-cell">{{ networkRowData.networkName }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Port Group</div>
+        <div class="value-cell">{{ networkRowData.portGroup }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Network Property ID</div>
+        <div class="value-cell">{{ networkRowData.networkPropertyId }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Log Date</div>
+        <div class="value-cell">{{ networkRowData.logDate }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Timeout</div>
+        <div class="value-cell">{{ networkRowData.timeout }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Log Time</div>
+        <div class="value-cell">{{ networkRowData.logTime }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Channel Name</div>
+        <div class="value-cell">{{ networkRowData.channelName }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Port Name</div>
+        <div class="value-cell">{{ networkRowData.portName }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Network Flag</div>
+        <div class="value-cell">{{ networkRowData.networkFlag }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Network Status</div>
+        <div class="value-cell">{{ networkRowData.networkStatus }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Key Required</div>
+        <div class="value-cell">{{ networkRowData.keyReq }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Cutover Required</div>
+        <div class="value-cell">{{ networkRowData.cutoverReq }}</div>
+      </div>
+      <div class="row">
+        <div class="label-cell">Echo Acq Inst Code</div>
+        <div class="value-cell">{{ networkRowData.echoAcqInstCode }}</div>
+      </div>
     </div>
-    <div class="row">
-      <div class="label-cell">Network ID</div>
-      <div class="value-cell">{{ networkRowData.networkId }}</div>
-    </div>
-    <div class="row">
-      <div class="label-cell">Port Status</div>
-      <div class="value-cell">{{ networkRowData.portStatus }}</div>
-    </div>
-    <div class="row">
-      <div class="label-cell">Network Name</div>
-      <div class="value-cell">{{ networkRowData.networkName }}</div>
-    </div>
-    <div class="row">
-      <div class="label-cell">Port Group</div>
-      <div class="value-cell">{{ networkRowData.portGroup }}</div>
-    </div>
-     <div class="row">
-      <div class="label-cell">Network Property ID</div>
-      <div class="value-cell">{{ networkRowData.networkPropertyId }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Log Date</div>
-      <div class="value-cell">{{ networkRowData.logDate }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Timeout</div>
-      <div class="value-cell">{{ networkRowData.timeout }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Log Time</div>
-      <div class="value-cell">{{ networkRowData.logTime }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Channel Name</div>
-      <div class="value-cell">{{ networkRowData.channelName }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Port Name</div>
-      <div class="value-cell">{{ networkRowData.portName }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Network Flag</div>
-      <div class="value-cell">{{ networkRowData.networkFlag }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Network Status</div>
-      <div class="value-cell">{{ networkRowData.networkStatus }}</div>
-    </div>
-        <div class="row">
-      <div class="label-cell">Key Required</div>
-      <div class="value-cell">{{ networkRowData.keyReq }}</div>
-    </div>
-         <div class="row">
-      <div class="label-cell">Cutover Required</div>
-      <div class="value-cell">{{ networkRowData.cutoverReq }}</div>
-    </div>
-        <div class="row">
-      <div class="label-cell">Echo Acq Inst Code</div>
-      <div class="value-cell">{{ networkRowData.echoAcqInstCode }}</div>
-    </div>
-  </div>
-  <p-footer>
-    <button pButton type="button" label="Close" icon="pi pi-times" (click)="display = false"></button>
-  </p-footer>
-</p-dialog>
+    <p-footer>
+      <button pButton type="button" label="Close" icon="pi pi-times" (click)="display = false"></button>
+    </p-footer>
+  </p-dialog>
 
 </div>
