@@ -95,7 +95,8 @@ export class LoginComponent implements OnInit {
         "logintype": "user",
         "instname": this.loginForm.value.userInstitution
       };
-
+      console.log(payload,'payload');
+      
       this.login(payload);
     } else {
       this.loginForm.markAllAsTouched();
@@ -135,6 +136,6 @@ export class LoginComponent implements OnInit {
       }
     });
     //for now
-     this.router.navigate(['/pages/dashboard']);
+    //  this.router.navigate(['/pages/dashboard']);
   }
 }

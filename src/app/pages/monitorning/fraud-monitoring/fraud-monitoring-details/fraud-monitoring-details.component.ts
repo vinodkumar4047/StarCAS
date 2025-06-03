@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-fraud-monitoring-details',
-  imports: [CommonModule, TabsModule, ButtonModule, DialogModule],
+  imports: [CommonModule, TabsModule, ButtonModule, DialogModule, FormsModule],
   templateUrl: './fraud-monitoring-details.component.html',
   styleUrl: './fraud-monitoring-details.component.scss'
 })
@@ -135,16 +136,95 @@ export class FraudMonitoringDetailsComponent {
       }
     ]
   };
-  default: any = 0;
-constructor( private cd: ChangeDetectorRef,) { }
+  visible: boolean = false;
+  headerDia: any;
+  data: any = [];
+  searchTerm: string = '';
+  constructor(private cd: ChangeDetectorRef,) { }
+
+
   ngOnInit() {
-    this.itrate();
+
   }
-  itrate() {
-    setTimeout(() => {
-      this.default = this.default + 1;
-      this.cd.detectChanges();
-      this.itrate();
-    }, 5000)
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
   }
+
+  func(){
+   this.searchTerm = '';
+  }
+
+  formatKey(key: string) {
+    if (!key) return '';
+    let formatted = key.replace(/_/g, ' ');
+    formatted = formatted.replace(/([a-z])([A-Z])/g, '$1 $2');
+    return formatted;
+  }
+
+    getFilteredData(array: any[]): any[] {
+    if (!this.searchTerm) return array;
+
+    const lowerTerm = this.searchTerm.toLowerCase();
+
+    return array.filter((item) =>
+      Object.values(item).some((val) =>
+        String(val).toLowerCase().includes(lowerTerm)
+      )
+    );
+  }
+
+  countryBlockfunc() {
+    this.data = [
+      {
+        "BLOCKED COUNTRY CODE": "12",
+        "COUNTRY DESC": "Russian",
+        "TXN ALLOWED FLAG": "BLOCKED"
+      }
+    ];
+  }
+
+  cardblockfunc() {
+    this.data = [
+      {
+        "MCARD NO": "6398-07xx-xxxxxxx-2183",
+        "FROM DATE": "19-JAN-22",
+        "TO DATE": "18-JAN-24",
+        "ALLOWED": "DISABLED"
+      }
+    ];
+  }
+  locblockfunc() {
+    this.data = [
+      {
+        "BLOCKED MERCHANT LOCATION": "TAMILNADU",
+        "FROM DATE": "25-AUG-22",
+        "TO DATE": "25-AUG-22"
+      }
+    ];
+  }
+  mccblockfunc() {
+    this.data = [
+      {
+        "BLOCKED MERCHANT CODE": 7299,
+        "MERCHANT CODE DESC": "Miscellaneous General Services",
+        "TXN ALLOWED FLAG": "0"
+      }
+    ];
+  }
+  mccallowedfunc() {
+    this.data = [
+      {
+        "CHN": "4660960030009094",
+        "FROM DATE": "23-NOV-22",
+        "TO DATE": "25-NOV-22"
+      }
+    ]
+  }
+
+  showDialog(data: any) {
+    this.visible = true;
+    this.headerDia = 'Detail of ' + data;
+
+  }
+
 }
