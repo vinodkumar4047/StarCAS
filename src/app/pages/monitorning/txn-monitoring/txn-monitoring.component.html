@@ -1,13 +1,15 @@
 <div class="atm-Monitoring">
-    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">ATM Monitoring</h2>
+    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">TXN Monitoring</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <div class="flex gap-4">
-            <p-button label="Transaction Monitor From DB" icon="pi pi-save" (click)="openWindow()" class="atm-btn" />
-            <p-button label="Graph" icon="pi pi-save" class="atm-btn" (click)="graphOpenWindow()" />
-        </div>
+
         <div class="image-containor gap-4">
             <img src="../../../../assets/images/monitoring.png" alt="">
+            <div class="flex gap-4 atm-btn">
+                <p-button label="Transaction Monitor From DB" icon="pi pi-save" (click)="openWindow()"
+                    />
+                <p-button label="Graph" icon="pi pi-save"  (click)="graphOpenWindow()" />
+            </div>
         </div>
 
 
