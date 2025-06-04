@@ -7,6 +7,7 @@ import { TransactionMonitoringFromDBComponent } from './app/pages/monitorning/tx
 import { GraphComponent } from './app/pages/monitorning/txn-monitoring/graph/graph.component';
 import { ControlMonitoringDetailsComponent } from './app/pages/control/control-monitoring/control-monitoring-details/control-monitoring-details.component';
 import { FraudMonitoringDetailsComponent } from './app/pages/monitorning/fraud-monitoring/fraud-monitoring-details/fraud-monitoring-details.component';
+import { FraudRiskDbComponent } from './app/pages/monitorning/fradu-risk-txn-monitoring/fraud-risk-db/fraud-risk-db.component';
 
 export const appRoutes: Routes = [
     {
@@ -21,6 +22,8 @@ export const appRoutes: Routes = [
     { path: 'atm_Monitoring_details', component: AtmMonitoringDetailsComponent },
     { path: 'control_Monitoring_Details', component: ControlMonitoringDetailsComponent },
     { path: 'trans_monitoringDP', component: TransactionMonitoringFromDBComponent },
+    { path: 'FraudRisk_Db', component: FraudRiskDbComponent },
+
     { path: 'fraud_Monitoring_details', component: FraudMonitoringDetailsComponent },
     { path: 'graph', component: GraphComponent },
 

@@ -1,0 +1,45 @@
+<div class="trnxMonitor flex justify-around ">
+    <h2 class="mb-8">Fraud & Risk Monitor</h2>
+</div>
+<!-- Progress Bar -->
+<div [style]="{ height: '6px', marginBottom: '10px' }"><p-progressbar *ngIf="isLoading" mode="indeterminate">
+    </p-progressbar></div>
+
+<div>
+    <p-table [value]="transactionMonitoringrData" [resizableColumns]="true" styleClass="p-datatable-gridlines"
+        [tableStyle]="{'width': '100%', 'table-layout': 'fixed'}">
+        <ng-template #header>
+            <tr>
+                <th pResizableColumn style="min-width: 80px;">CHN</th>
+                <th pResizableColumn style="min-width: 100px;">TXN CODE</th>
+                <th pResizableColumn style="min-width: 120px;">TERMINALID</th>
+                <th pResizableColumn style="min-width: 120px;">TERMLOC</th>
+                <th pResizableColumn style="min-width: 120px;">TRACE NO</th>
+                <th pResizableColumn style="min-width: 120px;">REF NUM</th>
+                <th pResizableColumn style="min-width: 130px;">TRAN DATE</th>
+                <th pResizableColumn style="min-width: 120px;">TRAN TIME</th>
+                <th pResizableColumn style="min-width: 120px;">RESPCODE</th>
+                <th pResizableColumn style="min-width: 120px;">AMOUNT</th>
+                <th pResizableColumn style="min-width: 150px;">Currency</th>
+                <th pResizableColumn style="min-width: 150px;">DESCRIPTION</th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-row>
+            <tr [ngClass]="row.isApproved ? 'approved-row' : 'rejected-row'">
+                <td>{{ row.chn }}</td>
+                <td>{{ row.txnCode }}</td>
+                <td>{{ row.txnDesc }}</td>
+                <td>{{ row.terminalId }}</td>
+                <td>{{ row.termLoc }}</td>
+                <td>{{ row.refNum }}</td>
+                <td>{{ row.tranDate }}</td>
+                <td>{{ row.tranTime }}</td>
+                <td>{{ row.amount }}</td>
+                <td>{{ row.acqCurrencyCode }}</td>
+                <td>{{ row.description }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -98,7 +98,7 @@ export default [
   { path: 'port', component: PortComponent },
   { path: 'transaction', component: TransactionComponent },
   { path: 'atm_Monitoring', component: ATMMonitoringComponent },
-     { path: 'fraud_Monitoring', component: FraudMonitoringComponent },
+  { path: 'fraud_Monitoring', component: FraudMonitoringComponent },
   { path: 'hsm_Monitoring', component: HSMMonitoringComponent },
   { path: 'network_Monitoring', component: NetworkMonitoringComponent },
   { path: 'FraduRisk_TxnMonitoring', component: FraduRiskTxnMonitoringComponent },
