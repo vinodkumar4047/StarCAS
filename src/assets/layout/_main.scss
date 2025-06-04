@@ -24,3 +24,9 @@
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
     scrollbar-width: none; /* For Firefox */
   }
+
+  .card.header-card {
+    padding: 1rem !important;
+    color: white;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--primary-color) 30%, var(--primary-color)), #a0c4fe);
+}

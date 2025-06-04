@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { SwUpdate ,VersionReadyEvent } from '@angular/service-worker';
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -8,5 +8,20 @@ import { RouterModule } from '@angular/router';
     template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {
-    
+constructor(private updates: SwUpdate) {
+  if (this.updates.isEnabled) {
+    this.updates.versionUpdates.subscribe(event => {
+      console.log('Service Worker Update Event:', event.type);  // 👈 Log the event type
+
+      if (event.type === 'VERSION_READY') {
+        console.log('VERSION_READY detected. Prompting user to reload.');
+        const confirmed = confirm('A new version is available. Reload to update?');
+        if (confirmed) {
+          document.location.reload();
+        }
+      }
+    });
+  }
+}
+
 }
