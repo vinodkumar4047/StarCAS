@@ -14,7 +14,7 @@ import { RestService } from '../../layout/service/rest.service';
 import { catchError } from 'rxjs/operators';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dashboard',
   imports: [
     CommonModule,
@@ -121,7 +121,7 @@ export class DashboardComponent {
 
 
   getCardDetails() {
-    const url = '/dashboard/v1/details?instid=SCB'
+    const url = '/dashboard/details?instid=SCB'
     this.rest.get(url)
       .pipe(
         catchError(error => {
