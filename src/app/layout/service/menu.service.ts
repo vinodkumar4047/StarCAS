@@ -417,7 +417,14 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "Edit Fraud",
+                           "menuId": "M0000050101",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "TXN Allow Without PIN",
@@ -426,6 +433,14 @@ export class MenuService {
                      "color": "#1b5e20",
                      "menuId": "M00000501",
                      "checked": false,
+                     "permissions": [
+                        { "title": "Authorize Card", "menuId": "M0000050201", "checked": false },
+                        { "title": "Auth Deleted Card", "menuId": "M0000050202", "checked": false },
+                        { "title": "View Card", "menuId": "M0000050203", "checked": false },
+                        { "title": "Delete Card", "menuId": "M0000050204", "checked": false },
+                        { "title": "Edit Card", "menuId": "M0000050205", "checked": false },
+                        { "title": "Add Card", "menuId": "M0000050206", "checked": false }
+                     ]
                   },
                   {
                      "title": "Risk Country Block",
@@ -433,7 +448,13 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Authorize Country", "menuId": "M0000050301", "checked": false },
+                        { "title": "View Country", "menuId": "M0000050302", "checked": false },
+                        { "title": "Add Country", "menuId": "M0000050303", "checked": false },
+                        { "title": "Edit Country", "menuId": "M0000050304", "checked": false }
+                     ]
                   },
                   {
                      "title": "TXN Allow For Risk Country",
@@ -441,7 +462,13 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Authorize Card", "menuId": "M0000050401", "checked": false },
+                        { "title": "View Card", "menuId": "M0000050402", "checked": false },
+                        { "title": "Add Card", "menuId": "M0000050403", "checked": false },
+                        { "title": "Delete Card", "menuId": "M0000050404", "checked": false }
+                     ]
                   },
                   {
                      "title": "MCC Block",
@@ -449,7 +476,16 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Authorize Delete MCC", "menuId": "M0000050501", "checked": false },
+                        { "title": "Authorize MCC", "menuId": "M0000050502", "checked": false },
+                        { "title": "Add MCC", "menuId": "M0000050503", "checked": false },
+                        { "title": "Edit MCC", "menuId": "M0000050504", "checked": false },
+                        { "title": "Add Allowed", "menuId": "M0000050505", "checked": false },
+                        { "title": "Delete MCC", "menuId": "M0000050506", "checked": false },
+                        { "title": "View MCC", "menuId": "M0000050507", "checked": false }
+                     ]
                   },
                   {
                      "title": "TXN Allow For Blocked MCC",
@@ -457,7 +493,15 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Authorize Card", "menuId": "M0000050601", "checked": false },
+                        { "title": "Auth Deleted Card", "menuId": "M0000050602", "checked": false },
+                        { "title": "View Card", "menuId": "M0000050603", "checked": false },
+                        { "title": "Delete Card", "menuId": "M0000050604", "checked": false },
+                        { "title": "Edit Card", "menuId": "M0000050605", "checked": false },
+                        { "title": "Add Card", "menuId": "M0000050606", "checked": false }
+                     ]
                   },
                   {
                      "title": "Risk Ecom Site Block",
@@ -465,7 +509,14 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Delete Authorize", "menuId": "M0000050701", "checked": false },
+                        { "title": "Authorize Location", "menuId": "M0000050702", "checked": false },
+                        { "title": "View Location", "menuId": "M0000050703", "checked": false },
+                        { "title": "Add Location", "menuId": "M0000050704", "checked": false },
+                        { "title": "Delete Location", "menuId": "M0000050705", "checked": false }
+                     ]
                   },
                ]
             },
@@ -475,6 +526,57 @@ export class MenuService {
                "color": "#1b5e20",
                "menuId": "M000006",
                "checked": false,
+               "subMenu": [
+                  {
+                     "title": "MIS REPORT",
+                     "link": "mis-report",
+                     "icon": "fa-solid fa-chart-line",
+                     "color": "#1b5e20",
+                     "menuId": "M00000601",
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Atm Cash Scroll", "menuId": "M0000060101", "checked": false },
+                        { "title": "Atm Performance", "menuId": "M0000060102", "checked": false },
+                        { "title": "ATM Live Denom Report", "menuId": "M0000060103", "checked": false },
+                        { "title": "Atm Transaction Status", "menuId": "M0000060104", "checked": false }
+                     ]
+                  },
+                  {
+                     "title": "SUMMARY REPORTS",
+                     "link": "summary-reports",
+                     "icon": "fa-solid fa-chart-pie",
+                     "color": "#1b5e20",
+                     "menuId": "M00000602",
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Consolidated Report", "menuId": "M0000060201", "checked": false },
+                        { "title": "Network Summary Report", "menuId": "M0000060202", "checked": false },
+                        { "title": "OFUS_Txn Report", "menuId": "M0000060203", "checked": false }
+                     ]
+                  },
+                  {
+                     "title": "TERMINAL TRANSACTION REPORTS",
+                     "link": "terminal-txn-reports",
+                     "icon": "fa-solid fa-terminal",
+                     "color": "#1b5e20",
+                     "menuId": "M00000603",
+                     "checked": false,
+                     "permissions": [
+                        { "title": "ATM TRANSACTION Report", "menuId": "M0000060301", "checked": false }
+                     ]
+                  },
+                  {
+                     "title": "AUDIT REPORTS",
+                     "link": "audit-reports",
+                     "icon": "fa-solid fa-clipboard-check",
+                     "color": "#1b5e20",
+                     "menuId": "M00000604",
+                     "checked": false,
+                     "permissions": [
+                        { "title": "AUDIT REPORTS", "menuId": "M0000060401", "checked": false }
+                     ]
+                  }
+               ]
             },
             {
                "title": "Utility",
@@ -489,7 +591,12 @@ export class MenuService {
                      "color": "#1b5e20",
                      "link": "expiry",
                      "menuId": "M00000701",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "View Email", "menuId": "M0000070101", "checked": false },
+                        { "title": "Add Email", "menuId": "M0000070102", "checked": false },
+                        { "title": "Delete Email", "menuId": "M0000070103", "checked": false }
+                     ]
                   },
                   {
                      "title": "Modile Update",
@@ -497,7 +604,12 @@ export class MenuService {
                      "color": "#1b5e20",
                      "link": "Expcardclosure",
                      "menuId": "M00000702",
-                     "checked": false
+                     "checked": false, "permissions": [
+                        { "title": "View Mobile", "menuId": "M0000070201", "checked": false },
+                        { "title": "Add Mobile", "menuId": "M0000070202", "checked": false },
+                        { "title": "Delete Mobile", "menuId": "M0000070203", "checked": false }
+                     ]
+
                   },
                   {
                      "title": "SAF Mnagement",
@@ -531,7 +643,14 @@ export class MenuService {
                      "color": "#1b5e20",
                      "link": "expiry",
                      "menuId": "M00000801",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Deleted Authorization", "menuId": "M0000080101", "checked": false },
+                        { "title": "Add Profile", "menuId": "M0000080102", "checked": false },
+                        { "title": "Edit Profile", "menuId": "M0000080103", "checked": false },
+                        { "title": "Delete Profile", "menuId": "M0000080104", "checked": false },
+                        { "title": "View Profile", "menuId": "M0000080105", "checked": false }
+                     ]
                   },
                   {
                      "title": "User",
@@ -539,7 +658,18 @@ export class MenuService {
                      "color": "#1b5e20",
                      "link": "Expcardclosure",
                      "menuId": "M00000802",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        { "title": "Authorize User", "menuId": "M0000080201", "checked": false },
+                        { "title": "Unblock User", "menuId": "M0000080202", "checked": false },
+                        { "title": "Reset Password", "menuId": "M0000080203", "checked": false },
+                        { "title": "Block User", "menuId": "M0000080204", "checked": false },
+                        { "title": "Delete User Authorization", "menuId": "M0000080205", "checked": false },
+                        { "title": "Add User", "menuId": "M0000080206", "checked": false },
+                        { "title": "Edit User", "menuId": "M0000080207", "checked": false },
+                        { "title": "View User", "menuId": "M0000080208", "checked": false },
+                        { "title": "Delete User", "menuId": "M0000080209", "checked": false }
+                     ]
                   },]
             },
          ]
