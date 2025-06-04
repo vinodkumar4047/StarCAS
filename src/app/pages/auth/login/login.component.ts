@@ -95,8 +95,8 @@ export class LoginComponent implements OnInit {
         "logintype": "user",
         "instname": this.loginForm.value.userInstitution
       };
-      console.log(payload,'payload');
-      
+      console.log(payload, 'payload');
+
       this.login(payload);
     } else {
       this.loginForm.markAllAsTouched();
@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(payload: any) {
-    this.restApi.post(payload, '/auth').pipe(take(1)).subscribe({
+    this.restApi.post(payload, '/login/auth').pipe(take(1)).subscribe({
       next: (res) => {
         console.log('Login Success:', res);
         localStorage.setItem('Token', res.Token);

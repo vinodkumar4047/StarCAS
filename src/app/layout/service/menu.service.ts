@@ -114,7 +114,39 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000205",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "Authorize ATM",
+                           "menuId": "M0000020501",
+                           "checked": false
+                        },
+                        {
+                           "title": "Authorize Delete ATM",
+                           "menuId": "M0000020502",
+                           "checked": false
+                        },
+                        {
+                           "title": "Add ATM",
+                           "menuId": "M0000020503",
+                           "checked": false
+                        },
+                        {
+                           "title": "View ATM",
+                           "menuId": "M0000020504",
+                           "checked": false
+                        },
+                        {
+                           "title": "Edit ATM",
+                           "menuId": "M0000020505",
+                           "checked": false
+                        },
+                        {
+                           "title": "Delete ATM",
+                           "menuId": "M0000020506",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "External BIN",
@@ -122,7 +154,39 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000206",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "Authorize External Bin",
+                           "menuId": "M0000020601",
+                           "checked": false
+                        },
+                        {
+                           "title": "Delete Authorize External Bin",
+                           "menuId": "M0000020602",
+                           "checked": false
+                        },
+                        {
+                           "title": "Add External Bin",
+                           "menuId": "M0000020603",
+                           "checked": false
+                        },
+                        {
+                           "title": "View External Bin",
+                           "menuId": "M0000020604",
+                           "checked": false
+                        },
+                        {
+                           "title": "Edit External Bin",
+                           "menuId": "M0000020605",
+                           "checked": false
+                        },
+                        {
+                           "title": "Delete External Bin",
+                           "menuId": "M0000020606",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "FIT",
