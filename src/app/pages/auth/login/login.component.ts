@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, public restApi: RestService) { }
 
   ngOnInit(): void {
+    localStorage.clear();
+    sessionStorage.clear();
     this.loginForm = this.fb.group({
       username: [''],
       userPassword: [''],
@@ -95,8 +97,8 @@ export class LoginComponent implements OnInit {
         "logintype": "user",
         "instname": this.loginForm.value.userInstitution
       };
-      console.log(payload,'payload');
-      
+      console.log(payload, 'payload');
+
       this.login(payload);
     } else {
       this.loginForm.markAllAsTouched();
