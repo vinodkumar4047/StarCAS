@@ -1,7 +1,8 @@
 <div class="layout-topbar">
   <!-- Logo and Menu Button -->
   <div class="layout-topbar-logo-container">
-    <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
+    <button pTooltip="Menu" tooltipPosition="bottom" class="layout-menu-button layout-topbar-action"
+      (click)="layoutService.onMenuToggle()">
       <i class="pi pi-bars"></i>
     </button>
     <a class="layout-topbar-logo" routerLink="/">
