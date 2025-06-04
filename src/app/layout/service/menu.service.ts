@@ -194,7 +194,39 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000207",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "Authorize Fit",
+                           "menuId": "M0000020701",
+                           "checked": false
+                        },
+                        {
+                           "title": "Delete Authorize Fit",
+                           "menuId": "M0000020702",
+                           "checked": false
+                        },
+                        {
+                           "title": "Add Fit",
+                           "menuId": "M0000020703",
+                           "checked": false
+                        },
+                        {
+                           "title": "View Fit",
+                           "menuId": "M0000020704",
+                           "checked": false
+                        },
+                        {
+                           "title": "Edit Fit",
+                           "menuId": "M0000020705",
+                           "checked": false
+                        },
+                        {
+                           "title": "Delete Fit",
+                           "menuId": "M0000020706",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "Casette",
@@ -202,7 +234,19 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000208",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "Authorize Casette",
+                           "menuId": "M0000020801",
+                           "checked": false
+                        },
+                        {
+                           "title": "Update Casette",
+                           "menuId": "M0000020802",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "Port",
@@ -210,7 +254,14 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000209",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "View Port",
+                           "menuId": "M0000020901",
+                           "checked": false
+                        }
+                     ]
                   },
                   {
                      "title": "Transaction",
@@ -218,7 +269,14 @@ export class MenuService {
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000210",
-                     "checked": false
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "View Transaction",
+                           "menuId": "M0000021001",
+                           "checked": false
+                        }
+                     ]
                   }
                ]
             },
@@ -367,7 +425,7 @@ export class MenuService {
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
-                     "checked": false
+                     "checked": false,
                   },
                   {
                      "title": "Risk Country Block",
