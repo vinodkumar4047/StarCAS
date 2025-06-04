@@ -48,7 +48,7 @@ export class MenuService {
                "subMenu": [
                   {
                      "title": "Institution",
-                     "link": "Bulk-upload",
+                     "link": "institution",
                      "icon": "fa-brands fa-cc-visa",
                      "color": "#1b5e20",
                      "menuId": "M00000201",
@@ -63,7 +63,7 @@ export class MenuService {
                   },
                   {
                      "title": "Branch",
-                     "link": "Master-bulk",
+                     "link": "branch",
                      "icon": "fab fa-cc-mastercard",
                      "color": "#1b5e20",
                      "menuId": "M00000202",

@@ -2,10 +2,22 @@
     <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> Branch Details </h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+        <!-- <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
             (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit()" (editEvent)="editFunction($event, 'edit')"
             (viewEvent)="editFunction($event , 'view')" [addButton]="userRole != 'maker'?null:'Add ATM'"  
-            [multipleButton]="userRole != 'maker'?buttonsList:''" (event)="authFunc($event)"/>
+            [multipleButton]="userRole != 'maker'?buttonsList:''" (event)="authFunc($event)"/> -->
+   <app-table
+  [tableData]="customers"
+  [cols]="cols"
+  [globalFilterFields]="globalFilterFields"
+  (deleteEvent)="delete_visible = true"
+  (addEvent)="addOrEdit()"
+  (editEvent)="editFunction($event, 'edit')"
+  (viewEvent)="editFunction($event , 'view')"
+  [addButton]="userRole != 'maker' || !canAddBranch ? null : 'Add ATM'"
+  [multipleButton]="userRole != 'maker' ? filteredButtons : ''"
+  (event)="authFunc($event)">
+</app-table>
     </div>
 
 
