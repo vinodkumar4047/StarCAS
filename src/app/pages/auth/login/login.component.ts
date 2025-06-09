@@ -21,7 +21,7 @@ import { MenuService } from '../../../layout/service/menu.service';
   imports: [
     ButtonModule, CheckboxModule, InputTextModule, PasswordModule,
     ReactiveFormsModule, RouterModule, RippleModule, DropdownModule,
-    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule
+    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -139,14 +139,14 @@ export class LoginComponent implements OnInit {
             {
               "title": "Dashboard",
               "link": "dashboard",
-              "icon": "fa fa-dashboard",
+              "icon": "layout-dashboard",
               "color": "#1b5e20",
               "menuId": "M000001",
               "checked": true
             },
             {
               "title": "Configuration",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "wrench",
               "color": "#1b5e20",
               "menuId": "M000002",
               "checked": true,
@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit {
                 {
                   "title": "Institution",
                   "link": "institution",
-                  "icon": "fa-brands fa-cc-visa",
+                  "icon": "layout-dashboard",
                   "color": "#1b5e20",
                   "menuId": "M00000201",
                   "checked": true,
@@ -168,8 +168,8 @@ export class LoginComponent implements OnInit {
                 },
                 {
                   "title": "Branch",
-                  "link": "branch",
-                  "icon": "fab fa-cc-mastercard",
+                  // "link": "branch",
+                  "icon": "layout-dashboard",
                   "color": "#1b5e20",
                   "menuId": "M00000202",
                   "checked": true,
@@ -388,7 +388,7 @@ export class LoginComponent implements OnInit {
 
             {
               "title": "Monitoring",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "monitor",
               "color": "#1b5e20",
               "menuId": "M000003",
               "checked": true,
@@ -454,7 +454,7 @@ export class LoginComponent implements OnInit {
 
             {
               "title": "Control",
-              "icon": "fa-solid fa-file",
+              "icon": "SlidersHorizontal",
               "color": "#1b5e20",
               "menuId": "M000004",
               "checked": true,
@@ -511,7 +511,7 @@ export class LoginComponent implements OnInit {
             },
             {
               "title": "Risk Management",
-              "icon": "fa-solid fa-user-graduate",
+              "icon": "shield-alert",
               "color": "#1b5e20",
               "menuId": "M000005",
               "checked": true,
@@ -627,7 +627,7 @@ export class LoginComponent implements OnInit {
             },
             {
               "title": "Reports",
-              "icon": "fa fa-cog",
+              "icon": "message-circle-warning",
               "color": "#1b5e20",
               "menuId": "M000006",
               "checked": true,
@@ -685,7 +685,7 @@ export class LoginComponent implements OnInit {
             },
             {
               "title": "Utility",
-              "icon": "fa-solid fa-screwdriver-wrench",
+              "icon": "plug",
               "color": "#1b5e20",
               "menuId": "M000007",
               "checked": true,
@@ -737,14 +737,14 @@ export class LoginComponent implements OnInit {
             {
               "title": "User Management",
               "link": "Rnf-details",
-              "icon": "fa-solid fa-file",
+              "icon": "user-cog",
               "color": "#1b5e20",
               "menuId": "M000008",
               "checked": true,
               "subMenu": [
                 {
                   "title": "Profile",
-                  "icon": "fa-solid fa-address-card",
+                  "icon": "plug",
                   "color": "#1b5e20",
                   "link": "profile",
                   "menuId": "M00000801",
