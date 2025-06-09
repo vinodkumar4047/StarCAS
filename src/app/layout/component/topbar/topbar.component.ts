@@ -26,7 +26,7 @@ export class TopbarComponent {
   items!: MenuItem[];
   @ViewChild('op') op!: Popover;
   @ViewChild('op1') op1!: Popover;
-  img: any = 'assets/images/starcas-logo.png'
+  img: any = 'assets/images/Frame_8.png'
   selectedMember = null;
   selectedmemeber1 = null;
   members1 = [
@@ -123,7 +123,7 @@ export class TopbarComponent {
     } else if (member.name == 'ATM Location') {
       this.router.navigate(['/pages/atm_location'])
     }
-    this.op.hide();
+    this.op.hide();``
   }
 
   getIconForMember(name: string): string {

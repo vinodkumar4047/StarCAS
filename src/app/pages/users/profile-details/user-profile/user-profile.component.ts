@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -9,7 +9,7 @@ import { Tree } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { NodeServiceService } from '../node-service.service';
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-profile',
   imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
     SelectModule, FloatLabel, Tree],
@@ -78,6 +78,31 @@ export class UserProfileComponent {
 
   }
 
+  ngOnChanges(changes: any) {
+    console.log('ngOnChanges called', changes);
+  }
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit called');
+  }
+  previousSelectedIds: Set<string> = new Set();
+  onSelectionChange(selection: TreeNode<any> | TreeNode<any>[] | null): void {
+    const selectedArray = Array.isArray(selection) ? selection : selection ? [selection] : [];
+
+    const currentIds = new Set(selectedArray.map(node => node.data)); // Adjust if using node.data.id
+
+    const added = Array.from(currentIds).filter(id => !this.previousSelectedIds.has(id));
+    const removed = Array.from(this.previousSelectedIds).filter(id => !currentIds.has(id));
+
+    if (added.length > 0) {
+      console.log('✅ Checked:', added);
+    }
+
+    if (removed.length > 0) {
+      console.log('❌ Unchecked:', removed);
+    }
+
+    this.previousSelectedIds = currentIds;
+  }
 
   private expandRecursive(node: TreeNode, isExpand: boolean) {
     node.expanded = isExpand;

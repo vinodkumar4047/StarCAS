@@ -20,7 +20,7 @@
     <!-- Notifications -->
     <button (click)="togglepo1($event)" class="layout-topbar-action">
       <p-overlaybadge value="3" severity="danger">
-        <i class="pi pi-bell"></i>
+        <i class="pi pi-bell  white-icon"></i>
       </p-overlaybadge>
       <span>Notifications</span>
     </button>
@@ -59,12 +59,17 @@
       <div class="profile-details">
         <div class="name">
           Victor Blackwood
-          <span>{{ userRole === 'admin' ? '(Admin)' : userRole === 'maker' ? '(Maker)' : '(Checker)' }}</span>
+          <!-- <span>{{ userRole === 'admin' ? '(Admin)' : userRole === 'maker' ? '(Maker)' : '(Checker)' }}</span> -->
         </div>
         <div class="online-container">
-          Online <div class="online-dot"></div>
+          <div class="online-dot"></div>
+
         </div>
+        <span style="padding: 5px 15px ; background-color: #00BCD4; border-radius: 21px; gap: 10px;">{{ userRole ===
+          'admin' ?
+          '(Admin)' : userRole === 'maker' ? 'Maker' : 'Checker' }}</span>
       </div>
+      
     </div>
 
     <!-- Profile Popover -->

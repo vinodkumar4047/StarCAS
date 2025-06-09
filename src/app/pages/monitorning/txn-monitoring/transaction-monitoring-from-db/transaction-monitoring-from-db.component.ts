@@ -67,10 +67,11 @@ export class TransactionMonitoringFromDBComponent {
     { field: 'description', header: 'RESPONSE' },
   ];
 
+  
   transactionGetData() {
     this.isLoading = true;
     const instId = 'SCB';
-    this.restApi.get(`/monitoring/v1/transaction?instId=${instId}`).pipe(
+    this.restApi.get(`/monitoring/transaction?instId=${instId}`).pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -79,7 +80,7 @@ export class TransactionMonitoringFromDBComponent {
             return {
               ...data,
               // description: data.description === 'Approved Transaction'
-              isApproved: data.description === 'Issuer Down',
+              isApproved: data.description === 'Approved Transaction',
             }
           })
           console.log('taskManager data:', this.transactionMonitoringrData);

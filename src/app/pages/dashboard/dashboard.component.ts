@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { Product, ProductService } from '../service/product.service';
@@ -104,10 +104,10 @@ export class DashboardComponent {
     "BLOCKEDDATE": null,
     "PASS_COUNT": null
   }
-  cardsInfo: any;
+  cardsInfo: any = {};
   constructor(private productService: ProductService, public layoutService: LayoutService,
     private confirmationService: ConfirmationService, private messageService: MessageService,
-    private rest: RestService) {
+    private rest: RestService, private cdr: ChangeDetectorRef) {
     this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
       // this.initChart();
     });
@@ -123,17 +123,28 @@ export class DashboardComponent {
   getCardDetails() {
     const url = '/dashboard/details?instid=SCB'
     this.rest.get(url)
-      .pipe(
-        catchError(error => {
-          console.error('Error fetching branch data:', error);
-          this.cardsInfo = []; // fallback or reset
-          return of([]);
-        })
-      )
-      .subscribe((res: any[]) => {
-        console.log(res, 'res---');
-        this.cardsInfo = res;
+      .subscribe({
+        next: (res) => {
+          console.log('HTTP client response:', res);
+          this.cardsInfo = res;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('HTTP client error:', err);
+          this.cardsInfo = {};
+        }
       });
+    // .pipe(
+    //   catchError(error => {
+    //     console.error('Error fetching branch data:', error);
+    //     this.cardsInfo = []; // fallback or reset
+    //     return of([]);
+    //   })
+    // )
+    // .subscribe((res: any[]) => {
+    //   console.log(res, 'res---');
+    //   this.cardsInfo = res;
+    // });
   }
 
 

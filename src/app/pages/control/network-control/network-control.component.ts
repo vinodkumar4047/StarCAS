@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import { style } from '@angular/animations';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,7 +50,7 @@ export class NetworkControlComponent {
     { field: 'networkId', header: 'NETWORK ID' },
     { field: 'channelName', header: 'CHANNEL NAME' },
     { field: 'portName', header: 'PORT NAME' },
-    { field: 'status', header: 'STATUS' },
+    { field: 'rowClass', header: 'STATUS' },
     { field: 'timeout', header: 'TIME OUT' },
   ];
 
@@ -59,9 +60,17 @@ export class NetworkControlComponent {
       take(1),
     ).subscribe({
       next: (res) => {
+        console.log('Subscription data:', res);
+
         if (res) {
-          this.networkConGetData = res;
-          console.log('taskManager data:', res);
+          this.networkConGetData = res.map((item: any) => {
+            return {
+              ...item,
+              rowClass: item.status === 'DOWN' ? 'DOWN' : 'UP',
+            }
+
+          })
+          this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
         }
@@ -80,4 +89,7 @@ export class NetworkControlComponent {
       }
     });
   };
+  getRowClass(rowData: any): string {
+    return rowData.statusClass || '';
+  }
 }

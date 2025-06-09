@@ -70,6 +70,8 @@ export class ProfileDetailsComponent {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
   };
 
+
+  
   authFunc(event: any) {
     console.log(event);
     this.router.navigate(['/pages/auth-profile'], { state: { data: event?.type } });

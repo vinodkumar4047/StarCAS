@@ -34,6 +34,8 @@ export class TableComponent {
   @Input() tableData: any;
   @Input() cols: any;
   @Input() globalFilterFields: any;
+  @Input() rowStyleClass: any;
+
   @Input() addButton: any;
   @Input() updateButton: any;
   @Input() multipleButton: any;

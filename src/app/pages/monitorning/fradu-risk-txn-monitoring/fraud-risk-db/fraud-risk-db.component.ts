@@ -66,7 +66,7 @@ export class FraudRiskDbComponent {
   transactionGetData() {
     this.isLoading = true;
     const instId = 'SCB';
-    this.restApi.get(`/monitoring/v1/transaction?instId=${instId}`).pipe(
+    this.restApi.get(`/monitoring/transaction?instId=${instId}`).pipe(
       take(1),
     ).subscribe({
       next: (res) => {
