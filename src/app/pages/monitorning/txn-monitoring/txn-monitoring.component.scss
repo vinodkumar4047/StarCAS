@@ -16,5 +16,32 @@
                 left: 10px;
             }
         }
+                .overlay {
+            height: 100%;
+            width: 40%;
+            background: #001429E5;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+
+            .content {
+                color: white;
+                font-size: 25px;
+                font-weight: 600;
+            }
+            .icon {
+    height: 60px;
+    width: 60px;
+    background: #0066CC;
+    border-radius: 50%;
+    text-align: center;
+}
+        }
     }
 }

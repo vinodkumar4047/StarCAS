@@ -6,7 +6,7 @@
       <i class="pi pi-bars"></i>
     </button>
     <a class="layout-topbar-logo" routerLink="/">
-      <p-image [src]="img" alt="Star CAS LOGO" />
+      <p-image [src]="img" class="logoimg" alt="Star CAS LOGO" />
     </a>
   </div>
 
@@ -25,20 +25,6 @@
       <span>Notifications</span>
     </button>
 
-    <p-popover #op1>
-      <div class="popover-content">
-        <span class="font-medium block mb-2" (click)="selectMember(members1)">
-          <p-avatar image="../../../../assets/images/download.png" styleClass="mr-2" shape="circle" />
-          ATM Team
-        </span>
-        <ul class="popover-list">
-          <li *ngFor="let member of members1" (click)="atmLocationAction()">
-            <span class="font-medium">{{ member.name }}</span>
-          </li>
-        </ul>
-      </div>
-    </p-popover>
-
     <!-- Fullscreen -->
     <button class="layout-topbar-action" (click)="toggleFullScreen()">
       <i [ngClass]="isFullScreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></i>
@@ -48,12 +34,23 @@
     <!-- User Profile Section -->
     <div class="user-status profile-box" (click)="toggle($event)">
       <ng-container *ngIf="userImageUrl; else profileIcon">
-        <img [src]="userImageUrl" alt="User Profile" class="profile-img" />
+        <div class="image-circle">
+          <img [src]="userImageUrl" alt="User Profile" class="profile-img"/>
+           <div class="online-container">
+          <div class="online-dot"></div>
+        </div>
+        </div>
+        
+
       </ng-container>
       <ng-template #profileIcon>
         <div class="profile-icon-circle">
           <i class="pi pi-user"></i>
+          <div class="online-container">
+            <div class="online-dot"></div>
+          </div>
         </div>
+
       </ng-template>
 
       <div class="profile-details">
@@ -61,27 +58,37 @@
           Victor Blackwood
           <!-- <span>{{ userRole === 'admin' ? '(Admin)' : userRole === 'maker' ? '(Maker)' : '(Checker)' }}</span> -->
         </div>
-        <div class="online-container">
-          <div class="online-dot"></div>
-
-        </div>
         <span style="padding: 5px 15px ; background-color: #00BCD4; border-radius: 21px; gap: 10px;">{{ userRole ===
           'admin' ?
           '(Admin)' : userRole === 'maker' ? 'Maker' : 'Checker' }}</span>
       </div>
-      
-    </div>
 
-    <!-- Profile Popover -->
-    <p-popover #op>
-      <div class="popover-content">
-        <ul class="popover-list">
-          <li *ngFor="let member of members" (click)="profileAction(member)">
-            <i [class]="getIconForMember(member.name)"></i>
-            <span class="font-medium">{{ member.name }}</span>
-          </li>
-        </ul>
-      </div>
-    </p-popover>
+    </div>
   </div>
+
 </div>
+<!-- Profile Popover -->
+<p-popover #op>
+  <div class="popover-content">
+    <ul class="popover-list">
+      <li *ngFor="let member of members" (click)="profileAction(member)">
+        <i [class]="getIconForMember(member.name)"></i>
+        <span class="font-medium">{{ member.name }}</span>
+      </li>
+    </ul>
+  </div>
+</p-popover>
+<!-- Notification Popover -->
+<p-popover #op1>
+  <div class="popover-content">
+    <span class="font-medium block mb-2" (click)="selectMember(members1)">
+      <p-avatar image="../../../../assets/images/download.png" styleClass="mr-2" shape="circle" />
+      ATM Team
+    </span>
+    <ul class="popover-list">
+      <li *ngFor="let member of members1" (click)="atmLocationAction()">
+        <span class="font-medium">{{ member.name }}</span>
+      </li>
+    </ul>
+  </div>
+</p-popover>
