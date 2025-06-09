@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit {
                 {
                   "title": "Institution",
                   "link": "institution",
-                  "icon": "layout-dashboard",
+                  "icon": "fa-solid fa-credit-card",
                   "color": "#1b5e20",
                   "menuId": "M00000201",
                   "checked": true,
@@ -168,8 +168,8 @@ export class LoginComponent implements OnInit {
                 },
                 {
                   "title": "Branch",
-                  // "link": "branch",
-                  "icon": "layout-dashboard",
+                  "link": "branch",
+                  "icon": "fa-solid fa-credit-card",
                   "color": "#1b5e20",
                   "menuId": "M00000202",
                   "checked": true,
@@ -744,7 +744,7 @@ export class LoginComponent implements OnInit {
               "subMenu": [
                 {
                   "title": "Profile",
-                  "icon": "plug",
+                  "icon": "fa-solid fa-address-card",
                   "color": "#1b5e20",
                   "link": "profile",
                   "menuId": "M00000801",
