@@ -8,7 +8,7 @@
     overflow-y: auto;
     user-select: none;
     top: 6rem;
-    left:2rem;
+    left: 2rem;
     transition:
         transform var(--layout-section-transition-duration),
         left var(--layout-section-transition-duration);
@@ -24,7 +24,7 @@
     list-style-type: none;
 
     .layout-root-menuitem {
-        > .layout-menuitem-root-text {
+        >.layout-menuitem-root-text {
             font-size: 0.857rem;
             text-transform: uppercase;
             font-weight: 700;
@@ -32,7 +32,7 @@
             margin: 0.75rem 0;
         }
 
-        > a {
+        >a {
             display: none;
         }
     }
@@ -41,14 +41,14 @@
         user-select: none;
 
         &.active-menuitem {
-            > .layout-submenu-toggler {
+            >.layout-submenu-toggler {
                 transform: rotate(-180deg);
             }
         }
     }
 
     li.active-menuitem {
-        > a {
+        >a {
             .layout-submenu-toggler {
                 transform: rotate(-180deg);
             }
@@ -72,7 +72,7 @@
             transition:
                 background-color var(--element-transition-duration),
                 box-shadow var(--element-transition-duration);
-            
+
 
             .layout-menuitem-icon {
                 margin-right: 0.5rem;
@@ -86,13 +86,14 @@
 
             &.active-route {
                 font-weight: 700;
-                   color: white;
-                background:linear-gradient(90deg, color-mix(in srgb, var(--primary-color) 30%, var(--primary-color)),#a0c4fe); 
+                color: white;
+                background: linear-gradient(90deg, color-mix(in srgb, var(--primary-color) 30%, var(--primary-color)), #a0c4fe);
 
             }
 
             &:hover {
-                background-color: var(--surface-hover);
+                background: linear-gradient(90deg,
+                        color-mix(in srgb, #97befe 30%, #97befe), #e9f2ff);
             }
 
             &:focus {
