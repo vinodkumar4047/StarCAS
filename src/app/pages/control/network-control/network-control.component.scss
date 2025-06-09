@@ -1,0 +1,18 @@
+    ::ng-deep {
+        .atmDetails {
+            .UP {
+
+                font-weight: 500;
+                color: green !important;
+            }
+
+            .DOWN {
+
+                font-weight: 500;
+                color: red !important;
+                background-color: red !important;
+
+            }
+        }
+
+    }

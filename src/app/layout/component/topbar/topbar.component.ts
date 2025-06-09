@@ -11,20 +11,22 @@ import { BadgeModule } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.scss',
   standalone: true,
   imports: [RouterModule, CommonModule, StyleClassModule, PopoverModule,
-    ImageModule, BadgeModule, OverlayBadgeModule, AvatarModule],
+    ImageModule, BadgeModule, OverlayBadgeModule, AvatarModule, TooltipModule, ButtonModule],
 })
 export class TopbarComponent {
   items!: MenuItem[];
   @ViewChild('op') op!: Popover;
   @ViewChild('op1') op1!: Popover;
-  img: any = 'assets/images/starcas-logo.png'
+  img: any = 'assets/images/Frame_8.png'
   selectedMember = null;
   selectedmemeber1 = null;
   members1 = [
@@ -41,7 +43,7 @@ export class TopbarComponent {
   ];
   isFullScreen = false;
   userRole: any = localStorage.getItem('userRole');
-  userImageUrl:any = 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk';
+  userImageUrl: any = 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk';
   constructor(public layoutService: LayoutService, private router: Router) { }
   // Check if the browser supports fullscreen API
   isFullscreen(): boolean {
@@ -121,7 +123,7 @@ export class TopbarComponent {
     } else if (member.name == 'ATM Location') {
       this.router.navigate(['/pages/atm_location'])
     }
-    this.op.hide();
+    this.op.hide();``
   }
 
   getIconForMember(name: string): string {

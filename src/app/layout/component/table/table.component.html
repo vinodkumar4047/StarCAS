@@ -55,6 +55,7 @@
                 [ngClass]="componentHeader === 'txnmtr' ? (row.isApproved ? 'approved-row' : 'rejected-row') : ''"
                 [ngStyle]="col.header != 'Select' ? {'text-align': 'left'} : {'text-align': 'center'}"
                 style="height: 35px; padding:0 10px;  ">
+
                 <span *ngIf="col.header != 'Action' && col.header != 'Select'"
                     [ngClass]="componentHeader==''?'':row[col.field]">{{ row[col.field] }}</span>
                 <span *ngIf="col.header === 'Select'">

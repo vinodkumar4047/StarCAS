@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Menu } from 'app/layout/Menu';
 import { AppMenu } from '../component/app.menu';
-
+import { LucideAngularModule, LayoutDashboard } from 'lucide-angular';
 interface MenuItem {
    title?: string;
    icon?: string;
@@ -33,7 +33,7 @@ export class MenuService {
          [
             {
                "title": "Dashboard",
-               "link": "Dashboard",
+               "link": "dashboard",
                "icon": "fa fa-dashboard",
                "color": "#1b5e20",
                "menuId": "M000001",
@@ -48,7 +48,7 @@ export class MenuService {
                "subMenu": [
                   {
                      "title": "Institution",
-                     "link": "Bulk-upload",
+                     "link": "institution",
                      "icon": "fa-brands fa-cc-visa",
                      "color": "#1b5e20",
                      "menuId": "M00000201",
@@ -63,7 +63,7 @@ export class MenuService {
                   },
                   {
                      "title": "Branch",
-                     "link": "Master-bulk",
+                     "link": "branch",
                      "icon": "fab fa-cc-mastercard",
                      "color": "#1b5e20",
                      "menuId": "M00000202",
@@ -79,7 +79,7 @@ export class MenuService {
                   },
                   {
                      "title": "BIN",
-                     "link": "Rupay-bulk",
+                     "link": "bin",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000203",
@@ -90,7 +90,7 @@ export class MenuService {
                   },
                   {
                      "title": "ATM Type",
-                     "link": "Rupay-bulk",
+                     "link": "atmType",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000204",
@@ -110,7 +110,7 @@ export class MenuService {
                   },
                   {
                      "title": "ATM",
-                     "link": "Rupay-bulk",
+                     "link": "atm",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000205",
@@ -150,7 +150,7 @@ export class MenuService {
                   },
                   {
                      "title": "External BIN",
-                     "link": "Rupay-bulk",
+                     "link": "externalBin",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000206",
@@ -190,7 +190,7 @@ export class MenuService {
                   },
                   {
                      "title": "FIT",
-                     "link": "Rupay-bulk",
+                     "link": "fit",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000207",
@@ -230,7 +230,7 @@ export class MenuService {
                   },
                   {
                      "title": "Casette",
-                     "link": "Rupay-bulk",
+                     "link": "casset",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000208",
@@ -250,7 +250,7 @@ export class MenuService {
                   },
                   {
                      "title": "Port",
-                     "link": "Rupay-bulk",
+                     "link": "port",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000209",
@@ -265,7 +265,7 @@ export class MenuService {
                   },
                   {
                      "title": "Transaction",
-                     "link": "Rupay-bulk",
+                     "link": "transaction",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000210",
@@ -290,7 +290,7 @@ export class MenuService {
                "subMenu": [
                   {
                      "title": "Network Monitoring",
-                     "link": "Register-Instantcard",
+                     "link": "network_Monitoring",
                      "icon": "fa fa-id-card",
                      "color": "#1b5e20",
                      "menuId": "M00000301",
@@ -298,7 +298,7 @@ export class MenuService {
                   },
                   {
                      "title": "HSM Monitoring",
-                     "link": "instantbulkcust-registration",
+                     "link": "hsm_Monitoring",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000302",
@@ -306,7 +306,7 @@ export class MenuService {
                   },
                   {
                      "title": "TXN Monitoring",
-                     "link": "instantbulkcust-registration",
+                     "link": "txn_Monitoring",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000303",
@@ -314,7 +314,7 @@ export class MenuService {
                   },
                   {
                      "title": "ATM Monitoring",
-                     "link": "instantbulkcust-registration",
+                     "link": "atm_Monitoring",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000304",
@@ -322,7 +322,7 @@ export class MenuService {
                   },
                   {
                      "title": "Transaction Search",
-                     "link": "instantbulkcust-registration",
+                     "link": "transaction_Search",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000305",
@@ -330,7 +330,7 @@ export class MenuService {
                   },
                   {
                      "title": "Fraud Monitoring",
-                     "link": "instantbulkcust-registration",
+                     "link": "fraud_Monitoring",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000306",
@@ -338,7 +338,7 @@ export class MenuService {
                   },
                   {
                      "title": "Fraud and Risk Txn Management",
-                     "link": "instantbulkcust-registration",
+                     "link": "FraduRisk_TxnMonitoring",
                      "icon": "fa fa-user-plus",
                      "color": "#1b5e20",
                      "menuId": "M00000307",
@@ -356,7 +356,7 @@ export class MenuService {
                "subMenu": [
                   {
                      "title": "Task Manager",
-                     "link": "powk",
+                     "link": "task_Manager",
                      "icon": "fa-solid fa-file",
                      "color": "#1b5e20",
                      "menuId": "M00000401",
@@ -364,7 +364,7 @@ export class MenuService {
                   },
                   {
                      "title": "Port Manager",
-                     "link": "smart-card",
+                     "link": "port_Manager",
                      "icon": "fa-solid fa-file",
                      "color": "#1b5e20",
                      "menuId": "M00000402",
@@ -380,7 +380,7 @@ export class MenuService {
                   },
                   {
                      "title": "Network Control",
-                     "link": "instant-NRI",
+                     "link": "network_Control",
                      "icon": "fa-solid fa-file",
                      "color": "#1b5e20",
                      "menuId": "M00000404",
@@ -388,7 +388,7 @@ export class MenuService {
                   },
                   {
                      "title": "ATM Controller",
-                     "link": "debit-Branch",
+                     "link": "atm_control",
                      "icon": "fa fa-home",
                      "color": "#1b5e20",
                      "menuId": "M00000405",
@@ -396,7 +396,7 @@ export class MenuService {
                   },
                   {
                      "title": "Control Monitoring",
-                     "link": "debit-Indian",
+                     "link": "control_Monitoring",
                      "icon": "fa fa-envelope-square",
                      "color": "#1b5e20",
                      "menuId": "M00000406",
@@ -413,7 +413,7 @@ export class MenuService {
                "subMenu": [
                   {
                      "title": "International TXN Enabled",
-                     "link": "student-cardorder",
+                     "link": "internationalTXNEnadisable",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -428,7 +428,7 @@ export class MenuService {
                   },
                   {
                      "title": "TXN Allow Without PIN",
-                     "link": "student-cardorder",
+                     "link": "txnAllowWithoutPin",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -444,7 +444,7 @@ export class MenuService {
                   },
                   {
                      "title": "Risk Country Block",
-                     "link": "student-cardorder",
+                     "link": "riskCountryBlock",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -458,7 +458,7 @@ export class MenuService {
                   },
                   {
                      "title": "TXN Allow For Risk Country",
-                     "link": "student-cardorder",
+                     "link": "txnAllowedRiskCountry",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -472,7 +472,7 @@ export class MenuService {
                   },
                   {
                      "title": "MCC Block",
-                     "link": "student-cardorder",
+                     "link": "mccBlock",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -489,7 +489,7 @@ export class MenuService {
                   },
                   {
                      "title": "TXN Allow For Blocked MCC",
-                     "link": "student-cardorder",
+                     "link": "txnAllowBlockedMCC",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -505,7 +505,7 @@ export class MenuService {
                   },
                   {
                      "title": "Risk Ecom Site Block",
-                     "link": "student-cardorder",
+                     "link": "riskEcomSiteBlock",
                      "icon": "fa-solid fa-person-chalkboard",
                      "color": "#1b5e20",
                      "menuId": "M00000501",
@@ -589,7 +589,7 @@ export class MenuService {
                      "title": "Email Update",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
-                     "link": "expiry",
+                     "link": "email_update",
                      "menuId": "M00000701",
                      "checked": false,
                      "permissions": [
@@ -602,7 +602,7 @@ export class MenuService {
                      "title": "Modile Update",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
-                     "link": "Expcardclosure",
+                     "link": "mobile_update",
                      "menuId": "M00000702",
                      "checked": false, "permissions": [
                         { "title": "View Mobile", "menuId": "M0000070201", "checked": false },
@@ -613,7 +613,7 @@ export class MenuService {
                   },
                   {
                      "title": "SAF Mnagement",
-                     "link": "cardclosure",
+                     "link": "saf",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
                      "menuId": "M00000703",
@@ -621,7 +621,7 @@ export class MenuService {
                   },
                   {
                      "title": "Admin Card",
-                     "link": "Bulkcardclosure",
+                     "link": "admin_card",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
                      "menuId": "M00000704",
@@ -641,7 +641,7 @@ export class MenuService {
                      "title": "Profile",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
-                     "link": "expiry",
+                     "link": "auth-profile",
                      "menuId": "M00000801",
                      "checked": false,
                      "permissions": [
@@ -656,7 +656,7 @@ export class MenuService {
                      "title": "User",
                      "icon": "fa-solid fa-address-card",
                      "color": "#1b5e20",
-                     "link": "Expcardclosure",
+                     "link": "auth-User",
                      "menuId": "M00000802",
                      "checked": false,
                      "permissions": [
