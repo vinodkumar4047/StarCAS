@@ -390,6 +390,7 @@ export class AppMenu {
             const menuSection: any = {
                 items: [{
                     label: item.title,
+                    icon: item.icon,
                     // icon: this.convertIcon(item.icon),
                     visible: item.checked,
                     ...(item.link ? { routerLink: ['/pages/' + item.link] } : {}),
@@ -401,6 +402,7 @@ export class AppMenu {
                 menuSection.items[0].items = item.subMenu.map((sub: any) => {
                     const subItem: any = {
                         label: sub.title,
+                        icon: sub.icon,
                         //   icon: this.convertIcon(sub.icon),
                         visible: sub.checked,
                         ...(sub.link ? { routerLink: ['/pages/' + sub.link] } : {}),
@@ -421,5 +423,6 @@ export class AppMenu {
             return menuSection;
         });
     }
+
 
 }

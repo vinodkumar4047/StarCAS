@@ -1,125 +1,167 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { LayoutService } from '../service/layout.service';
+import { MenuItem } from 'primeng/api';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
-    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[app-menuitem]',
-    imports: [CommonModule, RouterModule, RippleModule],
-    template: `
-        <ng-container>
-            <div *ngIf="root && item.visible !== false" class="layout-menuitem-root-text">{{ item.label }}</div>
-            <a *ngIf="(!item.routerLink || item.items) && item.visible !== false" [attr.href]="item.url" (click)="itemClick($event)" [ngClass]="item.styleClass" [attr.target]="item.target" tabindex="0" pRipple>
-                <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
-                <span class="layout-menuitem-text">{{ item.label }}</span>
-                <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
-            </a>
-            <a
-                *ngIf="item.routerLink && !item.items && item.visible !== false"
-                (click)="itemClick($event)"
-                [ngClass]="item.styleClass"
-                [routerLink]="item.routerLink"
-                routerLinkActive="active-route"
-                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
-                [fragment]="item.fragment"
-                [queryParamsHandling]="item.queryParamsHandling"
-                [preserveFragment]="item.preserveFragment"
-                [skipLocationChange]="item.skipLocationChange"
-                [replaceUrl]="item.replaceUrl"
-                [state]="item.state"
-                [queryParams]="item.queryParams"
-                [attr.target]="item.target"
-                tabindex="0"
-                pRipple
-            >
-                <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
-                <span class="layout-menuitem-text">{{ item.label }}</span>
-                <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
-            </a>
-
-            <ul *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation">
-                <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
-                    <li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child['badgeClass']"></li>
-                </ng-template>
-            </ul>
-        </ng-container>
-    `,
+    standalone: true,
+    imports: [CommonModule, RouterModule, RippleModule, LucideAngularModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('children', [
-            state(
-                'collapsed',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'expanded',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        trigger('submenu', [
+            state('collapsed', style({ height: '0', overflow: 'hidden' })),
+            state('expanded', style({ height: '*', overflow: 'visible' })),
+            transition('collapsed <=> expanded', animate('400ms ease-in-out'))
         ])
     ],
+    template: `
+    <ng-container>
+      <div *ngIf="root && item.visible !== false" class="layout-menuitem-root-text">
+        {{ item.label }}
+      </div>
 
+      <!-- Anchor for item with children or external URL -->
+      <a *ngIf="(!item.routerLink || item.items) && item.visible !== false"
+         [attr.href]="item.url"
+         (click)="itemClick($event)"
+         [ngClass]="item.styleClass"
+         [attr.target]="item.target"
+         tabindex="0"
+         pRipple>
+         
+        <lucide-icon *ngIf="item.icon" [name]="item.icon" class="layout-menuitem-icon"></lucide-icon>
+        <span class="layout-menuitem-text">{{ item.label }}</span>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
+      </a>
+
+      <!-- Anchor for internal routerLink without children -->
+      <a *ngIf="item.routerLink && !item.items && item.visible !== false"
+         (click)="itemClick($event)"
+         [ngClass]="item.styleClass"
+         [routerLink]="item.routerLink"
+         routerLinkActive="active-route"
+         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { paths: 'exact' }"
+         [queryParams]="item.queryParams"
+         [fragment]="item.fragment"
+         [queryParamsHandling]="item.queryParamsHandling"
+         [preserveFragment]="item.preserveFragment"
+         [skipLocationChange]="item.skipLocationChange"
+         [replaceUrl]="item.replaceUrl"
+         [state]="item.state"
+         [attr.target]="item.target"
+         tabindex="0"
+         pRipple>
+         
+        <lucide-icon *ngIf="item.icon" [name]="item.icon" class="layout-menuitem-icon"></lucide-icon>
+        <span class="layout-menuitem-text">{{ item.label }}</span>
+      </a>
+
+      <!-- Submenu -->
+      <ul *ngIf="item.items && item.visible !== false"
+          [@submenu]="submenuAnimation">
+        <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
+          <li app-menuitem
+              [item]="child"
+              [index]="i"
+              [parentKey]="key"
+              [class]="child['badgeClass']"></li>
+        </ng-template>
+      </ul>
+    </ng-container>
+  `,
+    styles: [`
+    .layout-menuitem-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+  `]
 })
-export class AppMenuitem {
+export class AppMenuitem implements OnInit, OnDestroy {
     @Input() item!: MenuItem;
-
     @Input() index!: number;
-
     @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
-
     @Input() parentKey!: string;
 
+    key = '';
     active = false;
 
-    menuSourceSubscription: Subscription;
-
-    menuResetSubscription: Subscription;
-
-    key: string = '';
+    private menuSourceSubscription!: Subscription;
+    private menuResetSubscription!: Subscription;
 
     constructor(
         public router: Router,
-        public layoutService: LayoutService
-    ) {
+        public layoutService: LayoutService,
+        public cd: ChangeDetectorRef
+    ) { }
+
+    ngOnInit() {
+        console.log(`Menu Item: ${this.item.label}, Icon: ${this.item.icon}`);
+        this.key = this.parentKey ? `${this.parentKey}-${this.index}` : String(this.index);
+
         this.menuSourceSubscription = this.layoutService.menuSource$.subscribe((value) => {
-            Promise.resolve(null).then(() => {
+            Promise.resolve().then(() => {
                 if (value.routeEvent) {
-                    this.active = value.key === this.key || value.key.startsWith(this.key + '-') ? true : false;
+                    this.active = value.key === this.key || value.key.startsWith(this.key + '-');
                 } else {
                     if (value.key !== this.key && !value.key.startsWith(this.key + '-')) {
                         this.active = false;
                     }
                 }
+
+                this.cd.markForCheck();
             });
         });
 
         this.menuResetSubscription = this.layoutService.resetSource$.subscribe(() => {
             this.active = false;
+            this.cd.markForCheck();
         });
 
-        this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((params) => {
-            if (this.item.routerLink) {
-                this.updateActiveStateFromRoute();
-            }
-        });
-    }
-
-    ngOnInit() {
-        this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index);
+        this.router.events
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .subscribe(() => {
+                if (this.item.routerLink) {
+                    this.updateActiveStateFromRoute();
+                }
+            });
 
         if (this.item.routerLink) {
             this.updateActiveStateFromRoute();
         }
+    }
+
+    itemClick(event: Event) {
+        if (this.item.disabled) {
+            event.preventDefault();
+            return;
+        }
+
+        if (this.item.command) {
+            this.item.command({ originalEvent: event, item: this.item });
+        }
+
+        if (this.item.items) {
+            this.active = !this.active;
+        }
+
+        this.layoutService.onMenuStateChange({ key: this.key });
+        this.cd.markForCheck();
     }
 
     updateActiveStateFromRoute() {
@@ -128,32 +170,6 @@ export class AppMenuitem {
         if (activeRoute) {
             this.layoutService.onMenuStateChange({ key: this.key, routeEvent: true });
         }
-    }
-
-    itemClick(event: Event) {
-        // avoid processing disabled items
-        if (this.item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        // execute command
-        if (this.item.command) {
-            this.item.command({ originalEvent: event, item: this.item });
-        }
-
-        // toggle active state
-        if (this.item.items) {
-            this.active = !this.active;
-        }
-
-        this.layoutService.onMenuStateChange({ key: this.key });
-        //     if (this.item.routerLink && !this.item.items) {
-        //     this.layoutService.layoutState.update((prev) => ({
-        //         ...prev,
-        //         staticMenuDesktopInactive: !prev.staticMenuDesktopInactive
-        //     }));
-        // }
 
     }
 
@@ -167,12 +183,7 @@ export class AppMenuitem {
     }
 
     ngOnDestroy() {
-        if (this.menuSourceSubscription) {
-            this.menuSourceSubscription.unsubscribe();
-        }
-
-        if (this.menuResetSubscription) {
-            this.menuResetSubscription.unsubscribe();
-        }
+        this.menuSourceSubscription?.unsubscribe();
+        this.menuResetSubscription?.unsubscribe();
     }
 }

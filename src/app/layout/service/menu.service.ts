@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { Menu } from 'app/layout/Menu';
 import { AppMenu } from '../component/app.menu';
-import { LucideAngularModule, LayoutDashboard } from 'lucide-angular';
 interface MenuItem {
    title?: string;
    icon?: string;
@@ -34,14 +33,14 @@ export class MenuService {
             {
                "title": "Dashboard",
                "link": "dashboard",
-               "icon": "fa fa-dashboard",
+               "icon": "layout-dashboard",
                "color": "#1b5e20",
                "menuId": "M000001",
                "checked": false
             },
             {
                "title": "Configuration",
-               "icon": "fa-solid fa-credit-card",
+               "icon": "wrench",
                "color": "#1b5e20",
                "menuId": "M000002",
                "checked": false,
@@ -49,7 +48,7 @@ export class MenuService {
                   {
                      "title": "Institution",
                      "link": "institution",
-                     "icon": "fa-brands fa-cc-visa",
+                     icon: 'layout-dashboard',
                      "color": "#1b5e20",
                      "menuId": "M00000201",
                      "checked": false,
