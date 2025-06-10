@@ -78,7 +78,7 @@ export class NetworkControlComponent {
           this.loading = false;
           this.cdr.detectChanges();
 
-        }, 1000);
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);

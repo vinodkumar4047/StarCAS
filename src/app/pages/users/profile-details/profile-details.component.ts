@@ -54,15 +54,16 @@ export class ProfileDetailsComponent {
   delete_visible: any;
 
   userRole: any = localStorage.getItem('userRole');
-  buttonsList: any = this.userRole == 'admin' ? [
+  buttonsList: any = this.userRole == 'SU1' || this.userRole == 'SU2' ? [
     { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
     { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'AuthorizedProfile', variant: 'outlined', severity: "info" }
-  ] : [
-    { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
   ]
+    : [
+      { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    ]
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
+    this.cols = this.userRole === 'maker' || this.userRole === 'SU1'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
   }
@@ -71,7 +72,7 @@ export class ProfileDetailsComponent {
   };
 
 
-  
+
   authFunc(event: any) {
     console.log(event);
     this.router.navigate(['/pages/auth-profile'], { state: { data: event?.type } });

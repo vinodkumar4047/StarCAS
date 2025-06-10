@@ -67,4 +67,23 @@
         align-items: center;
     }
 
+    // .table-container {
+    //     position: relative;
+    // }
+
+    .overlay-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #7b7b7c69; // semi-transparent white
+        z-index: 999; // higher than table
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: all; // block mouse events
+    }
+
+
 }
