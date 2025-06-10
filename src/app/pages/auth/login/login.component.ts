@@ -134,6 +134,8 @@ export class LoginComponent implements OnInit {
         // localStorage.setItem('userType', res.userDetails[0].userType);
         this.router.navigate(['/pages/dashboard']);
 
+        // this.menuSer.menuItems = res.menuId;
+        // console.log("Menu Items:", this.menuSer.menuItems);
         this.menuSer.menuItems =
           [
             {
