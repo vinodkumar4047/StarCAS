@@ -42,6 +42,14 @@
     background: #0066CC;
     border-radius: 50%;
     text-align: center;
+    display: flex;
+     align-items: center;
+            align-content: center;
+            justify-content: center;
+            i{
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
 }
         }
     }
