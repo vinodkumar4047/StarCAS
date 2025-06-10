@@ -76,7 +76,7 @@ export class HSMMonitoringComponent {
         } setTimeout(() => {
           this.loading = false;
           this.cdr.detectChanges();
-        },);
+        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
