@@ -50,12 +50,15 @@ import { LucideAngularModule } from 'lucide-angular';
       </a>
 
       <!-- Anchor for internal routerLink without children -->
+        <!-- [routerLink]="item.routerLink"
+         routerLinkActive="active-route"
+         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { paths: 'exact' }" -->
       <a *ngIf="item.routerLink && !item.items && item.visible !== false"
          (click)="itemClick($event)"
          [ngClass]="item.styleClass"
-         [routerLink]="item.routerLink"
-         routerLinkActive="active-route"
-         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { paths: 'exact' }"
+          [routerLink]="item.routerLink"
+                routerLinkActive="active-route"
+                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
          [queryParams]="item.queryParams"
          [fragment]="item.fragment"
          [queryParamsHandling]="item.queryParamsHandling"
