@@ -8,11 +8,12 @@ import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { RestService } from '../../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-monitoring-details',
-  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule,LucideAngularModule],
   templateUrl: './atm-monitoring-details.component.html',
   styleUrl: './atm-monitoring-details.component.scss',
   // encapsulation:ViewEncapsulation.None

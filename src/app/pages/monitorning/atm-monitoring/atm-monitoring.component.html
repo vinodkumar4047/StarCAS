@@ -6,15 +6,16 @@
 
         <div class="image-containor">
             <img src="../../../../assets/images/ATM_monitoring.jpg" alt="">
-            <p-button label="ATM Monitoring" icon="pi pi-save" (click)="openWindow()" class="atm-btn" />
+            
             <div class="overlay">
                 <div style="
     display: flex;
     flex-direction: column;
     align-items: center;
     gap:10px;">
-                    <div class="icon"> <i class="pi pi-arrow-right" style="color: #ffffff;"></i> </div>
+                    <div class="icon"> <lucide-icon name="monitor-cog" style="color: white;" ></lucide-icon> </div>
                     <div class="content">ATM MONITORING</div>
+                    <p-button label="View Activity" icon="pi pi-eye" raised (click)="openWindow()"  />
                 </div>
             </div>
         </div>

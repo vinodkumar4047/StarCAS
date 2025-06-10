@@ -5,18 +5,16 @@
 
         <div class="image-containor gap-4">
             <img src="../../../../assets/images/monitoring.jpg" alt="">
-            <div class="flex gap-4 atm-btn">
-                <p-button label="Fraud & Risk Monitor From DB" icon="pi pi-save" (click)="openWindow()"
-                  />
-            </div>
              <div class="overlay">
                 <div style="
     display: flex;
     flex-direction: column;
     align-items: center;
     gap:10px;">
-                    <div class="icon"></div>
+                    <div class="icon"><lucide-icon name="shield-alert" style="color: white;" ></lucide-icon></div>
                     <div class="content">FRAUD AND RISK MONITORING</div>
+                     <p-button label="View Activity" icon="pi pi-eye" (click)="openWindow()"
+                  />
                 </div>
             </div>
         </div>

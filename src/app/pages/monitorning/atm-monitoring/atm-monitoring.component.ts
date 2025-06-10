@@ -5,11 +5,12 @@ import { TabsModule } from 'primeng/tabs';
 import { NewWindowService } from '../../../layout/service/new-window-service.service';
 import { AtmMonitoringDetailsComponent } from './atm-monitoring-details/atm-monitoring-details.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { LucideAngularModule, } from 'lucide-angular';
 
 @Component({
 changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-monitoring',
-  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule,LucideAngularModule],
   templateUrl: './atm-monitoring.component.html',
   styleUrl: './atm-monitoring.component.scss',
   // encapsulation:ViewEncapsulation.None

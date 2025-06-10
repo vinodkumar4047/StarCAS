@@ -26,17 +26,17 @@
         }
 
         .p-tab-active.offline {
-            background: #ff000040;
-            border-color: #ff0000;
-            color: #ff0000 !important;
+            background: #F4433640;
+            border-color: #F44336;
+            color: #F44336 !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .p-tab-active.warning {
-            background: #f38f0040;
-            border-color: #f38f00;
-            color: #f38f00 !important;
+            background: #FF980040;
+            border-color: #FF9800;
+            color: #FF9800 !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
@@ -50,25 +50,25 @@
         }
 
         .p-tab-active.lowcash {
-            background: #03663a40;
-            border-color: #03663a;
-            color: #03663a !important;
+            background: #FFEB3B40;
+            border-color: #FFEB3B;
+            color: #FFEB3B !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .p-tab-active.crit {
-            background: #8b000040;
-            border-color: #8b0000;
-            color: #8b0000 !important;
+            background: #991B1B40;
+            border-color: #991B1B;
+            color: #991B1B !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .p-tab-active.supervisor {
-            background: #3c3cd140;
-            border-color: #3c3cd1;
-            color: #3c3cd1 !important;
+            background: #9C27B040;
+            border-color: #9C27B0;
+            color: #9C27B0 !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
@@ -78,15 +78,16 @@
         }
 
         .atm-box {
-            width: 100px;
-            height: 100px;
+            height: 125px;
+            width: 110px;
             border-radius: 8px;
             margin: 10px;
             padding: 10px;
             display: inline-block;
             vertical-align: top;
             text-align: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            border: 2px solid #E2E8F0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -99,34 +100,6 @@
             width: 65px !important;
             height: 65px !important;
             margin-bottom: 10px;
-        }
-
-        .color-good {
-            background: #4caf5040;
-        }
-
-        .color-offline {
-            background: #ff000040;
-        }
-
-        .color-warning {
-            background: #f38f0040;
-        }
-
-        .color-out {
-            background: #72757a40;
-        }
-
-        .color-lowcash {
-            background: #03663a40;
-        }
-
-        .color-critical {
-            background: #8b000040;
-        }
-
-        .color-supervisor {
-            background: #3c3cd140;
         }
 
         .heading-color {
