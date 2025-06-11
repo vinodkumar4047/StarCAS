@@ -76,7 +76,7 @@
                     <div class="flex flex-wrap">
                          <div class="Nodata" *ngIf="filteredATMList.length == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
-                            <div [ngSwitch]="atm.atmStatus">
+                            <div [ngSwitch]="atm.atmStatus"> 
                                 <div *ngSwitchCase="'G'" (click)="showDialog(atm)" class="atm-box">
                                     <!-- <img src="assets/images/output-onlinepngtools (2).png" alt=""> -->
                                      <lucide-icon name="monitor-check" style="color: #4CAF50;" size="32px" ></lucide-icon>
