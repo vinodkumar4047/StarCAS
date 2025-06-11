@@ -3,10 +3,9 @@
         style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">Profile Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+        <app-table [tableData]="profileData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (event)="authFunc($event)" (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit($event,'add')"
-            [multipleButton]="userRole != 'maker' ?buttonsList:''"
-            (editEvent)="addOrEdit($event,'edit')" (viewEvent)="addOrEdit($event,'view')"
-            [addButton]="userRole == 'checker'?null:'Add Profile'" />
+            [multipleButton]="userRole != 'maker' ?buttonsList:''" (editEvent)="addOrEdit($event,'edit')"
+            (viewEvent)="addOrEdit($event,'view')" [addButton]="userRole == 'checker'?null:'Add Profile'" />
     </div>
 </div>

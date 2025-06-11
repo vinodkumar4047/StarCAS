@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -8,150 +8,412 @@ import { SelectModule } from 'primeng/select';
 import { Tree } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { NodeServiceService } from '../node-service.service';
+import { RestService } from '../../../../layout/service/rest.service';
+
+interface PermissionItem {
+  title: string;
+  menuId: string;
+  checked: boolean;
+}
+
+interface SubMenuItem {
+  title: string;
+  link?: string;
+  icon?: string;
+  color?: string;
+  menuId: string;
+  checked: boolean;
+  permissions?: PermissionItem[];
+}
+
+interface MenuItem {
+  title: string;
+  link?: string;
+  icon?: string;
+  color?: string;
+  menuId: string;
+  checked: boolean;
+  subMenu?: SubMenuItem[];
+}
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-profile',
-  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule,
-    SelectModule, FloatLabel, Tree],
+  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, SelectModule, FloatLabel, Tree],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
 
 export class UserProfileComponent {
   fitForm: any;
+  constructor(private location: Location, private restApi: RestService, private fb: FormBuilder, private nodeService: NodeServiceService, private cd: ChangeDetectorRef) { }
+
+
+
   uploadedFiles: any[] = [];
   files: TreeNode[] = [];
   selectedFiles: TreeNode[] = [];
 
-  // 👇 dynamic state
   routeData: any = history.state.data || {};
   formType: 'add' | 'edit' | 'view' = history.state.type || 'add';
 
   get formTitle(): string {
-    if (this.formType === 'edit') return 'Edit Profile Details';
-    if (this.formType === 'view') return 'View Profile Details';
-    return 'Add Profile Details';
-  };
-  constructor(private location: Location, private fb: FormBuilder, private nodeService: NodeServiceService) { };
+    switch (this.formType) {
+      case 'edit': return 'Edit Profile Details';
+      case 'view': return 'View Profile Details';
+      default: return 'Add Profile Details';
+    }
+  }
 
-  InstIDOpt: any = [
-    { name: 'Test', code: '1' }
-  ];
+  InstIDOpt = [{ name: 'Test', code: 'SCB' }];
+  logicalOpt = [{ name: 'MAKER', code: 'M' }, { name: 'CHECKER', code: 'C' }];
+  previousSelectedIds: Set<string> = new Set();
 
-  logicalOpt: any = [
-    { name: 'MAKER', code: '1' }, { name: 'CHECKER', code: '2' }
-  ];
-  ngOnInit(data: any) {
-    console.log('data', data);
+
+  ngOnInit(): void {
 
     this.fitForm = this.fb.group({
-      INSTID: [null, Validators.required],
-      logicalGroup: [null, Validators.required],
-      BINValue: ['', Validators.required],
-      indirectState: ['', Validators.required]
+      profileName: ['', Validators.required],
+      profileDesc: ['', Validators.required],
+      instId: ['', Validators.required],
+      userType: ['', Validators.required],
+      profileId: ['', Validators.required],
+      status: ['', Validators.required],
+      indirectState: []
     });
 
-
+    // Patch form values for edit/view
     if (this.formType !== 'add' && this.routeData) {
       this.fitForm.patchValue(this.routeData);
-    };
+    }
 
+    // Disable form in view mode
     if (this.formType === 'view') {
-      this.fitForm.disable(); // Make form readonly
+      this.fitForm.disable();
+    }
 
+    // Always get the full menu tree
+    this.nodeService.getUserAccessModules().then((data: any) => {
+      this.files = this.convertMenuStructureToTreeNodes(data);
+
+      // For edit/view: mark nodes as checked based on selectedMenuIds
+      if (this.formType !== 'add' && this.routeData?.selectedMenuIds) {
+        console.log('Route Data for selectedMenuIds:', this.routeData.selectedMenuIds);
+
+        this.markCheckedNodes(this.files, this.routeData.selectedMenuIds);
+        console.log('Marked nodes as checked:', this.files);
+        console.log('Route Data:', this.routeData.selectedMenuIds);
+        // Expand tree if in view mode
+        if (this.formType === 'view') {
+          this.files.forEach(node => this.expandRecursive(node, true));
+        }
+
+        this.cd.detectChanges();
+      }
+
+
+
+      // Build selectedFiles (based on which nodes are checked)
+      this.selectedFiles = this.getCheckedNodes(this.files);
+
+      this.cd.detectChanges();
+    });
+    // --------------------------------------------
+    // this.fitForm = this.fb.group({
+    //   profileName: ['', Validators.required],
+    //   profileDesc: ['', Validators.required],
+    //   instId: ['', Validators.required],
+    //   userType: ['', Validators.required],
+    //   profileId: ['', Validators.required],
+    //   status: ['', Validators.required],
+    // });
+    // this.nodeService.getUserAccessModules().then((data: any) => {
+    //   this.files = this.convertMenuStructureToTreeNodes(data);
+    //   console.log('this.files----------add:', this.files);
+
+    //   this.cd.detectChanges();
+    //   this.cd.markForCheck();
+    //   if (this.formType === 'view') this.files.forEach(node => this.expandRecursive(node, true));
+    //   this.selectedFiles = this.findPreselectedNodes(this.files, ['user_mgmt', 'deposit', 'Delete_Authorize_Branch']);
+    // });
+
+    // if (this.formType !== 'add' && this.routeData) {
+    //   this.fitForm.patchValue(this.routeData);
+    //   this.files = this.convertMenuStructureToTreeNodes(this.routeData.selectedMenuIds || []);
+    //   this.cd.detectChanges();
+    //   this.cd.markForCheck();
+    //   console.log('this.files----------edit:', this.files);
+
+    //   // this.selectedFiles = this.findPreselectedNodes(this.files, this.routeData.selectedMenuIds || []);
+    // }
+    // console.log('Route Data:', this.routeData.selectedMenuIds);
+
+    // if (this.formType === 'view') this.fitForm.disable();
+
+
+  }
+  getCheckedNodes(nodes: TreeNode[]): TreeNode[] {
+    const checkedNodes: TreeNode[] = [];
+
+    const collect = (node: TreeNode) => {
+      if (node.data?.checked) {
+        checkedNodes.push(node);
+      }
+
+      if (node.children) {
+        node.children.forEach(child => collect(child));
+      }
     };
-    // Load user-access modules
-    this.nodeService.getUserAccessModules().then(data => {
-      this.files = data;
-      console.log('files', this.files);
 
-      if (this.formType === 'view') {
-        this.files.forEach((node) => {
-          this.expandRecursive(node, true);
+    nodes.forEach(node => collect(node));
+    return checkedNodes;
+  }
+
+  markCheckedNodes(nodes: TreeNode[], selected: any[]): void {
+    console.log('Marking nodes as checked with selected:', selected);
+
+    const selectedSet = new Set<string>();
+
+    // Flatten selected menuIds from backend into a Set
+    selected.forEach((menu: any) => {
+      if (menu.checked == true) {
+        selectedSet.add(menu.menuId);
+
+        menu.subMenu?.forEach((sub: any) => {
+          if (sub.checked == true) {
+            selectedSet.add(sub.menuId);
+
+            sub.permissions?.forEach((perm: any) => {
+              if (perm.checked == true) { selectedSet.add(perm.menuId); }
+
+            });
+          }
+
         });
       }
 
-      // 📝 Optional: Pre-select items the user already has access to
-      // For demo: assume user has access to 'User Management' and 'Deposit'
-      this.selectedFiles = this.findPreselectedNodes(data, ['user_mgmt', 'deposit', 'Delete_Authorize_Branch']);
     });
 
-  }
+    // Recursive function to mark nodes
+    const mark = (node: TreeNode) => {
+      const menuId = node.data?.menuId;
+      if (selectedSet.has(menuId)) {
+        node.data.checked = true;
+      }
 
-  ngOnChanges(changes: any) {
-    console.log('ngOnChanges called', changes);
-  }
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit called');
-  }
-  previousSelectedIds: Set<string> = new Set();
-  onSelectionChange(selection: TreeNode<any> | TreeNode<any>[] | null): void {
-    const selectedArray = Array.isArray(selection) ? selection : selection ? [selection] : [];
-
-    const currentIds = new Set(selectedArray.map(node => node.data)); // Adjust if using node.data.id
-
-    const added = Array.from(currentIds).filter(id => !this.previousSelectedIds.has(id));
-    const removed = Array.from(this.previousSelectedIds).filter(id => !currentIds.has(id));
-
-    if (added.length > 0) {
-      console.log('✅ Checked:', added);
-    }
-
-    if (removed.length > 0) {
-      console.log('❌ Unchecked:', removed);
-    }
-
-    this.previousSelectedIds = currentIds;
-  }
-
-  private expandRecursive(node: TreeNode, isExpand: boolean) {
-    node.expanded = isExpand;
-    if (node.children) {
-      node.children.forEach((childNode) => {
-        this.expandRecursive(childNode, isExpand);
-      });
-    }
-  }
-
-  findPreselectedNodes(nodes: TreeNode[], selectedData: string[]): TreeNode[] {
-    const result: TreeNode[] = [];
-
-    const traverse = (nodeList: TreeNode[]) => {
-      for (const node of nodeList) {
-        if (selectedData.includes(node.data)) {
-          result.push(node);
-        }
-        if (node.children) {
-          traverse(node.children);
-        }
+      if (node.children?.length) {
+        node.children.forEach(child => mark(child));
       }
     };
 
-    traverse(nodes);
-    return result;
+    nodes.forEach(mark);
   }
 
-  goBack() {
+
+  goBack(): void {
     this.location.back();
   }
-  onSubmit() {
+
+  onSubmit(): void {
     if (this.fitForm.valid) {
-      console.log('Form Data:', this.fitForm.value);
-      // Process the form data here 
-      const selectedModuleIds = this.selectedFiles.map(node => node.data);
-      console.log('Selected Modules:', selectedModuleIds);
-
-      const fullData = {
-        ...this.fitForm.value,
-        accessModules: selectedModuleIds
-      };
-
+      const selectedModuleIds = this.selectedFiles.map(node => node.data.menuId);
+      const fullData = { ...this.fitForm.value, accessModules: selectedModuleIds };
       console.log('Form Data with Access:', fullData);
     } else {
-      console.log('Form is invalid', this.fitForm);
       this.fitForm.markAllAsTouched();
     }
   }
 
+  onSave(): void {
+    const postData = this.convertTreeNodesToMenuStructure(this.files);
+    // const payload = {
+    //   ...this.fitForm.value,
+    //   selectedMenuIds: postData
+    // };
+    // console.log('Data to POST:', payload);
 
+
+    // // if (this.formType === 'add') {
+    // this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
+    //   next: (res) => {
+    //     console.log('Profile added successfully:', res);
+    //     this.goBack();
+    //   },
+    //   error: (err) => console.error('Error adding profile:', err)
+    // });
+    console.log(' fitForm:', this.fitForm.value);
+
+    let payload = {
+      profileName: this.fitForm.value.profileName,
+      profileDesc: this.fitForm.value.profileDesc,
+      instId: this.fitForm.value.instId,
+      userType: this.fitForm.value.userType,
+      selectedMenuIds: postData
+    };
+
+    // ✅ Log nicely formatted payload
+    console.log('Data to POST:', JSON.stringify(payload, null, 2));
+    this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
+      next: (res) => {
+        console.log('Profile added successfully:', res);
+        this.goBack();
+      },
+      error: (err) => console.error('Error adding profile:', err)
+    });
+    // Your actual POST call here
+    // this.apiService.saveUserPermissions(payload).subscribe(...)
+
+
+    // } else if (this.formType === 'edit') {
+    //   this.restApi.put(`/usermanagement/profile/updateProfile/${this.routeData.profileId}`, payload).subscribe({
+    //     next: (res) => {
+    //       console.log('Profile updated successfully:', res);
+    //       this.goBack();
+    //     },
+    //     error: (err) => console.error('Error updating profile:', err)
+    //   });
+    // }
+
+  }
+
+  onSelectionChange(selected: any): void {
+    this.selectedFiles = selected;
+    this.updateCheckedFlags(this.files, selected);
+    selected.forEach((node: any) => this.checkParentNodes(node));
+    this.selectedFiles = this.collectCheckedNodes(this.files);
+    // Then mark only selected nodes as checked
+
+  }
+
+  updateCheckedFlags(nodes: TreeNode[], selectedNodes: TreeNode[]): void {
+    for (let node of nodes) {
+      node.data.checked = selectedNodes.includes(node);
+      if (node.children?.length) {
+        this.updateCheckedFlags(node.children, selectedNodes);
+        node.data.checked ||= node.children.some(child => child.data.checked);
+      }
+    }
+  }
+
+  checkParentNodes(node: TreeNode): void {
+    let current = (node as any).parent;
+    while (current) {
+      current.data.checked = true;
+      current = (current as any).parent;
+    }
+  }
+
+  collectCheckedNodes(nodes: TreeNode[]): TreeNode[] {
+    return nodes.flatMap(node => [
+      ...(node.data.checked ? [node] : []),
+      ...(node.children ? this.collectCheckedNodes(node.children) : [])
+    ]);
+  }
+
+  expandRecursive(node: TreeNode, isExpand: boolean): void {
+    node.expanded = isExpand;
+    node.children?.forEach(child => this.expandRecursive(child, isExpand));
+  }
+
+  findPreselectedNodes(nodes: TreeNode[], selectedData: string[]): TreeNode[] {
+    const result: TreeNode[] = [];
+    const traverse = (nodeList: TreeNode[]) => nodeList.forEach(node => {
+      if (selectedData.includes(node.data.menuId)) result.push(node);
+      if (node.children) traverse(node.children);
+    });
+    traverse(nodes);
+    return result;
+  }
+
+  convertMenuStructureToTreeNodes(menuItems: MenuItem[]): TreeNode[] {
+    const setParent = (children: TreeNode[], parent: TreeNode) => {
+      children.forEach(child => {
+        (child as any).parent = parent;
+        if (child.children) setParent(child.children, child);
+      });
+    };
+
+    return menuItems.map(item => {
+      const node: TreeNode = {
+        label: item.title,
+        data: { ...item },
+        icon: item.icon || 'pi pi-folder',
+        children: []
+      };
+
+      if (item.subMenu) {
+        node.children = item.subMenu.map(sub => {
+          const subNode: TreeNode = {
+            label: sub.title,
+            data: { ...sub },
+            icon: sub.icon || 'pi pi-folder',
+            children: []
+          };
+
+          if (sub.permissions) {
+            subNode.children = sub.permissions.map(perm => ({
+              label: perm.title,
+              data: { ...perm },
+              icon: 'pi pi-eye',
+              leaf: true
+            }));
+          }
+
+          return subNode;
+        });
+        setParent(node.children, node);
+      }
+
+      return node;
+    });
+  }
+
+  convertTreeNodesToMenuStructure(nodes: TreeNode[]): MenuItem[] {
+    const result: MenuItem[] = [];
+    const findOrCreate = (arr: any[], menuId: string) => arr.find(i => i.menuId === menuId) || null;
+
+    nodes.forEach(top => {
+      if (!top.data?.menuId) return;
+
+      let existingTop = findOrCreate(result, top.data.menuId);
+      if (!existingTop) {
+        existingTop = {
+          title: top.label,
+          menuId: top.data.menuId,
+          checked: !!top.data.checked,
+          icon: top.data.icon,
+          link: top.data.link,
+          color: top.data.color,
+          subMenu: []
+        };
+        result.push(existingTop);
+      }
+
+      top.children?.forEach(sub => {
+        let existingSub = findOrCreate(existingTop.subMenu, sub.data.menuId);
+        if (!existingSub) {
+          existingSub = {
+            title: sub.label,
+            menuId: sub.data.menuId,
+            checked: !!sub.data.checked,
+            icon: sub.data.icon,
+            link: sub.data.link,
+            color: sub.data.color,
+            permissions: []
+          };
+          existingTop.subMenu.push(existingSub);
+        }
+
+        if (sub.children?.length) {
+          existingSub.permissions = sub.children.map(perm => ({
+            title: perm.label,
+            menuId: perm.data.menuId,
+            checked: !!perm.data.checked
+          }));
+        }
+      });
+    });
+
+    return result;
+  }
 }

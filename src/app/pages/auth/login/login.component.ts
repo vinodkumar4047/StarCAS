@@ -129,6 +129,8 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         console.log('Login Success:', res);
         localStorage.setItem('userRole', res.userDetails[0].userId);
+        localStorage.setItem('authToken', res.Token);
+
         console.log(' localStorage.setItem(, res.userDetails[0].userId)', localStorage.getItem('userRole'));
 
 

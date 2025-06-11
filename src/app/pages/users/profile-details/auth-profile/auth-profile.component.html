@@ -12,7 +12,7 @@
                 </div>
             </div> 
 
-             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
+             <app-table [tableData]="profileData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
               (deleteEvent)="delete_visible = true"/>
 
       <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">

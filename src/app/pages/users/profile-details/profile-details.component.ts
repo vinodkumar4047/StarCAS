@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -8,6 +8,8 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { Router } from '@angular/router';
+import { RestService } from '../../../layout/service/rest.service';
+import { take } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,8 +26,10 @@ import { Router } from '@angular/router';
   styleUrl: './profile-details.component.scss'
 })
 export class ProfileDetailsComponent {
+  loading: boolean = false;
+  profileData: any = [];
 
-  constructor(private router: Router) { };
+  constructor(private router: Router, private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   globalFilterFields: any = [
     'INSTID',
@@ -42,13 +46,14 @@ export class ProfileDetailsComponent {
   { "PROFILE_ID": 16, "PROFILE_NAME": "TESTCHECKER", "PROFILE_DESC": "checker", "INSTID": "TEST", "LOGINIPADDRESSREQUIRED": "0", "LOGINEXPIRYDATEREQUIRED": "0", "LOGINRETRYCOUNTREQUIRED": "0", "LOGINBRANCHCODEREQUIRED": "0", "USERPASSWORDREPEATABLE": "0", "USERPASSWORDEXPIRYCHECK": "0", "USERTYPE": "C", "USER_CODE": "24", "AUTH_CODE": "AUTHORIZED", "AUTH_DATE": "11-07-2024", "AUTH_BY": "adminchecker", "ADDED_BY": "adminmaker", "ADDED_DATE": "11-07-2024", "REMARKS": "AUTHORIZED" },
   { "PROFILE_ID": 19, "PROFILE_NAME": "demoadmin1", "PROFILE_DESC": "Maker", "INSTID": "TEST", "LOGINIPADDRESSREQUIRED": "0", "LOGINEXPIRYDATEREQUIRED": "0", "LOGINRETRYCOUNTREQUIRED": "0", "LOGINBRANCHCODEREQUIRED": "0", "USERPASSWORDREPEATABLE": "0", "USERPASSWORDEXPIRYCHECK": "0", "USERTYPE": "M", "USER_CODE": "24", "AUTH_CODE": "AUTHORIZED", "AUTH_DATE": "15-07-2024", "AUTH_BY": "adminchecker", "ADDED_BY": "adminmaker", "ADDED_DATE": "15-07-2024", "REMARKS": "AUTHORIZED" }]
 
+
   cols = [
-    { field: 'INSTID', header: 'INST ID' },
-    { field: 'PROFILE_ID', header: 'PROFILE_ID' },
-    { field: 'PROFILE_NAME', header: 'PROFILE_NAME' },
-    { field: 'PROFILE_DESC', header: 'PROFILE_DESC' },
-    { field: 'AUTH_DATE', header: 'ADDED_DATE' },
-    { field: 'AUTH_CODE', header: 'STATUS' },
+    { field: 'instId', header: 'INST ID' },
+    { field: 'profileId', header: 'PROFILE_ID' },
+    { field: 'profileName', header: 'PROFILE_NAME' },
+    { field: 'profileDesc', header: 'PROFILE_DESC' },
+    { field: 'addedDate', header: 'ADDED_DATE' },
+    { field: 'authCode', header: 'STATUS' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
   delete_visible: any;
@@ -56,16 +61,17 @@ export class ProfileDetailsComponent {
   userRole: any = localStorage.getItem('userRole');
   buttonsList: any = this.userRole == 'SU1' || this.userRole == 'SU2' ? [
     { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'AuthorizedProfile', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ]
     : [
       { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
     ]
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker' || this.userRole === 'SU1'
+    this.cols = this.userRole === 'maker' || this.userRole === 'SU1' || this.userRole === 'SU2'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
+    this.getprofileData()
   }
   addOrEdit(event: any, type: any) {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
@@ -75,6 +81,40 @@ export class ProfileDetailsComponent {
 
   authFunc(event: any) {
     console.log(event);
-    this.router.navigate(['/pages/auth-profile'], { state: { data: event?.type } });
+    this.router.navigate(['/pages/auth-profile'], { state: { type: event?.type } });
   }
+
+  getprofileData() {
+    this.loading = true;
+    this.restApi.get('/usermanagement/profile/getAllProfiles/P').pipe(
+      take(1),
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.profileData = res.data
+          //   this.networkData = res.map((a: any) => {
+          //     return {
+          //       ...a,
+          //       networkStatusText: a.networkStatus == 1 ? 'CONNECTED' : 'NOT CONNECTED',
+          //     };
+          //   }
+          // );
+          console.log('taskManager data:', res);
+          this.cdr.detectChanges();
+        } else {
+          console.warn('No data received or request failed.');
+        }
+        setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.loading = false;
+
+      }
+    });
+  };
+
 }

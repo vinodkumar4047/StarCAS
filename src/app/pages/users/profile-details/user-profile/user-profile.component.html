@@ -15,35 +15,36 @@
             <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
                 <p-floatlabel *ngIf="formType == 'add'" variant="on">
 
-                    <p-select [options]="InstIDOpt" formControlName="INSTID" optionValue="code" optionLabel="name"
+                    <p-select [options]="InstIDOpt" formControlName="instId" optionValue="code" optionLabel="name"
                         inputId="INSTID" styleClass="w-full" />
                     <label for="INSTID">Institution Name <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
 
                 <p-floatlabel variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileName"
                         type="text" />
                     <label for="indirectState">Profile Name<span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'add'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="BINValue" formControlName="BINValue" type="text" />
-                    <label for="BINValue">Category <span style="color: red; font-size: 16px;">*</span> </label>
+                    <input pInputText styleClass="w-full" id="BINValue" formControlName="profileDesc" type="text" />
+                    <label for="BINValue">Profile Discription <span style="color: red; font-size: 16px;">*</span>
+                    </label>
                 </p-floatlabel>
 
                 <p-floatlabel variant="on">
 
-                    <p-select [options]="logicalOpt" formControlName="logicalGroup" optionValue="code"
-                        optionLabel="name" inputId="logicalGroup" styleClass="w-full" />
-                    <label for="logicalGroup">Profile Discription<span style="color: red; font-size: 16px;">*</span>
+                    <p-select [options]="logicalOpt" formControlName="userType" optionValue="code" optionLabel="name"
+                        inputId="logicalGroup" styleClass="w-full" />
+                    <label for="logicalGroup">Category<span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <!---------------------- EXTRA VIEW INPUTS -------------------------------------------->
                 <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileName"
                         type="text" />
                     <label for="indirectState">Config/Edited by <span style="color: red; font-size: 16px;">*</span>
                     </label>
@@ -71,29 +72,27 @@
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="status"
                         type="text" />
                     <label for="indirectState">Status <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'edit'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
-                        type="text" />
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileId" type="text" />
                     <label for="indirectState">Profile ID <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'edit'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileName"
                         type="text" />
                     <label for="indirectState">Profile For <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'edit'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
-                        type="text" />
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="instId" type="text" />
                     <label for="indirectState">Inst ID <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
@@ -107,7 +106,7 @@
                     [(selection)]="selectedFiles"></p-tree>
             </div>
             <div *ngIf="formType !== 'view'" class="flex flex-row-reverse mx-4 my-8">
-                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
+                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSave()" />
             </div>
         </form>
 
