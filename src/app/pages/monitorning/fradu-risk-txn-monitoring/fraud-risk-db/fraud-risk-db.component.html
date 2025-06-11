@@ -1,11 +1,11 @@
-<div class="trnxMonitor " style="text-align: center;margin-bottom: 20px;">
+<div class="trnxMonitor " style="text-align: center;margin: 10px;">
     <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">Fraud & Risk Monitor</h2>
 </div>
 <!-- Progress Bar -->
-<div [style]="{ height: '6px', marginBottom: '10px' }"><p-progressbar *ngIf="isLoading" mode="indeterminate">
+<div [style]="{ height: '6px', margin: '10px' }"><p-progressbar *ngIf="isLoading" mode="indeterminate">
     </p-progressbar></div>
 
-<div>
+<div style="margin: 10px;">
     <p-table [value]="transactionMonitoringrData" [resizableColumns]="true" styleClass="p-datatable-gridlines"
         [tableStyle]="{'width': '100%', 'table-layout': 'fixed'}">
         <ng-template #header>

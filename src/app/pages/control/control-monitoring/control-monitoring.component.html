@@ -4,8 +4,18 @@
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
 
         <div class="image-containor">
-            <img src="../../../../assets/images/monitoring.png" alt="">
-            <p-button label="Control Monitoring" icon="pi pi-save" (click)="openWindow()" class="atm-btn" />
+            <img src="../../../../assets/images/monitoring.jpg" alt="">
+              <div class="overlay">
+                <div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;">
+                    <div class="icon"> <lucide-icon name="tv-minimal" style="color: white;" ></lucide-icon> </div>
+                    <div class="content">CONTROL MONITORING</div>
+                    <p-button label="View Activity" icon="pi pi-eye" raised (click)="openWindow()"  />
+                </div>
+            </div>
         </div>
     </div>
 </div>

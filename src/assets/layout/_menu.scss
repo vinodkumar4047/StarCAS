@@ -88,13 +88,12 @@
             &.active-route {
                 font-weight: 700;
                 color: white;
-                background: linear-gradient(90deg, color-mix(in srgb, var(--primary-color) 30%, var(--primary-color)), #a0c4fe);
+                background:  var(--primary-color);
 
             }
 
             &:hover {
-                background: linear-gradient(90deg,
-                        color-mix(in srgb, #97befe 30%, #97befe), #e9f2ff);
+                background: #97befe;
             }
 
             &:focus {

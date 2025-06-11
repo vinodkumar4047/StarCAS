@@ -8,11 +8,12 @@ import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { RestService } from '../../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-atm-monitoring-details',
-  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule, InputGroupAddonModule, Dialog, TableModule,LucideAngularModule],
   templateUrl: './atm-monitoring-details.component.html',
   styleUrl: './atm-monitoring-details.component.scss',
   // encapsulation:ViewEncapsulation.None
@@ -30,38 +31,38 @@ export class AtmMonitoringDetailsComponent {
   atmDenominations: any[] = [];
   atmDetails1: any = null;
 
-  dataATM = [
-    { atmStatus: 'G', atmId: 'TN000' },
-    { atmStatus: 'O', atmId: 'TN001' },
-    { atmStatus: 'W', atmId: 'TN002' },
-    { atmStatus: 'N', atmId: 'TN003' },
-    { atmStatus: 'L', atmId: 'TN004' },
-    { atmStatus: 'C', atmId: 'TN005' },
-    { atmStatus: 'S', atmId: 'TN006' },
-    { atmStatus: 'G', atmId: 'TN007' },
-    { atmStatus: 'W', atmId: 'TN008' },
-    { atmStatus: 'O', atmId: 'TN009' },
-    { atmStatus: 'N', atmId: 'TN010' },
-    { atmStatus: 'L', atmId: 'TN011' },
-    { atmStatus: 'G', atmId: 'TN012' },
-    { atmStatus: 'C', atmId: 'TN013' },
-    { atmStatus: 'S', atmId: 'TN014' },
-    { atmStatus: 'W', atmId: 'TN015' },
-    { atmStatus: 'G', atmId: 'TN016' },
-    { atmStatus: 'O', atmId: 'TN017' },
-    { atmStatus: 'C', atmId: 'TN018' },
-    { atmStatus: 'N', atmId: 'TN019' },
-    { atmStatus: 'L', atmId: 'TN020' },
-    { atmStatus: 'G', atmId: 'TN021' },
-    { atmStatus: 'W', atmId: 'TN022' },
-    { atmStatus: 'O', atmId: 'TN023' },
-    { atmStatus: 'S', atmId: 'TN024' },
-    { atmStatus: 'L', atmId: 'TN025' },
-    { atmStatus: 'C', atmId: 'TN026' },
-    { atmStatus: 'N', atmId: 'TN027' },
-    { atmStatus: 'W', atmId: 'TN028' },
-    { atmStatus: 'G', atmId: 'TN029' }
-  ];
+  dataATM:any = [];
+  //   { atmStatus: 'G', atmId: 'TN000' },
+  //   { atmStatus: 'O', atmId: 'TN001' },
+  //   { atmStatus: 'W', atmId: 'TN002' },
+  //   { atmStatus: 'N', atmId: 'TN003' },
+  //   { atmStatus: 'L', atmId: 'TN004' },
+  //   { atmStatus: 'C', atmId: 'TN005' },
+  //   { atmStatus: 'S', atmId: 'TN006' },
+  //   { atmStatus: 'G', atmId: 'TN007' },
+  //   { atmStatus: 'W', atmId: 'TN008' },
+  //   { atmStatus: 'O', atmId: 'TN009' },
+  //   { atmStatus: 'N', atmId: 'TN010' },
+  //   { atmStatus: 'L', atmId: 'TN011' },
+  //   { atmStatus: 'G', atmId: 'TN012' },
+  //   { atmStatus: 'C', atmId: 'TN013' },
+  //   { atmStatus: 'S', atmId: 'TN014' },
+  //   { atmStatus: 'W', atmId: 'TN015' },
+  //   { atmStatus: 'G', atmId: 'TN016' },
+  //   { atmStatus: 'O', atmId: 'TN017' },
+  //   { atmStatus: 'C', atmId: 'TN018' },
+  //   { atmStatus: 'N', atmId: 'TN019' },
+  //   { atmStatus: 'L', atmId: 'TN020' },
+  //   { atmStatus: 'G', atmId: 'TN021' },
+  //   { atmStatus: 'W', atmId: 'TN022' },
+  //   { atmStatus: 'O', atmId: 'TN023' },
+  //   { atmStatus: 'S', atmId: 'TN024' },
+  //   { atmStatus: 'L', atmId: 'TN025' },
+  //   { atmStatus: 'C', atmId: 'TN026' },
+  //   { atmStatus: 'N', atmId: 'TN027' },
+  //   { atmStatus: 'W', atmId: 'TN028' },
+  //   { atmStatus: 'G', atmId: 'TN029' }
+  // ];
   atmSearchTerm: string = '';
   filteredATMList: any[] = [];
   lenOfData: any
@@ -174,18 +175,18 @@ export class AtmMonitoringDetailsComponent {
   }
 
   ngOnInit() {
-    // this.atmMonitoringGetData();
+    this.atmMonitoringGetData();
     // this.getAtmDetails('TEST008');
 
     this.filteredATMList = this.dataATM; // initialize with full list
     this.lenOfData = {
-      good: this.dataATM.filter(atm => atm?.atmStatus == 'G').length,
-      offline: this.dataATM.filter(atm => atm?.atmStatus == 'O').length,
-      warn: this.dataATM.filter(atm => atm?.atmStatus == 'W').length,
-      outOfService: this.dataATM.filter(atm => atm?.atmStatus == 'N').length,
-      lowCash: this.dataATM.filter(atm => atm?.atmStatus == 'L').length,
-      critical: this.dataATM.filter(atm => atm?.atmStatus == 'C').length,
-      supervisor: this.dataATM.filter(atm => atm?.atmStatus == 'S').length,
+      good: this.dataATM.filter((atm:any) => atm?.atmStatus == 'G').length,
+      offline: this.dataATM.filter((atm:any) => atm?.atmStatus == 'O').length,
+      warn: this.dataATM.filter((atm:any) => atm?.atmStatus == 'W').length,
+      outOfService: this.dataATM.filter((atm:any) => atm?.atmStatus == 'N').length,
+      lowCash: this.dataATM.filter((atm:any) => atm?.atmStatus == 'L').length,
+      critical: this.dataATM.filter((atm:any) => atm?.atmStatus == 'C').length,
+      supervisor: this.dataATM.filter((atm:any) => atm?.atmStatus == 'S').length,
     };
     this.denominationArray = Object.entries(this.atmDetails.denominations).map(
       ([denomination, data]: [string, any]) => ({
@@ -226,13 +227,13 @@ export class AtmMonitoringDetailsComponent {
 
           // Compute lengths
           this.lenOfData = {
-            good: this.dataATM.filter(atm => atm?.atmStatus === 'G').length,
-            offline: this.dataATM.filter(atm => atm?.atmStatus === 'O').length,
-            warn: this.dataATM.filter(atm => atm?.atmStatus === 'W').length,
-            outOfService: this.dataATM.filter(atm => atm?.atmStatus === 'N').length,
-            lowCash: this.dataATM.filter(atm => atm?.atmStatus === 'L').length,
-            critical: this.dataATM.filter(atm => atm?.atmStatus === 'C').length,
-            supervisor: this.dataATM.filter(atm => atm?.atmStatus === 'S').length,
+            good: this.dataATM.filter((atm:any) => atm?.atmStatus === 'G').length,
+            offline: this.dataATM.filter((atm:any) => atm?.atmStatus === 'O').length,
+            warn: this.dataATM.filter((atm:any) => atm?.atmStatus === 'W').length,
+            outOfService: this.dataATM.filter((atm:any) => atm?.atmStatus === 'N').length,
+            lowCash: this.dataATM.filter((atm:any) => atm?.atmStatus === 'L').length,
+            critical: this.dataATM.filter((atm:any) => atm?.atmStatus === 'C').length,
+            supervisor: this.dataATM.filter((atm:any) => atm?.atmStatus === 'S').length,
           };
 
           console.log('Flattened ATM Data:', this.dataATM);
@@ -319,7 +320,7 @@ export class AtmMonitoringDetailsComponent {
 
   onSearchInput(event: any) {
     const term = event.target.value.toLowerCase();
-    this.filteredATMList = this.dataATM.filter(atm =>
+    this.filteredATMList = this.dataATM.filter((atm:any) =>
       atm.atmId.toLowerCase().includes(term)
     );
   }

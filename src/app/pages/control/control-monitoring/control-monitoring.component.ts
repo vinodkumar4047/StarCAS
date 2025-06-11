@@ -4,10 +4,11 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabsModule } from 'primeng/tabs';
 import { NewWindowService } from '../../../layout/service/new-window-service.service';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-control-monitoring',
-  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule],
+  imports: [TabsModule, CommonModule, ButtonModule, InputTextModule,LucideAngularModule],
   templateUrl: './control-monitoring.component.html',
   styleUrl: './control-monitoring.component.scss'
 })

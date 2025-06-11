@@ -10,15 +10,15 @@
                     <i class="pi pi-th-large"></i>&nbsp;All ATM's&nbsp; <span class="count">{{dataATM.length}}</span>
                 </p-tab>
                 <p-tab value="1" class="good">
-                    <i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp;Good ATM's&nbsp; <span
+                    <i class="pi pi-check-circle" style="color: #4CAF50 ;"></i>&nbsp;Good ATM's&nbsp; <span
                         class="count">{{lenOfData.good}}</span>
                 </p-tab>
                 <p-tab value="2" class="offline">
-                    <i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp;Off-Line ATM's&nbsp; <span
+                    <i class="pi pi-times-circle" style="color: #F44336;"></i>&nbsp;Off-Line ATM's&nbsp; <span
                         class="count">{{lenOfData.offline}}</span>
                 </p-tab>
                 <p-tab value="3" class="warning">
-                    <i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp;Warning ATM's&nbsp; <span
+                    <i class="pi pi-exclamation-triangle" style="color: #FF9800;"></i>&nbsp;Warning ATM's&nbsp; <span
                         class="count">{{lenOfData.warn}}</span>
                 </p-tab>
                 <p-tab value="4" class="outSer">
@@ -26,15 +26,15 @@
                         class="count">{{lenOfData.outOfService}}</span>
                 </p-tab>
                 <p-tab value="5" class="lowcash">
-                    <i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp;Low Cash ATM's&nbsp; <span
+                    <i class="pi pi-money-bill" style="color: #FFEB3B;"></i>&nbsp;Low Cash ATM's&nbsp; <span
                         class="count">{{lenOfData.lowCash}}</span>
                 </p-tab>
                 <p-tab value="6" class="crit">
-                    <i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp;Critical ATM's&nbsp; <span
+                    <i class="pi pi-exclamation-circle" style="color: #991B1B;"></i>&nbsp;Critical ATM's&nbsp; <span
                         class="count">{{lenOfData.critical}}</span>
                 </p-tab>
                 <p-tab value="7" class="supervisor">
-                    <i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp;Supervisor ATM's&nbsp; <span
+                    <i class="pi pi-eye" style="color: #9C27B0;"></i>&nbsp;Supervisor ATM's&nbsp; <span
                         class="count">{{lenOfData.supervisor}}</span>
                 </p-tab>
             </p-tablist>
@@ -52,63 +52,72 @@
                     </div>
                     <div class="status-legend">
                         <div class="legend-item" style="color: #4caf50;">
-                            <i class="pi pi-check-circle"></i> Good – ATMs are operational
+                            <lucide-icon name="monitor-check" style="color: #4CAF50;" size="16px"></lucide-icon>&nbsp; Good – ATMs are operational
                         </div>
-                        <div class="legend-item" style="color: #ff0000;">
-                            <i class="pi pi-times-circle"></i> Offline – ATMs are unreachable
+                        <div class="legend-item" style="color: #F44336;">
+                             <lucide-icon name="circle-x" style="color: #F44336;" size="16px"></lucide-icon>&nbsp; Offline – ATMs are unreachable
                         </div>
-                        <div class="legend-item" style="color: #f38f00;">
-                            <i class="pi pi-exclamation-triangle"></i> Warning – ATM has issues
+                        <div class="legend-item" style="color: #FF9800;">
+                              <lucide-icon name="circle-alert" style="color: #FF9800;" size="16px"></lucide-icon>&nbsp; Warning – ATM has issues
                         </div>
                         <div class="legend-item" style="color: #9fa0a2;">
-                            <i class="pi pi-ban"></i> Out of Service – ATM not working
+                            <lucide-icon name="ban" style="color: #9fa0a2;" size="16px"></lucide-icon>&nbsp; Out of Service – ATM not working
                         </div>
-                        <div class="legend-item" style="color: #03663a;">
-                            <i class="pi pi-money-bill"></i> Low Cash – ATM running low on cash
+                        <div class="legend-item" style="color: #FFEB3B;">
+                            <lucide-icon name="circle-arrow-down" style="color: #FFEB3B;" size="16px"></lucide-icon>&nbsp; Low Cash – ATM running low on cash
                         </div>
-                        <div class="legend-item" style="color: #8b0000;">
-                            <i class="pi pi-exclamation-circle"></i> Critical – Urgent ATM issue
+                        <div class="legend-item" style="color: #991B1B;">
+                             <lucide-icon name="octagon-minus" style="color: #991B1B;" size="16px"></lucide-icon>&nbsp; Critical – Urgent ATM issue
                         </div>
-                        <div class="legend-item" style="color: #3c3cd1;">
-                            <i class="pi pi-eye"></i> Supervisor – Supervisor attention needed
+                        <div class="legend-item" style="color: #9C27B0;">
+                             <lucide-icon name="construction" style="color: #9C27B0;" size="16px"></lucide-icon>&nbsp; Supervisor – Supervisor attention needed
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="filteredATMList.length == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div [ngSwitch]="atm.atmStatus">
-                                <div *ngSwitchCase="'G'" (click)="showDialog(atm)" class="atm-box color-good">
-                                    <img src="assets/images/output-onlinepngtools (2).png" alt="">
-                                    <div><i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                <div *ngSwitchCase="'G'" (click)="showDialog(atm)" class="atm-box">
+                                    <!-- <img src="assets/images/output-onlinepngtools (2).png" alt=""> -->
+                                     <lucide-icon name="monitor-check" style="color: #4CAF50;" size="32px" ></lucide-icon>
+                                      <div style="color: #4CAF50;margin: 5px;">Active</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'O'" (click)="showDialog(atm)" class="atm-box color-offline">
-                                    <img src="assets/images/red-atm.png" alt="">
-                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmId
-                                        }}</div>
+                                <div *ngSwitchCase="'O'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="assets/images/red-atm.png" alt=""> -->
+                                   <lucide-icon name="circle-x" style="color: #F44336;" size="32px" ></lucide-icon>
+                                      <div style="color: #F44336;margin: 5px;">Down</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'W'" (click)="showDialog(atm)" class="atm-box color-warning">
-                                    <img src="assets/images/warning-atm.png" alt="">
-                                    <div> <i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                <div *ngSwitchCase="'W'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="assets/images/warning-atm.png" alt=""> -->
+                                    <lucide-icon name="circle-alert" style="color: #FF9800;" size="32px" ></lucide-icon>
+                                      <div style="color: #FF9800;margin: 5px;">Warning</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'N'" (click)="showDialog(atm)" class="atm-box color-out">
-                                    <img src="assets/images/out-off-service.png" alt="">
-                                    <div> <i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmId }}
-                                    </div>
+                                <div *ngSwitchCase="'N'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="assets/images/out-off-service.png" alt=""> -->
+                                     <lucide-icon name="ban" style="color: #9fa0a2;" size="32px" ></lucide-icon>
+                                      <div style="color: #9fa0a2;margin: 5px;">Inactive</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'L'" (click)="showDialog(atm)" class="atm-box color-lowcash">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmId
-                                        }}</div>
+                                <div *ngSwitchCase="'L'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="../../../../../assets/images/out-off-service.png" alt=""> -->
+                                    <lucide-icon name="circle-arrow-down" style="color: #FFEB3B;" size="32px" ></lucide-icon>
+                                      <div style="color: #FFEB3B;margin: 5px;">Low in cash</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'C'" (click)="showDialog(atm)" class="atm-box color-critical">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                <div *ngSwitchCase="'C'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="../../../../../assets/images/out-off-service.png" alt=""> -->
+                                      <lucide-icon name="octagon-minus" style="color: #991B1B;" size="32px" ></lucide-icon>
+                                      <div style="color: #991B1B;margin: 5px;">Critical</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
-                                <div *ngSwitchCase="'S'" (click)="showDialog(atm)" class="atm-box color-supervisor">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmId }}</div>
+                                <div *ngSwitchCase="'S'" (click)="showDialog(atm)" class="atm-box ">
+                                    <!-- <img src="../../../../../assets/images/out-off-service.png" alt=""> -->
+                                     <lucide-icon name="construction" style="color: #9C27B0;" size="32px" ></lucide-icon>
+                                      <div style="color: #9C27B0;margin: 5px;">Maintenance</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -126,17 +135,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #4caf50;">
-                            <i class="pi pi-check-circle"></i> Good – ATMs are operational
+                           <div class="legend-item" style="color: #4caf50;">
+                            <lucide-icon name="monitor-check" style="color: #4CAF50;" size="16px"></lucide-icon>&nbsp; Good – ATMs are operational
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                        <div class="Nodata" *ngIf="lenOfData.good == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'G'">
                                 <div (click)="showDialog(atm)" class="atm-box color-good">
-                                    <img src="assets/images/output-onlinepngtools (2).png" alt="">
-                                    <div><i class="pi pi-check-circle" style="color: #4caf50 ;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                      <lucide-icon name="monitor-check" style="color: #4CAF50;" size="32px" ></lucide-icon>
+                                      <div style="color: #4CAF50;margin: 5px;">Active</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -154,17 +164,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #ff0000;">
-                            <i class="pi pi-times-circle"></i> Offline – ATMs are unreachable
+                        <div class="legend-item" style="color: #F44336;">
+                             <lucide-icon name="circle-x" style="color: #F44336;" size="16px"></lucide-icon>&nbsp; Offline – ATMs are unreachable
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.offline == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'O'">
                                 <div (click)="showDialog(atm)" class="atm-box color-offline">
-                                    <img src="assets/images/red-atm.png" alt="">
-                                    <div><i class="pi pi-times-circle" style="color: #ff0000;"></i>&nbsp; {{ atm.atmId
-                                        }}</div>
+                                    <lucide-icon name="circle-x" style="color: #F44336;" size="32px" ></lucide-icon>
+                                      <div style="color: #F44336;margin: 5px;">Down</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -182,17 +193,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #f38f00;">
-                            <i class="pi pi-exclamation-triangle"></i> Warning – ATM has issues
+                        <div class="legend-item" style="color: #FF9800;">
+                              <lucide-icon name="circle-alert" style="color: #FF9800;" size="16px"></lucide-icon>&nbsp; Warning – ATM has issues
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.warn == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'W'">
                                 <div (click)="showDialog(atm)" class="atm-box color-warning">
-                                    <img src="assets/images/warning-atm.png" alt="">
-                                    <div><i class="pi pi-exclamation-triangle" style="color: #f38f00;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                     <lucide-icon name="circle-alert" style="color: #FF9800;" size="32px" ></lucide-icon>
+                                      <div style="color: #FF9800;margin: 5px;">Warning</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -210,17 +222,19 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #9fa0a2;">
-                            <i class="pi pi-ban"></i> Out of Service – ATM not working
+                          <div class="legend-item" style="color: #9fa0a2;">
+                            <lucide-icon name="ban" style="color: #9fa0a2;" size="16px"></lucide-icon>&nbsp; Out of Service – ATM not working
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.outOfService == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'N'">
 
                                 <div (click)="showDialog(atm)" class="atm-box color-out">
-                                    <img src="assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-ban" style="color: #9fa0a2;"></i>&nbsp; {{ atm.atmId }}</div>
+                                    <lucide-icon name="ban" style="color: #9fa0a2;" size="32px" ></lucide-icon>
+                                      <div style="color: #9fa0a2;margin: 5px;">Inactive</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -238,17 +252,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #03663a;">
-                            <i class="pi pi-money-bill"></i> Low Cash – ATM running low on cash
+                         <div class="legend-item" style="color: #FFEB3B;">
+                            <lucide-icon name="circle-arrow-down" style="color: #FFEB3B;" size="16px"></lucide-icon>&nbsp; Low Cash – ATM running low on cash
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.lowCash == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'L'">
                                 <div (click)="showDialog(atm)" class="atm-box color-lowcash">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-money-bill" style="color: #03663a;"></i>&nbsp; {{ atm.atmId
-                                        }}</div>
+                                  <lucide-icon name="circle-arrow-down" style="color: #FFEB3B;" size="32px" ></lucide-icon>
+                                      <div style="color: #FFEB3B;margin: 5px;">Low in cash</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -266,17 +281,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #8b0000;">
-                            <i class="pi pi-exclamation-circle"></i> Critical – Urgent ATM issue
+                            <div class="legend-item" style="color: #991B1B;">
+                             <lucide-icon name="octagon-minus" style="color: #991B1B;" size="16px"></lucide-icon>&nbsp; Critical – Urgent ATM issue
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.critical == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'C'">
                                 <div (click)="showDialog(atm)" class="atm-box color-critical">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div> <i class="pi pi-exclamation-circle" style="color: #8b0000;"></i>&nbsp; {{
-                                        atm.atmId }}</div>
+                                     <lucide-icon name="octagon-minus" style="color: #991B1B;" size="32px" ></lucide-icon>
+                                      <div style="color: #991B1B;margin: 5px;">Critical</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>
@@ -294,16 +310,18 @@
                         </div>
                     </div>
                     <div class="status-legend">
-                        <div class="legend-item" style="color: #3c3cd1;">
-                            <i class="pi pi-eye"></i> Supervisor – Supervisor attention needed
+                            <div class="legend-item" style="color: #9C27B0;">
+                             <lucide-icon name="construction" style="color: #9C27B0;" size="16px"></lucide-icon>&nbsp; Supervisor – Supervisor attention needed
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.supervisor == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'S'">
-                                <div (click)="showDialog(atm)" class="atm-box color-supervisor">
-                                    <img src="../../../../../assets/images/out-off-service.png" alt="">
-                                    <div><i class="pi pi-eye" style="color: #3c3cd1;"></i>&nbsp; {{ atm.atmId }}</div>
+                                <div (click)="showDialog(atm)" class="atm-box">
+                                   <lucide-icon name="construction" style="color: #9C27B0;" size="32px" ></lucide-icon>
+                                      <div style="color: #9C27B0;margin: 5px;">Maintenance</div>
+                                    <div style="font-size: 20px;font-weight: bold;margin-top: 5px;">{{atm.atmId }}</div>
                                 </div>
                             </div>
                         </div>

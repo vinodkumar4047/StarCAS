@@ -35,7 +35,7 @@ export class DashboardComponent {
   chartData: any;
   chartOptions: any;
   subscription!: Subscription;
-  imageUrl: any = '';
+  imageUrl: any = 'assets/images/Avatar.png';
   items = [
     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
     { label: 'Remove', icon: 'pi pi-fw pi-trash' }
