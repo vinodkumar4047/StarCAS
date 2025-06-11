@@ -86,7 +86,7 @@
             display: inline-block;
             vertical-align: top;
             text-align: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             border: 2px solid #E2E8F0;
             display: flex;
             align-items: center;
@@ -206,6 +206,16 @@
         .legend-item i {
             margin-right: 0.5rem;
             font-size: 16px;
+        }
+
+        .Nodata {
+            height: 5rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 600;
         }
 
         .MONI_DIALOG {

@@ -19,7 +19,7 @@ changeDetection:ChangeDetectionStrategy.OnPush,
     providers: [ProductService, ConfirmationService, MessageService]
 })
 export class EditProfileComponent {
-imageUrl:any;
+imageUrl:any='assets/images/Avatar.png';
 @ViewChild('fileInput') fileInput!: ElementRef;
 countryOpt:any=[
     {

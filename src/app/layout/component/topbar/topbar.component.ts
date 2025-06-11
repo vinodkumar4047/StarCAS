@@ -43,7 +43,7 @@ export class TopbarComponent {
   ];
   isFullScreen = false;
   userRole: any = localStorage.getItem('userRole');
-  userImageUrl: any = 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk';
+  userImageUrl: any = 'assets/images/Avatar.png';
   constructor(public layoutService: LayoutService, private router: Router) { }
   // Check if the browser supports fullscreen API
   isFullscreen(): boolean {

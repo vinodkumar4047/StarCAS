@@ -74,6 +74,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="filteredATMList.length == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div [ngSwitch]="atm.atmStatus">
                                 <div *ngSwitchCase="'G'" (click)="showDialog(atm)" class="atm-box">
@@ -139,6 +140,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                        <div class="Nodata" *ngIf="lenOfData.good == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'G'">
                                 <div (click)="showDialog(atm)" class="atm-box color-good">
@@ -167,6 +169,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.offline == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'O'">
                                 <div (click)="showDialog(atm)" class="atm-box color-offline">
@@ -195,6 +198,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.warn == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'W'">
                                 <div (click)="showDialog(atm)" class="atm-box color-warning">
@@ -223,6 +227,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.outOfService == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'N'">
 
@@ -252,6 +257,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.lowCash == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'L'">
                                 <div (click)="showDialog(atm)" class="atm-box color-lowcash">
@@ -280,6 +286,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.critical == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'C'">
                                 <div (click)="showDialog(atm)" class="atm-box color-critical">
@@ -308,6 +315,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap">
+                         <div class="Nodata" *ngIf="lenOfData.supervisor == 0">No Data Found</div>
                         <div *ngFor="let atm of filteredATMList">
                             <div *ngIf="atm.atmStatus == 'S'">
                                 <div (click)="showDialog(atm)" class="atm-box">

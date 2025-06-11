@@ -35,12 +35,12 @@
     <div class="user-status profile-box" (click)="toggle($event)">
       <ng-container *ngIf="userImageUrl; else profileIcon">
         <div class="image-circle">
-          <img [src]="userImageUrl" alt="User Profile" class="profile-img"/>
-           <div class="online-container">
-          <div class="online-dot"></div>
+          <img [src]="userImageUrl" alt="User Profile" class="profile-img" />
+          <div class="online-container">
+            <div class="online-dot"></div>
+          </div>
         </div>
-        </div>
-        
+
 
       </ng-container>
       <ng-template #profileIcon>
@@ -58,9 +58,8 @@
           Victor Blackwood
           <!-- <span>{{ userRole === 'admin' ? '(Admin)' : userRole === 'maker' ? '(Maker)' : '(Checker)' }}</span> -->
         </div>
-        <span style="padding: 5px 15px ; background-color: #00BCD4; border-radius: 21px; gap: 10px;">{{ userRole ===
-          'admin' ?
-          '(Admin)' : userRole === 'maker' ? 'Maker' : 'Checker' }}</span>
+        <span style="padding: 0.2rem 1rem; background-color: #00BCD4; border-radius: 20px; font-size: 12px; gap: 10px;">{{ userRole ==='admin' ?
+          'Admin' : userRole === 'maker' ? 'Maker' : 'Checker' }}</span>
       </div>
 
     </div>

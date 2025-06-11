@@ -23,16 +23,16 @@
       <div class="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12">
         <div class="w-full max-w-md flex flex-col justify-between">
           <img src="../../../../assets/images/logoimage.png" alt="Login Illustration" class="mb-2 rounded-lg w-full"
-            style="padding: 1rem 4rem; height:5rem;width:auto" />
+            style="padding: 1rem 4rem; height:6rem;width:auto" />
 
           <!-- Role Switch -->
-          <p-selectButton [options]="loginOptions" [(ngModel)]="selectedLogin" optionLabel="label" class="mb-6 w-full"
-            [unselectable]="false" [ngModelOptions]="{standalone: true}"
+          <p-selectButton *ngIf="!forgotPass" [options]="loginOptions" [(ngModel)]="selectedLogin" optionLabel="label"
+            class="mb-6 w-full" [unselectable]="false" [ngModelOptions]="{standalone: true}"
             (onChange)="setLoginValidators(selectedLogin.value)">
           </p-selectButton>
 
           <!-- User Login -->
-          <div style="height: 400px;" *ngIf="selectedLogin.value === 'user'">
+          <div style="height: 400px;" *ngIf="selectedLogin.value === 'user'&&!forgotPass">
             <div class="text-center mb-6">
               <h3 class="text-2xl font-semibold text-surface-900 dark:text-surface-0 mb-1">User Login</h3>
               <p class="text-muted-color">Access your user dashboard</p>
@@ -52,14 +52,36 @@
 
             <div class="flex justify-between items-center mb-6">
               <div class="flex items-center">
-                <!-- <p-checkbox formControlName="rememberUser" binary inputId="rememberUser" class="mr-2"></p-checkbox>
-                <label for="rememberUser">Remember me</label> -->
               </div>
-              <a class="text-primary cursor-pointer font-medium">Forgot password?</a>
+              <a (click)="forgotPasswordValidation()" class="text-primary cursor-pointer font-medium">Forgot password?</a>
             </div>
 
             <p-button label="Sign In" styleClass="w-full" icon="pi pi-user" (onClick)="onUserLogin()"></p-button>
           </div>
+
+          <div style="height: 400px;" *ngIf="selectedLogin.value === 'user'&&forgotPass">
+            <div class="text-center mb-6">
+              <h3 class="text-2xl font-semibold text-surface-900 dark:text-surface-0 mb-1">Forgot Password</h3>
+              <p class="text-muted-color">Access to Change Password</p>
+            </div>
+
+            <label for="username" class="block font-medium mb-2">Username</label>
+            <input pInputText id="username" type="text" formControlName="username" placeholder="Username"
+              class="w-full mb-4" />
+
+            <label for="userInstitution" class="block font-medium mb-2">Institution</label>
+            <p-dropdown id="userInstitution" [options]="institutions" formControlName="userInstitution"
+              placeholder="Select institution" class="w-full mb-4"></p-dropdown>
+
+            <div class="flex justify-between items-center mb-6">
+              <div class="flex items-center"></div>
+              <a (click)="forgotPass = false" class="text-primary cursor-pointer font-medium">Login As User or Admin
+                ?</a>
+            </div>
+
+            <p-button label="Submit" styleClass="w-full" icon="pi pi-user" (onClick)="forgotPassword()"></p-button>
+          </div>
+
 
           <!-- Admin Login -->
           <div style="height: 400px;" *ngIf="selectedLogin.value === 'admin'">
@@ -81,7 +103,7 @@
                 <!-- <p-checkbox formControlName="rememberAdmin" binary inputId="rememberAdmin" class="mr-2"></p-checkbox>
                 <label for="rememberAdmin">Remember me</label> -->
               </div>
-              <a class="text-primary cursor-pointer font-medium">Forgot password?</a>
+              <!-- <a class="text-primary cursor-pointer font-medium">Forgot password?</a> -->
             </div>
 
             <p-button label="Admin Sign In" styleClass="w-full" icon="pi pi-lock" (onClick)="onAdminLogin()"></p-button>
