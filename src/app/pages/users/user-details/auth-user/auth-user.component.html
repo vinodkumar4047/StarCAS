@@ -13,27 +13,7 @@
             </div> 
 
              <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-             (viewEvent)="edit_visible = true" (deleteEvent)="delete_visible = true" [loading]="loading"/>
-
-      <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
-        <ng-template pTemplate="header">
-            <div class="flex justify-between items-center w-full">
-                <span class="text-lg font-semibold custom-text-color">
-                    Confirm Deletion
-                </span>
-                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
-                    (click)="delete_visible = false"></button>
-            </div>
-        </ng-template>
-        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
-            Are you sure you want to delete?
-        </div>
-        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
-        <div class="flex justify-end gap-2">
-            <p-button label="No" severity="secondary" (click)="delete_visible = false" />
-            <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
-        </div>
-    </p-dialog>
+             (viewEvent)="edit_visible = true" [loading]="loading"/>
 
     <p-dialog [modal]="true" [(visible)]="edit_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">

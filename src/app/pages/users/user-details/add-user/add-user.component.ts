@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
@@ -52,10 +52,11 @@ export class AddUserComponent {
 
 
   constructor(private location: Location, private sanitizer: DomSanitizer,private messageService: MessageService,
-     private fb: FormBuilder, private restApi: RestService) { }
+     private fb: FormBuilder, private restApi: RestService,private cd :ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.routeData, 'routedata');
+    this.getprofileData();
     this.saveCheck = this.routeData?.type == 'addUser' ? true : false;
     this.userForm = this.fb.group({
       Profile: [null, Validators.required],
@@ -71,7 +72,6 @@ export class AddUserComponent {
       country: [null, Validators.required],
       instname: ['']
     });
-    this.getprofileData();
     if (this.routeData?.type == 'edit' || this.routeData?.type == 'view') {
       this.setFormData(this.routeData?.data);
       this.userForm.disable();
@@ -90,6 +90,7 @@ export class AddUserComponent {
         if (res) {
           this.profileOtp = res.data
           console.log('taskManager data:', res)
+          this.cd.detectChanges();
         } else {
           console.warn('No data received or request failed.');
         }
@@ -108,21 +109,8 @@ export class AddUserComponent {
   onSubmit() {
     if (this.userForm.valid) {
       console.log('Form Data:', this.userForm.value);
-      // dede = {
-      //     "this.userForm.value.Profile": "14",
-      //     "Branch": "634",
-      //     "username": "asxa",
-      //     "firstname": "xasx",
-      //     "lastname": "xasxasxa",
-      //     "DOB": "2025-06-11T18:30:00.000Z",
-      //     "email": "vinodkumar@cashlinkglobal.com",
-      //     "mobile": "xasxas",
-      //     "address": "asaxwdqwwq",
-      //     "city": "qwdqw",
-      //     "country": "India",
-      //     "instname": ""
-      // }
       let payload = {
+        "userId": this.routeData?.type == 'edit' ?this.routeData?.data?.userId:undefined,
         "instId":environment.adminInstId,
         "userName": this.userForm.value.username,
         "profileId": this.userForm.value.Profile,
@@ -137,7 +125,8 @@ export class AddUserComponent {
         "branchCode": this.userForm.value.Branch
       }
 
-       this.restApi.post(payload, '/usermanagement/user/add').pipe(take(1)).subscribe({
+
+       this.restApi.post(payload,`/usermanagement/user/${this.routeData?.type == 'edit'?'edit' : 'add'}`).pipe(take(1)).subscribe({
             next: (res) => {
               console.log('addd', res);
                this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
@@ -150,6 +139,7 @@ export class AddUserComponent {
         this.saveCheck = false;
         this.userForm.disable();
       }
+      this.goBack();
     } else {
       console.log('Form is invalid', this.userForm);
       this.userForm.markAllAsTouched();
@@ -172,17 +162,16 @@ export class AddUserComponent {
     console.log(data, 'adas');
 
     this.userForm.patchValue({
-      Profile: data?.PROFILEID,
-      Branch: data?.BRANCHCODE,
-      username: data?.USERNAME,
-      firstname: data?.FIRSTNAME,
-      lastname: data?.LASTNAME,
-      DOB: data?.DOB,
-      email: data?.EMAILID,
-      mobile: data?.MOBILENO,
-      address: data?.ADDRESS,
-      city: data?.CITY,
-      country: data?.COUNTRY,
+      Profile: data?.profileId,
+      Branch: data?.branchCode,
+      username: data?.userName,
+      firstname: data?.firstName,
+      lastname: data?.lastName,
+      email: data?.emailId,
+      mobile: data?.mobileNo,
+      address: data?.address,
+      city: data?.city,
+      country: data?.country,
       instname: data?.INSTID
     });
 

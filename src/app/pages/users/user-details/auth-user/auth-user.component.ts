@@ -33,7 +33,7 @@ export class AuthUserComponent {
     { field: 'profileName', header: 'PROFILE NAME', sort: true, type: 'string' },
     { field: 'addedDate', header: 'ADDED DATE', sort: true, type: 'date' },
     { field: 'addedBy', header: 'ADDED BY', sort: true, type: 'string' },
-    { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth' ? 'view' : 'delete'] },
+    { field: 'Action', header: 'Action', type: 'view' },
   ];
   edit_visible: boolean = false;
   delete_visible: any;
@@ -42,14 +42,12 @@ export class AuthUserComponent {
 
   constructor(private location: Location, private restApi: RestService, public cd:ChangeDetectorRef) { }
   ngOnInit() {
-    this.header = this.routeData.type == 'auth' ? 'View User Authorization' : 'View User Delete Authorization'
+    this.header = this.routeData.type == 'auth' ? 'View User Authorization' : this.routeData.type == 'EditAuth'? 'View User Edit Authorization': 'View User Delete Authorization'
     this.getUserListData();
   }
   getUserListData() {
     this.loading = true;
-    this.restApi.get('/usermanagement/user/getAllUsersByStatus/'+this.routeData.type == 'auth' ?'UA':'UD').pipe(
-      take(1),
-    ).subscribe({
+    this.restApi.get(`/usermanagement/user/getAllUsersByStatus/${this.routeData.type == 'auth' ?'UA':this.routeData.type == 'EditAuth'?'UE' :'UD'}`).subscribe({
       next: (res) => {
         if (res) {
           this.tableData = res.data.map((o: any) => {

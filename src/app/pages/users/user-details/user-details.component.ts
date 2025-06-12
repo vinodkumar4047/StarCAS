@@ -42,7 +42,8 @@ export class UserDetailsComponent {
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
     { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
-    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
+    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
   ] : this.userRole == 'maker' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
@@ -53,7 +54,8 @@ export class UserDetailsComponent {
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
     { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
     { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
-    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
+    { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
+    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
   ];
   delete_visible: boolean = false;
   loading: boolean = false;
@@ -76,7 +78,7 @@ export class UserDetailsComponent {
       this.router.navigate(['/pages/unblock_user'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'resetPassword') {
       this.router.navigate(['/pages/reset_user_password'], { state: { data: event?.data, type: event?.type } });
-    } else if (event.type == 'auth' || event.type == 'deleteAuth') {
+    } else if (event.type == 'auth' || event.type == 'deleteAuth' || event.type == 'EditAuth') {
       this.router.navigate(['/pages/auth-User'], { state: { data: event?.data, type: event?.type } });
     }
   }
