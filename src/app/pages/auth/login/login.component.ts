@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit {
     this.restApi.post(payload, '/login/auth').pipe(take(1)).subscribe({
       next: (res) => {
         console.log('Login Success:', res);
-        localStorage.setItem('userRole', res.userDetails[0].userId == 'SU1'||res.userDetails[0].userId == 'SU2'?'admin':'maker');
+        localStorage.setItem('userRole', res.userDetails[0].userId);
         localStorage.setItem('authToken', res.Token);
 
         console.log(' localStorage.setItem(, res.userDetails[0].userId)', localStorage.getItem('userRole'));

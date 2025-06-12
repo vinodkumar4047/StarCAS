@@ -23,7 +23,7 @@
 
                 <p-floatlabel variant="on">
 
-                    <p-select [options]="profileOtp" formControlName="Profile" optionValue="PROFILEID" optionLabel="PROFILE_NAME"
+                    <p-select [options]="profileOtp" formControlName="Profile" optionValue="profileId" optionLabel="profileName"
                         inputId="Profile" styleClass="w-full" />
                     <label for="Profile">Profile <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
@@ -49,11 +49,11 @@
                     <input pInputText styleClass="w-full" id="instname" type="text" formControlName="instname" />
                     <label for="instname">Inst Name </label>
                 </p-floatlabel>
-                <p-floatlabel variant="on">
+                <!-- <p-floatlabel variant="on">
                     <p-datepicker inputId="DOB" styleClass="w-full" showIcon iconDisplay="input"
                         formControlName="DOB" />
                     <label for="DOB">DOB <span style="color: red;font-size: 16px;">*</span></label>
-                </p-floatlabel>
+                </p-floatlabel> -->
                 <p-floatlabel variant="on">
                     <input pInputText styleClass="w-full" id="email" type="text" formControlName="email" />
                     <label for="email">E-Mail Id <span style="color: red;">*</span></label>
@@ -84,4 +84,5 @@
             </div>
         </form>
     </div>
+      <p-toast />
 </div>

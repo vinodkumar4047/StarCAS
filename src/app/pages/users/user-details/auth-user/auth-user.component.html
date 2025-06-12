@@ -13,7 +13,7 @@
             </div> 
 
              <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-             (viewEvent)="edit_visible = true" (deleteEvent)="delete_visible = true"/>
+             (viewEvent)="edit_visible = true" (deleteEvent)="delete_visible = true" [loading]="loading"/>
 
       <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">
