@@ -9,7 +9,7 @@ import { Tree } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { NodeServiceService } from '../node-service.service';
 import { RestService } from '../../../../layout/service/rest.service';
-
+import { LucideAngularModule, Save } from 'lucide-angular';
 interface PermissionItem {
   title: string;
   menuId: string;
@@ -39,7 +39,7 @@ interface MenuItem {
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-profile',
-  imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, SelectModule, FloatLabel, Tree],
+  imports: [InputTextModule, LucideAngularModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, SelectModule, FloatLabel, Tree],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -48,7 +48,7 @@ export class UserProfileComponent {
   fitForm: any;
   constructor(private location: Location, private restApi: RestService, private fb: FormBuilder, private nodeService: NodeServiceService, private cd: ChangeDetectorRef) { }
 
-
+  routetype: any;
 
   uploadedFiles: any[] = [];
   files: TreeNode[] = [];
@@ -56,6 +56,8 @@ export class UserProfileComponent {
 
   routeData: any = history.state.data || {};
   formType: 'add' | 'edit' | 'view' = history.state.type || 'add';
+  // routetype: any = history.state.check;
+
 
   get formTitle(): string {
     switch (this.formType) {
@@ -71,6 +73,8 @@ export class UserProfileComponent {
 
 
   ngOnInit(): void {
+    this.routetype = history.state.check;
+    console.log('Route type:', this.routetype);
 
     this.fitForm = this.fb.group({
       profileName: ['', Validators.required],
@@ -295,6 +299,72 @@ export class UserProfileComponent {
     //   });
     // }
 
+  }
+
+  Authorized(action: 'authorize' | 'reject' | 'deleteProfileAuth' | 'deleteProfileDeAuth' | 'editProfileAuth' | 'editProfileDeAuth'): void {
+
+    if (this.routetype === 'auth' || this.routetype === 'deleteAuth' || this.routetype === 'edit') {
+      console.log('kamal', this.routetype);
+
+      if (action === 'authorize') {
+        console.log('Calling Authorize API...');
+        this.restApi.post(null, `/usermanagement/profile/addAuth/${this.fitForm.value.profileId}`).subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile:', err)
+        });
+
+
+      } else if (action === 'reject') {
+        console.log('Calling Reject API...');
+        this.restApi.post(null, `/usermanagement/profile/addDeAuth/${this.fitForm.value.profileId}`).subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile:', err)
+        });
+
+      } else if (action === 'deleteProfileAuth') {
+        console.log('Calling Delete Profile Authorization API...');
+        this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteAuth/').subscribe({
+          next: (res) => {
+            console.log('Profile delete authorization added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile delete authorization:', err)
+        });
+      } else if (action === 'deleteProfileDeAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+        this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteDeAuth/').subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+        });
+      } else if (action === 'editProfileAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+        this.restApi.post(null, `/usermanagement/profile/editAuth/${this.fitForm.value.profileId}`).subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+        });
+      } else if (action === 'editProfileDeAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+        this.restApi.post(null, `/usermanagement/profile/editDeAuth/${this.fitForm.value.profileId}`).subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+        });
+      }
+    }
   }
 
   onSelectionChange(selected: any): void {

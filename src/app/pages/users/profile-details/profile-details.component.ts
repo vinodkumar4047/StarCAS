@@ -10,7 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { Router } from '@angular/router';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs';
-
+import { ToastService } from '../../../layout/component/toast.service';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-profile-details',
@@ -28,7 +28,7 @@ import { take } from 'rxjs';
 export class ProfileDetailsComponent {
   loading: boolean = false;
   profileData: any = [];
-
+  delete_visible: any;
   constructor(private router: Router, private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   globalFilterFields: any = [
@@ -56,12 +56,13 @@ export class ProfileDetailsComponent {
     { field: 'authCode', header: 'STATUS' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ];
-  delete_visible: any;
 
   userRole: any = localStorage.getItem('userRole');
   buttonsList: any = this.userRole == 'SU1' || this.userRole == 'SU2' ? [
     { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
+    { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
+    { label: 'Edit Authorize Profile', icon: 'pi pi-pencil', type: 'edit', variant: 'outlined', severity: "arn" }
+
   ]
     : [
       { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
@@ -78,17 +79,22 @@ export class ProfileDetailsComponent {
   };
 
   deleteProfile(data: any) {
-    console.log('Delete Profile Data:', data.data.profileId);
-    this.restApi.delete(data.data.profileId, '/profile/usermanagement/delete').subscribe({
+    console.log('Delete Profile Data:', data);
+    this.restApi.delete(data, '/usermanagement/profile/delete').subscribe({
       next: (res) => {
         console.log('Profile added successfully:', res);
         this.getprofileData(); // Refresh the profile data after deletion
         this.cdr.detectChanges();
+        this.delete_visible = false; // Close the delete confirmation dialog
       },
       error: (err) => console.error('Error adding profile:', err)
     });
   }
-
+  deleteData: any
+  example(data: any) {
+    this.deleteData = data.data.profileId
+    this.delete_visible = true
+  }
   authFunc(event: any) {
     console.log(event);
     this.router.navigate(['/pages/auth-profile'], { state: { type: event?.type } });

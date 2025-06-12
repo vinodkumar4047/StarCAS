@@ -40,7 +40,7 @@ export class AuthProfileComponent {
     { field: 'profileDesc', header: 'PROFILE_DESC' },
     { field: 'addedDate', header: 'ADDED_DATE' },
     { field: 'AUTH_CODE', header: 'STATUS' },
-    { field: 'Action', header: 'Action', type: [this.routeData.type == 'deleteAuth' ? 'delete' : 'view'] } // Optional, if you're using action buttons
+    { field: 'Action', header: 'Action', type: 'view' } // Optional, if you're using action buttons
   ];
   delete_visible: any;
 
@@ -60,7 +60,14 @@ export class AuthProfileComponent {
 
   getprofileData() {
     this.loading = true;
-    this.restApi.get('/usermanagement/profile/getAllProfiles/PA').pipe(
+    let requestType = 'PA'; // default
+    if (this.routeData.type === 'deleteAuth') {
+      requestType = 'PD';
+    } else if (this.routeData.type === 'edit') {
+      requestType = 'PE'; // Assuming 'PE' is for edit — replace with correct one if needed
+    }
+
+    this.restApi.get(`/usermanagement/profile/getAllProfiles/${requestType}`).pipe(
       take(1),
     ).subscribe({
       next: (res) => {
@@ -90,5 +97,7 @@ export class AuthProfileComponent {
       }
     });
   };
-
+  addOrEdit(event: any, type: any, check: any) {
+    this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type, check: check } });
+  };
 }

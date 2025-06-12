@@ -11,7 +11,27 @@
                         {{ formTitle }}
                     </div>
                 </div>
+                <div *ngIf="routetype == 'auth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized Profile" severity="secondary" raised (onClick)="Authorized('authorize')"
+                        icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="secondary" raised (onClick)="Authorized('reject')"
+                        icon="pi pi-file-excel" />
+                </div>
+
+                <div *ngIf="routetype == 'deleteAuth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized Profile" severity="secondary" raised
+                        (onClick)="Authorized('deleteProfileAuth')" icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="secondary" raised (onClick)="Authorized('deleteProfileDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
+                <div *ngIf="routetype == 'edit'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized Profile" severity="secondary" raised
+                        (onClick)="Authorized('editProfileAuth')" icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="secondary" raised (onClick)="Authorized('editProfileDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
             </div>
+
             <div class="mx-4 mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
                 <p-floatlabel *ngIf="formType == 'add'" variant="on">
 
@@ -72,8 +92,7 @@
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="status"
-                        type="text" />
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="status" type="text" />
                     <label for="indirectState">Status <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
