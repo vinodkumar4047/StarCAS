@@ -97,12 +97,12 @@ export class LoginComponent implements OnInit {
   }
 
   forgotPassword() {
-     if (this.loginForm.valid) {
-       this.forgotPass = false;
-     } else {
+    if (this.loginForm.valid) {
+      this.forgotPass = false;
+    } else {
       this.loginForm.markAllAsTouched();
     }
-   
+
   }
 
   onUserLogin() {
@@ -152,10 +152,10 @@ export class LoginComponent implements OnInit {
         console.log(' localStorage.setItem(, res.userDetails[0].userId)', localStorage.getItem('userRole'));
 
 
-        // localStorage.setItem('Token', res.Token);
+        localStorage.setItem('Token', res.Token);
         // localStorage.setItem('userDetails', res.userDetails[0]);
-        // localStorage.setItem('instId', res.userDetails[0].instId);
-        // localStorage.setItem('userType', res.userDetails[0].userType);
+        localStorage.setItem('instId', res.userDetails[0].instId);
+        localStorage.setItem('userType', res.userDetails[0].userType);
         this.router.navigate(['/pages/dashboard']);
 
         this.menuSer.menuItems = res.menuId;

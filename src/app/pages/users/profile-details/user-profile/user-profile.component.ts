@@ -98,7 +98,7 @@ export class UserProfileComponent {
 
       // For edit/view: mark nodes as checked based on selectedMenuIds
       if (this.formType !== 'add' && this.routeData?.selectedMenuIds) {
-        console.log('Route Data for selectedMenuIds:', this.routeData.selectedMenuIds);
+        console.log('Route Data for selectedMenuIds:', this.routeData);
 
         this.markCheckedNodes(this.files, this.routeData.selectedMenuIds);
         console.log('Marked nodes as checked:', this.files);
@@ -242,24 +242,45 @@ export class UserProfileComponent {
     //   error: (err) => console.error('Error adding profile:', err)
     // });
     console.log(' fitForm:', this.fitForm.value);
+    if (this.formType == 'add') {
+      let payload = {
+        profileName: this.fitForm.value.profileName,
+        profileDesc: this.fitForm.value.profileDesc,
+        instId: this.fitForm.value.instId,
+        userType: this.fitForm.value.userType,
+        selectedMenuIds: postData
+      };
 
-    let payload = {
-      profileName: this.fitForm.value.profileName,
-      profileDesc: this.fitForm.value.profileDesc,
-      instId: this.fitForm.value.instId,
-      userType: this.fitForm.value.userType,
-      selectedMenuIds: postData
-    };
+      // ✅ Log nicely formatted payload
+      console.log('Data to POST:', JSON.stringify(payload, null, 2));
+      this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
+        next: (res) => {
+          console.log('Profile added successfully:', res);
+          this.goBack();
+        },
+        error: (err) => console.error('Error adding profile:', err)
+      });
+    } else if (this.formType == 'edit') {
+      let payload = {
+        profileId: this.fitForm.value.profileId,
+        profileName: this.fitForm.value.profileName,
+        profileDesc: this.fitForm.value.profileDesc,
+        instId: this.fitForm.value.instId,
+        userType: this.fitForm.value.userType,
+        selectedMenuIds: postData
+      };
 
-    // ✅ Log nicely formatted payload
-    console.log('Data to POST:', JSON.stringify(payload, null, 2));
-    this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
-      next: (res) => {
-        console.log('Profile added successfully:', res);
-        this.goBack();
-      },
-      error: (err) => console.error('Error adding profile:', err)
-    });
+      // ✅ Log nicely formatted payload
+      console.log('Data to POST:', JSON.stringify(payload, null, 2));
+      this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
+        next: (res) => {
+          console.log('Profile added successfully:', res);
+          this.goBack();
+        },
+        error: (err) => console.error('Error adding profile:', err)
+      });
+    }
+
     // Your actual POST call here
     // this.apiService.saveUserPermissions(payload).subscribe(...)
 
