@@ -77,7 +77,17 @@ export class ProfileDetailsComponent {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
   };
 
-
+  deleteProfile(data: any) {
+    console.log('Delete Profile Data:', data.data.profileId);
+    this.restApi.delete(data.data.profileId, '/profile/usermanagement/delete').subscribe({
+      next: (res) => {
+        console.log('Profile added successfully:', res);
+        this.getprofileData(); // Refresh the profile data after deletion
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error adding profile:', err)
+    });
+  }
 
   authFunc(event: any) {
     console.log(event);
