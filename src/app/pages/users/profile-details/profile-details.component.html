@@ -4,8 +4,27 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="profileData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (event)="authFunc($event)" (deleteEvent)="deleteProfile($event)" (addEvent)="addOrEdit($event,'add')"
+            (event)="authFunc($event)" (deleteEvent)="example($event)" (addEvent)="addOrEdit($event,'add')"
             [multipleButton]="userRole != 'maker' ?buttonsList:''" (editEvent)="addOrEdit($event,'edit')"
             (viewEvent)="addOrEdit($event,'view')" [addButton]="userRole == 'checker'?null:'Add Profile'" />
     </div>
+    <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="flex justify-between items-center w-full">
+                <span class="text-lg font-semibold custom-text-color">
+                    Confirm Deletion
+                </span>
+                <button pButton icon="pi pi-times" severity="secondary" class="change p-button-sm"
+                    (click)="delete_visible = false"></button>
+            </div>
+        </ng-template>
+        <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
+            Are you sure you want to delete?
+        </div>
+        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
+        <div class="flex justify-end gap-2">
+            <p-button label="No" severity="secondary" (click)="delete_visible = false" />
+            <p-button label="Yes, Delete" severity="danger" (click)="deleteProfile(deleteData)" />
+        </div>
+    </p-dialog>
 </div>

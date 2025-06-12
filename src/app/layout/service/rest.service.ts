@@ -139,7 +139,7 @@ export class RestService {
     );
   }
 
-  delete(id: string | number, urlValue: string): Observable<any> {
+  delete(id: any, urlValue: string): Observable<any> {
     const finalUrl = `${this.url}${urlValue}/${id}`;
     return this.http.delete<any>(finalUrl, { headers: this.getHeaders() }).pipe(
       catchError((err: any): Observable<any> => {
