@@ -174,7 +174,7 @@ export class LoginComponent implements OnInit {
         //     {
         //       "title": "Configuration",
         //       "icon": "wrench",
-        //       "color": "#1b5e20",
+        //       "color": "#1b5e20", 
         //       "menuId": "M000002",
         //       "checked": true,
         //       "subMenu": [
