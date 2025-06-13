@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService) { }
 
   showCenterToast(summary: string, detail: string) {
     this.messageService.add({
@@ -21,8 +21,8 @@ export class ToastService {
       summary,
       detail,
       group: 'default',
-      life: 3000
-    }as any);
+      life: 9000
+    } as any);
   }
 
   showError(summary: string, detail: string) {

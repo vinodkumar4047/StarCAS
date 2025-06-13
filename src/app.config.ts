@@ -10,9 +10,10 @@ import { appRoutes } from './app.routes';
 import { definePreset } from '@primeng/themes';
 import { provideServiceWorker } from '@angular/service-worker';
 import { icons } from 'lucide-angular';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
+  providers: [ MessageService,
     provideRouter(
       appRoutes,
       withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),

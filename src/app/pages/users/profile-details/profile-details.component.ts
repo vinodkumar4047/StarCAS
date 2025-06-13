@@ -10,7 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { Router } from '@angular/router';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs';
-import { ToastService } from '../../../layout/component/toast.service';
+import { DialogService } from '../../../layout/component/commonDialog.service';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-profile-details',
@@ -29,7 +29,7 @@ export class ProfileDetailsComponent {
   loading: boolean = false;
   profileData: any = [];
   delete_visible: any;
-  constructor(private router: Router, private restApi: RestService, private cdr: ChangeDetectorRef) { };
+  constructor(private router: Router, private dialogService: DialogService, private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   globalFilterFields: any = [
     'INSTID',
@@ -79,18 +79,40 @@ export class ProfileDetailsComponent {
     this.router.navigate(['/pages/user_profile'], { state: { data: event?.data, type: type } });
   };
 
+  // deleteProfile(data: any) {
+  //   console.log('Delete Profile Data:', data);
+  //   this.restApi.delete(data, '/usermanagement/profile/delete').subscribe({
+  //     next: (res) => {
+  //       console.log('Profile added successfully:', res);
+  //       const msg = res?.message || 'Saved successfully';
+  //       this.toast.showCenterToast('Success', msg);
+  //       this.getprofileData(); // Refresh the profile data after deletion
+  //       this.cdr.detectChanges();
+  //       this.delete_visible = false; // Close the delete confirmation dialog
+  //     },
+  //     error: (err) => console.error('Error adding profile:', err)
+  //   });
+  // }
   deleteProfile(data: any) {
     console.log('Delete Profile Data:', data);
     this.restApi.delete(data, '/usermanagement/profile/delete').subscribe({
       next: (res) => {
-        console.log('Profile added successfully:', res);
-        this.getprofileData(); // Refresh the profile data after deletion
+        console.log('Profile deleted successfully:', res);
+        const msg = res?.message || 'Deleted successfully';
+        this.dialogService.show('Success', res?.message, 'success');
+        this.getprofileData(); // ✅ Refresh table/list
         this.cdr.detectChanges();
-        this.delete_visible = false; // Close the delete confirmation dialog
+        this.delete_visible = false; // ✅ Close dialog
       },
-      error: (err) => console.error('Error adding profile:', err)
+      error: (err) => {
+        console.error('Error deleting profile:', err);
+        this.dialogService.show('Oops!', err.message, 'error');
+
+        // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
+      }
     });
   }
+
   deleteData: any
   example(data: any) {
     this.deleteData = data.data.profileId

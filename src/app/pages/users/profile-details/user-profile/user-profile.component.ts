@@ -77,8 +77,8 @@ export class UserProfileComponent {
     console.log('Route type:', this.routetype);
 
     this.fitForm = this.fb.group({
-      profileName: ['', Validators.required],
-      profileDesc: ['', Validators.required],
+      profileName: ['', Validators.required, Validators.maxLength(25)],
+      profileDesc: ['', Validators.required,],
       instId: ['', Validators.required],
       userType: ['', Validators.required],
       profileId: ['', Validators.required],
@@ -245,45 +245,53 @@ export class UserProfileComponent {
     //   },
     //   error: (err) => console.error('Error adding profile:', err)
     // });
-    console.log(' fitForm:', this.fitForm.value);
-    if (this.formType == 'add') {
-      let payload = {
-        profileName: this.fitForm.value.profileName,
-        profileDesc: this.fitForm.value.profileDesc,
-        instId: this.fitForm.value.instId,
-        userType: this.fitForm.value.userType,
-        selectedMenuIds: postData
-      };
+    if (this.fitForm.valid) {
+      console.log(' fitForm:', this.fitForm.value);
+      if (this.formType == 'add') {
+        let payload = {
+          profileName: this.fitForm.value.profileName,
+          profileDesc: this.fitForm.value.profileDesc,
+          instId: this.fitForm.value.instId,
+          userType: this.fitForm.value.userType,
+          selectedMenuIds: postData
+        };
 
-      // ✅ Log nicely formatted payload
-      console.log('Data to POST:', JSON.stringify(payload, null, 2));
-      this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
-        next: (res) => {
-          console.log('Profile added successfully:', res);
-          this.goBack();
-        },
-        error: (err) => console.error('Error adding profile:', err)
-      });
-    } else if (this.formType == 'edit') {
-      let payload = {
-        profileId: this.fitForm.value.profileId,
-        profileName: this.fitForm.value.profileName,
-        profileDesc: this.fitForm.value.profileDesc,
-        instId: this.fitForm.value.instId,
-        userType: this.fitForm.value.userType,
-        selectedMenuIds: postData
-      };
+        // ✅ Log nicely formatted payload
+        console.log('Data to POST:', JSON.stringify(payload, null, 2));
+        this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile:', err)
+        });
+      } else if (this.formType == 'edit') {
+        let payload = {
+          profileId: this.fitForm.value.profileId,
+          profileName: this.fitForm.value.profileName,
+          profileDesc: this.fitForm.value.profileDesc,
+          instId: this.fitForm.value.instId,
+          userType: this.fitForm.value.userType,
+          selectedMenuIds: postData
+        };
 
-      // ✅ Log nicely formatted payload
-      console.log('Data to POST:', JSON.stringify(payload, null, 2));
-      this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
-        next: (res) => {
-          console.log('Profile added successfully:', res);
-          this.goBack();
-        },
-        error: (err) => console.error('Error adding profile:', err)
-      });
+        // ✅ Log nicely formatted payload
+        console.log('Data to POST:', JSON.stringify(payload, null, 2));
+        this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.goBack();
+          },
+          error: (err) => console.error('Error adding profile:', err)
+        });
+      }
+      // this.fitForm.markAllAsTouched();
+      // console.error('Form is invalid:', this.fitForm);
+      // 
+    } else {
+      this.fitForm.markAllAsTouched();
     }
+
 
     // Your actual POST call here
     // this.apiService.saveUserPermissions(payload).subscribe(...)

@@ -1,0 +1,28 @@
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="true" [style]="{ width: '30vw' }" [baseZIndex]="10000"
+    (onHide)="onHide()" [contentStyle]="{ textAlign: 'center' }">
+    <ng-template pTemplate="header">
+        <div [ngClass]="headerClass" class="dialog-header-content">
+            <span class="dialog-title">{{ title }}</span>
+        </div>
+    </ng-template>
+    <div class="flex justify-center items-center mb-4">
+        <i [ngClass]="headerClass" class="dia-icon" [class]="icon" ></i>
+
+    </div>
+    <p class="dialog-body">{{ content }}</p>
+</p-dialog>
+
+
+<!-- example  
+ 
+this.dialogService.show('Success', 'Profile deleted successfully', 'success');
+
+this.dialogService.show('Oops!', 'Something went wrong', 'error');
+
+this.dialogService.show('Notice', 'This is a warning', 'warning');
+
+this.dialogService.show('Info', 'Your session will expire soon', 'info');
+
+
+
+-->
