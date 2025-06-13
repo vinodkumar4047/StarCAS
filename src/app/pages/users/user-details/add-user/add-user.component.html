@@ -18,6 +18,26 @@
                 </div>
                 <p-button *ngIf="this.routeData?.type == 'edit' && !this.saveCheck" label="Edit user Details"
                     severity="warn" raised icon="pi pi-pencil" (click)="editEnable()" />
+
+                     <div *ngIf="routetype == 'auth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('authorize')"
+                        icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('reject')"
+                        icon="pi pi-file-excel" />
+                </div>
+
+                <div *ngIf="routetype == 'deleteAuth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized User" severity="primary" raised
+                        (onClick)="Authorized('deleteUserAuth')" icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('deleteUserDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
+                <div *ngIf="routetype == 'EditAuth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized User" severity="primary" raised
+                        (onClick)="Authorized('editUserAuth')" icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('editUserDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
             </div>
             <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
 

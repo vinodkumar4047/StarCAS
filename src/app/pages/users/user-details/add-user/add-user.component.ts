@@ -49,7 +49,7 @@ export class AddUserComponent {
     { COUNTRYID: "140", COUNTRY: "Central African Republic", COUNTRYCODE: "CAF" }
   ]
   loading: boolean = false;
-
+  routetype:any = history.state.check;
 
   constructor(private location: Location, private sanitizer: DomSanitizer,private messageService: MessageService,
      private fb: FormBuilder, private restApi: RestService,private cd :ChangeDetectorRef) { }
@@ -80,6 +80,13 @@ export class AddUserComponent {
 
     };
   }
+
+  
+  Authorized(action:any) {
+    console.log('---ooo');
+    
+  }
+
 
   getprofileData() {
     // this.loading = true;

@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { take } from 'rxjs';
 import { RestService } from '../../../../layout/service/rest.service';
 import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-user',
@@ -39,8 +40,8 @@ export class AuthUserComponent {
   delete_visible: any;
   loading: boolean = false;
 
-
-  constructor(private location: Location, private restApi: RestService, public cd:ChangeDetectorRef) { }
+  constructor(private location: Location, private restApi: RestService,private router: Router,
+    public cd:ChangeDetectorRef) { }
   ngOnInit() {
     this.header = this.routeData.type == 'auth' ? 'View User Authorization' : this.routeData.type == 'EditAuth'? 'View User Edit Authorization': 'View User Delete Authorization'
     this.getUserListData();
@@ -73,5 +74,8 @@ export class AuthUserComponent {
   };
   goBack() {
     this.location.back();
+  }
+   authView(event: any, type: any) {
+    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type,check: this.routeData.type } });
   }
 }
