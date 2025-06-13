@@ -1,9 +1,10 @@
 <div class="PORTDetails">
-    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">Port Details</h2>
+    <h2 class="mb-8 card header-card "
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">Port Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="addOrEdit($event,'View')" />
+        <app-table [tableData]="portDetailsData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+            (viewEvent)="addOrEdit($event,'View')" [loading]="loading" />
     </div>
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
         class="EDIT_BRANCH_DIALOG">
@@ -21,36 +22,36 @@
         <div *ngIf="Edit_data">
             <div class="table-row">
                 <div class="table-cell heading">DEVICE GROUP ID</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.DEVICEGROUPID" type="text"
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.deviceGroupId" type="text"
                     placeholder="" [disabled]="true" />
             </div>
             <div class="table-row">
                 <div class="table-cell heading">INST ID</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.instId" type="text" placeholder=""
                     [disabled]="true" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">DEVICE INST ID</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.DEVICEINSTID" type="text"
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.deviceInstId" type="text"
                     placeholder="" [disabled]="tpCheck" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">FORM NAME</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.FORMNAME" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.formName" type="text" placeholder=""
                     [disabled]="tpCheck" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">ID</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.ID" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.id" type="text" placeholder=""
                     [disabled]="tpCheck" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">IP ADDRESS</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.IPADDRESS" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.ipAddress" type="text" placeholder=""
                     [disabled]="tpCheck" />
 
             </div>

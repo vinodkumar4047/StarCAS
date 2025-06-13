@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -8,9 +8,11 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { RestService } from '../../../layout/service/rest.service';
+import { take } from 'rxjs/operators';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-transaction',
   imports: [TooltipModule,
     CommonModule,
@@ -28,6 +30,9 @@ export class TransactionComponent {
   editVisible: any;
   Edit_data: any;
   tpCheck!: boolean;
+  loading: any;
+  transactionData: any;
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   addOrEdit(data?: any, type?: any) {
     if (data) {
@@ -42,25 +47,47 @@ export class TransactionComponent {
   };
 
   globalFilterFields: any = [
-    'TXNCODE',
-    'TXNDESC',
+    'txnCode',
+    'txnDesc',
   ];
 
   cols = [
-    { field: 'TXNCODE', header: 'TRANSACTION CODE' },
-    { field: 'TXNDESC', header: 'TRANSACTION DESCRIPTION' },
+    { field: 'txnCode', header: 'TRANSACTION CODE' },
+    { field: 'txnDesc', header: 'TRANSACTION DESCRIPTION' },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
 
-  atmData = [{ "TXNCODE": 94, "TXNDESC": "PIN Change" },
-  { "TXNCODE": 40, "TXNDESC": "Fund Transfer" },
-  { "TXNCODE": 38, "TXNDESC": "Mini Statement" },
-  { "TXNCODE": 1, "TXNDESC": "Withdrawal" },
-  { "TXNCODE": 36, "TXNDESC": "OAR" },
-  { "TXNCODE": 30, "TXNDESC": "Balance Enquiry" },
-  { "TXNCODE": 70, "TXNDESC": "Pin Verify" },
-  { "TXNCODE": 9, "TXNDESC": "Fund Transfer Name Verify" },
-  { "TXNCODE": 19, "TXNDESC": "FX Rate Display" }];
+ 
+  ngOnInit() {
+    this.gettransactionDataData();
+  }
+  gettransactionDataData() {
+    this.loading = true;
+    // const instId = localStorage.getItem('instId')
+    const instId = 'CLFSC'; // Static value for now
 
+
+    this.restApi.get('/configuration/transaction-details').pipe(
+      take(1)
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.transactionData = res;
+          console.log('taskManager data:', this.transactionData);
+        } else {
+          console.warn('No data received or request failed.');
+        } setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.loading = false;
+        this.cdr.detectChanges();
+
+      }
+    });
+  };
 }
 

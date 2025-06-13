@@ -1,5 +1,6 @@
 <div class="atm-type-controller">
-        <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">ATM Type Details </h2>
+    <h2 class="mb-8 card header-card "
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">ATM Type Details </h2>
     <div class="card">
         <div class="flex gap-2 items-center mb-8">
             <div class="font-semibold text-xl heading-color">
@@ -19,7 +20,7 @@
 
     </div>
     <div *ngIf="table" class="card">
-        <p-table [value]="filteredProducts" stripedRows [tableStyle]="{'min-width': '50rem'}">
+        <p-table [value]="filteredProducts" stripedRows [tableStyle]="{'min-width': '50rem'}" [loading]="loading">
             <ng-template #header class="p-datatable-thead">
                 <tr>
                     <th>ATM Type</th>
@@ -29,9 +30,9 @@
             </ng-template>
             <ng-template #body let-product>
                 <tr>
-                    <td>{{product.ATMTYPEID}}</td>
-                    <td>{{product.ATMTYPEDESCRIPTION}}</td>
-                    <td>{{product.DRIVERCHANNEL}}</td>
+                    <td>{{product.atmTypeId}}</td>
+                    <td>{{product.atmTypeDescription}}</td>
+                    <td>{{product.driverChannel}}</td>
                 </tr>
             </ng-template>
         </p-table>
