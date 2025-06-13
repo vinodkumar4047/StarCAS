@@ -109,10 +109,11 @@ export class MCCBLOCKComponent {
     { label: 'Authorize MCC', type: 'viewAuth', icon: 'pi pi-verified', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
+  userType: any = localStorage.getItem('userType');
   constructor(private router: Router) { };
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
+    this.cols = this.userType === 'maker'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
   }

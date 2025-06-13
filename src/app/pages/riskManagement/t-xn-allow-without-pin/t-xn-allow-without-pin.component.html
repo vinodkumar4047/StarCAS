@@ -5,8 +5,8 @@
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit('Edit',$event)" (deleteEvent)="delete_visible = true"
             (event)="authoTXN($event)" (viewEvent)="edit('View',$event)"
-            [addButton]="userRole == 'checker'?null:'Add Offline Pin'"
-            [multipleButton]="userRole != 'maker'?buttonsList:''" />
+            [addButton]="userType == 'C'?null:'Add Offline Pin'"
+            [multipleButton]="userType != 'M'?buttonsList:''" />
     </div>
     <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">

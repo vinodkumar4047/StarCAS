@@ -3,7 +3,7 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (addEvent)="edit($event)" [updateButton]="userRole != 'maker'?null:'Update Casette'" />
+            (addEvent)="edit($event)" [updateButton]="userType != 'M'?null:'Update Casette'" />
     </div>
 
     <!-- <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"

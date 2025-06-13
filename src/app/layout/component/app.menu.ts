@@ -22,7 +22,7 @@ export class AppMenu {
     constructor(private menuService: MenuService) { }
     menu: any[] = [];
     model: MenuItem[] = [];
-    userRole: any = localStorage.getItem('userRole');
+    userRole: any = localStorage.getItem('userType');
 
     ngOnInit() {
         this.menu = this.menuService.getMenuitem()

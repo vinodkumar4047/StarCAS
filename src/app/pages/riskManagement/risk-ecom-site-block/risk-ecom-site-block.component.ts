@@ -133,10 +133,11 @@ export class RiskEcomSiteBLOCKComponent {
     { label: 'Authorize Ecom Site', icon: 'pi pi-verified', type: 'viewAuth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
+  userType: any = localStorage.getItem('userType');
   constructor(private router: Router) { };
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker'
+    this.cols = this.userType === 'M'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
   };

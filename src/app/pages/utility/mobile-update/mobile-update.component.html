@@ -3,7 +3,7 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="transformedmobileGroups" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (viewEvent)="view($event,'View')" [addButton]="userRole != 'maker'?null:'Add Mobile'" (addEvent)="view($event,'Add')" />
+            (viewEvent)="view($event,'View')" [addButton]="userType != 'M'?null:'Add Mobile'" (addEvent)="view($event,'Add')" />
     </div>
     <p-dialog [(visible)]="viewVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
         class="EDIT_BRANCH_DIALOG">

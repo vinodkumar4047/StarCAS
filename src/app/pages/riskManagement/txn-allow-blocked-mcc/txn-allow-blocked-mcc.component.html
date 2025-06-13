@@ -5,7 +5,7 @@
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (event)="txn_AllowBlocked($event)" (deleteEvent)="delete_visible = true"
             (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')" (viewEvent)="edit($event,'View')"
-            [multipleButton]="userRole != 'maker'?buttonsList:''" [addButton]="userRole != 'maker'?null:'Add Card'" />
+            [multipleButton]="userType != 'M'?buttonsList:''" [addButton]="userType != 'M'?null:'Add Card'" />
     </div>
 
     <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">

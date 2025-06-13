@@ -137,6 +137,7 @@ export class BranchComponent {
   // }
 
   userRole: string = localStorage.getItem('userRole') || '';
+  userType: any = localStorage.getItem('userType');
 permission: any[] = [];
 filteredButtons: any[] = [];
 canAddBranch: boolean = false;
@@ -176,7 +177,7 @@ ngOnInit() {
 
   this.canAddBranch = perms.some((p: any) => p.title === 'Add Branch');
 
-  if (this.userRole !== 'maker') {
+  if (this.userType !== 'M') {
     this.cols = this.cols.filter((col:any) => col.field !== 'Action');
   }
 }

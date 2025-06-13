@@ -64,6 +64,7 @@ export class CASSETComponent {
   ];
 
   userRole: any = localStorage.getItem('userRole');
+  userType: any = localStorage.getItem('userType');
   constructor(private router: Router) { };
 
   ngOnInit() {

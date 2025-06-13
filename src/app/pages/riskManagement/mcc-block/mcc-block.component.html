@@ -4,8 +4,8 @@
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (event)="txnalloRiskView($event)" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
-            (viewEvent)="edit($event,'View')" [addButton]="userRole != 'maker'?null:'Add MCC'"
-            [multipleButton]="userRole != 'maker'?buttonsList:''" />
+            (viewEvent)="edit($event,'View')" [addButton]="userType != 'M'?null:'Add MCC'"
+            [multipleButton]="userType != 'M'?buttonsList:''" />
     </div>
 
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"

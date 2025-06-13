@@ -58,7 +58,8 @@ export class ProfileDetailsComponent {
   ];
 
   userRole: any = localStorage.getItem('userRole');
-  buttonsList: any = this.userRole == 'SU1' || this.userRole == 'SU2' ? [
+  userType: any = localStorage.getItem('userType');
+  buttonsList: any = this.userType == 'SU' ? [
     { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
     { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
     { label: 'Edit Authorize Profile', icon: 'pi pi-pencil', type: 'edit', variant: 'outlined', severity: "arn" }
@@ -69,7 +70,7 @@ export class ProfileDetailsComponent {
     ]
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker' || this.userRole === 'SU1' || this.userRole === 'SU2'
+    this.cols = this.userType === 'M' || this.userType === 'SU'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
     this.getprofileData()

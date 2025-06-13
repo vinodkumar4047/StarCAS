@@ -3,8 +3,8 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
        <app-table [tableData]="atmData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="" (deleteEvent)="delete_visible = true"
-       (addEvent)="addOrEdit('Add',$event)" [multipleButton]="userRole != 'maker'?buttonsList:''" (editEvent)="addOrEdit('Edit',$event)" (viewEvent)="addOrEdit('View',$event)"
-       [addButton]="userRole != 'maker'?null:'Add ATM'" (event)="authFunction($event)"/>
+       (addEvent)="addOrEdit('Add',$event)" [multipleButton]="userRole != 'M'?buttonsList:''" (editEvent)="addOrEdit('Edit',$event)" (viewEvent)="addOrEdit('View',$event)"
+       [addButton]="userRole != 'M'?null:'Add ATM'" (event)="authFunction($event)"/>
     </div>
 </div>
 

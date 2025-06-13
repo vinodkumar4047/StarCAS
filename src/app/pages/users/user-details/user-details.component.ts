@@ -19,6 +19,7 @@ export class UserDetailsComponent {
 
   rawData: any = [];
   userRole: any = localStorage.getItem('userRole');
+  userType: any = localStorage.getItem('userType');
   globalFilterFields: any = [
     "userId",
     "userName",
@@ -36,7 +37,7 @@ export class UserDetailsComponent {
     { field: 'addedBy', header: 'ADDED BY', sort: true, type: 'string' },
     { field: 'Action', header: 'Action', type: ['view', 'edit', 'delete'] },
   ]
-  buttonsList: any = this.userRole == 'SU1'||this.userRole == 'SU2' ? [
+  buttonsList: any = this.userType == 'SU' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
@@ -44,7 +45,7 @@ export class UserDetailsComponent {
     { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
     { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
     { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
-  ] : this.userRole == 'maker' ? [
+  ] : this.userType == 'M' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
     { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
     { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
@@ -62,7 +63,7 @@ export class UserDetailsComponent {
   constructor(private router: Router,private restApi:RestService,private cd :ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.cols = this.userRole === 'maker'||this.userRole == 'SU1'||this.userRole == 'SU2'
+    this.cols = this.userType === 'M'||this.userType == 'SU'
       ? this.cols
       : this.cols.filter((col: any) => col.field !== 'Action');
       this.getUserListData();
