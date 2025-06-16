@@ -53,7 +53,8 @@
             <div class="flex justify-between items-center mb-6">
               <div class="flex items-center">
               </div>
-              <a (click)="forgotPasswordValidation()" class="text-primary cursor-pointer font-medium">Forgot password?</a>
+              <a (click)="forgotPasswordValidation()" class="text-primary cursor-pointer font-medium">Forgot
+                password?</a>
             </div>
 
             <p-button label="Sign In" styleClass="w-full" icon="pi pi-user" (onClick)="onUserLogin()"></p-button>
@@ -109,7 +110,51 @@
             <p-button label="Admin Sign In" styleClass="w-full" icon="pi pi-lock" (onClick)="onAdminLogin()"></p-button>
           </div>
         </div>
+        <!-- <button pButton type="button" label="Change Password"
+          (click)="showChangePasswordDialog = !showChangePasswordDialog"></button> -->
       </div>
     </div>
   </div>
+  <div class="change">
+    <p-dialog header="Change Password" [(visible)]="showChangePasswordDialog" [modal]="true" [style]="{width: '600px'}"
+      [contentStyle]="{padding: '1.5rem'}" (onHide)="onCloseDialog()" [baseZIndex]="10000" [dismissableMask]="true"
+      [styleClass]="'custom-dialog-header'">
+
+      <div class="changeLogin">
+        <p-floatlabel variant="on">
+          <input pInputText [style]="{width: '100%'}" id="username" name="username" type="text"
+            [(ngModel)]="formData.username" [ngModelOptions]="{standalone: true}" required />
+          <label for="username">Username<span style="color: red;font-size: 16px;">*</span></label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="on">
+          <p-password [style]="{width: '100%'}" id="CurrentPassword" name="CurrentPassword" [(ngModel)]="formData.CurrentPassword"
+            [ngModelOptions]="{standalone: true}" required [toggleMask]="true" [feedback]="false" class="w-full">
+          </p-password>
+          <label for="CurrentPassword">Current Password <span class="text-red-500">*</span></label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="on">
+          <p-password [style]="{width: '100%'}" id="newPassword" name="newPassword" [(ngModel)]="formData.newPassword"
+            [ngModelOptions]="{standalone: true}" required minlength="6" [toggleMask]="true" [feedback]="false"
+            class="w-full">
+          </p-password>
+          <label for="newPassword">New Password <span class="text-red-500">*</span></label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="on">
+          <p-password [style]="{width: '100%'}" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword"
+            [ngModelOptions]="{standalone: true}" required [toggleMask]="true" [feedback]="false" class="w-full">
+          </p-password>
+          <label for="confirmPassword">Confirm Password <span class="text-red-500">*</span></label>
+        </p-floatlabel>
+      </div>
+       <div class="flex flex-row-reverse my-8">
+          <p-button label="Submit" severity="primary" raised icon="pi pi-save" type="submit"
+            (click)="onSubmitPassword()" />
+        </div>
+    </p-dialog>
+  </div>
+
+
 </div>

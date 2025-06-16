@@ -111,9 +111,29 @@ export class UserDetailsComponent {
           });
     };
 
-  delateData() {
-    this.delete_visible = false;
-  }
+    deleteData: any
+    deletePopup(data: any) {
+      this.deleteData = data.data.profileId
+      this.delete_visible = true
+    }
+
+    delateDataFunc(data: any) {
+      console.log('Delete Profile Data:', data);
+      this.restApi.delete(data,'usermanagement/user/delete').subscribe({
+        next: (res) => {
+          console.log('Profile deleted successfully:', res);
+          const msg = res?.message || 'Deleted successfully';
+
+          this.getUserListData(); // ✅ Refresh table/list
+          this.cd.detectChanges();
+          this.delete_visible = false; // ✅ Close dialog
+        },
+        error: (err) => {
+          console.error('Error deleting profile:', err);
+          // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
+        }
+      });
+    }
 
   editView(event: any, type: any) {
     this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type } });

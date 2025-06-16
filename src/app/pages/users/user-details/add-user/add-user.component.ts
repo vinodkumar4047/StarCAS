@@ -11,12 +11,14 @@ import { RestService } from '../../../../layout/service/rest.service';
 import { environment } from '../../../../../environments/environment';
 import { take } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-add-user',
-  imports: [CommonModule, Select, InputText, ButtonModule, FloatLabel, FormsModule, ReactiveFormsModule,ToastModule],
+  imports: [CommonModule, Select, InputText, ButtonModule, FloatLabel, FormsModule,TooltipModule,
+     ReactiveFormsModule, DialogModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
   providers: [MessageService]
@@ -49,10 +51,10 @@ export class AddUserComponent {
     { COUNTRYID: "140", COUNTRY: "Central African Republic", COUNTRYCODE: "CAF" }
   ]
   loading: boolean = false;
-  routetype:any = history.state.check;
+  routetype: any = history.state.check;
 
-  constructor(private location: Location, private sanitizer: DomSanitizer,private messageService: MessageService,
-     private fb: FormBuilder, private restApi: RestService,private cd :ChangeDetectorRef) { }
+  constructor(private location: Location, private sanitizer: DomSanitizer, private messageService: MessageService,
+    private fb: FormBuilder, private restApi: RestService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.routeData, 'routedata');
@@ -81,12 +83,47 @@ export class AddUserComponent {
     };
   }
 
-  
-  Authorized(action:any) {
-    console.log('---ooo');
-    
-  }
 
+  Authorized(action: any) {
+    console.log(action, ' action ---ooo');
+    let endpoint:any = '';
+    if (action == 'reject'||action == 'authorize') {
+      endpoint = action == 'authorize' ? `addAuth/${this.routeData?.data?.userId}`:`addDeAuth/${this.routeData?.data?.userId}`;
+      this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
+        next: (res) => {
+          console.log('User added successfully:', res);  
+          if (action === 'authorize' && res?.message) {
+            const userMatch = res.message.match(/User \[(.+?)\]/);
+            const passwordMatch = res.message.match(/Password: (\d+)/);
+            this.authorizedUser = userMatch?.[1] || '';
+            this.authorizedPassword = passwordMatch?.[1] || '';
+            this.showSuccessDialog = true;
+            this.cd.detectChanges();
+            // this.goBack();
+          }else{
+            this.goBack();
+          }
+          
+        },
+        error: (err) => console.error('Error adding User:', err)
+      });
+
+    } else {
+      if (action == 'editUserAuth') {endpoint = `editAuth/${this.routeData?.data?.userId}`}
+      else if(action == 'editUserDeAuth') {endpoint = `editDeAuth/${this.routeData?.data?.userId}`}
+      else if(action == 'deleteUserAuth') {endpoint = `deleteAuth/${this.routeData?.data?.userId}`}
+      else if(action == 'deleteUserDeAuth') {endpoint = `deleteDeAuth/${this.routeData?.data?.userId}`}
+      this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
+        next: (res) => {
+          console.log('User added successfully:', res);
+          this.goBack();
+        },
+        error: (err) => console.error('Error adding User:', err)
+      });
+
+    }
+    console.log(endpoint,'--');
+  }
 
   getprofileData() {
     // this.loading = true;
@@ -117,8 +154,8 @@ export class AddUserComponent {
     if (this.userForm.valid) {
       console.log('Form Data:', this.userForm.value);
       let payload = {
-        "userId": this.routeData?.type == 'edit' ?this.routeData?.data?.userId:undefined,
-        "instId":environment.adminInstId,
+        "userId": this.routeData?.type == 'edit' ? this.routeData?.data?.userId : undefined,
+        "instId": environment.adminInstId,
         "userName": this.userForm.value.username,
         "profileId": this.userForm.value.Profile,
         "firstName": this.userForm.value.firstname,
@@ -133,15 +170,15 @@ export class AddUserComponent {
       }
 
 
-       this.restApi.post(payload,`/usermanagement/user/${this.routeData?.type == 'edit'?'edit' : 'add'}`).pipe(take(1)).subscribe({
-            next: (res) => {
-              console.log('addd', res);
-               this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
-            },
-            error: (err) => {
-              console.error('addd Failed:', err);
-            }
-          });
+      this.restApi.post(payload, `/usermanagement/user/${this.routeData?.type == 'edit' ? 'edit' : 'add'}`).pipe(take(1)).subscribe({
+        next: (res) => {
+          console.log('addd', res);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
+        },
+        error: (err) => {
+          console.error('addd Failed:', err);
+        }
+      });
       if (this.routeData?.type == 'Edit') {
         this.saveCheck = false;
         this.userForm.disable();
@@ -183,5 +220,15 @@ export class AddUserComponent {
     });
 
   }
+
+  showSuccessDialog = false;
+authorizedUser = '';
+authorizedPassword = '';
+
+copyToClipboard(text: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Password copied to clipboard!');
+  });
+}
 
 }
