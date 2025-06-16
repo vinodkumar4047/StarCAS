@@ -211,13 +211,12 @@ export class LoginComponent implements OnInit {
   login(payload: any) {
     this.restApi.post(payload, '/login/auth').pipe(take(1)).subscribe({
       next: (res) => {
-        console.log('Login Success:', res);
+        if(res?.respDesc == 'Switch to Change Password Page'){
+          this.showChangePasswordDialog = !this.showChangePasswordDialog;
+        }else{
+          console.log('Login Success:', res);
         localStorage.setItem('userRole', res.userDetails[0].userId);
         localStorage.setItem('authToken', res.Token);
-
-        console.log(' localStorage.setItem(, res.userDetails[0].userId)', localStorage.getItem('userRole'));
-
-
         localStorage.setItem('Token', res.Token);
         // localStorage.setItem('userDetails', res.userDetails[0]);
         localStorage.setItem('instId', res.userDetails[0].instId);
@@ -227,6 +226,8 @@ export class LoginComponent implements OnInit {
         this.menuSer.menuItems = res.menuId;
         console.log("Menu Items:", this.menuSer.menuItems);
 
+        }
+        
         // this.menuSer.menuItems =
         //   [
         //     {
