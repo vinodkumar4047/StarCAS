@@ -1,4 +1,4 @@
 export const environment = {
-  apiHost: 'http://172.16.10.155:8888',
-  adminInstId:'SCB'
+  apiHost: 'http://172.16.10.227:8888',
+  adminInstId: 'SCB'
 }

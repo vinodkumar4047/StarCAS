@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-transaction',
+  selector: 'app-status-map',
   imports: [TooltipModule,
     CommonModule,
     FormsModule,
@@ -23,40 +22,24 @@ import { take } from 'rxjs/operators';
     TableComponent,
     DialogModule,
     InputTextModule],
-  templateUrl: './transaction.component.html',
-  styleUrl: './transaction.component.scss'
+  templateUrl: './status-map.component.html',
+  styleUrl: './status-map.component.scss'
 })
-export class TransactionComponent {
-  editVisible: any;
+export class StatusMapComponent {
+  loading: boolean = true;
+  statusMapData: any;
   Edit_data: any;
   tpCheck!: boolean;
-  loading: any;
-  transactionData: any;
+  editVisible: any;
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
-
-  addOrEdit(data?: any, type?: any) {
-    if (data) {
-      this.Edit_data = { ...data?.data }
-      console.log(' this.Edit_data', this.Edit_data);
-
-    } else {
-      this.Edit_data = null;
-    }
-    console.log('Received type:', type);
-    this.tpCheck = type === 'view' ? true : false;
-    console.log('this.tpCheck', this.tpCheck);
-
-    this.editVisible = true;
-  };
-
   globalFilterFields: any = [
-    'txnCode',
-    'txnDesc',
+    'RESPCODE',
+    'DESCRIPTION',
   ];
 
   cols = [
-    { field: 'txnCode', header: 'TRANSACTION CODE' },
-    { field: 'txnDesc', header: 'TRANSACTION DESCRIPTION' },
+    { field: 'RESPCODE', header: 'RESPCODE' },
+    { field: 'DESCRIPTION', header: 'DESCRIPTION' },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
 
@@ -66,17 +49,13 @@ export class TransactionComponent {
   }
   gettransactionDataData() {
     this.loading = true;
-    // const instId = localStorage.getItem('instId')
-    const instId = 'CLFSC'; // Static value for now
-
-
-    this.restApi.get('/configuration/transaction-details').pipe(
+    this.restApi.get('/configuration/statusMap').pipe(
       take(1)
     ).subscribe({
       next: (res) => {
         if (res) {
-          this.transactionData = res;
-          console.log('taskManager data:', this.transactionData);
+          this.statusMapData = res;
+          console.log('taskManager data:', this.statusMapData);
         } else {
           console.warn('No data received or request failed.');
         } setTimeout(() => {
@@ -92,5 +71,18 @@ export class TransactionComponent {
       }
     });
   };
-}
+  addOrEdit(data?: any, type?: any) {
+    if (data) {
+      this.Edit_data = { ...data?.data }
+      console.log(' this.Edit_data', this.Edit_data);
 
+    } else {
+      this.Edit_data = null;
+    }
+    console.log('Received type:', type);
+    this.tpCheck = type === 'view' ? true : false;
+    console.log('this.tpCheck', this.tpCheck);
+
+    this.editVisible = true;
+  };
+}

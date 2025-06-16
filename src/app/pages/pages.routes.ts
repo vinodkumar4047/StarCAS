@@ -74,6 +74,7 @@ import { AuthorizeEcomsiteComponent } from './riskManagement/risk-ecom-site-bloc
 import { FraduRiskTxnMonitoringComponent } from './monitorning/fradu-risk-txn-monitoring/fradu-risk-txn-monitoring.component';
 import { ControlMonitoringComponent } from './control/control-monitoring/control-monitoring.component';
 import { FraudMonitoringComponent } from './monitorning/fraud-monitoring/fraud-monitoring.component';
+import { StatusMapComponent } from './Configuration/status-map/status-map.component';
 
 export default [
   { path: 'empty', component: Empty },
@@ -97,6 +98,7 @@ export default [
   { path: 'update_casset', component: UpdateCasetteComponent },
   { path: 'port', component: PortComponent },
   { path: 'transaction', component: TransactionComponent },
+  { path: 'statusMap', component: StatusMapComponent },
   { path: 'atm_Monitoring', component: ATMMonitoringComponent },
   { path: 'fraud_Monitoring', component: FraudMonitoringComponent },
   { path: 'hsm_Monitoring', component: HSMMonitoringComponent },
