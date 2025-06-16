@@ -113,13 +113,13 @@ export class UserDetailsComponent {
 
     deleteData: any
     deletePopup(data: any) {
-      this.deleteData = data.data.profileId
+      this.deleteData = data.data.userId
       this.delete_visible = true
     }
 
     delateDataFunc(data: any) {
       console.log('Delete Profile Data:', data);
-      this.restApi.delete(data,'usermanagement/user/delete').subscribe({
+      this.restApi.delete(data,'/usermanagement/user/delete').subscribe({
         next: (res) => {
           console.log('Profile deleted successfully:', res);
           const msg = res?.message || 'Deleted successfully';

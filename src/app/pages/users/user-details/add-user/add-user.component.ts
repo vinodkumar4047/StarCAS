@@ -17,8 +17,8 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-add-user',
-  imports: [CommonModule, Select, InputText, ButtonModule, FloatLabel, FormsModule,TooltipModule,
-     ReactiveFormsModule, DialogModule],
+  imports: [CommonModule, Select, InputText, ButtonModule, FloatLabel, FormsModule, TooltipModule,
+    ReactiveFormsModule, DialogModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
   providers: [MessageService]
@@ -86,12 +86,12 @@ export class AddUserComponent {
 
   Authorized(action: any) {
     console.log(action, ' action ---ooo');
-    let endpoint:any = '';
-    if (action == 'reject'||action == 'authorize') {
-      endpoint = action == 'authorize' ? `addAuth/${this.routeData?.data?.userId}`:`addDeAuth/${this.routeData?.data?.userId}`;
+    let endpoint: any = '';
+    if (action == 'reject' || action == 'authorize') {
+      endpoint = action == 'authorize' ? `addAuth/${this.routeData?.data?.userId}` : `addDeAuth/${this.routeData?.data?.userId}`;
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
-          console.log('User added successfully:', res);  
+          console.log('User added successfully:', res);
           if (action === 'authorize' && res?.message) {
             const userMatch = res.message.match(/User \[(.+?)\]/);
             const passwordMatch = res.message.match(/Password: (\d+)/);
@@ -100,19 +100,28 @@ export class AddUserComponent {
             this.showSuccessDialog = true;
             this.cd.detectChanges();
             // this.goBack();
-          }else{
+          } else {
             this.goBack();
           }
-          
+
         },
         error: (err) => console.error('Error adding User:', err)
       });
 
-    } else {
-      if (action == 'editUserAuth') {endpoint = `editAuth/${this.routeData?.data?.userId}`}
-      else if(action == 'editUserDeAuth') {endpoint = `editDeAuth/${this.routeData?.data?.userId}`}
-      else if(action == 'deleteUserAuth') {endpoint = `deleteAuth/${this.routeData?.data?.userId}`}
-      else if(action == 'deleteUserDeAuth') {endpoint = `deleteDeAuth/${this.routeData?.data?.userId}`}
+    } else if (action == 'deleteUserAuth' || action == 'deleteUserDeAuth') {
+      if (action == 'deleteUserAuth') { endpoint = `deleteAuth` }
+      else if (action == 'deleteUserDeAuth') { endpoint = `deleteDeAuth` }
+      this.restApi.delete(this.routeData?.data?.userId, `/usermanagement/user/${endpoint}`).subscribe({
+        next: (res) => {
+          console.log('User added successfully:', res);
+          this.goBack();
+        },
+        error: (err) => console.error('Error adding User:', err)
+      });
+    }
+    else {
+      if (action == 'editUserAuth') { endpoint = `editAuth/${this.routeData?.data?.userId}` }
+      else if (action == 'editUserDeAuth') { endpoint = `editDeAuth/${this.routeData?.data?.userId}` }
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
           console.log('User added successfully:', res);
@@ -122,7 +131,7 @@ export class AddUserComponent {
       });
 
     }
-    console.log(endpoint,'--');
+    console.log(endpoint, '--');
   }
 
   getprofileData() {
@@ -222,13 +231,13 @@ export class AddUserComponent {
   }
 
   showSuccessDialog = false;
-authorizedUser = '';
-authorizedPassword = '';
+  authorizedUser = '';
+  authorizedPassword = '';
 
-copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Password copied to clipboard!');
-  });
-}
+  copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Password copied to clipboard!');
+    });
+  }
 
 }
