@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -8,9 +8,11 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableComponent } from '../../../layout/component/table/table.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { RestService } from '../../../layout/service/rest.service';
+import { take } from 'rxjs/operators';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-port',
   imports: [TooltipModule,
     CommonModule,
@@ -28,6 +30,9 @@ export class PortComponent {
   tpCheck!: boolean;
   editVisible: any;
   Edit_data: any;
+  loading: any;
+  portDetailsData: any;
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   addOrEdit(data?: any, type?: any) {
     if (data) {
@@ -42,45 +47,55 @@ export class PortComponent {
   };
 
   globalFilterFields: any = [
-    'DEVICEGROUPID',
-    'INSTID',
-    'DEVICEINSTID',
-    'FORMNAME',
-    'ID',
-    'IPADDRESS'
+    'deviceGroupId',
+    'instId',
+    'deviceInstId',
+    'formName',
+    'id',
+    'ipAddress'
   ];
 
   cols = [
-    { field: 'DEVICEGROUPID', header: 'DEVICE GROUP ID' },
-    { field: 'INSTID', header: 'INST ID' },
-    { field: 'DEVICEINSTID', header: 'DEVICE INST ID' },
-    { field: 'FORMNAME', header: 'FORM NAME' },
-    { field: 'ID', header: 'ID' },
-    { field: 'IPADDRESS', header: 'IP ADDRESS' },
+    { field: 'deviceGroupId', header: 'DEVICE GROUP ID' },
+    { field: 'instId', header: 'INST ID' },
+    { field: 'deviceInstId', header: 'DEVICE INST ID' },
+    { field: 'formName', header: 'FORM NAME' },
+    { field: 'id', header: 'ID' },
+    { field: 'ipAddress', header: 'IP ADDRESS' },
     { field: 'Action', header: 'Action', type: ['view'] },
   ];
 
-  atmData = [{ "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL002", "IPADDRESS": "10.93.101.223" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL003", "IPADDRESS": "10.93.101.224" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSL004", "IPADDRESS": "10.93.101.225" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "RCBSLTEST", "IPADDRESS": "10.93.101.222" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "AZIZI00", "IPADDRESS": "172.16.10.11" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "TESTATM", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "SCBATM_4", "IPADDRESS": "172.16.10.207" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM_001", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "SCBATM_1", "IPADDRESS": "172.16.10.207" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "SCBATM_2", "IPADDRESS": "172.16.10.207" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "SCBATM_3", "IPADDRESS": "172.16.10.207" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "EEETT", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM01", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM01", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM_002", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM_003", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "AZIZI001", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM01", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "ATM01", "IPADDRESS": "172.16.10.89" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "00SCB111", "IPADDRESS": "172.36.52.78" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "TEST071", "IPADDRESS": "140.32.32" },
-  { "DEVICEGROUPID": "ATM", "INSTID": "TEST", "DEVICEINSTID": "TEST", "FORMNAME": "atmform", "ID": "00SCB115", "IPADDRESS": "12.25.325" }]
+  
+  ngOnInit() {
+    this.getBinData();
+  }
+  getBinData(selectedValue?: string) {
+    console.log('getBinData called with selectedValue:', selectedValue);
+    this.loading = true;
+    // const instId = localStorage.getItem('instId')
+    const instId = 'CLFSC'; // Static value for now
 
+
+    this.restApi.get('/configuration/port-details').pipe(
+      take(1)
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.portDetailsData = res;
+          console.log('portDetailsData data:', this.portDetailsData);
+        } else {
+          console.warn('No data received or request failed.');
+        } setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.loading = false;
+        this.cdr.detectChanges();
+
+      }
+    });
+  };
 }
