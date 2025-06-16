@@ -3,7 +3,7 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="buttonsList"
-           (event)="MultiButton($event)" (editEvent)="editView($event,'edit')" (viewEvent)="editView($event,'view')" (deleteEvent)="delete_visible = true" />
+           (event)="MultiButton($event)" (editEvent)="editView($event,'edit')" (viewEvent)="editView($event,'view')" (deleteEvent)="deletePopup($event)" />
     </div>
        <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">
@@ -21,7 +21,7 @@
         <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
         <div class="flex justify-end gap-2">
             <p-button label="No" severity="secondary" (click)="delete_visible = false" />
-            <p-button label="Yes, Delete" severity="danger" (click)="delateData()" />
+            <p-button label="Yes, Delete" severity="danger" (click)="delateDataFunc(deleteData)" />
         </div>
     </p-dialog>
 </div>

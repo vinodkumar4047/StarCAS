@@ -13,15 +13,17 @@ import { CommonModule } from '@angular/common';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs';
 import { MenuService } from '../../../layout/service/menu.service';
+import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-login',
   standalone: true,
   imports: [
-    ButtonModule, CheckboxModule, InputTextModule, PasswordModule,
-    ReactiveFormsModule, RouterModule, RippleModule, DropdownModule,
-    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule,
+    ButtonModule, CheckboxModule, InputTextModule, PasswordModule,FloatLabelModule,
+    ReactiveFormsModule, RouterModule, RippleModule, DropdownModule,CommonModule,
+    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule,DialogModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -34,6 +36,14 @@ export class LoginComponent implements OnInit {
   selectedLogin = this.loginOptions[0]; // Default to 'User Login'
   forgotPass: boolean = false;
   loginForm!: FormGroup;
+  showChangePasswordDialog = false;
+  formData = {
+    username: '',
+    CurrentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  };
+
   institutions = [
     { label: 'SCB', value: 'SCB' },
     { label: 'Institution B', value: 'institution_b' },
@@ -140,6 +150,62 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  onSubmitPassword() {
+    const { username, CurrentPassword, newPassword, confirmPassword } = this.formData;
+  
+    // Basic validation
+    if (!username || !CurrentPassword || !newPassword || !confirmPassword) {
+      alert('All fields are required!');
+      return;
+    }
+  
+    if (newPassword.length < 6) {
+      alert('New Password must be at least 6 characters long!');
+      return;
+    }
+  
+    if (newPassword !== confirmPassword) {
+      alert('New Password and Confirm Password do not match!');
+      return;
+    }
+  
+    // Prepare payload for API
+    const payload = {
+      userName: username,
+      oldPassword: CurrentPassword,
+      firstPassword: newPassword,
+      secondPassword: confirmPassword
+    };
+  
+    // API call to change password
+    this.restApi.post(payload, '/login/changePassword').subscribe({
+      next: (res) => {
+        console.log('Password changed successfully', res);
+        alert('Password changed successfully!');
+  
+        // Reset form and close dialog
+        this.formData = {
+          username: '',
+          CurrentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        };
+        this.showChangePasswordDialog = false;
+      },
+      error: (err) => {
+        console.error('Password change failed', err);
+        alert('Failed to change password. Please try again or contact support.');
+      }
+    });
+  }
+  
+  
+
+  onCloseDialog() {
+    // Optional logic when dialog is closed
+    console.log('Dialog closed');
   }
 
   login(payload: any) {

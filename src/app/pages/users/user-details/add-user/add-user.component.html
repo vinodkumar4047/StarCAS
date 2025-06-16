@@ -1,5 +1,6 @@
 <div class="add-user-controller col-span-12 xl:col-span-12">
-    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">User Details</h2>
+    <h2 class="mb-8 card header-card "
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">User Details</h2>
     <div class="card !mb-4">
         <form [formGroup]="userForm">
             <div class="flex justify-between">
@@ -19,7 +20,7 @@
                 <p-button *ngIf="this.routeData?.type == 'edit' && !this.saveCheck" label="Edit user Details"
                     severity="warn" raised icon="pi pi-pencil" (click)="editEnable()" />
 
-                     <div *ngIf="routetype == 'auth'" class="flex gap-2 items-center mb-4">
+                <div *ngIf="routetype == 'auth'" class="flex gap-2 items-center mb-4">
                     <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('authorize')"
                         icon="pi pi-file-check" />
                     <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('reject')"
@@ -27,14 +28,14 @@
                 </div>
 
                 <div *ngIf="routetype == 'deleteAuth'" class="flex gap-2 items-center mb-4">
-                    <p-button label="Authorized User" severity="primary" raised
-                        (onClick)="Authorized('deleteUserAuth')" icon="pi pi-file-check" />
-                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('deleteUserDeAuth')"
-                        icon="pi pi-file-excel" />
+                    <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('deleteUserAuth')"
+                        icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised
+                        (onClick)="Authorized('deleteUserDeAuth')" icon="pi pi-file-excel" />
                 </div>
                 <div *ngIf="routetype == 'EditAuth'" class="flex gap-2 items-center mb-4">
-                    <p-button label="Authorized User" severity="primary" raised
-                        (onClick)="Authorized('editUserAuth')" icon="pi pi-file-check" />
+                    <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('editUserAuth')"
+                        icon="pi pi-file-check" />
                     <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('editUserDeAuth')"
                         icon="pi pi-file-excel" />
                 </div>
@@ -43,14 +44,14 @@
 
                 <p-floatlabel variant="on">
 
-                    <p-select [options]="profileOtp" formControlName="Profile" optionValue="profileId" optionLabel="profileName"
-                        inputId="Profile" styleClass="w-full" />
+                    <p-select [options]="profileOtp" formControlName="Profile" optionValue="profileId"
+                        optionLabel="profileName" inputId="Profile" styleClass="w-full" />
                     <label for="Profile">Profile <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
 
-                    <p-select [options]="branchOpt" formControlName="Branch" optionValue="BRANCHCODE" optionLabel="BRANCHNAME"
-                        inputId="Branch" styleClass="w-full" />
+                    <p-select [options]="branchOpt" formControlName="Branch" optionValue="BRANCHCODE"
+                        optionLabel="BRANCHNAME" inputId="Branch" styleClass="w-full" />
                     <label for="Branch">Branch <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
@@ -92,17 +93,32 @@
                 </p-floatlabel>
                 <p-floatlabel variant="on">
 
-                    <p-select [options]="countryOpt" formControlName="country" optionValue="COUNTRY" optionLabel="COUNTRY"
-                        inputId="country" styleClass="w-full" />
+                    <p-select [options]="countryOpt" formControlName="country" optionValue="COUNTRY"
+                        optionLabel="COUNTRY" inputId="country" styleClass="w-full" />
                     <label for="country">Country <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
 
             </div>
 
-            <div class="flex flex-row-reverse mx-4 mt-4"  *ngIf="this.saveCheck">
+            <div class="flex flex-row-reverse mx-4 mt-4" *ngIf="this.saveCheck">
                 <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
             </div>
         </form>
     </div>
-      <p-toast />
+    <p-dialog header="Authorization Success" [(visible)]="showSuccessDialog" [modal]="true"  (onHide)="goBack()" [style]="{width: '400px'}">
+        <div style="display: flex;flex-direction: column;gap:15px">
+            <p style="font-size: 18px;margin: 0"><span style="font-weight:bold">Username :</span> {{ authorizedUser }}</p>
+            <div class="p-inputgroup">
+               
+                <div class="flex row gap-2 items-center "> 
+                    <p style="font-weight: bold;font-size: 18px;margin: 0">Password : </p>
+                    <input type="text" style="font-size: 20px;width:200px;outline:none" pInputText [value]="authorizedPassword" readonly>
+                    <button pButton icon="pi pi-copy" (click)="copyToClipboard(authorizedPassword)" pTooltip="Copy"
+                      tooltipPosition="top"  class="p-button-secondary"></button>
+                </div>
+
+            </div>
+            <p style="font-size: 16px; color: green; font-weight: bold;text-align: center;">Authorized Successfully!</p>
+        </div>
+    </p-dialog>
 </div>

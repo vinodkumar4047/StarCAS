@@ -55,7 +55,11 @@
                 border-color: red;
             }
         }
-
+        .p-dialog-title {
+            font-weight: bold !important;
+            font-size: var(--p-dialog-title-font-size);
+            color: green;
+        }
         @media (max-width: 600px) {
             .user-select.p-selectbutton {
                 flex-direction: column; // stack items vertically if needed
