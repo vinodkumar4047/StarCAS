@@ -3,7 +3,7 @@
         style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">Transaction Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="transactionData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+        <app-table [tableData]="statusMapData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (viewEvent)="addOrEdit($event,'view')" [loading]="loading" />
     </div>
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
@@ -21,14 +21,14 @@
         <!-- Table-like layout  -->
         <div *ngIf="Edit_data">
             <div class="table-row">
-                <div class="table-cell heading">TRANSACTION CODE</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.txnCode" type="text" placeholder=""
+                <div class="table-cell heading">RESPCODE</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.RESPCODE" type="text" placeholder=""
                     [disabled]="true" />
             </div>
             <div class="table-row">
-                <div class="table-cell heading">TRANSACTION DESCRIPTION</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.txnDesc" type="text" placeholder=""
-                    [disabled]="true" />
+                <div class="table-cell heading">DESCRIPTION</div>
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.DESCRIPTION" type="text"
+                    placeholder="" [disabled]="true" />
 
             </div>
 

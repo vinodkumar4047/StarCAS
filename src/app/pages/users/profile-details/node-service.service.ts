@@ -257,6 +257,21 @@ export class NodeServiceService {
                   "checked": false
                 }
               ]
+            },
+            {
+              "title": "Status Map",
+              "link": "statusMap",
+              "icon": "fa-solid fa-credit-card",
+              "color": "#1b5e20",
+              "menuId": "M00000211",
+              "checked": false,
+              "permissions": [
+                {
+                  "title": "View Transaction",
+                  "menuId": "M0000021101",
+                  "checked": false
+                }
+              ]
             }
           ]
         },

@@ -77,12 +77,12 @@ export class UserProfileComponent {
     console.log('Route type:', this.routetype);
 
     this.fitForm = this.fb.group({
-      profileName: ['', Validators.required, Validators.maxLength(25)],
-      profileDesc: ['', Validators.required,],
-      instId: ['', Validators.required],
-      userType: ['', Validators.required],
-      profileId: ['', Validators.required],
-      status: ['', Validators.required],
+      profileName: ['',],
+      profileDesc: ['', ,],
+      instId: ['',],
+      userType: ['',],
+      profileId: ['',],
+      status: ['',],
       indirectState: []
     });
 
