@@ -276,6 +276,21 @@ export class MenuService {
                            "checked": false
                         }
                      ]
+                  },
+                  {
+                     "title": "Status Map",
+                     "link": "statusMap",
+                     "icon": "fa-solid fa-credit-card",
+                     "color": "#1b5e20",
+                     "menuId": "M00000210",
+                     "checked": false,
+                     "permissions": [
+                        {
+                           "title": "View Transaction",
+                           "menuId": "M0000021001",
+                           "checked": false
+                        }
+                     ]
                   }
                ]
             },
