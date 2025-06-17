@@ -16,8 +16,18 @@ changeDetection:ChangeDetectionStrategy.OnPush,
   styleUrl: './block-user.component.scss'
 })
 export class BlockUserComponent { 
-  pageType: any = 'Block'
-  cols: any = []
+
+  cols: any = [
+    { field: 'INSTID', header: 'INST ID' },
+    { field: 'userId', header: 'User ID' },
+    { field: 'userName', header: 'Username' },
+    { field: 'emailId', header: 'E-Mail ID' },
+    {
+      field: 'Action',
+      header: 'Action',
+      type: ['view']
+    }
+  ];
    globalFilterFields: any = [
     "userId",
     "userName",
@@ -26,63 +36,23 @@ export class BlockUserComponent {
   ];
   tableData: any = [];
   loading: boolean = false;
-   ;
-    buttonlist:any = [ { label: 'Block Authorized User', icon: 'pi pi-lock', type: 'BlockAuth', variant: 'outlined', severity: "primary" }]
   constructor(private location: Location, private fb: FormBuilder,private restApi : RestService,private cd:ChangeDetectorRef,private router: Router,) { }
 ngOnInit() {
-  this.updateColumns();
-  this.getUserListData(this.pageType);
+  this.getUserListData();
 }
 
 blockButton(event: any) {
   console.log(event);
-  
   if (event.type === 'BlockAuth') {
-    this.pageType = 'BlockAuth';
-    this.updateColumns(); // Update columns
-    this.getUserListData(this.pageType);
-     this.buttonlist = []
-  } else if (event.type === 'Block'){
-    this.restApi.post(null, `/usermanagement/user/block/${event?.data?.userId}`).subscribe({
-      next: (res) => {
-        console.log('Profile blocked successfully:', res);
-        this.getUserListData(this.pageType);
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error blocking profile:', err);
-      }
-    });
-  }
+    this.getUserListData();
+  } 
 }
-updateColumns() {
-  this.cols = [
-    { field: 'INSTID', header: 'INST ID' },
-    { field: 'userId', header: 'User ID' },
-    { field: 'userName', header: 'Username' },
-    { field: 'emailId', header: 'E-Mail ID' },
-    {
-      field: 'Action',
-      header: 'Action',
-      type: this.pageType === 'Block' ? ['Block'] : ['view']
-    }
-  ];
-}
-
   goBack() {
-    if( this.pageType == 'BlockAuth'){
-      this.pageType = 'Block';
-           this.buttonlist = [ { label: 'Block Authorized User', icon: 'pi pi-lock', type: 'BlockAuth', variant: 'outlined', severity: "primary" }]
-       this.updateColumns(); // Update columns
-    this.getUserListData(this.pageType);
-    }else{
       this.location.back();
-    }
-    
   }
-    getUserListData(type:any) {
+    getUserListData() {
          this.loading = true;
-            this.restApi.get(`/usermanagement/user/getAllUsersByStatus/${type == 'BlockAuth'? 'UBA': 'U'}`).pipe(
+            this.restApi.get(`/usermanagement/user/getAllUsersByStatus/UBA`).pipe(
               take(1),
             ).subscribe({
               next: (res) => {

@@ -21,7 +21,7 @@ export class UnblockUserComponent {
     { field: 'userId', header: 'User ID', },
     { field: 'userName', header: 'Username', },
     { field: 'emailId', header: 'E-Mail ID', },
-    { field: 'Action', header: 'Action', type: ['Unblock'] },
+    { field: 'Action', header: 'Action', type: ['view'] },
   ]
    globalFilterFields: any = [
     "userId",
@@ -40,32 +40,10 @@ export class UnblockUserComponent {
   goBack() {
     this.location.back();
   }
-  blockButton(event:any){
-    if(event.type == 'UnBlockAuth'){
-      this.pageType = 'UnBlockAuth'
-    }else{
-       console.log(event,'event');
-     this.restApi.post(null,`/usermanagement/user/unBlockAuth/${event?.data?.userId}`).subscribe({
-        next: (res) => {
-          console.log('Profile Unblock successfully:', res);
-          const msg = res?.message || 'UnBlock successfully';
-
-          this.getUserListData(); 
-          this.cd.detectChanges();
-        },
-        error: (err) => {
-          console.error('Error UnBlock profile:', err);
-          // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
-        }
-      });
-    }
-    
-    
-  }
 
      getUserListData() {
            this.loading = true;
-              this.restApi.get('/usermanagement/user/getAllUsersByStatus/UB').pipe(
+              this.restApi.get('/usermanagement/user/getAllUsersByStatus/UUB').pipe(
                 take(1),
               ).subscribe({
                 next: (res) => {
@@ -89,4 +67,7 @@ export class UnblockUserComponent {
                 }
               });
         };
+  editView(event: any, type: any,check:any) {
+    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type ,check:check} });
+  }
 }

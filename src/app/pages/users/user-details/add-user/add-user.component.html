@@ -45,6 +45,18 @@
                     <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('BlockDeAuth')"
                         icon="pi pi-file-excel" />
                 </div>
+                 <div *ngIf="routetype == 'UnBlockAuth'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('UnBlockAuth')"
+                        icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('UnBlockDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
+                 <div *ngIf="routetype == 'reset'" class="flex gap-2 items-center mb-4">
+                    <p-button label="Authorized User" severity="primary" raised (onClick)="Authorized('resetAuth')"
+                        icon="pi pi-file-check" />
+                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('resetDeAuth')"
+                        icon="pi pi-file-excel" />
+                </div>
             </div>
             <div class="mx-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-end ">
 

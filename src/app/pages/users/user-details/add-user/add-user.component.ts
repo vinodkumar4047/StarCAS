@@ -118,12 +118,29 @@ export class AddUserComponent {
         },
         error: (err) => console.error('Error adding User:', err)
       });
+    } else if (action == 'resetAuth' || action == 'resetDeAuth') {
+      if (action == 'resetAuth') { endpoint = `resetUserPassword/${this.routeData?.data?.userId}` }
+      else if (action == 'resetDeAuth') { endpoint = `deAuthResetUserPassword/${this.routeData?.data?.userId}` }
+      this.restApi.post(null, `/forgotPassword/${endpoint}`).subscribe({
+        next: (res) => {
+          console.log('User reset successfully:', res);
+          const passwordMatch = res.message.match(/Password:\s*(\d+)/);
+
+          this.authorizedUser = this.routeData?.data?.userName || '';
+          this.authorizedPassword = passwordMatch?.[1] || '';
+          this.showSuccessDialog = true;
+          this.cd.detectChanges();
+        },
+        error: (err) => console.error('Error adding User:', err)
+      });
     }
     else {
       if (action == 'editUserAuth') { endpoint = `editAuth/${this.routeData?.data?.userId}` }
       else if (action == 'editUserDeAuth') { endpoint = `editDeAuth/${this.routeData?.data?.userId}` }
-      else if(action == 'BlockAuth' ){endpoint = `blockAuth/${this.routeData?.data?.userId}`}
-      else if(action == 'BlockDeAuth'){endpoint = `blockDeAuth/${this.routeData?.data?.userId}`}
+      else if (action == 'BlockAuth') { endpoint = `blockAuth/${this.routeData?.data?.userId}` }
+      else if (action == 'BlockDeAuth') { endpoint = `blockDeAuth/${this.routeData?.data?.userId}` }
+      else if (action == 'UnBlockAuth') { endpoint = `unBlockAuth/${this.routeData?.data?.userId}` }
+      else if (action == 'UnBlockDeAuth') { endpoint = `unBlockDeAuth/${this.routeData?.data?.userId}` }
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
           console.log('User added successfully:', res);

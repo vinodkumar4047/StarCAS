@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
     { label: 'Institution C', value: 'institution_c' }
   ];
 
-  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService, public menuSer: MenuService) { }
+  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService, 
+    public menuSer: MenuService,private cd:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // localStorage.clear();
@@ -108,7 +109,15 @@ export class LoginComponent implements OnInit {
 
   forgotPassword() {
     if (this.loginForm.valid) {
-      this.forgotPass = false;
+     
+      this.restApi.post(null, `/login/forgotPassword/${String(this.loginForm.value.username)?.trim()}`).subscribe({
+        next: (res) => {
+          console.log('User forgotPassword successfully:', res); 
+          this.forgotPass = false;
+          this.cd.detectChanges();
+        },
+        error: (err) => console.error('Error forgotPassword User:', err)
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }
@@ -121,7 +130,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userRole', role);
 
       const payload = {
-        "username": this.loginForm.value.username,
+        "username": String(this.loginForm.value.username)?.trim(),
         "password": this.loginForm.value.userPassword,
         "logintype": "user",
         "instname": this.loginForm.value.userInstitution
@@ -140,7 +149,7 @@ export class LoginComponent implements OnInit {
       // localStorage.setItem('userRole', 'admin');
 
       const payload = {
-        "username": this.loginForm.value.AdminUsername,
+        "username": String(this.loginForm.value.AdminUsername)?.trim(),
         "password": this.loginForm.value.adminPassword,
         "logintype": "admin",
         "instname": ""
@@ -213,6 +222,7 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         if(res?.respDesc == 'Switch to Change Password Page'){
           this.showChangePasswordDialog = !this.showChangePasswordDialog;
+          this.cd.detectChanges();
         }else{
           console.log('Login Success:', res);
         localStorage.setItem('userRole', res.userDetails[0].userId);

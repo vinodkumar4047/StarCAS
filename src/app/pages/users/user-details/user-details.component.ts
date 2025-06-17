@@ -39,24 +39,24 @@ export class UserDetailsComponent {
   ]
   buttonsList: any = this.userType == 'SU' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
-    { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
-    { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
-    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
-    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "warn" },
+    { label: 'Authorize Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "success" },
+    { label: 'Authorize Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
     { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
-    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
+    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" },
+     { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" }
   ] : this.userType == 'M' ? [
     { label: 'Add User', icon: 'pi pi-user-plus', type: 'addUser', variant: 'raised', severity: "primary" },
-    { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
-    { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
-    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
+    // { label: 'Authorize Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
+    // { label: 'Authorize Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
+    // { label: 'Authorize Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
   ] : [
-    { label: 'Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "danger" },
-    { label: 'Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "warn" },
-    { label: 'Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
-    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
+    { label: 'Authorize Block User', icon: 'pi pi-lock', type: 'blockUser', variant: 'outlined', severity: "warn" },
+    { label: 'Authorize Unblock User', icon: 'pi pi-lock-open', type: 'unblockUser', variant: 'outlined', severity: "success" },
+    { label: 'Authorize Reset Password', icon: 'pi pi-refresh', type: 'resetPassword', variant: 'outlined', severity: "primary" },
     { label: 'Add Authorized User', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
-    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
+    { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" },
+    { label: 'Delete Authorized User', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" }
   ];
   delete_visible: boolean = false;
   loading: boolean = false;    
@@ -82,6 +82,40 @@ export class UserDetailsComponent {
       this.router.navigate(['/pages/reset_user_password'], { state: { data: event?.data, type: event?.type } });
     } else if (event.type == 'auth' || event.type == 'deleteAuth' || event.type == 'EditAuth') {
       this.router.navigate(['/pages/auth-User'], { state: { data: event?.data, type: event?.type } });
+    } else if(event.type == 'Block'){
+       this.restApi.post(null, `/usermanagement/user/block/${event?.data?.userId}`).subscribe({
+      next: (res) => {
+        console.log('User blocked successfully:', res);
+        this.getUserListData();
+        this.cd.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error blocking profile:', err);
+      }
+    });
+    } else if (event.type == 'UnBlock'){
+      this.restApi.post(null,`/usermanagement/user/unblock/${event?.data?.userId}`).subscribe({
+        next: (res) => {
+          console.log('Profile Unblock successfully:', res);
+          this.getUserListData(); 
+          this.cd.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error UnBlock profile:', err);
+        }
+      });
+    }
+    else if (event.type == 'ResetPassword'){
+      this.restApi.post(null,`/forgotPassword/initiateResetUserPassword/${event?.data?.userId}`).subscribe({
+        next: (res) => {
+          console.log('Profile reset successfully:', res);
+          this.getUserListData(); 
+          this.cd.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error reset profile:', err);
+        }
+      });
     }
   }
 
