@@ -6,12 +6,12 @@
                 <p-button icon="pi pi-arrow-left" (onClick)="goBack()" styleClass="p-button-text"
                     class="backIcon"></p-button>
                 <div class="font-semibold text-xl heading-color">
-                   Blocked Users
+                   Unblocked Users
                 </div>
             </div>
         </div>
         <div>
-             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="blockButton($event)" />
+             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="blockButton($event)" [multipleButton]="" />
         </div>
     </div>
 </div>

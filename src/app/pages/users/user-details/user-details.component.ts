@@ -59,7 +59,8 @@ export class UserDetailsComponent {
     { label: 'Edit Authorized User', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" }
   ];
   delete_visible: boolean = false;
-  loading: boolean = false;
+  loading: boolean = false;    
+  deleteData: any
   constructor(private router: Router,private restApi:RestService,private cd :ChangeDetectorRef) { };
 
   ngOnInit() {
@@ -111,7 +112,7 @@ export class UserDetailsComponent {
           });
     };
 
-    deleteData: any
+
     deletePopup(data: any) {
       this.deleteData = data.data.userId
       this.delete_visible = true

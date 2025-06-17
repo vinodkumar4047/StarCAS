@@ -1,8 +1,12 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from "../../../../layout/component/table/table.component";
+import { RestService } from '../../../../layout/service/rest.service';
+import { take } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
 changeDetection:ChangeDetectionStrategy.OnPush,
@@ -11,349 +15,98 @@ changeDetection:ChangeDetectionStrategy.OnPush,
   templateUrl: './block-user.component.html',
   styleUrl: './block-user.component.scss'
 })
-export class BlockUserComponent {
-  cols: any = [
-    { field: 'INSTID', header: 'INST ID', },
-    { field: 'USERID', header: 'User ID', },
-    { field: 'USERNAME', header: 'Username', },
-    { field: 'EMAILID', header: 'E-Mail ID', },
-    { field: 'Action', header: 'Action', type: ['Block'] },
-  ]
-  globalFilterFields: any = [
-    'INSTID',
-    'USERID',
-    'USERNAME',
-    'EMAILID',
-  ]
-  tableData: any = [
+export class BlockUserComponent { 
+  pageType: any = 'Block'
+  cols: any = []
+   globalFilterFields: any = [
+    "userId",
+    "userName",
+    "INSTID",
+    "emailId",
+  ];
+  tableData: any = [];
+  loading: boolean = false;
+   ;
+    buttonlist:any = [ { label: 'Block Authorized User', icon: 'pi pi-lock', type: 'BlockAuth', variant: 'outlined', severity: "primary" }]
+  constructor(private location: Location, private fb: FormBuilder,private restApi : RestService,private cd:ChangeDetectorRef,private router: Router,) { }
+ngOnInit() {
+  this.updateColumns();
+  this.getUserListData(this.pageType);
+}
+
+blockButton(event: any) {
+  console.log(event);
+  
+  if (event.type === 'BlockAuth') {
+    this.pageType = 'BlockAuth';
+    this.updateColumns(); // Update columns
+    this.getUserListData(this.pageType);
+     this.buttonlist = []
+  } else if (event.type === 'Block'){
+    this.restApi.post(null, `/usermanagement/user/block/${event?.data?.userId}`).subscribe({
+      next: (res) => {
+        console.log('Profile blocked successfully:', res);
+        this.getUserListData(this.pageType);
+        this.cd.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error blocking profile:', err);
+      }
+    });
+  }
+}
+updateColumns() {
+  this.cols = [
+    { field: 'INSTID', header: 'INST ID' },
+    { field: 'userId', header: 'User ID' },
+    { field: 'userName', header: 'Username' },
+    { field: 'emailId', header: 'E-Mail ID' },
     {
-      "USERID": 27,
-      "USERNAME": "TEST2",
-      "USERPASSWORD": "CIwuL8QJ7sN4COM4gBujnY4Kp3c=",
-      "PROFILEID": "16",
-      "FIRSTNAME": "test",
-      "LASTNAME": "demo",
-      "EMAILID": "demo@gmail.com",
-      "USERSTATUS": "1",
-      "DESCRIPTION": "---",
-      "BRANCHCODE": "634",
-      "IPADDRESS": "N",
-      "RETRYCOUNT": 0,
-      "USERBLOCK": "Not Blocked",
-      "EXPIRYDATE": "N",
-      "CREATIONDATE": 1720636200000,
-      "LOGINSTATUS": 0,
-      "FIRSTTIME": 1,
-      "PASSWORDEXPIRYDATE": "N",
-      "PASSWORDEXPIRYFLAG": 0,
-      "MODIFIEDDATE": null,
-      "INSTID": "TEST",
-      "CREATEDUSERID": "24",
-      "FORGOTPASSWORDFLAG": "0",
-      "LASTLOGIN": "lstlogin",
-      "USERTYPE": "C",
-      "PSWREPEATCOUNT": "N",
-      "FRSTLOGINDATE": "frstlogin",
-      "FRSTLOGIN": "F",
-      "FORCEPSWEXP": "N",
-      "SALT_KEY": "GxbMQXxqzW4=",
-      "CHANGPASS_DATE": null,
-      "ADDED_BY": "adminmaker",
-      "ADDED_DATE": "11-jul-2024",
-      "AUTH_STATUS": "1",
-      "AUTH_BY": "adminchecker",
-      "AUTH_DATE": "11-jul-2024",
-      "REMARKS": "AUTHORIZED",
-      "UNBLOCKED_BY": null,
-      "UNBLOCKED_DATE": null,
-      "UNBLOCK_AUTHBY": null,
-      "UNBLOCK_AUTHDATE": null,
-      "PASSWDRESET_BY": null,
-      "PASSWDRESET_DATE": null,
-      "PASSWD_RESETAUTHBY": null,
-      "PASSWD_RESETDATE": null,
-      "DELETED_BY": null,
-      "DELETED_DATE": null,
-      "DELETED_FLAG": null,
-      "CBS_USERNAME": "TEST2",
-      "MOBILENO": 8964673621,
-      "DOB": 1720636200000,
-      "COUNTRY": "India",
-      "CITY": "chennai",
-      "ADDRESS": "egmore",
-      "PROFILE_PIC": null,
-      "PROFILE_PIC_TYPE": null,
-      "UNBLOCK_TIME": null,
-      "BLOCKEDDATE": null,
-      "PASS_COUNT": null,
-      "BRANCHNAME": "HEAD OFFICE",
-      "PROFILE_ID": 16,
-      "PROFILE_NAME": "TESTCHECKER"
-    },
-    {
-      "USERID": 28,
-      "USERNAME": "demomaker1",
-      "USERPASSWORD": "y9uEeTwSwjVV/4HenpqVu3gppJs=",
-      "PROFILEID": "17",
-      "FIRSTNAME": "sowmiya",
-      "LASTNAME": "sowmiya",
-      "EMAILID": "sowmiya@gmail.com",
-      "USERSTATUS": "1",
-      "DESCRIPTION": "---",
-      "BRANCHCODE": "000",
-      "IPADDRESS": "N",
-      "RETRYCOUNT": 0,
-      "USERBLOCK": "Not Blocked",
-      "EXPIRYDATE": "N",
-      "CREATIONDATE": 1720981800000,
-      "LOGINSTATUS": 0,
-      "FIRSTTIME": 1,
-      "PASSWORDEXPIRYDATE": "N",
-      "PASSWORDEXPIRYFLAG": 0,
-      "MODIFIEDDATE": null,
-      "INSTID": "TEST",
-      "CREATEDUSERID": "24",
-      "FORGOTPASSWORDFLAG": "0",
-      "LASTLOGIN": "lstlogin",
-      "USERTYPE": "M",
-      "PSWREPEATCOUNT": "N",
-      "FRSTLOGINDATE": "frstlogin",
-      "FRSTLOGIN": "F",
-      "FORCEPSWEXP": "N",
-      "SALT_KEY": "vwkHtt5+46g=",
-      "CHANGPASS_DATE": null,
-      "ADDED_BY": "adminmaker",
-      "ADDED_DATE": "15-jul-2024",
-      "AUTH_STATUS": "1",
-      "AUTH_BY": "adminchecker",
-      "AUTH_DATE": "15-jul-2024",
-      "REMARKS": "AUTHORIZED",
-      "UNBLOCKED_BY": null,
-      "UNBLOCKED_DATE": null,
-      "UNBLOCK_AUTHBY": null,
-      "UNBLOCK_AUTHDATE": null,
-      "PASSWDRESET_BY": null,
-      "PASSWDRESET_DATE": null,
-      "PASSWD_RESETAUTHBY": null,
-      "PASSWD_RESETDATE": null,
-      "DELETED_BY": null,
-      "DELETED_DATE": null,
-      "DELETED_FLAG": null,
-      "CBS_USERNAME": "demomaker1",
-      "MOBILENO": 8764587648,
-      "DOB": 1720981800000,
-      "COUNTRY": "India",
-      "CITY": "chennai",
-      "ADDRESS": "egmore",
-      "PROFILE_PIC": null,
-      "PROFILE_PIC_TYPE": null,
-      "UNBLOCK_TIME": null,
-      "BLOCKEDDATE": null,
-      "PASS_COUNT": null,
-      "BRANCHNAME": "Head Office",
-      "PROFILE_ID": 17,
-      "PROFILE_NAME": "MakerDemo"
-    },
-    {
-      "USERID": 29,
-      "USERNAME": "demochecker2",
-      "USERPASSWORD": "dxPzdii2je/afcY/qHOGHO2pQ+4=",
-      "PROFILEID": "18",
-      "FIRSTNAME": "sowmiya",
-      "LASTNAME": "s",
-      "EMAILID": "sowmiya@gmail.com",
-      "USERSTATUS": "1",
-      "DESCRIPTION": "---",
-      "BRANCHCODE": "000",
-      "IPADDRESS": "N",
-      "RETRYCOUNT": 0,
-      "USERBLOCK": "Not Blocked",
-      "EXPIRYDATE": "N",
-      "CREATIONDATE": 1720981800000,
-      "LOGINSTATUS": 0,
-      "FIRSTTIME": 1,
-      "PASSWORDEXPIRYDATE": "N",
-      "PASSWORDEXPIRYFLAG": 0,
-      "MODIFIEDDATE": null,
-      "INSTID": "TEST",
-      "CREATEDUSERID": "24",
-      "FORGOTPASSWORDFLAG": "0",
-      "LASTLOGIN": "lstlogin",
-      "USERTYPE": "C",
-      "PSWREPEATCOUNT": "N",
-      "FRSTLOGINDATE": "frstlogin",
-      "FRSTLOGIN": "F",
-      "FORCEPSWEXP": "N",
-      "SALT_KEY": "J9/uUXblB+A=",
-      "CHANGPASS_DATE": null,
-      "ADDED_BY": "adminmaker",
-      "ADDED_DATE": "15-jul-2024",
-      "AUTH_STATUS": "1",
-      "AUTH_BY": "adminchecker",
-      "AUTH_DATE": "15-jul-2024",
-      "REMARKS": "AUTHORIZED",
-      "UNBLOCKED_BY": null,
-      "UNBLOCKED_DATE": null,
-      "UNBLOCK_AUTHBY": null,
-      "UNBLOCK_AUTHDATE": null,
-      "PASSWDRESET_BY": null,
-      "PASSWDRESET_DATE": null,
-      "PASSWD_RESETAUTHBY": null,
-      "PASSWD_RESETDATE": null,
-      "DELETED_BY": null,
-      "DELETED_DATE": null,
-      "DELETED_FLAG": null,
-      "CBS_USERNAME": "demochecker2",
-      "MOBILENO": 5475675687,
-      "DOB": 1720981800000,
-      "COUNTRY": "Haiti",
-      "CITY": "chennai",
-      "ADDRESS": "egmore",
-      "PROFILE_PIC": null,
-      "PROFILE_PIC_TYPE": null,
-      "UNBLOCK_TIME": null,
-      "BLOCKEDDATE": null,
-      "PASS_COUNT": null,
-      "BRANCHNAME": "Head Office",
-      "PROFILE_ID": 18,
-      "PROFILE_NAME": "CheckerDemo"
-    },
-    {
-      "USERID": 30,
-      "USERNAME": "makeradmin",
-      "USERPASSWORD": "brVBXlNORZH7MlNPYw6dOswj3H8=",
-      "PROFILEID": "19",
-      "FIRSTNAME": "sowmiya",
-      "LASTNAME": "sowmiya",
-      "EMAILID": "sowmiya@gmail.com",
-      "USERSTATUS": "1",
-      "DESCRIPTION": "---",
-      "BRANCHCODE": "000",
-      "IPADDRESS": "N",
-      "RETRYCOUNT": 0,
-      "USERBLOCK": "Not Blocked",
-      "EXPIRYDATE": "N",
-      "CREATIONDATE": 1720981800000,
-      "LOGINSTATUS": 0,
-      "FIRSTTIME": 1,
-      "PASSWORDEXPIRYDATE": "N",
-      "PASSWORDEXPIRYFLAG": 0,
-      "MODIFIEDDATE": null,
-      "INSTID": "TEST",
-      "CREATEDUSERID": "24",
-      "FORGOTPASSWORDFLAG": "0",
-      "LASTLOGIN": "lstlogin",
-      "USERTYPE": "M",
-      "PSWREPEATCOUNT": "N",
-      "FRSTLOGINDATE": "frstlogin",
-      "FRSTLOGIN": "F",
-      "FORCEPSWEXP": "N",
-      "SALT_KEY": "q/q3zSArHSw=",
-      "CHANGPASS_DATE": null,
-      "ADDED_BY": "adminmaker",
-      "ADDED_DATE": "15-jul-2024",
-      "AUTH_STATUS": "1",
-      "AUTH_BY": "adminchecker",
-      "AUTH_DATE": "15-jul-2024",
-      "REMARKS": "AUTHORIZED",
-      "UNBLOCKED_BY": null,
-      "UNBLOCKED_DATE": null,
-      "UNBLOCK_AUTHBY": null,
-      "UNBLOCK_AUTHDATE": null,
-      "PASSWDRESET_BY": null,
-      "PASSWDRESET_DATE": null,
-      "PASSWD_RESETAUTHBY": null,
-      "PASSWD_RESETDATE": null,
-      "DELETED_BY": null,
-      "DELETED_DATE": null,
-      "DELETED_FLAG": null,
-      "CBS_USERNAME": "makeradmin",
-      "MOBILENO": 8456757657,
-      "DOB": 1720981800000,
-      "COUNTRY": "India",
-      "CITY": "chennai",
-      "ADDRESS": "egmore",
-      "PROFILE_PIC": null,
-      "PROFILE_PIC_TYPE": null,
-      "UNBLOCK_TIME": null,
-      "BLOCKEDDATE": null,
-      "PASS_COUNT": null,
-      "BRANCHNAME": "Head Office",
-      "PROFILE_ID": 19,
-      "PROFILE_NAME": "demoadmin1"
-    },
-    {
-      "USERID": 31,
-      "USERNAME": "checkeradmin",
-      "USERPASSWORD": "SX/CNTVuVeiaCw9kHz0zpZjXkxE=",
-      "PROFILEID": "20",
-      "FIRSTNAME": "sowmiya",
-      "LASTNAME": "s",
-      "EMAILID": "sowmiya@gmail.com",
-      "USERSTATUS": "1",
-      "DESCRIPTION": "---",
-      "BRANCHCODE": "453",
-      "IPADDRESS": "N",
-      "RETRYCOUNT": 0,
-      "USERBLOCK": "Not Blocked",
-      "EXPIRYDATE": "N",
-      "CREATIONDATE": 1720981800000,
-      "LOGINSTATUS": 0,
-      "FIRSTTIME": 1,
-      "PASSWORDEXPIRYDATE": "N",
-      "PASSWORDEXPIRYFLAG": 0,
-      "MODIFIEDDATE": null,
-      "INSTID": "TEST",
-      "CREATEDUSERID": "24",
-      "FORGOTPASSWORDFLAG": "0",
-      "LASTLOGIN": "lstlogin",
-      "USERTYPE": "C",
-      "PSWREPEATCOUNT": "N",
-      "FRSTLOGINDATE": "frstlogin",
-      "FRSTLOGIN": "F",
-      "FORCEPSWEXP": "N",
-      "SALT_KEY": "z5y6B4qmZ3Y=",
-      "CHANGPASS_DATE": null,
-      "ADDED_BY": "adminmaker",
-      "ADDED_DATE": "15-jul-2024",
-      "AUTH_STATUS": "1",
-      "AUTH_BY": "adminchecker",
-      "AUTH_DATE": "15-jul-2024",
-      "REMARKS": "AUTHORIZED",
-      "UNBLOCKED_BY": null,
-      "UNBLOCKED_DATE": null,
-      "UNBLOCK_AUTHBY": null,
-      "UNBLOCK_AUTHDATE": null,
-      "PASSWDRESET_BY": null,
-      "PASSWDRESET_DATE": null,
-      "PASSWD_RESETAUTHBY": null,
-      "PASSWD_RESETDATE": null,
-      "DELETED_BY": null,
-      "DELETED_DATE": null,
-      "DELETED_FLAG": null,
-      "CBS_USERNAME": "checkeradmin",
-      "MOBILENO": 9567745877,
-      "DOB": 1720981800000,
-      "COUNTRY": "India",
-      "CITY": "chennai",
-      "ADDRESS": "egmore",
-      "PROFILE_PIC": null,
-      "PROFILE_PIC_TYPE": null,
-      "UNBLOCK_TIME": null,
-      "BLOCKEDDATE": null,
-      "PASS_COUNT": null,
-      "BRANCHNAME": "TEST OFFICE",
-      "PROFILE_ID": 20,
-      "PROFILE_NAME": "demoadmin2"
+      field: 'Action',
+      header: 'Action',
+      type: this.pageType === 'Block' ? ['Block'] : ['view']
     }
   ];
-  constructor(private location: Location, private fb: FormBuilder) { }
+}
 
   goBack() {
-    this.location.back();
-  }
-  blockButton(event:any){
-    console.log(event,'event');
+    if( this.pageType == 'BlockAuth'){
+      this.pageType = 'Block';
+           this.buttonlist = [ { label: 'Block Authorized User', icon: 'pi pi-lock', type: 'BlockAuth', variant: 'outlined', severity: "primary" }]
+       this.updateColumns(); // Update columns
+    this.getUserListData(this.pageType);
+    }else{
+      this.location.back();
+    }
     
+  }
+    getUserListData(type:any) {
+         this.loading = true;
+            this.restApi.get(`/usermanagement/user/getAllUsersByStatus/${type == 'BlockAuth'? 'UBA': 'U'}`).pipe(
+              take(1),
+            ).subscribe({
+              next: (res) => {
+                if (res) {
+                  this.tableData = res.data.map((o: any) => {
+                    o.INSTID = environment.adminInstId;
+                    return o;
+                  });
+                  console.log('this.tableData data:', this.tableData)
+                   this.loading = false;
+                   this.cd.detectChanges();
+                } else {
+                  console.warn('No data received or request failed.');
+                  this.loading = false;
+                }
+              },
+              error: (err) => {
+                console.error('Subscription error:', err);
+                this.loading = false;
+        
+              }
+            });
+      }
+      editView(event: any, type: any,check:any) {
+    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type ,check:check} });
   }
 }

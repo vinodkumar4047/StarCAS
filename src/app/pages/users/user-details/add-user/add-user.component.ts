@@ -122,6 +122,8 @@ export class AddUserComponent {
     else {
       if (action == 'editUserAuth') { endpoint = `editAuth/${this.routeData?.data?.userId}` }
       else if (action == 'editUserDeAuth') { endpoint = `editDeAuth/${this.routeData?.data?.userId}` }
+      else if(action == 'BlockAuth' ){endpoint = `blockAuth/${this.routeData?.data?.userId}`}
+      else if(action == 'BlockDeAuth'){endpoint = `blockDeAuth/${this.routeData?.data?.userId}`}
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
           console.log('User added successfully:', res);

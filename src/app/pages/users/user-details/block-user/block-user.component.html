@@ -11,7 +11,7 @@
             </div>
         </div>
         <div>
-             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="blockButton($event)" />
+             <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="blockButton($event)" [multipleButton]="buttonlist" (viewEvent)="editView($event,'view','BlockAuth')"/>
         </div>
     </div>
 </div>
