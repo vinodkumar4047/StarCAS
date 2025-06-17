@@ -15,15 +15,16 @@ import { take } from 'rxjs';
 import { MenuService } from '../../../layout/service/menu.service';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { DialogService } from '../../../layout/component/commonDialog.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-login',
   standalone: true,
   imports: [
-    ButtonModule, CheckboxModule, InputTextModule, PasswordModule,FloatLabelModule,
-    ReactiveFormsModule, RouterModule, RippleModule, DropdownModule,CommonModule,
-    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule,DialogModule
+    ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FloatLabelModule,
+    ReactiveFormsModule, RouterModule, RippleModule, DropdownModule, CommonModule,
+    AppFloatingConfigurator, SelectButton, CommonModule, FormsModule, DialogModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -50,41 +51,40 @@ export class LoginComponent implements OnInit {
     { label: 'Institution C', value: 'institution_c' }
   ];
 
-  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService, 
-    public menuSer: MenuService,private cd:ChangeDetectorRef) { }
+readonly usernameValidators = [Validators.required, Validators.maxLength(25)];
 
-  ngOnInit(): void {
-    // localStorage.clear();
-    // sessionStorage.clear();
-    this.loginForm = this.fb.group({
-      username: [''],
-      userPassword: [''],
-      userInstitution: [null],
-      rememberUser: [false],
+  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService,private dialogService:DialogService,
+    public menuSer: MenuService, private cd: ChangeDetectorRef) { }
 
-      AdminUsername: [''],
-      adminPassword: [''],
-      rememberAdmin: [false]
-    });
+ngOnInit(): void {
+  this.loginForm = this.fb.group({
+    username: ['', []],
+    userPassword: ['', []],
+    userInstitution: [null],
+    rememberUser: [false],
 
-    // Set initial validators based on default selectedLogin
-    this.setLoginValidators(this.selectedLogin.value);
-  }
+    AdminUsername: ['', []],
+    adminPassword: ['', []],
+    rememberAdmin: [false]
+  });
+
+  this.setLoginValidators(this.selectedLogin.value);
+}
 
   setLoginValidators(loginType: string): void {
     if (loginType === 'user') {
       // User login validators
-      this.loginForm.get('username')?.setValidators([Validators.required]);
-      this.loginForm.get('userPassword')?.setValidators([Validators.required]);
-      this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
+         this.loginForm.get('username')?.setValidators(this.usernameValidators);
+    this.loginForm.get('userPassword')?.setValidators([Validators.required]);
+    this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
 
       // Clear admin validators
       this.loginForm.get('AdminUsername')?.clearValidators();
       this.loginForm.get('adminPassword')?.clearValidators();
     } else {
       // Admin login validators
-      this.loginForm.get('AdminUsername')?.setValidators([Validators.required]);
-      this.loginForm.get('adminPassword')?.setValidators([Validators.required]);
+   this.loginForm.get('AdminUsername')?.setValidators(this.usernameValidators);
+    this.loginForm.get('adminPassword')?.setValidators([Validators.required]);
 
       // Clear user validators
       this.loginForm.get('username')?.clearValidators();
@@ -99,8 +99,8 @@ export class LoginComponent implements OnInit {
   }
 
   forgotPasswordValidation() {
-    this.loginForm.get('username')?.setValidators([Validators.required]);
-    this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
+   this.loginForm.get('username')?.setValidators(this.usernameValidators);
+  this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
     this.loginForm.get('userPassword')?.clearValidators();
     this.loginForm.get('AdminUsername')?.clearValidators();
     this.loginForm.get('adminPassword')?.clearValidators();
@@ -109,14 +109,20 @@ export class LoginComponent implements OnInit {
 
   forgotPassword() {
     if (this.loginForm.valid) {
-     
+
       this.restApi.post(null, `/login/forgotPassword/${String(this.loginForm.value.username)?.trim()}`).subscribe({
         next: (res) => {
-          console.log('User forgotPassword successfully:', res); 
+           if(res.respCode == '00'){
+             console.log('User forgotPassword successfully:', res);
           this.forgotPass = false;
           this.cd.detectChanges();
+          this.dialogService.show('Success', res?.respDesc, 'success');
+           }else{
+             this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
+         
         },
-        error: (err) => console.error('Error forgotPassword User:', err)
+        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
     } else {
       this.loginForm.markAllAsTouched();
@@ -163,23 +169,23 @@ export class LoginComponent implements OnInit {
 
   onSubmitPassword() {
     const { username, CurrentPassword, newPassword, confirmPassword } = this.formData;
-  
+
     // Basic validation
     if (!username || !CurrentPassword || !newPassword || !confirmPassword) {
       alert('All fields are required!');
       return;
     }
-  
+
     if (newPassword.length < 6) {
       alert('New Password must be at least 6 characters long!');
       return;
     }
-  
+
     if (newPassword !== confirmPassword) {
       alert('New Password and Confirm Password do not match!');
       return;
     }
-  
+
     // Prepare payload for API
     const payload = {
       userName: username,
@@ -187,14 +193,12 @@ export class LoginComponent implements OnInit {
       firstPassword: newPassword,
       secondPassword: confirmPassword
     };
-  
+
     // API call to change password
     this.restApi.post(payload, '/login/changePassword').subscribe({
       next: (res) => {
-        console.log('Password changed successfully', res);
-        alert('Password changed successfully!');
-  
-        // Reset form and close dialog
+       if(res.respCode == '00'){
+           // Reset form and close dialog
         this.formData = {
           username: '',
           CurrentPassword: '',
@@ -202,15 +206,21 @@ export class LoginComponent implements OnInit {
           confirmPassword: ''
         };
         this.showChangePasswordDialog = false;
+          this.dialogService.show('Success', res?.respDesc, 'success');
+        }else{
+             this.dialogService.show('Oops!', res.respDesc, 'error');
+        }
+
+      
       },
       error: (err) => {
         console.error('Password change failed', err);
-        alert('Failed to change password. Please try again or contact support.');
+       this.dialogService.show('Oops!', err.respDesc, 'error');
       }
     });
   }
-  
-  
+
+
 
   onCloseDialog() {
     // Optional logic when dialog is closed
@@ -220,24 +230,28 @@ export class LoginComponent implements OnInit {
   login(payload: any) {
     this.restApi.post(payload, '/login/auth').pipe(take(1)).subscribe({
       next: (res) => {
-        if(res?.respDesc == 'Switch to Change Password Page'){
+        if (res?.respDesc == 'Switch to Change Password Page') {
           this.showChangePasswordDialog = !this.showChangePasswordDialog;
           this.cd.detectChanges();
-        }else{
-          console.log('Login Success:', res);
-        localStorage.setItem('userRole', res.userDetails[0].userId);
-        localStorage.setItem('authToken', res.Token);
-        localStorage.setItem('Token', res.Token);
-        // localStorage.setItem('userDetails', res.userDetails[0]);
-        localStorage.setItem('instId', res.userDetails[0].instId);
-        localStorage.setItem('userType', res.userDetails[0].userType);
-        this.router.navigate(['/pages/dashboard']);
-
-        this.menuSer.menuItems = res.menuId;
-        console.log("Menu Items:", this.menuSer.menuItems);
-
+        } else {
+          if(res.respCode == '00'){
+             console.log('Login Success:', res);
+          localStorage.setItem('userRole', res.userDetails[0].userId);
+          localStorage.setItem('authToken', res.Token);
+          localStorage.setItem('Token', res.Token);
+          // localStorage.setItem('userDetails', res.userDetails[0]);
+          localStorage.setItem('instId', res.userDetails[0].instId);
+          localStorage.setItem('userType', res.userDetails[0].userType);
+          this.router.navigate(['/pages/dashboard']);
+          this.menuSer.menuItems = res.menuId;
+          this.dialogService.show('Success', res?.respDesc, 'success');
+          console.log("Menu Items:", this.menuSer.menuItems);
+          }else{
+             this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
+         
         }
-        
+
         // this.menuSer.menuItems =
         //   [
         //     {
@@ -887,6 +901,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.error('Login Failed:', err);
+         this.dialogService.show('Oops!', err.respDesc, 'error');
       }
     });
     //for now
