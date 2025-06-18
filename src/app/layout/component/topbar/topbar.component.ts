@@ -44,7 +44,7 @@ export class TopbarComponent {
   isFullScreen = false;
   userRole: any = localStorage.getItem('userRole');
   userType: any = localStorage.getItem('userType');
-  userImageUrl: any = 'assets/images/Avatar.png';
+  userImageUrl: any = 'assets/images/user.png';
   constructor(public layoutService: LayoutService, private router: Router) { }
   // Check if the browser supports fullscreen API
   isFullscreen(): boolean {

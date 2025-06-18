@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { Product, ProductService } from '../service/product.service';
@@ -6,7 +6,7 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { debounceTime, Subscription, of } from 'rxjs';
 import { LayoutService } from '../../layout/service/layout.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -35,7 +35,7 @@ export class DashboardComponent {
   chartData: any;
   chartOptions: any;
   subscription!: Subscription;
-  imageUrl: any = 'assets/images/Avatar.png';
+  imageUrl: any = 'assets/images/user.png';
   items = [
     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
     { label: 'Remove', icon: 'pi pi-fw pi-trash' }
@@ -105,6 +105,16 @@ export class DashboardComponent {
     "PASS_COUNT": null
   }
   cardsInfo: any = {};
+  userType: any = localStorage.getItem('userType');
+  dougnutdata: any;
+  dougnutoptions: any;
+  lineoptions:any;
+  linedata:any;
+    circleoptions:any;
+  circledata:any;
+platformId = inject(PLATFORM_ID);
+  databar: any;
+  optionsbar:any;
   constructor(private productService: ProductService, public layoutService: LayoutService,
     private confirmationService: ConfirmationService, private messageService: MessageService,
     private rest: RestService, private cdr: ChangeDetectorRef) {
@@ -115,11 +125,201 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.getCardDetails();
+    this.initChartDougnut();
+    this.initChartLine();
+    this.initChartCircle();
+    this.initChartBar();
     this.productService.getProductsSmall().then((data) => (this.products = data));
   }
 
+ initChartDougnut(){
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
 
+            this.dougnutdata = {
+                labels: ['A', 'B', 'C'],
+                datasets: [
+                    {
+                        data: [300, 50, 100],
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
+                ]
+            };
 
+            this.dougnutoptions = {
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                }
+            };
+            this.cdr.markForCheck()
+        }
+    }
+
+    initChartLine() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+            this.linedata = {
+                labels: [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+],
+                datasets: [
+                    {
+                        label: 'First Dataset',
+                        data: [65, 59, 80, 81, 56, 55, 40,94,20,62,78,45],
+                        fill: true,
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        tension: 0.4,
+                        backgroundColor: 'rgba(22, 169, 189, 0.2)'
+                    },
+                    {
+                        label: 'Second Dataset',
+                        data: [28, 48, 40,55, 40,94,20,62, 19, 86, 27, 90],
+                        fill: true,
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        tension: 0.4,
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)'
+                    }
+                ]
+            };
+
+            this.lineoptions = {
+                maintainAspectRatio: false,
+                aspectRatio: 0.6,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+            this.cdr.markForCheck()
+        }
+    }
+     initChartCircle() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--text-color');
+
+            this.circledata = {
+                labels: ['A', 'B', 'C'],
+                datasets: [
+                    {
+                        data: [540, 325, 702],
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
+                ]
+            };
+
+            this.circleoptions = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true,
+                            color: textColor
+                        }
+                    }
+                }
+            };
+            this.cdr.markForCheck()
+        }
+
+    }
+      initChartBar() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+            this.databar = {
+                labels: [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+],
+                datasets: [
+                    {
+                        label: 'My First dataset',
+                        backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        data: [65, 59, 80, 81,55, 40,94,20,62, 56, 55, 40]
+                    },
+                    {
+                        label: 'My Second dataset',
+                        backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+                        data: [28,55, 40,94,20,62, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
+            };
+
+            this.optionsbar =  {
+                maintainAspectRatio: false,
+                aspectRatio: 0.6,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+            this.cdr.markForCheck()
+        }
+    }
   getCardDetails() {
     const url = '/dashboard/details?instid=SCB'
     this.rest.get(url)

@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogService } from '../../../../layout/component/commonDialog.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,7 +55,7 @@ export class AddUserComponent {
   routetype: any = history.state.check;
 
   constructor(private location: Location, private sanitizer: DomSanitizer, private messageService: MessageService,
-    private fb: FormBuilder, private restApi: RestService, private cd: ChangeDetectorRef) { }
+    private fb: FormBuilder, private restApi: RestService, private cd: ChangeDetectorRef, private dialogService: DialogService) { }
 
   ngOnInit() {
     console.log(this.routeData, 'routedata');
@@ -63,12 +64,11 @@ export class AddUserComponent {
     this.userForm = this.fb.group({
       Profile: [null, Validators.required],
       Branch: [null, Validators.required],
-      username: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      // DOB: ['', Validators.required],
-      email: ['', Validators.required],
-      mobile: ['', Validators.required],
+      username: ['', [Validators.required, Validators.maxLength(25)]],
+      firstname: ['', [Validators.required, Validators.maxLength(25)]],
+      lastname: ['', [Validators.required, Validators.maxLength(25)]],
+      email: ['', [Validators.required, Validators.email]],
+      mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
       address: ['', Validators.required],
       city: ['', Validators.required],
       country: [null, Validators.required],
@@ -91,21 +91,29 @@ export class AddUserComponent {
       endpoint = action == 'authorize' ? `addAuth/${this.routeData?.data?.userId}` : `addDeAuth/${this.routeData?.data?.userId}`;
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
-          console.log('User added successfully:', res);
-          if (action === 'authorize' && res?.message) {
-            const userMatch = res.message.match(/User \[(.+?)\]/);
-            const passwordMatch = res.message.match(/Password: (\d+)/);
-            this.authorizedUser = userMatch?.[1] || '';
-            this.authorizedPassword = passwordMatch?.[1] || '';
-            this.showSuccessDialog = true;
-            this.cd.detectChanges();
-            // this.goBack();
+
+          if (res.respCode == '00') {
+
+            if (action === 'authorize' && res?.message) {
+              const userMatch = res.message.match(/User \[(.+?)\]/);
+              const passwordMatch = res.message.match(/Password: (\d+)/);
+              this.authorizedUser = userMatch?.[1] || '';
+              this.authorizedPassword = passwordMatch?.[1] || '';
+              this.showSuccessDialog = true;
+              this.cd.detectChanges();
+              // this.goBack();
+            } else {
+              this.goBack();
+            }
+            this.dialogService.show('Success', res?.respDesc, 'success');
           } else {
-            this.goBack();
+            this.dialogService.show('Oops!', res.respDesc, 'error');
           }
+          console.log('User added successfully:', res);
+
 
         },
-        error: (err) => console.error('Error adding User:', err)
+        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
 
     } else if (action == 'deleteUserAuth' || action == 'deleteUserDeAuth') {
@@ -113,25 +121,36 @@ export class AddUserComponent {
       else if (action == 'deleteUserDeAuth') { endpoint = `deleteDeAuth` }
       this.restApi.delete(this.routeData?.data?.userId, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
-          console.log('User added successfully:', res);
-          this.goBack();
+          if (res.respCode == '00') {
+            console.log('User added successfully:', res);
+            this.goBack();
+            this.dialogService.show('Success', res?.respDesc, 'success');
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
+
         },
-        error: (err) => console.error('Error adding User:', err)
+        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
     } else if (action == 'resetAuth' || action == 'resetDeAuth') {
       if (action == 'resetAuth') { endpoint = `resetUserPassword/${this.routeData?.data?.userId}` }
       else if (action == 'resetDeAuth') { endpoint = `deAuthResetUserPassword/${this.routeData?.data?.userId}` }
       this.restApi.post(null, `/forgotPassword/${endpoint}`).subscribe({
         next: (res) => {
-          console.log('User reset successfully:', res);
-          const passwordMatch = res.message.match(/Password:\s*(\d+)/);
+          if (res.respCode == '00') {
+            console.log('User reset successfully:', res);
+            const passwordMatch = res.message.match(/Password:\s*(\d+)/);
 
-          this.authorizedUser = this.routeData?.data?.userName || '';
-          this.authorizedPassword = passwordMatch?.[1] || '';
-          this.showSuccessDialog = true;
-          this.cd.detectChanges();
+            this.authorizedUser = this.routeData?.data?.userName || '';
+            this.authorizedPassword = passwordMatch?.[1] || '';
+            this.showSuccessDialog = true;
+            this.cd.detectChanges();
+            this.dialogService.show('Success', res?.respDesc, 'success');
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
         },
-        error: (err) => console.error('Error adding User:', err)
+        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
     }
     else {
@@ -143,10 +162,15 @@ export class AddUserComponent {
       else if (action == 'UnBlockDeAuth') { endpoint = `unBlockDeAuth/${this.routeData?.data?.userId}` }
       this.restApi.post(null, `/usermanagement/user/${endpoint}`).subscribe({
         next: (res) => {
-          console.log('User added successfully:', res);
-          this.goBack();
+          if (res.respCode == '00') {
+            console.log('User added successfully:', res);
+            this.goBack();
+            this.dialogService.show('Success', res?.respDesc, 'success');
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
         },
-        error: (err) => console.error('Error adding User:', err)
+        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
 
     }
@@ -171,9 +195,7 @@ export class AddUserComponent {
         }, 2000);
       },
       error: (err) => {
-        console.error('Subscription error:', err);
-        // this.loading = false;
-
+        this.dialogService.show('Oops!', err.respDesc, 'error')
       }
     });
   };
@@ -200,11 +222,15 @@ export class AddUserComponent {
 
       this.restApi.post(payload, `/usermanagement/user/${this.routeData?.type == 'edit' ? 'edit' : 'add'}`).pipe(take(1)).subscribe({
         next: (res) => {
-          console.log('addd', res);
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
+          if (res.respCode == '00') {
+            console.log('User added successfully:', res);
+            this.dialogService.show('Success', res?.respDesc, 'success');
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
+          }
         },
         error: (err) => {
-          console.error('addd Failed:', err);
+          this.dialogService.show('Oops!', err.respDesc, 'error')
         }
       });
       if (this.routeData?.type == 'Edit') {
