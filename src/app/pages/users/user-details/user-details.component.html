@@ -2,7 +2,7 @@
     <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> User Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="buttonsList"
+        <app-table [componentHeader]="'user'" [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]="buttonsList"
            (event)="MultiButton($event)" (editEvent)="editView($event,'edit')" (viewEvent)="editView($event,'view')" (deleteEvent)="deletePopup($event)" />
     </div>
        <p-dialog [modal]="true" [(visible)]="delete_visible" [closable]="false" [style]="{ width: '25rem' }">

@@ -121,38 +121,63 @@
       [styleClass]="'custom-dialog-header'">
 
       <div class="changeLogin">
+        <!-- Username -->
         <p-floatlabel variant="on">
           <input pInputText [style]="{width: '100%'}" id="username" name="username" type="text"
-            [(ngModel)]="formData.username" [ngModelOptions]="{standalone: true}" required />
-          <label for="username">Username<span style="color: red;font-size: 16px;">*</span></label>
+            [(ngModel)]="formData.username" [ngModelOptions]="{standalone: true}" #username="ngModel" required maxlength="25" />
+          <label for="username">Username <span style="color: red;font-size: 16px;">*</span></label>
+          <small *ngIf="username.invalid && username.touched" class="text-red-500">
+            Username is required and must be at most 25 characters.
+          </small>
         </p-floatlabel>
 
+        <!-- Current Password: only required, no pattern -->
         <p-floatlabel variant="on">
-          <p-password [style]="{width: '100%'}" id="CurrentPassword" name="CurrentPassword" [(ngModel)]="formData.CurrentPassword"
-            [ngModelOptions]="{standalone: true}" required [toggleMask]="true" [feedback]="false" class="w-full">
+          <p-password [style]="{width: '100%'}" id="CurrentPassword" name="CurrentPassword" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="formData.CurrentPassword" #currentPassword="ngModel" required [toggleMask]="true"
+            [feedback]="false">
           </p-password>
           <label for="CurrentPassword">Current Password <span class="text-red-500">*</span></label>
+          <small *ngIf="currentPassword.invalid && currentPassword.touched" class="text-red-500">
+            Current Password is required.
+          </small>
         </p-floatlabel>
 
+        <!-- New Password: required + pattern -->
         <p-floatlabel variant="on">
           <p-password [style]="{width: '100%'}" id="newPassword" name="newPassword" [(ngModel)]="formData.newPassword"
-            [ngModelOptions]="{standalone: true}" required minlength="6" [toggleMask]="true" [feedback]="false"
-            class="w-full">
+            #newPassword="ngModel" required [toggleMask]="true" [feedback]="false" [ngModelOptions]="{standalone: true}"
+            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,25}$">
           </p-password>
           <label for="newPassword">New Password <span class="text-red-500">*</span></label>
+          <small *ngIf="newPassword.invalid && newPassword.touched" class="text-red-500">
+            Password must be 6–25 characters with 1 uppercase, 1 number, and 1 special character.
+          </small>
         </p-floatlabel>
 
+        <!-- Confirm Password: required, check match -->
         <p-floatlabel variant="on">
-          <p-password [style]="{width: '100%'}" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword"
-            [ngModelOptions]="{standalone: true}" required [toggleMask]="true" [feedback]="false" class="w-full">
+          <p-password [style]="{width: '100%'}" id="confirmPassword" name="confirmPassword"
+            [(ngModel)]="formData.confirmPassword" [ngModelOptions]="{standalone: true}" #confirmPassword="ngModel" required [toggleMask]="true"
+            [feedback]="false">
           </p-password>
           <label for="confirmPassword">Confirm Password <span class="text-red-500">*</span></label>
+          <small *ngIf="formData.confirmPassword !== formData.newPassword && confirmPassword.touched"
+            class="text-red-500">
+            Passwords do not match.
+          </small>
         </p-floatlabel>
       </div>
-       <div class="flex flex-row-reverse my-8">
-          <p-button label="Submit" severity="primary" raised icon="pi pi-save" type="submit"
-            (click)="onSubmitPassword()" />
-        </div>
+
+      <div class="flex flex-row-reverse my-8">
+        <p-button label="Submit" severity="primary" raised icon="pi pi-save" type="submit" (click)="onSubmitPassword()"
+          [disabled]="
+    !username.valid ||
+    !currentPassword.valid ||
+    !newPassword.valid ||
+    formData.newPassword !== formData.confirmPassword
+  " />
+  </div>
     </p-dialog>
   </div>
 

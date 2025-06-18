@@ -65,7 +65,7 @@
                         <p-checkbox [binary]="true" [value]="row.selected"
                             (onChange)="emitRowSelection(row, $event)"></p-checkbox>
                     </span>
-                    <span class="flex gap-2 center-button" *ngIf="col.header === 'Action'">
+                    <span class="flex gap-2 center-button " *ngIf="col.header === 'Action'">
                         <p-button *ngIf="col.type?.includes('add')" text severity="primary" class=" p-button-icon-only"
                             pTooltip="Add" tooltipPosition="top" icon="pi pi-plus" (click)="add($event)" />
                         <p-button *ngIf="col.type?.includes('view')" text severity="primary" class=" p-button-icon-only"
@@ -75,7 +75,13 @@
                         <p-button *ngIf="col.type?.includes('delete')" text severity="danger"
                             class=" p-button-icon-only" pTooltip="Delete" tooltipPosition="top" icon="pi pi-trash"
                             (click)="delete(row,$event)" />
-                        <p-button *ngIf="col.type?.includes('Block')" raised severity="danger" class="m-2"
+                        <p-button *ngIf="row['userBlock'] == '3'&& componentHeader == 'user'" text severity="success" class=" p-button-icon-only"
+                            pTooltip="Unblock" tooltipPosition="top" icon="pi pi-lock-open" (click)="otherEvents(row,$event,'UnBlock')" />
+                        <p-button *ngIf="row['userBlock'] == '0'&& componentHeader == 'user'" text severity="warn" class=" p-button-icon-only"
+                            pTooltip="Block" tooltipPosition="top" icon="pi pi-lock" (click)="otherEvents(row,$event,'Block')" />
+                         <p-button *ngIf="row['forgotPasswordFlag'] == '0'&& componentHeader == 'user'" text severity="info" class=" p-button-icon-only"
+                            pTooltip="ResetPassword" tooltipPosition="top" icon="pi pi-refresh" (click)="otherEvents(row,$event,'ResetPassword')" />
+                        <!-- <p-button *ngIf="col.type?.includes('Block')" raised severity="danger" class="m-2"
                             tooltipPosition="top" label="Block" icon="pi pi-lock"
                             (click)="otherEvents(row,$event,'Block')" />
                         <p-button *ngIf="col.type?.includes('Unblock')" raised severity="warn" class="m-2"
@@ -83,7 +89,7 @@
                             (click)="otherEvents(row,$event,'Unblock')" />
                         <p-button *ngIf="col.type?.includes('ResetPassword')" raised severity="info" class="m-2"
                             tooltipPosition="top" label="Reset Password" icon="pi pi-refresh"
-                            (click)="otherEvents(row,$event,'ResetPassword')" />
+                            (click)="otherEvents(row,$event,'ResetPassword')" /> -->
                     </span>
                 </td>
             </tr>
