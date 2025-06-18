@@ -245,7 +245,7 @@ ngOnInit(): void {
           this.router.navigate(['/pages/dashboard']);
           this.menuSer.menuItems = res.menuId;
           this.dialogService.show('Success', res?.respDesc, 'success');
-          console.log("Menu Items:", this.menuSer.menuItems);
+          console.log("Menu Items:", this.menuSer.menuItems); 
           }else{
              this.dialogService.show('Oops!', res.respDesc, 'error');
           }
