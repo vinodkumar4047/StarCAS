@@ -1,14 +1,15 @@
-
-    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> HSM Monitor Details </h2>
+<h2 *ngIf="!minimalView" class="mb-8 card header-card "
+    style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
+    HSM Monitor Details </h2>
 
 <div class="card">
-    <span class="imge"> <img class="im1" src="assets/images/hsm_img.png" alt="">
+    <span class="imge"> <img class="im1" src="assets/images/hsm_img.png" alt="" *ngIf="!minimalView">
     </span>
     <div class="atmDetails">
         <!-- <h2 class="mb-8">HSM Monitor</h2> -->
 
         <div style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-            <app-table [tableData]="this.hsmMonitoringrData" [cols]="cols" [loading]="loading"
+            <app-table [tableData]="hsmMonitoringrData" [cols]="cols" [loading]="loading" [minimalView1]="minimalView"
                 [componentHeader]="'NetworkMonitor'" />
         </div>
     </div>

@@ -14,6 +14,7 @@ import { TaskManagerComponent } from "../../task-manager/task-manager.component"
 import { PortManagerComponent } from "../../port-manager/port-manager.component";
 import { NetworkControlComponent } from "../../network-control/network-control.component";
 import { NetworkMonitoringComponent } from "../../../monitorning/network-monitoring/network-monitoring.component";
+import { HSMMonitoringComponent } from "../../../monitorning/hsm-monitoring/hsm-monitoring.component";
 
 @Component({
   selector: 'app-control-monitoring-details',
@@ -23,7 +24,7 @@ import { NetworkMonitoringComponent } from "../../../monitorning/network-monitor
     InputIconModule,
     IconFieldModule,
     ButtonModule,
-    DialogModule, TableModule, ProgressBarModule, TabsModule, TableModule, TableModule, TabViewModule, TaskManagerComponent, PortManagerComponent, NetworkControlComponent, NetworkMonitoringComponent],
+    DialogModule, TableModule, ProgressBarModule, TabsModule, TableModule, TableModule, TabViewModule, TaskManagerComponent, PortManagerComponent, NetworkControlComponent, NetworkMonitoringComponent, HSMMonitoringComponent],
   templateUrl: './control-monitoring-details.component.html',
   styleUrl: './control-monitoring-details.component.scss'
 })
@@ -38,7 +39,7 @@ export class ControlMonitoringDetailsComponent {
 
   itrate() {
     setTimeout(() => {
-      if (this.default <= 2) {
+      if (this.default <= 3) {
         this.default = this.default + 1;
       } else {
         this.default = 0;

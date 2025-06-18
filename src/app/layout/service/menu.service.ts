@@ -282,12 +282,12 @@ export class MenuService {
                      "link": "statusMap",
                      "icon": "fa-solid fa-credit-card",
                      "color": "#1b5e20",
-                     "menuId": "M00000210",
+                     "menuId": "M00000211",
                      "checked": false,
                      "permissions": [
                         {
-                           "title": "View Transaction",
-                           "menuId": "M0000021001",
+                           "title": "View Status Map",
+                           "menuId": "M0000021101",
                            "checked": false
                         }
                      ]
@@ -384,14 +384,14 @@ export class MenuService {
                      "menuId": "M00000402",
                      "checked": false
                   },
-                  {
-                     "title": "Channel Manager",
-                     "link": "instant-IND",
-                     "icon": "fa-solid fa-file",
-                     "color": "#1b5e20",
-                     "menuId": "M00000403",
-                     "checked": false
-                  },
+                  // {
+                  //    "title": "Channel Manager",
+                  //    "link": "instant-IND",
+                  //    "icon": "fa-solid fa-file",
+                  //    "color": "#1b5e20",
+                  //    "menuId": "M00000403",
+                  //    "checked": false
+                  // },
                   {
                      "title": "Network Control",
                      "link": "network_Control",

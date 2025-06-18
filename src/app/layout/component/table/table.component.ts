@@ -28,6 +28,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 })
 export class TableComponent {
+  @Input() minimalView1: boolean = false;
   @Input() paginator: boolean = true;
   @Input() loading: boolean = false;
   @Input() componentHeader: any = '';

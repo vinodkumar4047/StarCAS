@@ -44,7 +44,9 @@ export class ATMTypeComponent {
     this.location.back();
   }
   stateOptions: any[] = [{ label: 'NDC ATMs', value: 'NDC ATMs', },
-  { label: 'WINCOR', value: 'WINCOR ATMs' }, { label: 'Diebold ATMs', value: 'DIEBOLD ATMs' },];
+  { label: 'WINCOR', value: 'WINCOR ATMs' },
+    // { label: 'Diebold ATMs', value: 'DIEBOLD ATMs' },
+  ];
 
   onATMTypeChange(selectedValue: string) {
     console.log('selectedValue', selectedValue);

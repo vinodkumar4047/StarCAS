@@ -365,14 +365,14 @@ export class NodeServiceService {
               "menuId": "M00000402",
               "checked": false
             },
-            {
-              "title": "Channel Manager",
-              "link": "instant-IND",
-              "icon": "fa-solid fa-file",
-              "color": "#1b5e20",
-              "menuId": "M00000403",
-              "checked": false
-            },
+            // {
+            //   "title": "Channel Manager",
+            //   "link": "instant-IND",
+            //   "icon": "fa-solid fa-file",
+            //   "color": "#1b5e20",
+            //   "menuId": "M00000403",
+            //   "checked": false
+            // },
             {
               "title": "Network Control",
               "link": "network_Control",

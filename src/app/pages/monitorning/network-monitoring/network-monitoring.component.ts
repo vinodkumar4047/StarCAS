@@ -27,7 +27,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class NetworkMonitoringComponent {
   @Input() minimalView1: boolean = false;
-
+  paginator: any
   loading: boolean = false;
   networkData: any = [];
   display: boolean = false;

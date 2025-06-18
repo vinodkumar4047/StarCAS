@@ -1,9 +1,11 @@
 <div class="networkMonitor">
-  <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;" *ngIf="!minimalView1">Network Monitor</h2>
+  <h2 class="mb-8 card header-card "
+    style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;" *ngIf="!minimalView1">Network
+    Monitor</h2>
 
   <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
     <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols"
-      [globalFilterFields]="minimalView1 ? null : globalFilterFields" [multipleButton]=""
+      [globalFilterFields]="minimalView1 ? null : globalFilterFields" [multipleButton]="" [minimalView1]="minimalView1"
       (viewEvent)="viewEvent($event)" />
   </div>
 

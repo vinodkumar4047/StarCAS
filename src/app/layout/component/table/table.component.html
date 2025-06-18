@@ -2,7 +2,7 @@
     <p-table *ngIf="!loading" [value]="tableData" [paginator]="true" [rows]="10" scrollable="true" scrollHeight="flex"
         scrollDirection="both" [columns]="cols" [globalFilterFields]="globalFilterFields"
         [rowsPerPageOptions]="[10,15,20]" sortMode="multiple" [customSort]="true" (sortFunction)="customSort($event)"
-        [paginator]="paginator" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
+        [paginator]="!minimalView1" [tableStyle]="{ 'min-width': '900px' }" class="mainTable" #dt2
         tableStyleClass="p-datatable-scrollable" size="small">
 
         <ng-template #caption>
@@ -95,6 +95,6 @@
         </ng-template>
     </p-table>
     <div class="overlay-loader" *ngIf="loading">
-        <p-progressSpinner  ariaLabel="loading" />
+        <p-progressSpinner ariaLabel="loading" />
     </div>
 </div>

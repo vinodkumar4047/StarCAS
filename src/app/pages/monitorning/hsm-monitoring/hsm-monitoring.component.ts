@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-hsm-monitoring',
@@ -26,9 +27,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class HSMMonitoringComponent {
 
+  @Input() minimalView: boolean = false;
 
   hsmMonitoringrData: any;
   loading: boolean = true;
+  componentHeader: any;
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
