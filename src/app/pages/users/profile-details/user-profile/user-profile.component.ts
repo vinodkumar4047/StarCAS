@@ -10,6 +10,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeServiceService } from '../node-service.service';
 import { RestService } from '../../../../layout/service/rest.service';
 import { LucideAngularModule, Save } from 'lucide-angular';
+import { DialogService } from '../../../../layout/component/commonDialog.service';
 interface PermissionItem {
   title: string;
   menuId: string;
@@ -46,7 +47,7 @@ interface MenuItem {
 
 export class UserProfileComponent {
   fitForm: any;
-  constructor(private location: Location, private restApi: RestService, private fb: FormBuilder, private nodeService: NodeServiceService, private cd: ChangeDetectorRef) { }
+  constructor(private location: Location, private dialogService: DialogService, private restApi: RestService, private fb: FormBuilder, private nodeService: NodeServiceService, private cd: ChangeDetectorRef) { }
 
   routetype: any;
 
@@ -261,9 +262,14 @@ export class UserProfileComponent {
         this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile:', err)
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       } else if (this.formType == 'edit') {
         let payload = {
@@ -280,9 +286,13 @@ export class UserProfileComponent {
         this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile:', err)
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       }
       // this.fitForm.markAllAsTouched();
@@ -319,9 +329,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/addAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile:', err)
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
 
 
@@ -330,9 +344,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/addDeAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile:', err)
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
 
       } else if (action === 'deleteProfileAuth') {
@@ -340,36 +358,52 @@ export class UserProfileComponent {
         this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteAuth/').subscribe({
           next: (res) => {
             console.log('Profile delete authorization added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile delete authorization:', err)
+          error: (err) => {
+            console.error('Error adding profile delete authorization:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       } else if (action === 'deleteProfileDeAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
         this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteDeAuth/').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       } else if (action === 'editProfileAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
         this.restApi.post(null, `/usermanagement/profile/editAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       } else if (action === 'editProfileDeAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
         this.restApi.post(null, `/usermanagement/profile/editDeAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
             this.goBack();
           },
-          error: (err) => console.error('Error adding profile delete de-authorization:', err)
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          }
         });
       }
     }

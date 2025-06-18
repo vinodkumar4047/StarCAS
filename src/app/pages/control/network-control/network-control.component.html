@@ -4,7 +4,7 @@
         Network Control </h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="networkConGetData" [cols]="cols"
+        <app-table [tableData]="networkConGetData" [componentHeader]="'NetworkControl'" [cols]="cols"
             [globalFilterFields]="minimalView ? null : globalFilterFields" [loading]="loading"
             [minimalView1]="minimalView" />
     </div>

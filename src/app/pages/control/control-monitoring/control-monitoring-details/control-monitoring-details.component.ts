@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -29,25 +29,76 @@ import { HSMMonitoringComponent } from "../../../monitorning/hsm-monitoring/hsm-
   styleUrl: './control-monitoring-details.component.scss'
 })
 export class ControlMonitoringDetailsComponent {
+  @ViewChild(NetworkMonitoringComponent) networkComp!: NetworkMonitoringComponent;
+  @ViewChild(TaskManagerComponent) taskComp!: TaskManagerComponent;
+  @ViewChild(PortManagerComponent) portComp!: PortManagerComponent;
+  @ViewChild(NetworkControlComponent) controlComp!: NetworkControlComponent;
+  @ViewChild(HSMMonitoringComponent) hsmComp!: HSMMonitoringComponent;
+
+  countdown: number = 10;
   default: any = 0;
 
+  intervalId: any;
   constructor(private cd: ChangeDetectorRef,) { }
 
   ngOnInit() {
-    this.itrate();
+    // this.itrate();
+    this.startTimer();
   };
 
-  itrate() {
-    setTimeout(() => {
-      if (this.default <= 3) {
-        this.default = this.default + 1;
-      } else {
-        this.default = 0;
+  // itrate() {
+  //   setTimeout(() => {
+  //     if (this.default <= 3) {
+  //       this.default = this.default + 1;
+  //     } else {
+  //       this.default = 0;
+  //     }
+
+  //     this.cd.detectChanges();
+  //     this.itrate();
+  //   }, 10000)
+  // };
+
+  startTimer(): void {
+    this.countdown = 10;
+
+    this.intervalId = setInterval(() => {
+      this.countdown--;
+
+      if (this.countdown === 0) {
+        this.refreshTabData(this.default);
+        // Switch tab
+        if (this.default < 4) {
+          this.default += 1;
+        } else {
+          this.default = 0;
+        }
+
+        // Reset countdown
+        this.countdown = 10;
       }
 
       this.cd.detectChanges();
-      this.itrate();
-    }, 10000)
-  };
+    }, 1000); // Run every 1 second
+  }
+  refreshTabData(index: number): void {
+    switch (index) {
+      case 0:
+        this.networkComp?.getData();
+        break;
+      case 1:
+        this.taskComp?.getData();
+        break;
+      case 2:
+        this.portComp?.getData();
+        break;
+      case 3:
+        this.controlComp?.getData();
+        break;
+      case 4:
+        this.hsmComp?.getData();
+        break;
+    }
+  }
 
 }

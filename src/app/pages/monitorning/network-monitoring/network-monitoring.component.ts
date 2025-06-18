@@ -75,14 +75,14 @@ export class NetworkMonitoringComponent {
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.getnetworkData();
+    this.getData();
   }
   viewEvent(event: any) {
     console.log(event, 'eeeeeeeeee');
     this.networkRowData = event.data;
     this.display = true;
   }
-  getnetworkData() {
+  getData() {
     this.loading = true;
     this.restApi.get('/monitoring/network').pipe(
       take(1),

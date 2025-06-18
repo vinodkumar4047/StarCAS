@@ -34,7 +34,7 @@ export class PortManagerComponent {
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.getDataPortman()
+    this.getData()
   }
 
   globalFilterFields: any = [
@@ -54,7 +54,7 @@ export class PortManagerComponent {
 
   ];
 
-  getDataPortman() {
+  getData() {
     this.loading = true;
     this.restApi.get('/control/portManager').pipe(
       take(1),
