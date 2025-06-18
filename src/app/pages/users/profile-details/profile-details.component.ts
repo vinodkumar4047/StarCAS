@@ -99,14 +99,14 @@ export class ProfileDetailsComponent {
       next: (res) => {
         console.log('Profile deleted successfully:', res);
         const msg = res?.message || 'Deleted successfully';
-        this.dialogService.show('Success', res?.message, 'success');
+        this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
         this.getprofileData(); // ✅ Refresh table/list
         this.cdr.detectChanges();
         this.delete_visible = false; // ✅ Close dialog
       },
       error: (err) => {
         console.error('Error deleting profile:', err);
-        this.dialogService.show('Oops!', err.message, 'error');
+        this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
 
         // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
       }

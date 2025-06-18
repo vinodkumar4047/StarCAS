@@ -35,7 +35,7 @@ export class NetworkControlComponent {
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.getDataPortman()
+    this.getData()
   };
 
   globalFilterFields: any = [
@@ -54,7 +54,7 @@ export class NetworkControlComponent {
     { field: 'timeout', header: 'TIME OUT' },
   ];
 
-  getDataPortman() {
+  getData() {
     this.loading = true;
     this.restApi.get('/control/network').pipe(
       take(1),
@@ -64,6 +64,9 @@ export class NetworkControlComponent {
 
         if (res) {
           this.networkConGetData = res.map((item: any) => {
+            console.log('Processing item:', item.status === 'DOWN' ? 'DOWN' : 'UP',
+            );
+
             return {
               ...item,
               rowClass: item.status === 'DOWN' ? 'DOWN' : 'UP',

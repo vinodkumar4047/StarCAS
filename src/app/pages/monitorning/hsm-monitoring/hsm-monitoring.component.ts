@@ -35,7 +35,7 @@ export class HSMMonitoringComponent {
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.getHsmData()
+    this.getData()
   }
 
   globalFilterFields: any = [
@@ -59,7 +59,7 @@ export class HSMMonitoringComponent {
     { field: 'hsmStatus', header: 'HSM STATUS' },
   ];
 
-  getHsmData() {
+  getData() {
     this.loading = true;
     this.restApi.get('/monitoring/hsm').pipe(
       take(1),

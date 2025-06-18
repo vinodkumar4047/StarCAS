@@ -34,7 +34,7 @@ export class TaskManagerComponent {
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
   ngOnInit() {
-    this.getDataTaskman()
+    this.getData()
   };
 
   globalFilterFields: any = [
@@ -53,7 +53,7 @@ export class TaskManagerComponent {
 
   ];
 
-  getDataTaskman() {
+  getData() {
     console.log('Fetching task manager data...',);
     this.loading = true;
     this.restApi.get('/control/taskManager').pipe(

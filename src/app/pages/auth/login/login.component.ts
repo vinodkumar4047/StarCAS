@@ -51,40 +51,40 @@ export class LoginComponent implements OnInit {
     { label: 'Institution C', value: 'institution_c' }
   ];
 
-readonly usernameValidators = [Validators.required, Validators.maxLength(25)];
+  readonly usernameValidators = [Validators.required, Validators.maxLength(25)];
 
-  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService,private dialogService:DialogService,
+  constructor(private fb: FormBuilder, private router: Router, public restApi: RestService, private dialogService: DialogService,
     public menuSer: MenuService, private cd: ChangeDetectorRef) { }
 
-ngOnInit(): void {
-  this.loginForm = this.fb.group({
-    username: ['', []],
-    userPassword: ['', []],
-    userInstitution: [null],
-    rememberUser: [false],
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', []],
+      userPassword: ['', []],
+      userInstitution: [null],
+      rememberUser: [false],
 
-    AdminUsername: ['', []],
-    adminPassword: ['', []],
-    rememberAdmin: [false]
-  });
+      AdminUsername: ['', []],
+      adminPassword: ['', []],
+      rememberAdmin: [false]
+    });
 
-  this.setLoginValidators(this.selectedLogin.value);
-}
+    this.setLoginValidators(this.selectedLogin.value);
+  }
 
   setLoginValidators(loginType: string): void {
     if (loginType === 'user') {
       // User login validators
-         this.loginForm.get('username')?.setValidators(this.usernameValidators);
-    this.loginForm.get('userPassword')?.setValidators([Validators.required]);
-    this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
+      this.loginForm.get('username')?.setValidators(this.usernameValidators);
+      this.loginForm.get('userPassword')?.setValidators([Validators.required]);
+      this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
 
       // Clear admin validators
       this.loginForm.get('AdminUsername')?.clearValidators();
       this.loginForm.get('adminPassword')?.clearValidators();
     } else {
       // Admin login validators
-   this.loginForm.get('AdminUsername')?.setValidators(this.usernameValidators);
-    this.loginForm.get('adminPassword')?.setValidators([Validators.required]);
+      this.loginForm.get('AdminUsername')?.setValidators(this.usernameValidators);
+      this.loginForm.get('adminPassword')?.setValidators([Validators.required]);
 
       // Clear user validators
       this.loginForm.get('username')?.clearValidators();
@@ -99,8 +99,8 @@ ngOnInit(): void {
   }
 
   forgotPasswordValidation() {
-   this.loginForm.get('username')?.setValidators(this.usernameValidators);
-  this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
+    this.loginForm.get('username')?.setValidators(this.usernameValidators);
+    this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
     this.loginForm.get('userPassword')?.clearValidators();
     this.loginForm.get('AdminUsername')?.clearValidators();
     this.loginForm.get('adminPassword')?.clearValidators();
@@ -112,15 +112,15 @@ ngOnInit(): void {
 
       this.restApi.post(null, `/login/forgotPassword/${String(this.loginForm.value.username)?.trim()}`).subscribe({
         next: (res) => {
-           if(res.respCode == '00'){
-             console.log('User forgotPassword successfully:', res);
-          this.forgotPass = false;
-          this.cd.detectChanges();
-          this.dialogService.show('Success', res?.respDesc, 'success');
-           }else{
-             this.dialogService.show('Oops!', res.respDesc, 'error');
+          if (res.respCode == '00') {
+            console.log('User forgotPassword successfully:', res);
+            this.forgotPass = false;
+            this.cd.detectChanges();
+            this.dialogService.show('Success', res?.respDesc, 'success');
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
           }
-         
+
         },
         error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
       });
@@ -197,25 +197,25 @@ ngOnInit(): void {
     // API call to change password
     this.restApi.post(payload, '/login/changePassword').subscribe({
       next: (res) => {
-       if(res.respCode == '00'){
-           // Reset form and close dialog
-        this.formData = {
-          username: '',
-          CurrentPassword: '',
-          newPassword: '',
-          confirmPassword: ''
-        };
-        this.showChangePasswordDialog = false;
-          this.dialogService.show('Success', res?.respDesc, 'success');
-        }else{
-             this.dialogService.show('Oops!', res.respDesc, 'error');
+        if (res.respCode == '00') {
+          // Reset form and close dialog
+          this.formData = {
+            username: '',
+            CurrentPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+          };
+          this.showChangePasswordDialog = false;
+          this.dialogService.show('Success', res?.respDesc, 'success', 3000);
+        } else {
+          this.dialogService.show('Oops!', res.respDesc, 'error', 3000);
         }
 
-      
+
       },
       error: (err) => {
         console.error('Password change failed', err);
-       this.dialogService.show('Oops!', err.respDesc, 'error');
+        this.dialogService.show('Oops!', err.respDesc, 'error');
       }
     });
   }
@@ -234,22 +234,22 @@ ngOnInit(): void {
           this.showChangePasswordDialog = !this.showChangePasswordDialog;
           this.cd.detectChanges();
         } else {
-          if(res.respCode == '00'){
-             console.log('Login Success:', res);
-          localStorage.setItem('userRole', res.userDetails[0].userId);
-          localStorage.setItem('authToken', res.Token);
-          localStorage.setItem('Token', res.Token);
-          // localStorage.setItem('userDetails', res.userDetails[0]);
-          localStorage.setItem('instId', res.userDetails[0].instId);
-          localStorage.setItem('userType', res.userDetails[0].userType);
-          this.router.navigate(['/pages/dashboard']);
-          this.menuSer.menuItems = res.menuId;
-          this.dialogService.show('Success', res?.respDesc, 'success');
-          console.log("Menu Items:", this.menuSer.menuItems); 
-          }else{
-             this.dialogService.show('Oops!', res.respDesc, 'error');
+          if (res.respCode == '00') {
+            console.log('Login Success:', res);
+            localStorage.setItem('userRole', res.userDetails[0].userId);
+            localStorage.setItem('authToken', res.Token);
+            localStorage.setItem('Token', res.Token);
+            // localStorage.setItem('userDetails', res.userDetails[0]);
+            localStorage.setItem('instId', res.userDetails[0].instId);
+            localStorage.setItem('userType', res.userDetails[0].userType);
+            this.router.navigate(['/pages/dashboard']);
+            this.menuSer.menuItems = res.menuId;
+            this.dialogService.show('Success', res?.respDesc, 'success');
+            console.log("Menu Items:", this.menuSer.menuItems);
+          } else {
+            this.dialogService.show('Oops!', res.respDesc, 'error');
           }
-         
+
         }
 
         // this.menuSer.menuItems =
@@ -901,7 +901,7 @@ ngOnInit(): void {
       },
       error: (err) => {
         console.error('Login Failed:', err);
-         this.dialogService.show('Oops!', err.respDesc, 'error');
+        this.dialogService.show('Oops!', err.respDesc, 'error');
       }
     });
     //for now
