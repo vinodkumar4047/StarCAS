@@ -16,7 +16,7 @@ export class DialogService {
   visible$ = this._visible.asObservable();
   message$ = this._message.asObservable();
 
-  show(title: string, content: string, type: DialogType = 'info', timeout: number = 3000) {
+  show(title: string, content: string, type: DialogType = 'info', timeout: number = 1000) {
     this._message.next({ title, content, type });
     this._visible.next(true);
 

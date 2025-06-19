@@ -21,14 +21,14 @@
                 <div *ngIf="routetype == 'deleteAuth'" class="flex gap-2 items-center mb-4">
                     <p-button label="Authorized Profile" severity="primary" raised
                         (onClick)="Authorized('deleteProfileAuth')" icon="pi pi-file-check" />
-                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('deleteProfileDeAuth')"
-                        icon="pi pi-file-excel" />
+                    <p-button label="Reject" severity="primary" outlined raised
+                        (onClick)="Authorized('deleteProfileDeAuth')" icon="pi pi-file-excel" />
                 </div>
                 <div *ngIf="routetype == 'edit'" class="flex gap-2 items-center mb-4">
                     <p-button label="Authorized Profile" severity="primary" raised
                         (onClick)="Authorized('editProfileAuth')" icon="pi pi-file-check" />
-                    <p-button label="Reject" severity="primary" outlined raised (onClick)="Authorized('editProfileDeAuth')"
-                        icon="pi pi-file-excel" />
+                    <p-button label="Reject" severity="primary" outlined raised
+                        (onClick)="Authorized('editProfileDeAuth')" icon="pi pi-file-excel" />
                 </div>
             </div>
 
@@ -42,15 +42,16 @@
 
                 <p-floatlabel variant="on">
 
-                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileName"
-                        type="text" maxlength="25"/>
+                    <input pInputText styleClass="w-full" id="indirectState" formControlName="profileName" type="text"
+                        maxlength="25" />
                     <label for="indirectState">Profile Name<span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
                 <p-floatlabel *ngIf="formType == 'add'" variant="on">
 
-                    <input pInputText styleClass="w-full" id="BINValue" formControlName="profileDesc" type="text" />
-                    <label for="BINValue">Profile Discription <span style="color: red; font-size: 16px;">*</span>
+                    <input pInputText styleClass="w-full" id="BINValue" formControlName="profileDesc" type="text"
+                        maxlength="30" />
+                    <label for="BINValue">Profile Description <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
 
@@ -69,27 +70,27 @@
                     <label for="indirectState">Config/Edited by <span style="color: red; font-size: 16px;">*</span>
                     </label>
                 </p-floatlabel>
-                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+                <!-- <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
                     <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
                         type="text" />
                     <label for="indirectState">Configured date <span style="color: red; font-size: 16px;">*</span>
                     </label>
-                </p-floatlabel>
-                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+                </p-floatlabel> -->
+                <!-- <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
                     <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
                         type="text" />
                     <label for="indirectState">Auth/De-auth by <span style="color: red; font-size: 16px;">*</span>
                     </label>
-                </p-floatlabel>
-                <p-floatlabel *ngIf="formType == 'view'" variant="on">
+                </p-floatlabel> -->
+                <!-- <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
                     <input pInputText styleClass="w-full" id="indirectState" formControlName="indirectState"
                         type="text" />
                     <label for="indirectState">Authorized/Deauth date<span style="color: red; font-size: 16px;">*</span>
                     </label>
-                </p-floatlabel>
+                </p-floatlabel> -->
                 <p-floatlabel *ngIf="formType == 'view'" variant="on">
 
                     <input pInputText styleClass="w-full" id="indirectState" formControlName="status" type="text" />
@@ -120,12 +121,18 @@
             <!-- Module Access Tree -->
             <div class="field mb-4">
                 <label class="block mb-2 font-semibold text-xl heading-color">Module Access</label>
-                <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]"
+                <!-- <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]"
                     (selectionChange)="onSelectionChange($event)" [ngClass]="{ 'tree-view-mode': formType === 'view' }"
-                    [(selection)]="selectedFiles"></p-tree>
+                    [(selection)]="selectedFiles"></p-tree> -->
+                <p-tree *ngIf="files.length > 0" [value]="files" selectionMode="checkbox"
+                    styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles"
+                    (selectionChange)="onSelectionChange($event)" [ngClass]="{ 'tree-view-mode': formType === 'view' }">
+                </p-tree>
+
             </div>
             <div *ngIf="formType !== 'view'" class="flex flex-row-reverse mx-4 my-8">
-                <p-button label="Save" severity="primary" raised icon="pi pi-save" (click)="onSave()" />
+                <p-button label="Save" severity="primary" raised icon="pi pi-save"
+                    [disabled]="selectedFiles.length === 0 || fitForm.invalid" (click)="onSave()" />
             </div>
         </form>
 
