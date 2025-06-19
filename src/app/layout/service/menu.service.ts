@@ -684,6 +684,25 @@ export class MenuService {
                         { "title": "View User", "menuId": "M0000080208", "checked": false },
                         { "title": "Delete User", "menuId": "M0000080209", "checked": false }
                      ]
+                  },
+                  {
+                     "title": "Password Policy",
+                     "icon": "fa-solid fa-address-card",
+                     "color": "#1b5e20",
+                     "link": "auth-User",
+                     "menuId": "M00000803",
+                     "checked": false,
+                     "permissions": [
+                        // { "title": "Authorize User", "menuId": "M0000080201", "checked": false },
+                        // { "title": "Unblock User", "menuId": "M0000080202", "checked": false },
+                        // { "title": "Reset Password", "menuId": "M0000080203", "checked": false },
+                        // { "title": "Block User", "menuId": "M0000080204", "checked": false },
+                        // { "title": "Delete User Authorization", "menuId": "M0000080205", "checked": false },
+                        // { "title": "Add User", "menuId": "M0000080206", "checked": false },
+                        { "title": "Edit User", "menuId": "M0000080307", "checked": false },
+                        { "title": "View User", "menuId": "M0000080308", "checked": false },
+                        // { "title": "Delete User", "menuId": "M0000080209", "checked": false }
+                     ]
                   },]
             },
          ]

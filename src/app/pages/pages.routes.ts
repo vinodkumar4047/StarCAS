@@ -75,6 +75,7 @@ import { FraduRiskTxnMonitoringComponent } from './monitorning/fradu-risk-txn-mo
 import { ControlMonitoringComponent } from './control/control-monitoring/control-monitoring.component';
 import { FraudMonitoringComponent } from './monitorning/fraud-monitoring/fraud-monitoring.component';
 import { StatusMapComponent } from './Configuration/status-map/status-map.component';
+import { PasswordPolicyComponent } from './users/password-policy/password-policy.component';
 
 export default [
   { path: 'empty', component: Empty },
@@ -151,6 +152,7 @@ export default [
   { path: 'auth-fit', component: AuthFitComponent },
   { path: 'auth-profile', component: AuthProfileComponent },
   { path: 'auth-User', component: AuthUserComponent },
+  { path: 'profilePolicy', component: PasswordPolicyComponent },
   { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;

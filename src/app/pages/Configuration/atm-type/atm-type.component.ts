@@ -59,7 +59,7 @@ export class ATMTypeComponent {
 
   getBinData(selectedValue?: string) {
     console.log('getBinData called with selectedValue:', selectedValue);
-    this.loading = true;
+    // this.loading = true;
     // const instId = localStorage.getItem('instId')
     const instId = 'CLFSC'; // Static value for now
 
@@ -77,7 +77,7 @@ export class ATMTypeComponent {
         } setTimeout(() => {
           this.loading = false;
           this.cdr.detectChanges();
-        }, 2000);
+        }, );
       },
       error: (err) => {
         console.error('Subscription error:', err);
