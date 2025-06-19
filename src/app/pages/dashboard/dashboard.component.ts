@@ -268,8 +268,7 @@ platformId = inject(PLATFORM_ID);
             this.databar = {
                 labels: [
   'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
-],
+  'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [
                     {
                         label: 'My First dataset',
