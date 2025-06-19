@@ -159,7 +159,7 @@ initChartDougnut() {
     // Dynamic color generation using HSL
     const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
       const step = 360 / count;
-      return Array.from({ length: count }, (_, i) => `hsl(${i * step}, ${saturation}%, ${lightness}%)`);
+      return Array.from({ length: count }, (_, i) => `hsl(${210 + i * step}, ${saturation}%, ${lightness}%)`);
     };
 
     const backgroundColor = generateHSLColors(data.length, 70, 60);
@@ -338,13 +338,13 @@ initChartCircle() {
     const data = resData.map(item => Number(item.txnCount));
 
     // 🔁 Dynamically generate colors using HSL (to ensure contrast)
-    const generateHSLColors = (count: number, hueStart = 0, saturation = 70, lightness = 60): string[] => {
+    const generateHSLColors = (count: number,  saturation = 70, lightness = 60): string[] => {
       const step = 360 / count;
-      return Array.from({ length: count }, (_, i) => `hsl(${(hueStart + i * step) % 360}, ${saturation}%, ${lightness}%)`);
+      return Array.from({ length: count }, (_, i) => `hsl(${( 210 + i * step) % 360}, ${saturation}%, ${lightness}%)`);
     };
 
-    const backgroundColor = generateHSLColors(resData.length, 0, 70, 60);
-    const hoverBackgroundColor = generateHSLColors(resData.length, 0, 70, 50); // darker on hover
+    const backgroundColor = generateHSLColors(resData.length, 70, 60);
+    const hoverBackgroundColor = generateHSLColors(resData.length, 70, 50); // darker on hover
 
     this.circledata = {
       labels: labels,

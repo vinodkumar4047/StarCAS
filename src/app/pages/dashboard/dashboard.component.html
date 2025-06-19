@@ -84,8 +84,8 @@
                             <div class="default-profile-head"> </div>
                             <div class="default-profile-body"> </div>
                         </div>
-                        <p-button icon="pi pi-camera" p-button class="img-profile" rounded severity="secondary"
-                            (click)="upload($event)"></p-button>
+                        <!-- <p-button icon="pi pi-camera" p-button class="img-profile" rounded severity="secondary"
+                            (click)="upload($event)"></p-button> -->
 
                         <!-- Hidden File Input -->
                         <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*"
@@ -104,8 +104,8 @@
                 </div>
                 <div class="flex flex-col gap-4">
                     <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
-                        <div class="font-bold text-gray-500">DOB</div>
-                        <div class="font-bold">{{userInfo.DOB}}</div>
+                        <div class="font-bold text-gray-500">Username</div>
+                        <div class="font-bold">{{userInfo.USERNAME}}</div>
                     </div>
                     <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
                         <div class="font-bold text-gray-500">Mobile No.</div>
