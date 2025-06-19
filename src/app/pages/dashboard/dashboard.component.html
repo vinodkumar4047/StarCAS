@@ -121,7 +121,15 @@
         <!-- ATM Status -->
         <div class="col-span-12 lg:col-span-6 xl:col-span-8">
             <div class="card back-bl h-full p-6">
-                <h4 class="mb-4 text-grey">Transaction Status</h4>
+                <div class="flex justify-between mb-4">
+                     <h4 class="mb-4 text-grey">Overall Transaction Status per Year</h4>
+                     <p-floatlabel class="mx-4" style="width: 150px;" variant="on">
+                    <p-select appendTo="body" [(ngModel)]="yearData" styleClass="w-full"
+                        inputId="on_label" [options]="years" optionValue="name" optionLabel="name" />
+                    <label for="on_label">Year</label>
+                </p-floatlabel>
+                </div>
+               
                 <div class="">
                      <p-chart type="line" width="300" height="300" [data]="linedata" [options]="lineoptions" class="h-[30rem]" />
                     
@@ -134,20 +142,20 @@
         <div class="col-span-12 lg:col-span-6 xl:col-span-6 ">
             <div class="card back-bl h-full p-6">
                 <h4 class="mb-4 text-grey">Transaction Status</h4>
-                 <p-chart type="doughnut" [data]="dougnutdata" width="300" height="300" [options]="dougnutoptions" class="w-full md:w-[10rem]" />
+                 <p-chart type="doughnut" [data]="dougnutdata" width="300" height="400" [options]="dougnutoptions" class="w-full md:w-[10rem]" />
             </div>
         </div>
          <div class="col-span-12 lg:col-span-6 xl:col-span-6 ">
             <div class="card back-bl h-full p-6"> 
                 <h4 class="mb-4 text-grey">Transaction Status</h4>
-                <p-chart type="pie" [data]="circledata" width="300" height="300" [options]="circleoptions" class="w-full md:w-[10rem]" />
+                <p-chart type="pie" [data]="circledata" width="300" height="400" [options]="circleoptions" class="w-full md:w-[10rem]" />
             </div>
         </div>
     </div>
     <div class="grid grid-cols-12 gap-6">
         <div class="col-span-12 ">
             <div class="card back-bl h-full p-6">
-                <h4 class="mb-4 text-grey">Transaction Status</h4>
+                <h4 class="mb-4 text-grey">Transaction Status by Type-Wise</h4>
                  <p-chart type="line" [data]="databar" [options]="optionsbar" class="h-[30rem]" />
             </div>
         </div>
