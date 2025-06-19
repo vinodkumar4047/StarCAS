@@ -73,15 +73,15 @@
                     <label for="Branch">Branch <span style="color: red; font-size: 16px;">*</span> </label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
-                    <input pInputText styleClass="w-full" id="username" type="text" formControlName="username" />
+                    <input pInputText styleClass="w-full" id="username" type="text" maxlength="30" formControlName="username" />
                     <label for="username">User Name <span style="color: red;">*</span></label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
-                    <input pInputText styleClass="w-full" id="firstname" type="text" formControlName="firstname" />
+                    <input pInputText styleClass="w-full" id="firstname" type="text" maxlength="30" formControlName="firstname" />
                     <label for="firstname">First Name <span style="color: red;">*</span></label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
-                    <input pInputText styleClass="w-full" id="lastname" type="text" formControlName="lastname" />
+                    <input pInputText styleClass="w-full" id="lastname" type="text" maxlength="30" formControlName="lastname" />
                     <label for="lastname">Last Name <span style="color: red;">*</span></label>
                 </p-floatlabel>
                 <p-floatlabel variant="on" *ngIf="this.routeData?.type != 'addUser'">
@@ -98,7 +98,7 @@
                     <label for="email">E-Mail Id <span style="color: red;">*</span></label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">
-                    <input pInputText styleClass="w-full" id="mobile" type="text" formControlName="mobile" />
+                    <input pInputText styleClass="w-full" id="mobile" type="number" formControlName="mobile" />
                     <label for="mobile">Mobile No. <span style="color: red;">*</span></label>
                 </p-floatlabel>
                 <p-floatlabel variant="on">

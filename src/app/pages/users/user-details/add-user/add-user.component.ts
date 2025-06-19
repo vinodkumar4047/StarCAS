@@ -64,11 +64,11 @@ export class AddUserComponent {
     this.userForm = this.fb.group({
       Profile: [null, Validators.required],
       Branch: [null, Validators.required],
-      username: ['', [Validators.required, Validators.maxLength(25)]],
-      firstname: ['', [Validators.required, Validators.maxLength(25)]],
-      lastname: ['', [Validators.required, Validators.maxLength(25)]],
+      username: ['', [Validators.required, Validators.maxLength(30)]],
+      firstname: ['', [Validators.required, Validators.maxLength(30)]],
+      lastname: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
-      mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
+      mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
       address: ['', Validators.required],
       city: ['', Validators.required],
       country: [null, Validators.required],
@@ -107,13 +107,13 @@ export class AddUserComponent {
             }
             this.dialogService.show('Success', res?.respDesc, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
           console.log('User added successfully:', res);
 
 
         },
-        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
+        error: (err) => this.dialogService.show('Oops!', err.message, 'error')
       });
 
     } else if (action == 'deleteUserAuth' || action == 'deleteUserDeAuth') {
@@ -124,13 +124,13 @@ export class AddUserComponent {
           if (res.respCode == '00') {
             console.log('User added successfully:', res);
             this.goBack();
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
 
         },
-        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
+        error: (err) => this.dialogService.show('Oops!', err.message, 'error')
       });
     } else if (action == 'resetAuth' || action == 'resetDeAuth') {
       if (action == 'resetAuth') { endpoint = `resetUserPassword/${this.routeData?.data?.userId}` }
@@ -147,10 +147,10 @@ export class AddUserComponent {
             this.cd.detectChanges();
             this.dialogService.show('Success', res?.respDesc, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
         },
-        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
+        error: (err) => this.dialogService.show('Oops!', err.message, 'error')
       });
     }
     else {
@@ -165,12 +165,12 @@ export class AddUserComponent {
           if (res.respCode == '00') {
             console.log('User added successfully:', res);
             this.goBack();
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
         },
-        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
+        error: (err) => this.dialogService.show('Oops!', err.message, 'error')
       });
 
     }
@@ -195,7 +195,7 @@ export class AddUserComponent {
         }, 2000);
       },
       error: (err) => {
-        this.dialogService.show('Oops!', err.respDesc, 'error')
+        this.dialogService.show('Oops!', err.message, 'error')
       }
     });
   };
@@ -224,13 +224,13 @@ export class AddUserComponent {
         next: (res) => {
           if (res.respCode == '00') {
             console.log('User added successfully:', res);
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
         },
         error: (err) => {
-          this.dialogService.show('Oops!', err.respDesc, 'error')
+          this.dialogService.show('Oops!', err.message, 'error')
         }
       });
       if (this.routeData?.type == 'Edit') {

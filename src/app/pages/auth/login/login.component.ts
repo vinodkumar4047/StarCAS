@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     { label: 'Institution C', value: 'institution_c' }
   ];
 
-  readonly usernameValidators = [Validators.required, Validators.maxLength(25)];
+  readonly usernameValidators = [Validators.required, Validators.maxLength(30)];
 
   constructor(private fb: FormBuilder, private router: Router, public restApi: RestService, private dialogService: DialogService,
     public menuSer: MenuService, private cd: ChangeDetectorRef) { }
@@ -116,13 +116,13 @@ export class LoginComponent implements OnInit {
             console.log('User forgotPassword successfully:', res);
             this.forgotPass = false;
             this.cd.detectChanges();
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
 
         },
-        error: (err) => this.dialogService.show('Oops!', err.respDesc, 'error')
+        error: (err) => this.dialogService.show('Oops!', err.message, 'error')
       });
     } else {
       this.loginForm.markAllAsTouched();
@@ -167,71 +167,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmitPassword() {
-    const { username, CurrentPassword, newPassword, confirmPassword } = this.formData;
-
-    // Basic validation
-    if (!username || !CurrentPassword || !newPassword || !confirmPassword) {
-      alert('All fields are required!');
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      alert('New Password must be at least 6 characters long!');
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      alert('New Password and Confirm Password do not match!');
-      return;
-    }
-
-    // Prepare payload for API
-    const payload = {
-      userName: username,
-      oldPassword: CurrentPassword,
-      firstPassword: newPassword,
-      secondPassword: confirmPassword
-    };
-
-    // API call to change password
-    this.restApi.post(payload, '/login/changePassword').subscribe({
-      next: (res) => {
-        if (res.respCode == '00') {
-          // Reset form and close dialog
-          this.formData = {
-            username: '',
-            CurrentPassword: '',
-            newPassword: '',
-            confirmPassword: ''
-          };
-          this.showChangePasswordDialog = false;
-          this.dialogService.show('Success', res?.respDesc, 'success', 3000);
-        } else {
-          this.dialogService.show('Oops!', res.respDesc, 'error', 3000);
-        }
-
-
-      },
-      error: (err) => {
-        console.error('Password change failed', err);
-        this.dialogService.show('Oops!', err.respDesc, 'error');
-      }
-    });
-  }
-
-
-
   onCloseDialog() {
     // Optional logic when dialog is closed
     console.log('Dialog closed');
   }
 
   login(payload: any) {
+    localStorage.setItem('username', payload.username);
     this.restApi.post(payload, '/login/auth').pipe(take(1)).subscribe({
       next: (res) => {
         if (res?.respDesc == 'Switch to Change Password Page') {
-          this.showChangePasswordDialog = !this.showChangePasswordDialog;
+          // this.showChangePasswordDialog = !this.showChangePasswordDialog;
+           this.router.navigate(['/pages/change_password']);
           this.cd.detectChanges();
         } else {
           if (res.respCode == '00') {
@@ -239,15 +186,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userRole', res.userDetails[0].userId);
             localStorage.setItem('authToken', res.Token);
             localStorage.setItem('Token', res.Token);
-            // localStorage.setItem('userDetails', res.userDetails[0]);
+            localStorage.setItem('username', res.userDetails[0].userName);
+            localStorage.setItem('userDetails', res.userDetails[0]);
             localStorage.setItem('instId', res.userDetails[0].instId);
             localStorage.setItem('userType', res.userDetails[0].userType);
             this.router.navigate(['/pages/dashboard']);
             this.menuSer.menuItems = res.menuId;
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
             console.log("Menu Items:", this.menuSer.menuItems);
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
 
         }
@@ -901,7 +849,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.error('Login Failed:', err);
-        this.dialogService.show('Oops!', err.respDesc, 'error');
+        this.dialogService.show('Oops!', err.message, 'error');
       }
     });
     //for now
