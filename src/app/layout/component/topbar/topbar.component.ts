@@ -36,7 +36,7 @@ export class TopbarComponent {
     { name: 'See All Message' }
   ];
   members = [
-    { name: 'My Profile' },
+    // { name: 'My Profile' },
     { name: 'Change Password' },
     { name: 'ATM Location' },
     { name: 'Log Out' },
@@ -117,6 +117,7 @@ export class TopbarComponent {
     this.selectedMember = member;
     console.log(member, 'member----');
     if (member.name == 'Log Out') {
+       localStorage.clear(); 
       this.router.navigate(['/auth/login']);
     } else if (member.name == 'My Profile') {
       this.router.navigate(['/pages/edit_profile']);

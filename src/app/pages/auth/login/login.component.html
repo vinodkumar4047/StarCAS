@@ -68,7 +68,7 @@
 
             <label for="username" class="block font-medium mb-2">Username</label>
             <input pInputText id="username" type="text" formControlName="username" placeholder="Username"
-              class="w-full mb-4" />
+              class="w-full mb-4"  maxlength="30"/>
 
             <label for="userInstitution" class="block font-medium mb-2">Institution</label>
             <p-dropdown id="userInstitution" [options]="institutions" formControlName="userInstitution"
@@ -93,7 +93,7 @@
 
             <label for="AdminUsername" class="block font-medium mb-2">Username</label>
             <input pInputText id="AdminUsername" type="text" placeholder="Username" class="w-full mb-4"
-              formControlName="AdminUsername" />
+              formControlName="AdminUsername"  maxlength="30"/>
 
             <label for="adminPassword" class="block font-medium mb-2">Password</label>
             <p-password id="adminPassword" formControlName="adminPassword" placeholder="Password" [toggleMask]="true"

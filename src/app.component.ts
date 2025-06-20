@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { CommonDialogComponent } from "./app/layout/component/dialog/dialog.component";
 @Component({
@@ -10,7 +10,15 @@ import { CommonDialogComponent } from "./app/layout/component/dialog/dialog.comp
     <router-outlet></router-outlet>`
 })
 export class AppComponent {
-  constructor(private updates: SwUpdate) {
+  constructor(private updates: SwUpdate,private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        const token = localStorage.getItem('authToken');
+        if (!token && event.url !== '/auth/login') {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    });
     if (this.updates.isEnabled) {
       this.updates.versionUpdates.subscribe(event => {
         console.log('Service Worker Update Event:', event.type);  // 👈 Log the event type
