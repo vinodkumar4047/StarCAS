@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     public menuSer: MenuService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    localStorage.clear(); 
     this.loginForm = this.fb.group({
       username: ['', []],
       userPassword: ['', []],

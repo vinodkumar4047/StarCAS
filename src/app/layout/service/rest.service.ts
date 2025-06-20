@@ -93,9 +93,9 @@ export class RestService {
     });
   }
 
-  post(reqData: any, urlValue: string): Observable<any> {
+  post(reqData: any, urlValue: string,resType?:any): Observable<any> {
     const finalUrl = this.url + urlValue;
-    return this.http.post<any>(finalUrl, reqData, { headers: this.getHeaders() }).pipe(
+    return this.http.post<any>(finalUrl, reqData, { headers: this.getHeaders(), responseType:resType }).pipe(
       catchError((err: any): Observable<any> => {
         console.error('POST error:', err);
         return of(null);

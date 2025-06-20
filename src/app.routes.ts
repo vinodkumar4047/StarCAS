@@ -8,6 +8,7 @@ import { GraphComponent } from './app/pages/monitorning/txn-monitoring/graph/gra
 import { ControlMonitoringDetailsComponent } from './app/pages/control/control-monitoring/control-monitoring-details/control-monitoring-details.component';
 import { FraudMonitoringDetailsComponent } from './app/pages/monitorning/fraud-monitoring/fraud-monitoring-details/fraud-monitoring-details.component';
 import { FraudRiskDbComponent } from './app/pages/monitorning/fradu-risk-txn-monitoring/fraud-risk-db/fraud-risk-db.component';
+import { AuthGuard } from './app/layout/authGuard/auth.guard';
 
 export const appRoutes: Routes = [
     {
@@ -15,7 +16,7 @@ export const appRoutes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: '/auth/login', pathMatch: 'full', },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
+            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') ,canActivate: [AuthGuard]}
         ]
     },
     { path: 'landing', component: Landing },
