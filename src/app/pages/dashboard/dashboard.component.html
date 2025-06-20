@@ -96,7 +96,7 @@
                     </div>
                     <div class="mb-8 profile-details ">
                         <!-- <div class="font-semibold text-xl ">{{userInfo.FIRSTNAME}} {{userInfo.LASTNAME}}</div> -->
-                        <div class="font-semibold text-xl pb-1 heading-color">Victor Blackwood</div>
+                        <div class="font-semibold text-xl pb-1 heading-color">{{userInfo?.userName}}</div>
                         <div class="font-semibold text-base pb-1 text-center" style="color: #5e5e5e;font-weight: bold;">
                             Role : {{ userType ==='SU' ?'Admin' : userType === 'M' ? 'Maker' : 'Checker'}}</div>
                     </div>
@@ -104,16 +104,16 @@
                 </div>
                 <div class="flex flex-col gap-4">
                     <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
-                        <div class="font-bold text-gray-500">Username</div>
-                        <div class="font-bold">{{userInfo.USERNAME}}</div>
-                    </div>
-                    <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
-                        <div class="font-bold text-gray-500">Mobile No.</div>
-                        <div class="font-bold">{{userInfo.MOBILENO}}</div>
+                        <div class="font-bold text-gray-500">Profile</div>
+                        <div class="font-bold">{{userInfo?.profileName}}</div>
                     </div>
                     <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
                         <div class="font-bold text-gray-500">Email</div>
-                        <div class="font-bold">{{userInfo.EMAILID}}</div>
+                        <div class="font-bold">{{userInfo?.emailId}}</div>
+                    </div>
+                    <div class="flex justify-between" style="border-bottom: 1px solid #ddd;padding-block: 10px;">
+                        <div class="font-bold text-gray-500">Last Login</div>
+                        <div class="font-bold">{{userInfo?.lastLogin}}</div>
                     </div>
                 </div>
             </div>

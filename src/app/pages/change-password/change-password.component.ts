@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -50,7 +50,7 @@ export class ChangePasswordComponent {
     }
 
   constructor(private fb: FormBuilder,public layoutService:LayoutService,private router: Router,
-    public restApi:RestService,public dialogService:DialogService) {}
+    public restApi:RestService,public dialogService:DialogService,private location: Location) {}
 
   ngOnInit(): void {
     this.layoutService.onMenuToggle()
@@ -61,11 +61,41 @@ export class ChangePasswordComponent {
     }, {
       validators: this.passwordMatchValidator()
     });
+  } 
+   goBack() {
+    this.location.back();
   }
+  
+getPasswordRulesMessage(): string[] {
+ const config = this.passwordValidationInp;
+ return [
+    `Your password should contain a minimum of ${config.totalCount} characters.`,
+    `Your password should include at least:`,
+    `• Lower Case: ${config.loweCase}`,
+    `• Upper Case: ${config.upperCase}`,
+    `• Number: ${config.numbers}`,
+    `• Special Character: ${config.special}`
+  ];
+}
+
+getFirstPasswordError(): string | null {
+  const controlErrors = this.PasswordForm.get('NewPassword')?.errors?.['passwordStrength'];
+  if (!controlErrors) return null;
+
+  const errorKeys = ['lowercase', 'uppercase', 'numbers', 'special', 'firstChar', 'lastChar', 'totalLength'];
+
+  for (const key of errorKeys) {
+    if (controlErrors[key]) {
+      return controlErrors[key];
+    }
+  }
+
+  return null;
+}
 
 passwordStrengthValidator() {
   return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value || '';
+    const value = control.value;
     const config = this.passwordValidationInp;
 
     const errors: any = {};
@@ -133,7 +163,6 @@ passwordStrengthValidator() {
     this.restApi.post(payload, '/login/changePassword').subscribe({
       next: (res) => {
         if (res.respCode === '00') {
-          this.PasswordForm.reset();
           this.router.navigate(['/auth/login'])
           this.dialogService.show('Success', res?.message, 'success', 3000);
         } else {
@@ -147,8 +176,14 @@ passwordStrengthValidator() {
     });
 
   } else {
+    console.log(this.PasswordForm,'this.PasswordForm');
+    
     this.PasswordForm.markAllAsTouched();
   }
 }
+
+ ngOnDestroy(): void {
+    this.layoutService.onMenuToggle(); 
+  }
 
 }
