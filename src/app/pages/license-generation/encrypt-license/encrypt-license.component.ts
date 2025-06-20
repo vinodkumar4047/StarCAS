@@ -45,9 +45,9 @@ export class EncryptLicenseComponent {
         expirationDate: this.formatDate(this.encryptForm.value.expireDate)
       };
 
-      this.restApi.post(payload, `/login/licenseGeneration?instId=${instId}`,'text').subscribe({
+      this.restApi.post(payload, `/login/licenseGeneration?instId=${instId}`, 'text').subscribe({
         next: (res) => {
-            this.dialogService.show('Success', res, 'success');
+          this.dialogService.show('Success', res, 'success');
         },
         error: (err) => this.dialogService.show('Oops!', err, 'error')
       });
