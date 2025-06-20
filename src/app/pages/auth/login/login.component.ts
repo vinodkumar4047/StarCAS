@@ -187,15 +187,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('authToken', res.Token);
             localStorage.setItem('Token', res.Token);
             localStorage.setItem('username', res.userDetails[0].userName);
-            localStorage.setItem('userDetails', res.userDetails[0]);
+            localStorage.setItem('userDetails', JSON.stringify(res.userDetails[0]));
             localStorage.setItem('instId', res.userDetails[0].instId);
             localStorage.setItem('userType', res.userDetails[0].userType);
             this.router.navigate(['/pages/dashboard']);
             this.menuSer.menuItems = res.menuId;
-            this.dialogService.show('Success', res?.message, 'success');
+            let msg = 'Login Success'
+            this.dialogService.show('Success',msg , 'success');
             console.log("Menu Items:", this.menuSer.menuItems);
           } else {
-            this.dialogService.show('Oops!', res.message, 'error');
+            this.dialogService.show('Oops!', res.respDesc, 'error');
           }
 
         }
