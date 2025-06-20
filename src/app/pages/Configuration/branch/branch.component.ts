@@ -138,56 +138,56 @@ export class BranchComponent {
 
   userRole: string = localStorage.getItem('userRole') || '';
   userType: any = localStorage.getItem('userType');
-permission: any[] = [];
-filteredButtons: any[] = [];
-canAddBranch: boolean = false;
+  permission: any[] = [];
+  filteredButtons: any[] = [];
+  canAddBranch: boolean = false;
 
-cols: any[] = [
-  { field: 'INSTID', header: 'INST ID' },
-  { field: 'BRANCHCODE', header: 'Branch ID' },
-  { field: 'BRANCHMAPCODE', header: 'Branch Map Code' },
-  { field: 'BRANCHNAME', header: 'Branch Name' },
-  { field: 'Action', header: 'Action', type: [] }
-];
+  cols: any[] = [
+    { field: 'INSTID', header: 'INST ID' },
+    { field: 'BRANCHCODE', header: 'Branch ID' },
+    { field: 'BRANCHMAPCODE', header: 'Branch Map Code' },
+    { field: 'BRANCHNAME', header: 'Branch Name' },
+    { field: 'Action', header: 'Action', type: [] }
+  ];
 
-constructor(private router: Router, private menuService: MenuService) {}
+  constructor(private router: Router, private menuService: MenuService) { }
 
-ngOnInit() {
-  this.permission = this.menuService.getMenuitem();
-  const perms = this.getCheckedPermissions('Branch');
+  ngOnInit() {
+    this.permission = this.menuService.getMenuitem();
+    const perms = this.getCheckedPermissions('Branch');
 
-  const actionsMap: any = {
-    'View Branch': 'view',
-    'Edit Branch': 'edit',
-    'Delete Branch': 'delete'
-  };
+    const actionsMap: any = {
+      'View Branch': 'view',
+      'Edit Branch': 'edit',
+      'Delete Branch': 'delete'
+    };
 
-  const buttonsMap: any = {
-    'Authorize Branch': { label: 'Authorize Branch', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: 'info' },
-    'Delete Authorize Branch': { label: 'Authorize Delete Branch', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: 'danger' }
-  };
+    const buttonsMap: any = {
+      'Authorize Branch': { label: 'Authorize Branch', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: 'info' },
+      'Delete Authorize Branch': { label: 'Authorize Delete Branch', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: 'danger' }
+    };
 
-  this.cols.find((col:any) => col.field === 'Action')!.type = perms
-    .map((p: any) => actionsMap[p.title])
-    .filter(Boolean);
+    this.cols.find((col: any) => col.field === 'Action')!.type = perms
+      .map((p: any) => actionsMap[p.title])
+      .filter(Boolean);
 
-  this.filteredButtons = perms
-    .map((p: any) => buttonsMap[p.title])
-    .filter(Boolean);
+    this.filteredButtons = perms
+      .map((p: any) => buttonsMap[p.title])
+      .filter(Boolean);
 
-  this.canAddBranch = perms.some((p: any) => p.title === 'Add Branch');
+    this.canAddBranch = perms.some((p: any) => p.title === 'Add Branch');
 
-  if (this.userType !== 'M') {
-    this.cols = this.cols.filter((col:any) => col.field !== 'Action');
+    if (this.userType !== 'M') {
+      this.cols = this.cols.filter((col: any) => col.field !== 'Action');
+    }
   }
-}
 
-getCheckedPermissions(title: string): any[] {
-  return this.permission
-    .find((p: any) => p.title === 'Configuration')?.subMenu
-    ?.find((s: any) => s.title === title)?.permissions
-    ?.filter((p: any) => p.checked) || [];
-}
+  getCheckedPermissions(title: string): any[] {
+    return this.permission
+      .find((p: any) => p.title === 'Configuration')?.subMenu
+      ?.find((s: any) => s.title === title)?.permissions
+      ?.filter((p: any) => p.checked) || [];
+  }
 
   addOrEdit(data1?: any, data?: any) {
     this.ADDvisible = !this.ADDvisible

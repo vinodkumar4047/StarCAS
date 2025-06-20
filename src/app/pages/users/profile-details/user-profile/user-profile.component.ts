@@ -68,7 +68,7 @@ export class UserProfileComponent {
     }
   }
 
-  InstIDOpt = [{ name: 'Test', code: 'SCB' }];
+  InstIDOpt = [{ name: 'Test', code: 'CLFSC' }];
   logicalOpt = [{ name: 'MAKER', code: 'M' }, { name: 'CHECKER', code: 'C' }];
   previousSelectedIds: Set<string> = new Set();
 
