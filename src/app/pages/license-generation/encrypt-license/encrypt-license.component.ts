@@ -38,7 +38,7 @@ export class EncryptLicenseComponent {
   onSubmit() {
     if (this.encryptForm.valid) {
       console.log('Form Data:', this.encryptForm.value);
-      let instId = localStorage.getItem('instId');
+      let instId = this.encryptForm.value.INSTID;
       const payload = {
         instId: this.encryptForm.value.INSTID,
         ipAddress: this.encryptForm.value.serverIP,
