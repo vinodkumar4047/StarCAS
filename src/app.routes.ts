@@ -9,6 +9,7 @@ import { ControlMonitoringDetailsComponent } from './app/pages/control/control-m
 import { FraudMonitoringDetailsComponent } from './app/pages/monitorning/fraud-monitoring/fraud-monitoring-details/fraud-monitoring-details.component';
 import { FraudRiskDbComponent } from './app/pages/monitorning/fradu-risk-txn-monitoring/fraud-risk-db/fraud-risk-db.component';
 import { AuthGuard } from './app/layout/authGuard/auth.guard';
+import { ChangePasswordComponent } from './app/pages/change-password/change-password.component';
 
 export const appRoutes: Routes = [
     {
@@ -19,6 +20,7 @@ export const appRoutes: Routes = [
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') ,canActivate: [AuthGuard]}
         ]
     },
+     { path: 'change_password', component: ChangePasswordComponent },
     { path: 'landing', component: Landing },
     { path: 'atm_Monitoring_details', component: AtmMonitoringDetailsComponent },
     { path: 'control_Monitoring_Details', component: ControlMonitoringDetailsComponent },

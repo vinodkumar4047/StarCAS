@@ -140,7 +140,7 @@ export default [
   { path: 'profile', component: ProfileDetailsComponent },
   { path: 'user_profile', component: UserProfileComponent },
   { path: 'edit_profile', component: EditProfileComponent },
-  { path: 'change_password', component: ChangePasswordComponent },
+  // { path: 'change_password', component: ChangePasswordComponent },
   { path: 'atm_location', component: AtmLocationsComponent },
   { path: 'encrypt', component: EncryptLicenseComponent },
   { path: 'decrypt', component: LicenseDecryptComponent },
