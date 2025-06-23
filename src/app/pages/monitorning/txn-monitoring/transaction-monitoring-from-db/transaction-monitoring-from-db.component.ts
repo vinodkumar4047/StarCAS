@@ -70,7 +70,7 @@ export class TransactionMonitoringFromDBComponent {
   
   transactionGetData() {
     this.isLoading = true;
-    const instId = 'SCB';
+    const instId = 'CLFSC';
     this.restApi.get(`/monitoring/transaction?instId=${instId}`).pipe(
       take(1),
     ).subscribe({

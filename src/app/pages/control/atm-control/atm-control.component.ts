@@ -65,7 +65,7 @@ export class ATMControlComponent {
     console.log(type, 'type=============');
 
     const endpoint = type == 'atmId' ? 'atm-list' : 'logical-group-list'
-    const url = `/control/v1/${endpoint}?instId=SCB`;
+    const url = `/control/v1/${endpoint}?instId=CLFSC`;
     this.rest.get(url).pipe(
       take(1),
     ).subscribe({

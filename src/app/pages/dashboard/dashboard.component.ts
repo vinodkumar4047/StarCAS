@@ -64,7 +64,7 @@ export class DashboardComponent {
   years: any = [];
   constructor(private productService: ProductService, public layoutService: LayoutService,
     private confirmationService: ConfirmationService, private messageService: MessageService,
-    private rest: RestService, private cdr: ChangeDetectorRef, private dialogService:DialogService) {
+    private rest: RestService, private cdr: ChangeDetectorRef, private dialogService: DialogService) {
     this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
       // this.initChart();
     });
@@ -85,72 +85,81 @@ export class DashboardComponent {
   }
 
   initChartDougnut() {
+    let resData: any = [];
+    this.rest.post(null, `/dashboard/transaction/day-count`).subscribe({
+      next: (res) => {
+        resData = res;
+        if (isPlatformBrowser(this.platformId)) {
+          // let resdata = {
+          //   "successCount": 10,
+          //   "failureCount": 1,
+          //   "txnType": null
+          // }
+          const documentStyle = getComputedStyle(document.documentElement);
+          const textColor = documentStyle.getPropertyValue('--p-text-color');
+          // Filter only numeric keys from resdata and ignore null/undefined
+          const entries = Object.entries(resData).filter(
+            ([_, value]) => typeof value === 'number' && value !== null
+          );
 
-    if (isPlatformBrowser(this.platformId)) {
-      let resdata = {
-        "successCount": 10,
-        "failureCount": 1,
-        "txnType": null
-      }
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      // Filter only numeric keys from resdata and ignore null/undefined
-      const entries = Object.entries(resdata).filter(
-        ([_, value]) => typeof value === 'number' && value !== null
-      );
+          const labels = entries.map(([key]) => this.formatLabel(key));
+          const data = entries.map(([_, value]) => Number(value));
 
-      const labels = entries.map(([key]) => this.formatLabel(key));
-      const data = entries.map(([_, value]) => Number(value));
+          // Dynamic color generation using HSL
+          const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
+            const step = 360 / count;
+            return Array.from({ length: count }, (_, i) => `hsl(${210 + i * step}, ${saturation}%, ${lightness}%)`);
+          };
 
-      // Dynamic color generation using HSL
-      const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
-        const step = 360 / count;
-        return Array.from({ length: count }, (_, i) => `hsl(${210 + i * step}, ${saturation}%, ${lightness}%)`);
-      };
+          const backgroundColor = generateHSLColors(data.length, 70, 60);
+          const hoverBackgroundColor = generateHSLColors(data.length, 70, 50); // slightly darker
 
-      const backgroundColor = generateHSLColors(data.length, 70, 60);
-      const hoverBackgroundColor = generateHSLColors(data.length, 70, 50); // slightly darker
+          this.dougnutdata = {
+            labels: labels,
+            datasets: [
+              {
+                data: data,
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: hoverBackgroundColor
+              }
+            ]
+          };
 
-      this.dougnutdata = {
-        labels: labels,
-        datasets: [
-          {
-            data: data,
-            backgroundColor: backgroundColor,
-            hoverBackgroundColor: hoverBackgroundColor
-          }
-        ]
-      };
-
-      this.dougnutoptions = {
-        cutout: '60%',
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              color: textColor,
-              usePointStyle: true,
-              padding: 20,
-              boxWidth: 14,
-              boxHeight: 14,
-              font: {
-                size: 13
+          this.dougnutoptions = {
+            cutout: '60%',
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: {
+                  color: textColor,
+                  usePointStyle: true,
+                  padding: 20,
+                  boxWidth: 14,
+                  boxHeight: 14,
+                  font: {
+                    size: 13
+                  }
+                }
+              }
+            },
+            layout: {
+              padding: {
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 10
               }
             }
-          }
-        },
-        layout: {
-          padding: {
-            top: 10,
-            bottom: 10,
-            left: 10,
-            right: 10
-          }
-        }
-      };
+          };
 
-      this.cdr.markForCheck();
-    }
+          this.cdr.markForCheck();
+        }
+      },
+      error: (err) => {
+        this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
+      }
+    });
+
   }
 
   formatLabel(key: string): string {
@@ -162,117 +171,82 @@ export class DashboardComponent {
   }
 
   initChartLine() {
-    
-    this.rest.post(null, '').subscribe({
+    let resData: any = [];
+    this.rest.post(null, `/dashboard/transaction/monthly-count?year=${this.yearData}`).subscribe({
       next: (res) => {
-        if (res.respCode === '00') {
-          this.dialogService.show('Success', res?.message, 'success', 3000);
-        } else {
-          this.dialogService.show('Oops!', res.message, 'error', 3000);
+        resData = res;
+        if (isPlatformBrowser(this.platformId)) {
+          const documentStyle = getComputedStyle(document.documentElement);
+          const textColor = documentStyle.getPropertyValue('--p-text-color');
+          const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+          const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+          const labels = resData.map((item: any) => item.txnType);
+          const successCounts = resData.map((item: any) => item.successCount);
+          const failureCounts = resData.map((item: any) => item.failureCount);
+
+          this.linedata = {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Success',
+                data: successCounts,
+                fill: true,
+                borderColor: documentStyle.getPropertyValue('--p-green-500'),
+                tension: 0.4,
+                backgroundColor: 'rgba(22, 189, 111, 0.2)'
+              },
+              {
+                label: 'Failure',
+                data: failureCounts,
+                fill: true,
+                borderColor: documentStyle.getPropertyValue('--p-red-500'),
+                tension: 0.4,
+                backgroundColor: 'rgba(189, 65, 16, 0.2)'
+              }
+            ]
+          };
+
+          this.lineoptions = {
+            maintainAspectRatio: false,
+            aspectRatio: 0.6,
+            plugins: {
+              legend: {
+                labels: {
+                  color: textColor
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: textColorSecondary
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false
+                }
+              },
+              y: {
+                ticks: {
+                  color: textColorSecondary
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false
+                }
+              }
+            }
+          };
+
+          this.cdr.markForCheck();
         }
       },
       error: (err) => {
         this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
       }
     });
-    if (isPlatformBrowser(this.platformId)) {
-      let resData = [
-        {
-          "successCount": 286,
-          "failureCount": 134,
-          "txnType": "Month 1"
-        },
-        {
-          "successCount": 679,
-          "failureCount": 391,
-          "txnType": "Month 2"
-        },
-        {
-          "successCount": 374,
-          "failureCount": 209,
-          "txnType": "Month 3"
-        },
-        {
-          "successCount": 160,
-          "failureCount": 159,
-          "txnType": "Month 4"
-        },
-        {
-          "successCount": 438,
-          "failureCount": 297,
-          "txnType": "Month 5"
-        },
-        {
-          "successCount": 32,
-          "failureCount": 27,
-          "txnType": "Month 6"
-        }
-      ];
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-      const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-      const labels = resData.map(item => item.txnType);
-      const successCounts = resData.map(item => item.successCount);
-      const failureCounts = resData.map(item => item.failureCount);
-
-      this.linedata = {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Success',
-            data: successCounts,
-            fill: true,
-            borderColor: documentStyle.getPropertyValue('--p-green-500'),
-            tension: 0.4,
-            backgroundColor: 'rgba(22, 189, 111, 0.2)'
-          },
-          {
-            label: 'Failure',
-            data: failureCounts,
-            fill: true,
-            borderColor: documentStyle.getPropertyValue('--p-red-500'),
-            tension: 0.4,
-            backgroundColor: 'rgba(189, 65, 16, 0.2)'
-          }
-        ]
-      };
-
-      this.lineoptions = {
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            labels: {
-              color: textColor
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder,
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder,
-              drawBorder: false
-            }
-          }
-        }
-      };
-
-      this.cdr.markForCheck();
-    }
   }
 
   initChartCircle() {
@@ -294,7 +268,7 @@ export class DashboardComponent {
       const textColor = documentStyle.getPropertyValue('--text-color');
 
       const labels = resData.map(item => item.respDesc);
-      const data = resData.map(item => Number(item.txnCount));
+      const data = resData.map(item => Number(item.txnCount)+1);
 
       // 🔁 Dynamically generate colors using HSL (to ensure contrast)
       const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
@@ -349,169 +323,82 @@ export class DashboardComponent {
 
   initChartBar() {
 
-    if (isPlatformBrowser(this.platformId)) {
-      let resData = [
-        {
-          "successCount": 249,
-          "failureCount": 63,
-          "txnType": "PG by Wallet"
-        },
-        {
-          "successCount": 17,
-          "failureCount": 29,
-          "txnType": "Merchant QR Prepaid"
-        },
-        {
-          "successCount": 4,
-          "failureCount": 16,
-          "txnType": "Prepaid Card Close"
-        },
-        {
-          "successCount": 103,
-          "failureCount": 96,
-          "txnType": "Wallet to Wallet"
-        },
-        {
-          "successCount": 763,
-          "failureCount": 297,
-          "txnType": "Prepaid Topup"
-        },
-        {
-          "successCount": 166,
-          "failureCount": 85,
-          "txnType": "Branch Wallet topup"
-        },
-        {
-          "successCount": 40,
-          "failureCount": 31,
-          "txnType": "Card to Card"
-        },
-        {
-          "successCount": 17,
-          "failureCount": 8,
-          "txnType": "Merchant QR payment"
-        },
-        {
-          "successCount": 35,
-          "failureCount": 122,
-          "txnType": "Prepaid Card Set Pin"
-        },
-        {
-          "successCount": 51,
-          "failureCount": 22,
-          "txnType": "Branch Wallet Withdrawl"
-        },
-        {
-          "successCount": 150,
-          "failureCount": 108,
-          "txnType": "Prepaid Annual Fee"
-        },
-        {
-          "successCount": 36,
-          "failureCount": 27,
-          "txnType": "Prepaid Card Statement"
-        },
-        {
-          "successCount": 25,
-          "failureCount": 50,
-          "txnType": "Prepaid Card Linking"
-        },
-        {
-          "successCount": 68,
-          "failureCount": 52,
-          "txnType": "Mobile Topup"
-        },
-        {
-          "successCount": 63,
-          "failureCount": 36,
-          "txnType": "Prepaid to Wallet"
-        },
-        {
-          "successCount": 35,
-          "failureCount": 41,
-          "txnType": "Prepaid Branch Withdrawl"
-        },
-        {
-          "successCount": 66,
-          "failureCount": 24,
-          "txnType": "Branch Bulk Wallet Topup"
-        },
-        {
-          "successCount": 38,
-          "failureCount": 76,
-          "txnType": "PG by Prepaid "
-        },
-        {
-          "successCount": 29,
-          "failureCount": 18,
-          "txnType": "Wallet to Prepaid"
-        }
-      ];
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-      const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+    let resData: any = [];
+    this.rest.get(`/dashboard/transactionTypeWise/count`).subscribe({
+      next: (res) => {
+        resData = res;
+        if (isPlatformBrowser(this.platformId)) {
+          const documentStyle = getComputedStyle(document.documentElement);
+          const textColor = documentStyle.getPropertyValue('--p-text-color');
+          const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+          const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-      const labels = resData.map(item => item.txnType);
-      const successCounts = resData.map(item => item.successCount);
-      const failureCounts = resData.map(item => item.failureCount);
+          const labels = resData.map((item: any) => item.txnType);
+          const successCounts = resData.map((item: any) => item.successCount);
+          const failureCounts = resData.map((item: any) => item.failureCount);
 
-      this.databar = {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Success',
-            backgroundColor: documentStyle.getPropertyValue('--p-green-500'),
-            borderColor: documentStyle.getPropertyValue('--p-green-500'),
-            data: successCounts
-          },
-          {
-            label: 'Failure',
-            backgroundColor: documentStyle.getPropertyValue('--p-red-500'),
-            borderColor: documentStyle.getPropertyValue('--p-red-500'),
-            data: failureCounts
-          }
-        ]
-      };
+          this.databar = {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Success',
+                backgroundColor: documentStyle.getPropertyValue('--p-green-500'),
+                borderColor: documentStyle.getPropertyValue('--p-green-500'),
+                data: successCounts
+              },
+              {
+                label: 'Failure',
+                backgroundColor: documentStyle.getPropertyValue('--p-red-500'),
+                borderColor: documentStyle.getPropertyValue('--p-red-500'),
+                data: failureCounts
+              }
+            ]
+          };
 
-      this.optionsbar = {
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            labels: {
-              color: textColor
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary
+          this.optionsbar = {
+            maintainAspectRatio: false,
+            aspectRatio: 0.6,
+            plugins: {
+              legend: {
+                labels: {
+                  color: textColor
+                }
+              }
             },
-            grid: {
-              color: surfaceBorder,
-              drawBorder: false
+            scales: {
+              x: {
+                ticks: {
+                  color: textColorSecondary
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false
+                }
+              },
+              y: {
+                ticks: {
+                  color: textColorSecondary
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false
+                }
+              }
             }
-          },
-          y: {
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder,
-              drawBorder: false
-            }
-          }
-        }
-      };
+          };
 
-      this.cdr.markForCheck();
-    }
+          this.cdr.markForCheck();
+        }
+      },
+      error: (err) => {
+        this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
+      }
+    });
+
   }
 
   getCardDetails() {
-    const url = '/dashboard/details?instid=SCB'
+    const url = '/dashboard/details?instid=CLFSC'
     this.rest.get(url)
       .subscribe({
         next: (res) => {

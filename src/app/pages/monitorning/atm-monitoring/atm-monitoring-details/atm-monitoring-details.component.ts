@@ -201,7 +201,7 @@ export class AtmMonitoringDetailsComponent {
   }
 
   atmMonitoringGetData() {
-    const instId = 'SCB';
+    const instId = 'CLFSC';
     this.restApi.get(`/monitoring/atmMonitoringDetails?instId=${instId}`).pipe(
       take(1),
     ).subscribe({
@@ -249,7 +249,7 @@ export class AtmMonitoringDetailsComponent {
   }
 
   getAtmDetails(atmId: string) {
-    const instId = 'SCB';
+    const instId = 'CLFSC';
     const url = `/monitoring/atmDetails/${atmId}?instId=${instId}`;
 
     this.restApi.get(url).pipe(take(1)).subscribe({

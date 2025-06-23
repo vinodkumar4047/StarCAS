@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   };
 
   institutions = [
-    { label: 'SCB', value: 'SCB' },
+    { label: 'CLFSC', value: 'CLFSC' },
     { label: 'Institution B', value: 'institution_b' },
     { label: 'Institution C', value: 'institution_c' }
   ];
