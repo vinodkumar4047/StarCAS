@@ -90,11 +90,12 @@ export class DashboardComponent {
       next: (res) => {
         resData = res;
         if (isPlatformBrowser(this.platformId)) {
-          // let resdata = {
-          //   "successCount": 10,
-          //   "failureCount": 1,
-          //   "txnType": null
-          // }
+          // dummy data for now
+          resData = {
+            "successCount": 10,
+            "failureCount": 5,
+            "txnType": null
+          }
           const documentStyle = getComputedStyle(document.documentElement);
           const textColor = documentStyle.getPropertyValue('--p-text-color');
           // Filter only numeric keys from resdata and ignore null/undefined
@@ -371,7 +372,7 @@ export class DashboardComponent {
                   color: textColorSecondary
                 },
                 grid: {
-                  color: surfaceBorder,
+                  color: 'transparent' ,
                   drawBorder: false
                 }
               },
@@ -380,7 +381,7 @@ export class DashboardComponent {
                   color: textColorSecondary
                 },
                 grid: {
-                  color: surfaceBorder,
+                  color: 'transparent ',
                   drawBorder: false
                 }
               }

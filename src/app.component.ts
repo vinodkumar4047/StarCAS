@@ -14,7 +14,7 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         const token = localStorage.getItem('authToken');
-        if (!token && event.url !== '/auth/login') {
+        if (!token && event.url !== '/auth/login'&& event.url !== '/change_password') {
           this.router.navigate(['/auth/login']);
         }
       }

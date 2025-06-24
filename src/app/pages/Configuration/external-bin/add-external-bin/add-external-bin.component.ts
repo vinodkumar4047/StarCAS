@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
@@ -8,9 +8,11 @@ import { FileUpload } from 'primeng/fileupload';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { RestService } from '../../../../layout/service/rest.service';
+import { DialogService } from '../../../../layout/component/commonDialog.service';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-add-external-bin',
   imports: [InputTextModule, FormsModule, CommonModule, ButtonModule, ReactiveFormsModule, FileUpload,
     SelectModule, FloatLabel],
@@ -21,10 +23,10 @@ export class AddExternalBinComponent {
   routeData: any = history.state;
   uploadedFiles: any[] = [];
   institutionOpt: any = [
-    { name: 'Test Bank 1', code: '1' }, { name: 'Test Bank 2', code: '2' }, { name: 'Test Bank 3', code: '3' }
+    { name: 'CLFSC', code: 'CLFSC' }, { name: 'Test Bank 2', code: '2' }, { name: 'Test Bank 3', code: '3' }
   ];
   extBinForm: any;
-  constructor(private location: Location, private sanitizer: DomSanitizer, private fb: FormBuilder) { }
+  constructor(private location: Location, private sanitizer: DomSanitizer, private fb: FormBuilder, private restApi: RestService, private dialogService: DialogService) { }
 
   ngOnInit() {
     this.extBinForm = this.fb.group({
@@ -40,7 +42,7 @@ export class AddExternalBinComponent {
     this.uploadedFiles = files;
   }
 
-  resetFile(){
+  resetFile() {
     this.uploadedFiles = [];
   }
 
@@ -50,10 +52,26 @@ export class AddExternalBinComponent {
   onSubmit() {
     if (this.extBinForm.valid) {
       console.log('Form Data:', this.extBinForm.value);
-      // Process the form data here 
-  } else {
+      let payload = {
+        "instId": this.extBinForm.value?.Instution,
+        "bin": this.extBinForm.value?.BIN,
+        "description": this.extBinForm.value?.Description
+      }
+      this.restApi.post(payload, '/configuration/external-bin/add').subscribe({
+        next: (res) => {
+         
+            console.log('User added successfully:', res);
+            this.goBack();
+            this.dialogService.show('Success', res?.message, 'success',3000);
+        },
+        error: (err) => {
+          console.error('Error adding profile:', err)
+          this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+        }
+      });
+    } else {
       console.log('Form is invalid', this.extBinForm);
       this.extBinForm.markAllAsTouched();
-  }
+    }
   }
 }

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 @Component({
 changeDetection:ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  // standalone: true,
   selector: 'app-change-password',
   imports: [
     CommonModule,

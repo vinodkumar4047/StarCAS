@@ -179,7 +179,7 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         if (res?.respDesc == 'Switch to Change Password Page') {
           // this.showChangePasswordDialog = !this.showChangePasswordDialog;
-          this.router.navigate(['/pages/change_password']);
+           this.router.navigate(['/change_password']);
           this.cd.detectChanges();
         } else {
           if (res.respCode == '00') {

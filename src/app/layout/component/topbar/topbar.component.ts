@@ -122,7 +122,7 @@ export class TopbarComponent {
     } else if (member.name == 'My Profile') {
       this.router.navigate(['/pages/edit_profile']);
     } else if (member.name == 'Change Password') {
-      this.router.navigate(['/pages/change_password']);
+      this.router.navigate(['/change_password']);
     } else if (member.name == 'ATM Location') {
       this.router.navigate(['/pages/atm_location'])
     }
