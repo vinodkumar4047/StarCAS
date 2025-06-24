@@ -16,7 +16,10 @@ export const appRoutes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: '/auth/login', pathMatch: 'full', },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') ,canActivate: [AuthGuard]}
+            {
+                path: 'pages', loadChildren: () => import('./app/pages/pages.routes')
+                // canActivate: [AuthGuard]
+            }
         ]
     },
     { path: 'landing', component: Landing },

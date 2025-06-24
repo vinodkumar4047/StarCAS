@@ -1,23 +1,14 @@
 <div class="branchDetails">
-    <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> Branch Details </h2>
+    <h2 class="mb-8 card header-card "
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> Branch Details </h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <!-- <app-table [tableData]="customers" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit()" (editEvent)="editFunction($event, 'edit')"
-            (viewEvent)="editFunction($event , 'view')" [addButton]="userRole != 'maker'?null:'Add ATM'"  
-            [multipleButton]="userRole != 'maker'?buttonsList:''" (event)="authFunc($event)"/> -->
-   <app-table
-  [tableData]="customers"
-  [cols]="cols"
-  [globalFilterFields]="globalFilterFields"
-  (deleteEvent)="delete_visible = true"
-  (addEvent)="addOrEdit()"
-  (editEvent)="editFunction($event, 'edit')"
-  (viewEvent)="editFunction($event , 'view')"
-  [addButton]="userType != 'M' || !canAddBranch ? null : 'Add ATM'"
-  [multipleButton]="userType != 'M' ? filteredButtons : ''"
-  (event)="authFunc($event)">
-</app-table>
+        <app-table [tableData]="branchData" [cols]="cols" [globalFilterFields]="globalFilterFields"
+            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit($event,'add')"
+            (editEvent)="editFunction($event, 'edit')" (viewEvent)="editFunction($event , 'view')"
+            [addButton]="userType != 'M'?null:'Add Branch'" [multipleButton]="userType != 'M' ? buttonsList : ''"
+            (event)="authFunc($event)" [loading]="loading">
+        </app-table>
     </div>
 
 
@@ -37,24 +28,24 @@
         <div *ngIf="Edit_data">
             <div class="table-row">
                 <div class="table-cell heading">INST ID</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.INSTID" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.instId" type="text" placeholder=""
                     [disabled]="true" />
             </div>
             <div class="table-row">
                 <div class="table-cell heading">Branch Id</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCHCODE" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.branchCode" type="text" placeholder=""
                     [disabled]="true" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">Branch Map Code</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCHMAPCODE" type="text"
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.branchMapCode" type="text"
                     placeholder="" [disabled]="tpCheck" />
 
             </div>
             <div class="table-row">
                 <div class="table-cell heading">Branch Name</div>
-                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.BRANCHNAME" type="text" placeholder=""
+                <input class="table-cell value" pInputText [(ngModel)]="Edit_data.branchName" type="text" placeholder=""
                     [disabled]="tpCheck" />
 
             </div>
@@ -99,28 +90,35 @@
             </div>
         </ng-template>
 
-        <div class="grid grid-cols-2 gap-4 mt-6">
-            <div class="flex flex-col gap-2">
-                <label for="username">Institution Id *</label>
-                <input pInputText id="TEST" aria-describedby="username-help" [disabled]="true" placeholder="TEST" />
+        <form [formGroup]="branchForm">
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="flex flex-col gap-2">
+                    <label for="institutionId">Institution Id *</label>
+                    <input pInputText id="institutionId" formControlName="institutionId" [disabled]="true"
+                        placeholder="TEST" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="branchCode">Branch Code *</label>
+                    <input pInputText id="branchCode" formControlName="branchCode" placeholder="Branch Code" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="branchMapCode">Branch Map Code *</label>
+                    <input pInputText id="branchMapCode" formControlName="branchMapCode"
+                        placeholder="Branch Map Code" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="branchName">Branch Name *</label>
+                    <input pInputText id="branchName" formControlName="branchName" placeholder="Branch Name" />
+                </div>
             </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Code *</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Code" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Map Code *</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Map Code" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="username">Branch Name*</label>
-                <input pInputText id="username" aria-describedby="username-help" placeholder="Branch Name" />
-            </div>
-        </div>
+        </form>
 
         <div class="flex justify-end gap-2 mt-4">
             <p-button label="Cancel" severity="secondary" (click)="ADDvisible = false" />
-            <p-button label="Save" (click)="ADDvisible = false" />
+            <p-button label="Save" [disabled]="branchForm.invalid" (click)="onSave()" />
         </div>
     </p-dialog>
 </div>
