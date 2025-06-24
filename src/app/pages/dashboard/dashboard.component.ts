@@ -91,11 +91,7 @@ export class DashboardComponent {
         resData = res;
         if (isPlatformBrowser(this.platformId)) {
           // dummy data for now
-          resData = {
-            "successCount": 10,
-            "failureCount": 5,
-            "txnType": null
-          }
+
           const documentStyle = getComputedStyle(document.documentElement);
           const textColor = documentStyle.getPropertyValue('--p-text-color');
           // Filter only numeric keys from resdata and ignore null/undefined
@@ -130,7 +126,7 @@ export class DashboardComponent {
             cutout: '60%',
             plugins: {
               legend: {
-                position: 'right',
+                position: 'bottom',
                 labels: {
                   color: textColor,
                   usePointStyle: true,
@@ -251,25 +247,29 @@ export class DashboardComponent {
   }
 
   initChartCircle() {
-    if (isPlatformBrowser(this.platformId)) {
-      let resData = [
-        { "respCode": "0", "respDesc": "Approved Transaction", "txnCount": "842" },
-        { "respCode": "5", "respDesc": "Unable To Process", "txnCount": "112" },
-        { "respCode": "13", "respDesc": "Invalid Amount", "txnCount": "6" },
-        { "respCode": "14", "respDesc": "Invalid Card", "txnCount": "49" },
-        { "respCode": "21", "respDesc": "No To Account", "txnCount": "9" },
-        { "respCode": "39", "respDesc": "Transaction Not Allowed", "txnCount": "15" },
-        { "respCode": "51", "respDesc": "Insufficient Funds", "txnCount": "24" },
-        { "respCode": "61", "respDesc": "Exceeds Limit", "txnCount": "63" },
-        { "respCode": "65", "respDesc": "Exceeds Frequency Limit", "txnCount": "16" },
-        { "respCode": "76", "respDesc": "Invalid Account", "txnCount": "18" }
-      ];
+     let resData:any = []
+      this.rest.get(`/dashboard/transactionTypeWise`).subscribe({
+      next: (res) => { 
+  resData = res;
+   if (isPlatformBrowser(this.platformId)) {
+      // let resData = [
+      //   { "respCode": "0", "respDesc": "Approved Transaction", "txnCount": "842" },
+      //   { "respCode": "5", "respDesc": "Unable To Process", "txnCount": "112" },
+      //   { "respCode": "13", "respDesc": "Invalid Amount", "txnCount": "6" },
+      //   { "respCode": "14", "respDesc": "Invalid Card", "txnCount": "49" },
+      //   { "respCode": "21", "respDesc": "No To Account", "txnCount": "9" },
+      //   { "respCode": "39", "respDesc": "Transaction Not Allowed", "txnCount": "15" },
+      //   { "respCode": "51", "respDesc": "Insufficient Funds", "txnCount": "24" },
+      //   { "respCode": "61", "respDesc": "Exceeds Limit", "txnCount": "63" },
+      //   { "respCode": "65", "respDesc": "Exceeds Frequency Limit", "txnCount": "16" },
+      //   { "respCode": "76", "respDesc": "Invalid Account", "txnCount": "18" }
+      // ];
 
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--text-color');
 
-      const labels = resData?.map(item => item.respDesc);
-      const data = resData?.map(item => Number(item.txnCount)+1);
+      const labels = resData?.map((item:any) => item.reason);
+      const data = resData?.map((item:any) => Number(item.count));
 
       // 🔁 Dynamically generate colors using HSL (to ensure contrast)
       const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
@@ -298,11 +298,11 @@ export class DashboardComponent {
             labels: {
               usePointStyle: true,
               color: textColor,
-              padding: 20,
+              padding: 12,
               boxWidth: 12,
               boxHeight: 12,
               font: {
-                size: 13
+                size: 12,
               }
             }
           }
@@ -319,6 +319,13 @@ export class DashboardComponent {
 
       this.cdr.markForCheck();
     }
+       },
+      error: (err) => {
+        this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
+      }
+    });
+      
+   
   }
 
 
