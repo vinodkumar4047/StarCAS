@@ -100,13 +100,23 @@ export class LoginComponent implements OnInit {
   }
 
   forgotPasswordValidation() {
-    this.loginForm.get('username')?.setValidators(this.usernameValidators);
-    this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
-    this.loginForm.get('userPassword')?.clearValidators();
-    this.loginForm.get('AdminUsername')?.clearValidators();
-    this.loginForm.get('adminPassword')?.clearValidators();
-    this.forgotPass = true;
-  }
+  this.loginForm.get('username')?.setValidators(this.usernameValidators);
+  this.loginForm.get('username')?.updateValueAndValidity();
+
+  this.loginForm.get('userInstitution')?.setValidators([Validators.required]);
+  this.loginForm.get('userInstitution')?.updateValueAndValidity();
+
+  this.loginForm.get('userPassword')?.clearValidators();
+  this.loginForm.get('userPassword')?.updateValueAndValidity();
+
+  this.loginForm.get('AdminUsername')?.clearValidators();
+  this.loginForm.get('AdminUsername')?.updateValueAndValidity();
+
+  this.loginForm.get('adminPassword')?.clearValidators();
+  this.loginForm.get('adminPassword')?.updateValueAndValidity();
+
+  this.forgotPass = true;
+}
 
   forgotPassword() {
     if (this.loginForm.valid) {
@@ -193,6 +203,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userType', res.userDetails[0].userType);
             this.router.navigate(['/pages/dashboard']);
             this.menuSer.menuItems = res.menuId;
+            this.menuSer.setmenuItems(res.menuId);
             let msg = 'Login Success'
             this.dialogService.show('Success',msg , 'success');
             console.log("Menu Items:", this.menuSer.menuItems);
@@ -222,7 +233,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Institution",
         //           "link": "institution",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000201",
         //           "checked": true,
@@ -237,7 +248,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Branch",
         //           "link": "branch",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000202",
         //           "checked": true,
@@ -253,7 +264,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "BIN",
         //           "link": "bin",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000203",
         //           "checked": true,
@@ -264,7 +275,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "ATM Type",
         //           "link": "atmType",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000204",
         //           "checked": true,
@@ -284,7 +295,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "ATM",
         //           "link": "atm",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000205",
         //           "checked": true,
@@ -324,7 +335,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "External BIN",
         //           "link": "externalBin",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000206",
         //           "checked": true,
@@ -364,7 +375,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "FIT",
         //           "link": "fit",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000207",
         //           "checked": true,
@@ -404,7 +415,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Casette",
         //           "link": "casset",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000208",
         //           "checked": true,
@@ -424,7 +435,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Port",
         //           "link": "port",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000209",
         //           "checked": true,
@@ -439,7 +450,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Transaction",
         //           "link": "transaction",
-        //           "icon": "fa-solid fa-credit-card",
+        //           "icon": "credit-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000210",
         //           "checked": true,
@@ -464,7 +475,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Network Monitoring",
         //           "link": "network_Monitoring",
-        //           "icon": "fa fa-id-card",
+        //           "icon": "id-card",
         //           "color": "#1b5e20",
         //           "menuId": "M00000301",
         //           "checked": true
@@ -472,7 +483,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "HSM Monitoring",
         //           "link": "hsm_Monitoring",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000302",
         //           "checked": true,
@@ -480,7 +491,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "TXN Monitoring",
         //           "link": "txn_Monitoring",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000303",
         //           "checked": true,
@@ -488,7 +499,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "ATM Monitoring",
         //           "link": "atm_Monitoring",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000304",
         //           "checked": true,
@@ -496,7 +507,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Transaction Search",
         //           "link": "transaction_Search",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000305",
         //           "checked": true,
@@ -504,7 +515,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Fraud Monitoring",
         //           "link": "fraud_Monitoring",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000306",
         //           "checked": true,
@@ -512,7 +523,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Fraud and Risk Txn Management",
         //           "link": "FraduRisk_TxnMonitoring",
-        //           "icon": "fa fa-user-plus",
+        //           "icon": "user-plus",
         //           "color": "#1b5e20",
         //           "menuId": "M00000307",
         //           "checked": true,
@@ -530,7 +541,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Task Manager",
         //           "link": "task_Manager",
-        //           "icon": "fa-solid fa-file",
+        //           "icon": "file",
         //           "color": "#1b5e20",
         //           "menuId": "M00000401",
         //           "checked": true
@@ -538,7 +549,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Port Manager",
         //           "link": "port_Manager",
-        //           "icon": "fa-solid fa-file",
+        //           "icon": "file",
         //           "color": "#1b5e20",
         //           "menuId": "M00000402",
         //           "checked": true
@@ -546,7 +557,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Channel Manager",
         //           "link": "instant-IND",
-        //           "icon": "fa-solid fa-file",
+        //           "icon": "file",
         //           "color": "#1b5e20",
         //           "menuId": "M00000403",
         //           "checked": true
@@ -554,7 +565,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Network Control",
         //           "link": "network_Control",
-        //           "icon": "fa-solid fa-file",
+        //           "icon": "file",
         //           "color": "#1b5e20",
         //           "menuId": "M00000404",
         //           "checked": true
@@ -562,7 +573,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "ATM Controller",
         //           "link": "atm_control",
-        //           "icon": "fa fa-home",
+        //           "icon": "home",
         //           "color": "#1b5e20",
         //           "menuId": "M00000405",
         //           "checked": true
@@ -570,7 +581,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Control Monitoring",
         //           "link": "control_Monitoring",
-        //           "icon": "fa fa-envelope-square",
+        //           "icon": "mail",
         //           "color": "#1b5e20",
         //           "menuId": "M00000406",
         //           "checked": true
@@ -587,7 +598,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "International TXN Enabled",
         //           "link": "internationalTXNEnadisable",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -602,7 +613,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "TXN Allow Without PIN",
         //           "link": "txnAllowWithoutPin",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -618,7 +629,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Risk Country Block",
         //           "link": "riskCountryBlock",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -632,7 +643,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "TXN Allow For Risk Country",
         //           "link": "txnAllowedRiskCountry",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -646,7 +657,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "MCC Block",
         //           "link": "mccBlock",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -663,7 +674,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "TXN Allow For Blocked MCC",
         //           "link": "txnAllowBlockedMCC",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -679,7 +690,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Risk Ecom Site Block",
         //           "link": "riskEcomSiteBlock",
-        //           "icon": "fa-solid fa-person-chalkboard",
+        //           "icon": "presentation",
         //           "color": "#1b5e20",
         //           "menuId": "M00000501",
         //           "checked": true,
@@ -703,7 +714,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "MIS REPORT",
         //           "link": "mis-report",
-        //           "icon": "fa-solid fa-chart-line",
+        //           "icon": "chart-line",
         //           "color": "#1b5e20",
         //           "menuId": "M00000601",
         //           "checked": true,
@@ -717,7 +728,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "SUMMARY REPORTS",
         //           "link": "summary-reports",
-        //           "icon": "fa-solid fa-chart-pie",
+        //           "icon": "chart-pie",
         //           "color": "#1b5e20",
         //           "menuId": "M00000602",
         //           "checked": true,
@@ -730,7 +741,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "TERMINAL TRANSACTION REPORTS",
         //           "link": "terminal-txn-reports",
-        //           "icon": "fa-solid fa-terminal",
+        //           "icon": "terminal",
         //           "color": "#1b5e20",
         //           "menuId": "M00000603",
         //           "checked": true,
@@ -741,7 +752,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "AUDIT REPORTS",
         //           "link": "audit-reports",
-        //           "icon": "fa-solid fa-clipboard-check",
+        //           "icon": "clipboard-check",
         //           "color": "#1b5e20",
         //           "menuId": "M00000604",
         //           "checked": true,
@@ -760,7 +771,7 @@ export class LoginComponent implements OnInit {
         //       "subMenu": [
         //         {
         //           "title": "Email Update",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "link": "email_update",
         //           "menuId": "M00000701",
@@ -773,7 +784,7 @@ export class LoginComponent implements OnInit {
         //         },
         //         {
         //           "title": "Modile Update",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "link": "mobile_update",
         //           "menuId": "M00000702",
@@ -787,7 +798,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "SAF Mnagement",
         //           "link": "saf",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "menuId": "M00000703",
         //           "checked": true
@@ -795,7 +806,7 @@ export class LoginComponent implements OnInit {
         //         {
         //           "title": "Admin Card",
         //           "link": "admin_card",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "menuId": "M00000704",
         //           "checked": true
@@ -812,7 +823,7 @@ export class LoginComponent implements OnInit {
         //       "subMenu": [
         //         {
         //           "title": "Profile",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "link": "profile",
         //           "menuId": "M00000801",
@@ -827,7 +838,7 @@ export class LoginComponent implements OnInit {
         //         },
         //         {
         //           "title": "User",
-        //           "icon": "fa-solid fa-address-card",
+        //           "icon": "contact",
         //           "color": "#1b5e20",
         //           "link": "user",
         //           "menuId": "M00000802",

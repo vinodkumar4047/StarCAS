@@ -45,12 +45,14 @@ export class ExternalBinComponent {
   };
   tpCheck!: boolean;
   buttonsList: any = [
+    { label: 'Authorize External BIN', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
+    { label: 'Authorize Edit External BIN', icon: 'pi pi-pencil', type: 'EditAuth', variant: 'outlined', severity: "primary" } ,
     { label: 'Authorize Delete External BIN', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
-    { label: 'Authorize External BIN', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" }
   ]
   userRole: any = localStorage.getItem('userRole');
   userType: any = localStorage.getItem('userType');
   loading: any;
+  delData: any;
   constructor(private router: Router, private restApi: RestService, private cdr: ChangeDetectorRef,private dialogService:DialogService) { };
 
   ngOnInit() {
@@ -82,6 +84,11 @@ export class ExternalBinComponent {
       }
     });
   }
+  deletepopup(event:any){
+    console.log(event,'-----delete_visible = true');
+    this.delete_visible = true;
+    this.delData = event?.data;
+  }
 
   delateData() {
     this.delete_visible = false
@@ -103,15 +110,16 @@ export class ExternalBinComponent {
   }
 
   editExternalBin(){
-      let payload = {}
-      //   "instId": this.extBinForm.value?.Instution,
-      //   "bin": this.extBinForm.value?.BIN,
-      //   "description": this.extBinForm.value?.Description
-      // }
-      this.restApi.post(payload, '/configuration/external-bin/add').subscribe({
+      let payload = {
+        "instId": this.Edit_data?.INSTID,
+        "bin": this.Edit_data?.BIN,
+        "description": this.Edit_data?.DESCRIPTION,
+        "recordId": this.Edit_data?.RECORDID,
+      }
+      this.restApi.post(payload, '/configuration/external-bin/edit').subscribe({
         next: (res) => {
          
-            console.log('User added successfully:', res);
+            console.log('User updated successfully:', res);
                 this.editVisible = false
             this.dialogService.show('Success', res?.message, 'success',3000);
         },

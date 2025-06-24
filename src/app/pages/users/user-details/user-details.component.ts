@@ -176,13 +176,14 @@ export class UserDetailsComponent {
         console.log('Profile deleted successfully:', res);
         const msg = res?.message || 'Deleted successfully';
 
-        this.getUserListData(); // ✅ Refresh table/list
+        this.getUserListData();
         this.cd.detectChanges();
-        this.delete_visible = false; // ✅ Close dialog
+        this.delete_visible = false; 
+        this.dialogService.show('Success', msg, 'success');
       },
       error: (err) => {
         console.error('Error deleting profile:', err);
-        // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
+         this.dialogService.show('Oops!', err.message, 'error');
       }
     });
   }

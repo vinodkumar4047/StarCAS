@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,9 +9,10 @@ import { LayoutService } from '../../layout/service/layout.service';
 import { RestService } from '../../layout/service/rest.service';
 import { DialogService } from '../../layout/component/commonDialog.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
-changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   // standalone: true,
   selector: 'app-change-password',
   imports: [
@@ -27,30 +28,11 @@ changeDetection:ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordComponent {
   PasswordForm!: FormGroup;
-  passwordValidationInp:any = {
-      "id": "1",
-      "instId": "CLFSC",
-      "loweCase": "3",
-      "upperCase": "1",
-      "numbers": "3",
-      "special": "1",
-      "firstChar": "F",
-      "lastChar": "L",
-      "totalCount": "8",
-      "createdDate": "2024-10-22 18:04:05.732",
-      "modifiedDate": "NA",
-      "createdBy": "1",
-      "modifiedBy": "NA",
-      "authStatus": "C",
-      "reason": "NA",
-      "pwdExpPeriod": "90",
-      "pwdMinAge": "NA",
-      "pwdReuseHist": "4",
-      "mkckStatus": "C"
-    }
+  passwordValidationInp: any;
+  passwordRules: string[] = [];
 
-  constructor(private fb: FormBuilder,public layoutService:LayoutService,private router: Router,
-    public restApi:RestService,public dialogService:DialogService,private location: Location) {}
+  constructor(private fb: FormBuilder, public layoutService: LayoutService, private router: Router,
+    public restApi: RestService, public dialogService: DialogService, private location: Location,private cd:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.layoutService.onMenuToggle()
@@ -59,44 +41,73 @@ export class ChangePasswordComponent {
       NewPassword: ['', [Validators.required, this.passwordStrengthValidator()]],
       ConfirmPassword: ['', Validators.required]
     }, {
-      validators: this.passwordMatchValidator()
-    });
-  } 
-   goBack() {
+    validators: this.passwordMatchValidator()
+  });
+
+  this.getPasswordRulesMessage();
+  }
+  goBack() {
     this.location.back();
   }
-  
-getPasswordRulesMessage(): string[] {
- const config = this.passwordValidationInp;
- return [
-    `Your password should contain a minimum of ${config.totalCount} characters.`,
-    `Your password should include at least:`,
-    `• Lower Case: ${config.loweCase}`,
-    `• Upper Case: ${config.upperCase}`,
-    `• Number: ${config.numbers}`,
-    `• Special Character: ${config.special}`
-  ];
-}
 
-getFirstPasswordError(): string | null {
-  const controlErrors = this.PasswordForm.get('NewPassword')?.errors?.['passwordStrength'];
-  if (!controlErrors) return null;
+getPasswordRulesMessage(): void {
+  this.restApi.get('/usermanagement/passwordPolicy/getAll').pipe(take(1)).subscribe({
+    next: (res) => {
+      if (res?.data?.length > 0) {
+        this.passwordValidationInp = res.data[0];
+        const config = this.passwordValidationInp;
 
-  const errorKeys = ['lowercase', 'uppercase', 'numbers', 'special', 'firstChar', 'lastChar', 'totalLength'];
+        // Set password rules to show in UI
+        this.passwordRules = [
+          `Your password should contain a minimum of ${config.totalCount} characters.`,
+          `Your password should include at least:`,
+          `• Lower Case: ${config.loweCase}`,
+          `• Upper Case: ${config.upperCase}`,
+          `• Number: ${config.numbers}`,
+          `• Special Character: ${config.special}`
+        ];
 
-  for (const key of errorKeys) {
-    if (controlErrors[key]) {
-      return controlErrors[key];
+        // Dynamically add the validator once data is ready
+        const newPasswordControl = this.PasswordForm.get('NewPassword');
+        newPasswordControl?.setValidators([
+          Validators.required,
+          this.passwordStrengthValidator()
+        ]);
+        newPasswordControl?.updateValueAndValidity();
+        this.cd.detectChanges()
+      } else {
+        this.passwordRules = ['Password policy data not found.'];
+      }
+    },
+    error: (err) => {
+      console.error('Failed to fetch password rules:', err);
+      this.passwordRules = ['Unable to load password rules.'];
     }
-  }
-
-  return null;
+  });
 }
+
+
+  getFirstPasswordError(): string | null {
+    const controlErrors = this.PasswordForm.get('NewPassword')?.errors?.['passwordStrength'];
+    if (!controlErrors) return null;
+
+    const errorKeys = ['lowercase', 'uppercase', 'numbers', 'special', 'firstChar', 'lastChar', 'totalLength'];
+
+    for (const key of errorKeys) {
+      if (controlErrors[key]) {
+        return controlErrors[key];
+      }
+    }
+
+    return null;
+  }
 
 passwordStrengthValidator() {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
     const config = this.passwordValidationInp;
+
+    if (!config) return null; // Avoid crash
 
     const errors: any = {};
 
@@ -137,6 +148,7 @@ passwordStrengthValidator() {
 }
 
 
+
   passwordMatchValidator() {
     return (group: AbstractControl): ValidationErrors | null => {
       const newPassword = group.get('NewPassword')?.value;
@@ -146,44 +158,44 @@ passwordStrengthValidator() {
     };
   }
 
- onSubmit() {
-  if (this.PasswordForm.valid) {
-    const currentPassword = this.PasswordForm.get('CurrentPassword')?.value;
-    const newPassword = this.PasswordForm.get('NewPassword')?.value;
-    const confirmPassword = this.PasswordForm.get('ConfirmPassword')?.value;
-    const username = localStorage.getItem('username');
+  onSubmit() {
+    if (this.PasswordForm.valid) {
+      const currentPassword = this.PasswordForm.get('CurrentPassword')?.value;
+      const newPassword = this.PasswordForm.get('NewPassword')?.value;
+      const confirmPassword = this.PasswordForm.get('ConfirmPassword')?.value;
+      const username = localStorage.getItem('username');
 
-    const payload = {
-      userName: username,
-      oldPassword: currentPassword,
-      firstPassword: newPassword,
-      secondPassword: confirmPassword
-    };
+      const payload = {
+        userName: username,
+        oldPassword: currentPassword,
+        firstPassword: newPassword,
+        secondPassword: confirmPassword
+      };
 
-    this.restApi.post(payload, '/login/changePassword').subscribe({
-      next: (res) => {
-        if (res.respCode === '00') {
-          this.router.navigate(['/auth/login'])
-          this.dialogService.show('Success', res?.message, 'success', 3000);
-        } else {
-          this.dialogService.show('Oops!', res.message, 'error', 3000);
+      this.restApi.post(payload, '/login/changePassword').subscribe({
+        next: (res) => {
+          if (res.respCode === '00') {
+            this.router.navigate(['/auth/login'])
+            this.dialogService.show('Success', res?.message, 'success', 3000);
+          } else {
+            this.dialogService.show('Oops!', res.message, 'error', 3000);
+          }
+        },
+        error: (err) => {
+          console.error('Password change failed', err);
+          this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
         }
-      },
-      error: (err) => {
-        console.error('Password change failed', err);
-        this.dialogService.show('Oops!', err?.message || 'Something went wrong', 'error');
-      }
-    });
+      });
 
-  } else {
-    console.log(this.PasswordForm,'this.PasswordForm');
-    
-    this.PasswordForm.markAllAsTouched();
+    } else {
+      console.log(this.PasswordForm, 'this.PasswordForm');
+
+      this.PasswordForm.markAllAsTouched();
+    }
   }
-}
 
- ngOnDestroy(): void {
-    this.layoutService.onMenuToggle(); 
+  ngOnDestroy(): void {
+    this.layoutService.onMenuToggle();
   }
 
 }

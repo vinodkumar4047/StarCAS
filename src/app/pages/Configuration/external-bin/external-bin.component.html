@@ -3,7 +3,7 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="rawData" [cols]="cols" [globalFilterFields]="globalFilterFields" (event)="authFunction($event)"
-            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
+            (deleteEvent)="deletepopup($event)" (addEvent)="addOrEdit('Add',$event)" (editEvent)="edit($event,'Edit')"
             (viewEvent)="edit($event,'View')" [addButton]="userType != 'M'?null:'Add External BIN'" [multipleButton]="userType != 'M'?buttonsList:''" />
     </div>
 
@@ -20,7 +20,6 @@
         <div class="p-text-secondary mb-4 font-bold text-lg tracking-wide">
             Are you sure you want to delete?
         </div>
-        <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
         <div class="flex justify-end gap-2">
             <p-button label="No" severity="secondary" (click)="delete_visible = false" />
             <p-button label="Yes, Delete" severity="danger" (click)="delateData()" />

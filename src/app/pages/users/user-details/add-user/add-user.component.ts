@@ -99,7 +99,7 @@ export class AddUserComponent {
               const passwordMatch = res.message.match(/Password: (\d+)/);
               this.authorizedUser = userMatch?.[1] || '';
               this.authorizedPassword = passwordMatch?.[1] || '';
-              this.showSuccessDialog = true;
+              this.showSuccessDialog =  this.authorizedPassword == '' || this.authorizedPassword == undefined ||this.authorizedPassword == null ? false : true;
               this.cd.detectChanges();
               // this.goBack();
             } else {
@@ -143,7 +143,7 @@ export class AddUserComponent {
 
             this.authorizedUser = this.routeData?.data?.userName || '';
             this.authorizedPassword = passwordMatch?.[1] || '';
-            this.showSuccessDialog = true;
+            this.showSuccessDialog =  this.authorizedPassword == '' || this.authorizedPassword == undefined ||this.authorizedPassword == null ? false : true;
             this.cd.detectChanges();
             this.dialogService.show('Success', res?.respDesc, 'success');
           } else {

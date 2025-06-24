@@ -103,8 +103,8 @@ export class DashboardComponent {
             ([_, value]) => typeof value === 'number' && value !== null
           );
 
-          const labels = entries.map(([key]) => this.formatLabel(key));
-          const data = entries.map(([_, value]) => Number(value));
+          const labels = entries?.map(([key]) => this.formatLabel(key));
+          const data = entries?.map(([_, value]) => Number(value));
 
           // Dynamic color generation using HSL
           const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
@@ -182,9 +182,9 @@ export class DashboardComponent {
           const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
           const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-          const labels = resData.map((item: any) => item.txnType);
-          const successCounts = resData.map((item: any) => item.successCount);
-          const failureCounts = resData.map((item: any) => item.failureCount);
+          const labels = resData?.map((item: any) => item.txnType);
+          const successCounts = resData?.map((item: any) => item.successCount);
+          const failureCounts = resData?.map((item: any) => item.failureCount);
 
           this.linedata = {
             labels: labels,
@@ -268,8 +268,8 @@ export class DashboardComponent {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--text-color');
 
-      const labels = resData.map(item => item.respDesc);
-      const data = resData.map(item => Number(item.txnCount)+1);
+      const labels = resData?.map(item => item.respDesc);
+      const data = resData?.map(item => Number(item.txnCount)+1);
 
       // 🔁 Dynamically generate colors using HSL (to ensure contrast)
       const generateHSLColors = (count: number, saturation = 70, lightness = 60): string[] => {
@@ -334,9 +334,9 @@ export class DashboardComponent {
           const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
           const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-          const labels = resData.map((item: any) => item.txnType);
-          const successCounts = resData.map((item: any) => item.successCount);
-          const failureCounts = resData.map((item: any) => item.failureCount);
+          const labels = resData?.map((item: any) => item.txnType);
+          const successCounts = resData?.map((item: any) => item.successCount);
+          const failureCounts = resData?.map((item: any) => item.failureCount);
 
           this.databar = {
             labels: labels,

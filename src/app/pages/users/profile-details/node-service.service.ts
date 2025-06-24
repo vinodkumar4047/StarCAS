@@ -29,7 +29,7 @@ export class NodeServiceService {
             {
               "title": "Institution",
               "link": "institution",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000201",
               "checked": false,
@@ -44,7 +44,7 @@ export class NodeServiceService {
             {
               "title": "Branch",
               "link": "branch",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000202",
               "checked": false,
@@ -60,7 +60,7 @@ export class NodeServiceService {
             {
               "title": "BIN",
               "link": "bin",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000203",
               "checked": false,
@@ -71,7 +71,7 @@ export class NodeServiceService {
             {
               "title": "ATM Type",
               "link": "atmType",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000204",
               "checked": false,
@@ -91,7 +91,7 @@ export class NodeServiceService {
             {
               "title": "ATM",
               "link": "atm",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000205",
               "checked": false,
@@ -131,7 +131,7 @@ export class NodeServiceService {
             {
               "title": "External BIN",
               "link": "externalBin",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000206",
               "checked": false,
@@ -171,7 +171,7 @@ export class NodeServiceService {
             {
               "title": "FIT",
               "link": "fit",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000207",
               "checked": false,
@@ -211,7 +211,7 @@ export class NodeServiceService {
             {
               "title": "Casette",
               "link": "casset",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000208",
               "checked": false,
@@ -231,7 +231,7 @@ export class NodeServiceService {
             {
               "title": "Port",
               "link": "port",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000209",
               "checked": false,
@@ -246,7 +246,7 @@ export class NodeServiceService {
             {
               "title": "Transaction",
               "link": "transaction",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000210",
               "checked": false,
@@ -261,7 +261,7 @@ export class NodeServiceService {
             {
               "title": "Status Map",
               "link": "statusMap",
-              "icon": "fa-solid fa-credit-card",
+              "icon": "credit-card",
               "color": "#1b5e20",
               "menuId": "M00000211",
               "checked": false,
@@ -286,7 +286,7 @@ export class NodeServiceService {
             {
               "title": "Network Monitoring",
               "link": "network_Monitoring",
-              "icon": "fa fa-id-card",
+              "icon": "id-card",
               "color": "#1b5e20",
               "menuId": "M00000301",
               "checked": false
@@ -294,7 +294,7 @@ export class NodeServiceService {
             {
               "title": "HSM Monitoring",
               "link": "hsm_Monitoring",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000302",
               "checked": false,
@@ -302,7 +302,7 @@ export class NodeServiceService {
             {
               "title": "TXN Monitoring",
               "link": "txn_Monitoring",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000303",
               "checked": false,
@@ -310,7 +310,7 @@ export class NodeServiceService {
             {
               "title": "ATM Monitoring",
               "link": "atm_Monitoring",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000304",
               "checked": false,
@@ -318,7 +318,7 @@ export class NodeServiceService {
             {
               "title": "Transaction Search",
               "link": "transaction_Search",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000305",
               "checked": false,
@@ -326,7 +326,7 @@ export class NodeServiceService {
             {
               "title": "Fraud Monitoring",
               "link": "fraud_Monitoring",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000306",
               "checked": false,
@@ -334,7 +334,7 @@ export class NodeServiceService {
             {
               "title": "Fraud and Risk Txn Management",
               "link": "FraduRisk_TxnMonitoring",
-              "icon": "fa fa-user-plus",
+              "icon": "user-plus",
               "color": "#1b5e20",
               "menuId": "M00000307",
               "checked": false,
@@ -352,7 +352,7 @@ export class NodeServiceService {
             {
               "title": "Task Manager",
               "link": "task_Manager",
-              "icon": "fa-solid fa-file",
+              "icon": "file",
               "color": "#1b5e20",
               "menuId": "M00000401",
               "checked": false
@@ -360,7 +360,7 @@ export class NodeServiceService {
             {
               "title": "Port Manager",
               "link": "port_Manager",
-              "icon": "fa-solid fa-file",
+              "icon": "file",
               "color": "#1b5e20",
               "menuId": "M00000402",
               "checked": false
@@ -368,7 +368,7 @@ export class NodeServiceService {
             // {
             //   "title": "Channel Manager",
             //   "link": "instant-IND",
-            //   "icon": "fa-solid fa-file",
+            //   "icon": "file",
             //   "color": "#1b5e20",
             //   "menuId": "M00000403",
             //   "checked": false
@@ -376,7 +376,7 @@ export class NodeServiceService {
             {
               "title": "Network Control",
               "link": "network_Control",
-              "icon": "fa-solid fa-file",
+              "icon": "file",
               "color": "#1b5e20",
               "menuId": "M00000404",
               "checked": false
@@ -384,7 +384,7 @@ export class NodeServiceService {
             {
               "title": "ATM Controller",
               "link": "atm_control",
-              "icon": "fa fa-home",
+              "icon": "house",
               "color": "#1b5e20",
               "menuId": "M00000405",
               "checked": false
@@ -392,7 +392,7 @@ export class NodeServiceService {
             {
               "title": "Control Monitoring",
               "link": "control_Monitoring",
-              "icon": "fa fa-envelope-square",
+              "icon": "mail",
               "color": "#1b5e20",
               "menuId": "M00000406",
               "checked": false
@@ -409,7 +409,7 @@ export class NodeServiceService {
             {
               "title": "International TXN Enabled",
               "link": "internationalTXNEnadisable",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000501",
               "checked": false,
@@ -424,7 +424,7 @@ export class NodeServiceService {
             {
               "title": "TXN Allow Without PIN",
               "link": "txnAllowWithoutPin",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000502",
               "checked": false,
@@ -440,7 +440,7 @@ export class NodeServiceService {
             {
               "title": "Risk Country Block",
               "link": "riskCountryBlock",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000503",
               "checked": false,
@@ -454,7 +454,7 @@ export class NodeServiceService {
             {
               "title": "TXN Allow For Risk Country",
               "link": "txnAllowedRiskCountry",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000504",
               "checked": false,
@@ -468,7 +468,7 @@ export class NodeServiceService {
             {
               "title": "MCC Block",
               "link": "mccBlock",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000505",
               "checked": false,
@@ -485,7 +485,7 @@ export class NodeServiceService {
             {
               "title": "TXN Allow For Blocked MCC",
               "link": "txnAllowBlockedMCC",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000506",
               "checked": false,
@@ -501,7 +501,7 @@ export class NodeServiceService {
             {
               "title": "Risk Ecom Site Block",
               "link": "riskEcomSiteBlock",
-              "icon": "fa-solid fa-person-chalkboard",
+              "icon": "presentation",
               "color": "#1b5e20",
               "menuId": "M00000507",
               "checked": false,
@@ -525,7 +525,7 @@ export class NodeServiceService {
             {
               "title": "MIS REPORT",
               "link": "mis-report",
-              "icon": "fa-solid fa-chart-line",
+              "icon": "chart-line",
               "color": "#1b5e20",
               "menuId": "M00000601",
               "checked": false,
@@ -539,7 +539,7 @@ export class NodeServiceService {
             {
               "title": "SUMMARY REPORTS",
               "link": "summary-reports",
-              "icon": "fa-solid fa-chart-pie",
+              "icon": "chart-pie",
               "color": "#1b5e20",
               "menuId": "M00000602",
               "checked": false,
@@ -552,7 +552,7 @@ export class NodeServiceService {
             {
               "title": "TERMINAL TRANSACTION REPORTS",
               "link": "terminal-txn-reports",
-              "icon": "fa-solid fa-terminal",
+              "icon": "terminal",
               "color": "#1b5e20",
               "menuId": "M00000603",
               "checked": false,
@@ -563,7 +563,7 @@ export class NodeServiceService {
             {
               "title": "AUDIT REPORTS",
               "link": "audit-reports",
-              "icon": "fa-solid fa-clipboard-check",
+              "icon": "clipboard-check",
               "color": "#1b5e20",
               "menuId": "M00000604",
               "checked": false,
@@ -582,7 +582,7 @@ export class NodeServiceService {
           "subMenu": [
             {
               "title": "Email Update",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "email_update",
               "menuId": "M00000701",
@@ -595,7 +595,7 @@ export class NodeServiceService {
             },
             {
               "title": "Modile Update",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "mobile_update",
               "menuId": "M00000702",
@@ -609,7 +609,7 @@ export class NodeServiceService {
             {
               "title": "SAF Mnagement",
               "link": "saf",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "menuId": "M00000703",
               "checked": false
@@ -617,7 +617,7 @@ export class NodeServiceService {
             {
               "title": "Admin Card",
               "link": "admin_card",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "menuId": "M00000704",
               "checked": false
@@ -634,7 +634,7 @@ export class NodeServiceService {
           "subMenu": [
             {
               "title": "Profile",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "profile",
               "menuId": "M00000801",
@@ -649,7 +649,7 @@ export class NodeServiceService {
             },
             {
               "title": "User",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "user",
               "menuId": "M00000802",
@@ -667,7 +667,7 @@ export class NodeServiceService {
               ]
             }, {
               "title": "Password Policy",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "profilePolicy",
               "menuId": "M00000803",
@@ -695,20 +695,12 @@ export class NodeServiceService {
           "subMenu": [
             {
               "title": "Encryption LICENSE",
-              "icon": "fa-solid fa-address-card",
+              "icon": "contact",
               "color": "#1b5e20",
               "link": "encrypt",
               "menuId": "M00000901",
               "checked": false,
-            },
-            {
-              "title": "Decryption LICENSE",
-              "icon": "fa-solid fa-address-card",
-              "color": "#1b5e20",
-              "link": "decrypt",
-              "menuId": "M00000902",
-              "checked": false,
-            },]
+            }]
         },
       ]
       // [

@@ -56,7 +56,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AtmLocationsComponent } from './atm-locations/atm-locations.component';
 import { EncryptLicenseComponent } from './license-generation/encrypt-license/encrypt-license.component';
-import { LicenseDecryptComponent } from './license-generation/license-decrypt/license-decrypt.component';
 import { ReportComponent } from './report/report.component';
 import { ReportGenerationComponent } from './report/report-generation/report-generation.component';
 import { AuthBranchComponent } from './Configuration/branch/auth-branch/auth-branch.component';
@@ -143,7 +142,6 @@ export default [
   // { path: 'change_password', component: ChangePasswordComponent },
   { path: 'atm_location', component: AtmLocationsComponent },
   { path: 'encrypt', component: EncryptLicenseComponent },
-  { path: 'decrypt', component: LicenseDecryptComponent },
   { path: 'report', component: ReportComponent },
   { path: 'report-generation', component: ReportGenerationComponent },
   { path: 'auth-branch', component: AuthBranchComponent },

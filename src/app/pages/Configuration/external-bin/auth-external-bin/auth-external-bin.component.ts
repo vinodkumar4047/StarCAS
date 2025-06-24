@@ -1,9 +1,12 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from '../../../../layout/component/table/table.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { RestService } from '../../../../layout/service/rest.service';
+import { DialogService } from '../../../../layout/component/commonDialog.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-auth-external-bin',
@@ -15,33 +18,54 @@ import { FormsModule } from '@angular/forms';
 export class AuthExternalBinComponent {
  header: any;
   routeData:any = history.state;
-  tableData:any = [
- { INSTID: 'TEST', BIN: '437551', DESCRIPTION: 'TEST', RECORDID: '4' },
-    { INSTID: 'TEST', BIN: '63980700', DESCRIPTION: 'TEST', RECORDID: '1' },
-    { INSTID: 'TEST', BIN: '611111', DESCRIPTION: 'TEST', RECORDID: '3' },
-];
+  tableData:any = [];
  globalFilterFields: any = [
-    'INSTID',
-    'BIN',
-    'DESCRIPTION',
-    'RECORDID',
+    'instId',
+    'bin',
+    'description',
+    'recordId',
   ];
   
   cols = [
-    { field: 'INSTID', header: 'INST ID' },
-  { field: 'BIN', header: 'BIN' },
-  { field: 'DESCRIPTION', header: 'Description' },
-  { field: 'RECORDID', header: 'Record ID' },
+    { field: 'instId', header: 'INST ID' },
+  { field: 'bin', header: 'BIN' },
+  { field: 'description', header: 'Description' },
+  { field: 'recordId', header: 'Record ID' },
   { field: 'Action', header: 'Action' ,type:[this.routeData.type == 'auth'?'view':'delete']},
   ];
 edit_visible: boolean = false;
  delete_visible: any;
+loading: boolean = false;
 
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,private restApi: RestService, private cdr: ChangeDetectorRef,private dialogService:DialogService) { }
   ngOnInit(){
-    this.header = this.routeData.type == 'auth'?'View External BIN Authorization':'View External BIN Delete Authorization'
+    this.header = this.routeData.type == 'auth'?'View External BIN Authorization':'View External BIN Delete Authorization';
+    this. getList();
   }
+  
+    getList() {
+      this.restApi.get(`/configuration/external-bin/pendingForAuth/${this.routeData.type == 'auth'? 'U':this.routeData.type == 'EditAuth'? 'E':'D'}`).pipe(
+        take(1)
+      ).subscribe({
+        next: (res) => {
+          if (res) {
+            this.tableData = res;
+            console.log(res,'res----');
+            
+          } else {
+            console.warn('No data received or request failed.');
+          }
+          this.loading = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Subscription error:', err);
+          this.loading = false;
+          this.cdr.detectChanges();
+        }
+      });
+    }
     goBack() {
     this.location.back();
   }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { CommonDialogComponent } from "./app/layout/component/dialog/dialog.component";
+import { MenuService } from './app/layout/service/menu.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -9,8 +10,8 @@ import { CommonDialogComponent } from "./app/layout/component/dialog/dialog.comp
   template: `<app-common-dialog></app-common-dialog>
     <router-outlet></router-outlet>`
 })
-export class AppComponent {
-  constructor(private updates: SwUpdate,private router: Router) {
+export class AppComponent  implements OnInit {
+  constructor(private updates: SwUpdate,private router: Router,private menuService: MenuService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         const token = localStorage.getItem('authToken');
@@ -33,5 +34,7 @@ export class AppComponent {
       });
     }
   }
-
+ngOnInit() {
+    this.menuService.restoreMenuFromSession();
+  }
 }
