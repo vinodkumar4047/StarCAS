@@ -67,7 +67,7 @@
         </div>
         <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
             <p-button label="Cancel" severity="secondary" (click)="editVisible = false" />
-            <p-button label="Save" icon="pi pi-save" (click)="editVisible = false" />
+            <p-button label="Save" icon="pi pi-save" (click)="editExternalBin()" />
         </div>
     </p-dialog>
 </div>
