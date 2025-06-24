@@ -55,7 +55,6 @@ export class NetworkControlComponent {
   ];
 
   getData() {
-    this.loading = true;
     this.restApi.get('/control/network').pipe(
       take(1),
     ).subscribe({
@@ -77,15 +76,9 @@ export class NetworkControlComponent {
         } else {
           console.warn('No data received or request failed.');
         }
-        setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-
-        }, 2000);
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
 

@@ -262,9 +262,13 @@ export class UserProfileComponent {
         this.restApi.post(payload, '/usermanagement/profile/add').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+            }
 
-            this.goBack();
           },
           error: (err) => {
             console.error('Error adding profile:', err)
@@ -286,8 +290,14 @@ export class UserProfileComponent {
         this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
+
           },
           error: (err) => {
             console.error('Error adding profile:', err)
@@ -329,8 +339,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/addAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile:', err)
@@ -344,8 +359,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/addDeAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile:', err)
@@ -357,9 +377,13 @@ export class UserProfileComponent {
         console.log('Calling Delete Profile Authorization API...');
         this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteAuth/').subscribe({
           next: (res) => {
-            console.log('Profile delete authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile delete authorization:', err)
@@ -371,8 +395,13 @@ export class UserProfileComponent {
         this.restApi.delete(this.fitForm.value.profileId, '/usermanagement/profile/deleteDeAuth/').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
@@ -384,8 +413,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/editAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
@@ -397,8 +431,13 @@ export class UserProfileComponent {
         this.restApi.post(null, `/usermanagement/profile/editDeAuth/${this.fitForm.value.profileId}`).subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            if (res.respCode == '00') {
+              this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+              this.goBack();
+            } else {
+              this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+
+            }
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)

@@ -1,67 +1,197 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from "../../../../layout/component/table/table.component";
 import { DialogModule } from 'primeng/dialog';
+import { take } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
-
+import { HttpParams } from '@angular/common/http';
+import { RestService } from '../../../../layout/service/rest.service';
+import { DialogService } from '../../../../layout/component/commonDialog.service';
 @Component({
   selector: 'app-auth-branch',
-  imports: [CommonModule, ButtonModule, TableComponent,DialogModule,FormsModule],
+  imports: [CommonModule, ButtonModule, TableComponent, DialogModule, FormsModule],
   templateUrl: './auth-branch.component.html',
   styleUrl: './auth-branch.component.scss',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthBranchComponent {
+
+  branchData: any
+  loading: boolean = true;
   header: any;
-  routeData:any = history.state;
-  tableData:any = [
-  {
-    "INST_ID": "TEST",
-    "BRANCH_ID": 387,
-    "BRANCH_MAP_CODE": "005",
-    "BRANCH_NAME": "CGS OFFICE"
-  },
-  {
-    "INST_ID": "BANK001",
-    "BRANCH_ID": 102,
-    "BRANCH_MAP_CODE": "007",
-    "BRANCH_NAME": "MAIN BRANCH"
-  },
-  {
-    "INST_ID": "BANK002",
-    "BRANCH_ID": 204,
-    "BRANCH_MAP_CODE": "010",
-    "BRANCH_NAME": "DOWNTOWN OFFICE"
-  }
-];
-globalFilterFields = ['INST_ID', 'BRANCH_ID', 'BRANCH_MAP_CODE', 'BRANCH_NAME'];
-cols = [
-  { field: 'INST_ID', header: 'INST ID' },
-  { field: 'BRANCH_ID', header: 'BRANCH ID',sort:true,type: 'number' },
-  { field: 'BRANCH_MAP_CODE', header: 'BRANCH MAP CODE',sort:true,type: 'string' },
-  { field: 'BRANCH_NAME', header: 'BRANCH NAME',sort:true,type: 'string' },
-  { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth'?'view':'delete'] } // Optional, if you're using action buttons
-];
-edit_visible: boolean = false;
+  routeData: any = history.state;
+  globalFilterFields = ['INST_ID', 'BRANCH_ID', 'BRANCH_MAP_CODE', 'BRANCH_NAME'];
+  cols = [
+    { field: 'institutionId', header: 'INST ID' },
+    { field: 'branchCode', header: 'BRANCH ID', },
+    { field: 'branchMapCode', header: 'BRANCH MAP CODE', },
+    { field: 'branchName', header: 'BRANCH NAME', },
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth' || this.routeData.type == 'edit' ? 'view' : 'delete'] } // Optional, if you're using action buttons
+  ];
+  edit_visible: boolean = false;
   Edit_data: any = {
     INST_ID: '',
     BRANCH_ID: '',
     BRANCH_MAP_CODE: '',
     BRANCH_NAME: ''
   };
- delete_visible: any;
+  delete_visible: any;
 
 
-  constructor(private location: Location) { }
-  ngOnInit(){
-    this.header = this.routeData.type == 'auth'?'View Branch Authorization':'View Branch Delete Authorization'
+  constructor(private dialogService: DialogService, private location: Location, private cdr: ChangeDetectorRef, private restApi: RestService,) { }
+  ngOnInit() {
+    this.getAuthBranchdata()
+    this.header = this.routeData.type == 'deleteAuth' ? 'View Branch Delete Authorization' : 'View Branch Authorization'
+    console.log(this.routeData);
+
   }
-    editFunction(customer: any, type: any) {
+  editFunction(customer: any, type: any) {
     this.Edit_data = { ...customer.data };
+    console.log(this.Edit_data);
+
+    console.log(this.Edit_data.institutionId);
+
     this.edit_visible = true;
   }
-    goBack() {
+  goBack() {
     this.location.back();
   }
+  getAuthBranchdata() {
+    let requestType = 'U'; // default
+    if (this.routeData.type === 'deleteAuth') {
+      requestType = 'D';
+    } else if (this.routeData.type === 'edit') {
+      requestType = 'E'; // Assuming 'PE' is for edit — replace with correct one if needed
+    }
+    // const instId = localStorage.getItem('instId')
+    const instId = 'CLFSC'; // Static value for now
+
+
+    this.restApi.get(`/configuration/branch/branchToAuthorize/${requestType}`, {
+      params: new HttpParams().set('instId', instId)
+    } as { responseType: 'text', params: HttpParams }).pipe(
+      take(1)
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+          this.branchData = res;
+          this.cdr.detectChanges();
+          console.log('taskManager data:', this.branchData);
+        } else {
+          console.warn('No data received or request failed.');
+        };
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.cdr.detectChanges();
+
+      }
+    });
+  }
+  Authorized(action: any): void {
+
+    if (this.routeData.type === 'auth' || this.routeData.type === 'deleteAuth' || this.routeData.type === 'edit') {
+      console.log('kamal', this.routeData);
+
+      if (action === 'authorize') {
+        console.log('Calling Authorize API...');
+        this.restApi.post(null, `/configuration/branch/authorize/${this.Edit_data.branchCode}`, 'text').subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          }
+        });
+
+
+      } else if (action === 'reject') {
+        console.log('Calling Reject API...');
+      
+
+        this.restApi.post(null, `/configuration/branch/deAuthorize/${this.Edit_data.branchCode}`, 'text').subscribe({
+          next: (res) => {
+            console.log('Profile added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          }
+        });
+
+      } else if (action === 'deleteProfileAuth') {
+        console.log('Calling Delete Profile Authorization API...');
+        this.restApi.delete(this.Edit_data.branchCode, '/configuration/branch/delete/authorize/').subscribe({
+          next: (res) => {
+            console.log('Profile delete authorization added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile delete authorization:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+          }
+        });
+      } else if (action === 'deleteProfileDeAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+        this.restApi.delete(this.Edit_data.branchCode, '/usermanagement/profile/deleteDeAuth/').subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+          }
+        });
+      } else if (action === 'editProfileAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+          console.log(this.Edit_data.branchCode);
+        this.restApi.post(null, `/configuration/branch/edit/authorize/${this.Edit_data.branchCode}`, 'text').subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          }
+        });
+      } else if (action === 'editProfileDeAuth') {
+        console.log('Calling Delete Profile De-Authorization API...');
+        this.restApi.post(null, `/configuration/branch/edit/deAuthorize/${this.Edit_data.branchCode}`, 'text').subscribe({
+          next: (res) => {
+            console.log('Profile delete de-authorization added successfully:', res);
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          },
+          error: (err) => {
+            console.error('Error adding profile delete de-authorization:', err)
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
+          }
+        });
+      }
+    }
+  }
+
 }

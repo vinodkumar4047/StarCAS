@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     public menuSer: MenuService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    localStorage.clear(); 
+    localStorage.clear();
     this.loginForm = this.fb.group({
       username: ['', []],
       userPassword: ['', []],
@@ -205,7 +205,7 @@ export class LoginComponent implements OnInit {
             this.menuSer.menuItems = res.menuId;
             this.menuSer.setmenuItems(res.menuId);
             let msg = 'Login Success'
-            this.dialogService.show('Success',msg , 'success');
+            this.dialogService.show('Success', msg, 'success');
             console.log("Menu Items:", this.menuSer.menuItems);
           } else {
             this.dialogService.show('Oops!', res.respDesc, 'error');

@@ -48,24 +48,20 @@ export class StatusMapComponent {
     this.gettransactionDataData();
   }
   gettransactionDataData() {
-    this.loading = true;
     this.restApi.get('/configuration/statusMap').pipe(
       take(1)
     ).subscribe({
       next: (res) => {
         if (res) {
           this.statusMapData = res;
+          this.cdr.detectChanges();
           console.log('taskManager data:', this.statusMapData);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
       }

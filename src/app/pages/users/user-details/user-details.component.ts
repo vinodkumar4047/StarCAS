@@ -120,10 +120,10 @@ export class UserDetailsComponent {
     else if (event.type == 'ResetPassword') {
       this.restApi.post(null, `/forgotPassword/initiateResetUserPassword/${event?.data?.userId}`).subscribe({
         next: (res) => {
-           if (res.respCode == '00') {
-          console.log('Profile reset successfully:', res);
-          this.getUserListData();
-          this.cd.detectChanges();
+          if (res.respCode == '00') {
+            console.log('Profile reset successfully:', res);
+            this.getUserListData();
+            this.cd.detectChanges();
             this.dialogService.show('Success', res?.message, 'success');
           } else {
             this.dialogService.show('Oops!', res.message, 'error');
@@ -137,7 +137,7 @@ export class UserDetailsComponent {
   }
 
   getUserListData() {
-    this.loading = true;
+
     this.restApi.get('/usermanagement/user/getAllUsersByStatus/U').pipe(
       take(1),
     ).subscribe({
@@ -148,16 +148,16 @@ export class UserDetailsComponent {
             return o;
           });
           console.log('this.tableData data:', this.rawData)
-          this.loading = false;
+
           this.cd.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-          this.loading = false;
+
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+     
 
       }
     });

@@ -4,7 +4,7 @@
     Monitor</h2>
 
   <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-    <app-table [loading]="loading" [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols"
+    <app-table  [componentHeader]="'NetworkMonitor'" [tableData]="networkData" [cols]="cols"
       [globalFilterFields]="minimalView1 ? null : globalFilterFields" [multipleButton]="" [minimalView1]="minimalView1"
       (viewEvent)="viewEvent($event)" />
   </div>

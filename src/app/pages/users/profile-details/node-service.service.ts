@@ -641,6 +641,8 @@ export class NodeServiceService {
               "checked": false,
               "permissions": [
                 { "title": "Deleted Authorization", "menuId": "M0000080101", "checked": false },
+                { "title": "Add Authorization", "menuId": "M0000080106", "checked": false },
+                { "title": "Edit Authorization", "menuId": "M0000080107", "checked": false },
                 { "title": "Add Profile", "menuId": "M0000080102", "checked": false },
                 { "title": "Edit Profile", "menuId": "M0000080103", "checked": false },
                 { "title": "Delete Profile", "menuId": "M0000080104", "checked": false },
@@ -685,23 +687,31 @@ export class NodeServiceService {
               ]
             },]
         },
-        {
-          "title": "LICENSE GENERATION",
-          "link": "Rnf-details",
-          "icon": "user-cog",
-          "color": "#1b5e20",
-          "menuId": "M000009",
-          "checked": false,
-          "subMenu": [
-            {
-              "title": "Encryption LICENSE",
-              "icon": "contact",
-              "color": "#1b5e20",
-              "link": "encrypt",
-              "menuId": "M00000901",
-              "checked": false,
-            }]
-        },
+        // {
+        //   "title": "LICENSE GENERATION",
+        //   "link": "Rnf-details",
+        //   "icon": "user-cog",
+        //   "color": "#1b5e20",
+        //   "menuId": "M000009",
+        //   "checked": false,
+        //   "subMenu": [
+        //     {
+        //       "title": "Encryption LICENSE",
+        //       "icon": "fa-solid fa-address-card",
+        //       "color": "#1b5e20",
+        //       "link": "encrypt",
+        //       "menuId": "M00000901",
+        //       "checked": false,
+        //     },
+        //     {
+        //       "title": "Decryption LICENSE",
+        //       "icon": "fa-solid fa-address-card",
+        //       "color": "#1b5e20",
+        //       "link": "decrypt",
+        //       "menuId": "M00000902",
+        //       "checked": false,
+        //     },]
+        // },
       ]
       // [
       //   {

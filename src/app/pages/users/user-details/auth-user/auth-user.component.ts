@@ -40,15 +40,15 @@ export class AuthUserComponent {
   delete_visible: any;
   loading: boolean = false;
 
-  constructor(private location: Location, private restApi: RestService,private router: Router,
-    public cd:ChangeDetectorRef) { }
+  constructor(private location: Location, private restApi: RestService, private router: Router,
+    public cd: ChangeDetectorRef) { }
   ngOnInit() {
-    this.header = this.routeData.type == 'auth' ? 'View User Authorization' : this.routeData.type == 'EditAuth'? 'View User Edit Authorization': 'View User Delete Authorization'
+    this.header = this.routeData.type == 'auth' ? 'View User Authorization' : this.routeData.type == 'EditAuth' ? 'View User Edit Authorization' : 'View User Delete Authorization'
     this.getUserListData();
   }
   getUserListData() {
-    this.loading = true;
-    this.restApi.get(`/usermanagement/user/getAllUsersByStatus/${this.routeData.type == 'auth' ?'UA':this.routeData.type == 'EditAuth'?'UE' :'UD'}`).subscribe({
+
+    this.restApi.get(`/usermanagement/user/getAllUsersByStatus/${this.routeData.type == 'auth' ? 'UA' : this.routeData.type == 'EditAuth' ? 'UE' : 'UD'}`).subscribe({
       next: (res) => {
         if (res) {
           this.tableData = res.data.map((o: any) => {
@@ -56,17 +56,17 @@ export class AuthUserComponent {
             return o;
           });
           console.log('this.tableData data:', this.tableData)
-           this.loading = false;
-           this.cd.detectChanges();
+
+          this.cd.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-          this.loading = false;
+
           this.cd.detectChanges();
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+
         this.cd.detectChanges();
 
       }
@@ -75,7 +75,7 @@ export class AuthUserComponent {
   goBack() {
     this.location.back();
   }
-   authView(event: any, type: any) {
-    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type,check: this.routeData.type } });
+  authView(event: any, type: any) {
+    this.router.navigate(['/pages/add_user'], { state: { data: event?.data, type: type, check: this.routeData.type } });
   }
 }

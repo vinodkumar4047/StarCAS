@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import { DialogService } from '../../../layout/component/commonDialog.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +32,7 @@ export class TaskManagerComponent {
   @Input() minimalView: boolean = false;
   taskManagerData: any;
   loading: boolean = true;
-  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
+  constructor(private restApi: RestService, private cdr: ChangeDetectorRef, private dialogService: DialogService) { };
 
   ngOnInit() {
     this.getData()
@@ -53,34 +54,53 @@ export class TaskManagerComponent {
 
   ];
 
+  // getData() {
+  //   console.log('Fetching task manager data...',);
+
+  //   this.restApi.get('/control/taskManager').pipe(
+  //     take(1),
+  //   ).subscribe({
+  //     next: (res) => {
+  //       if (res) {
+  //         this.taskManagerData = res;
+  //         this.cdr.detectChanges();
+  //         console.log('taskManager data:', res);
+
+  //       } else {
+  //         console.warn('No data received or request failed.');
+  //       };
+  //     },
+  //     error: (err) => {
+  //       console.error('Subscription error:', err);
+  //       this.cdr.detectChanges();
+
+  //     }
+  //   });
+  // };
+
   getData() {
-    console.log('Fetching task manager data...',);
-    this.loading = true;
+    console.log('Fetching task manager data...');
+
     this.restApi.get('/control/taskManager').pipe(
-      take(1),
+      take(1)
     ).subscribe({
       next: (res) => {
-        if (res) {
-          this.taskManagerData = res;
-          console.log('taskManager data:', res);
+        if (!res) {
+          this.dialogService.show('No response from server', 'Try again later', 'error', 3000);
+          return;
+        }
 
-        } else {
-          console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-
-        }, 2000);
+        this.taskManagerData = res;
+        console.log('Task manager data:', res);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+        this.dialogService.show('Error', 'Failed to fetch task manager data', 'error', 3000);
         this.cdr.detectChanges();
-
       }
     });
-  };
-
+  }
 
 
 
