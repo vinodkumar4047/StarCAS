@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -23,6 +24,7 @@ import { DialogService } from '../../../layout/component/commonDialog.service';
   imports: [TooltipModule,
     TableModule,  // Only import TableModule
     CommonModule,
+    RouterModule,
     FormsModule,
     InputIconModule,
     IconFieldModule,
@@ -40,20 +42,20 @@ export class BranchComponent {
   edit_visible: boolean = false;
   showViewData: any = null;
   Edit_data: any = {
-    INSTID: '',
-    BRANCHCODE: '',
-    BRANCHMAPCODE: '',
-    BRANCHNAME: ''
+    instId: '',
+    branchCode: '',
+    branchMapCode: '',
+    branchName: ''
   };
   ADDvisible: boolean = false;
   tpCheck: any;
 
 
   globalFilterFields: any = [
-    'INSTID',
-    'BRANCHCODE',
-    'BRANCHMAPCODE',
-    'BRANCHNAME',
+    'instId',
+    'branchCode',
+    'branchMapCode',
+    'branchName',
   ];
   delete_visible: any;
   buttonsList: any = [
@@ -155,7 +157,7 @@ export class BranchComponent {
   ];
   BrType: any;
 
-  constructor(private location: Location,private dialogService: DialogService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private restApi: RestService, private router: Router, private menuService: MenuService) {
+  constructor(private location: Location, private dialogService: DialogService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private restApi: RestService, private router: Router, private menuService: MenuService) {
     this.branchForm = this.fb.group({
       instId: [{ value: 'CLFSC', disabled: true }],
       branchCode: ['', Validators.required],
@@ -165,7 +167,9 @@ export class BranchComponent {
 
 
   }
-
+  goBack(): void {
+    this.location.back();
+  }
   ngOnInit() {
     this.getBranchData()
     // this.permission = this.menuService.getMenuitem();
@@ -202,6 +206,8 @@ export class BranchComponent {
     this.edit_visible = true;
     this.tpCheck = type == 'view' ? true : false;
     this.BrType = type;
+    console.log(this.BrType);
+
   }
   deleteItem() {
     console.log('Item deleted!');
@@ -209,7 +215,7 @@ export class BranchComponent {
   }
 
   getBranchData() {
-    this.loading = true;
+
     // const instId = localStorage.getItem('instId')
     const instId = 'CLFSC'; // Static value for now
 
@@ -222,60 +228,75 @@ export class BranchComponent {
       next: (res) => {
         if (res) {
           this.branchData = res;
+          this.cdr.detectChanges();
           console.log('taskManager data:', this.branchData);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
       }
     });
   };
   onSave() {
-    if (this.branchForm.invalid) {
-      this.branchForm.markAllAsTouched();
-      return;
-    }
+    console.log('save.................');
+
+    // if (this.branchForm.invalid) {
+    //   this.branchForm.markAllAsTouched();
+    //   return;
+    // }
 
     const formData = this.branchForm.getRawValue(); // includes disabled fields
     const url = '/configuration/branch/add';
 
     if (this.BrType === 'add') {
       console.log('Adding branch:', formData);
-      this.restApi.post(formData, url).subscribe({
+      this.restApi.post(formData, url, 'text').subscribe({
         next: (res) => {
-          if (res) {
-            this.dialogService.show('Success', 'Branch added successfully', 'success');
-            
+          if (res.respCode == '00') {
+            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+            this.ADDvisible = false;
+            this.getBranchData()
+            this.cdr.detectChanges();
           } else {
             this.dialogService.show('Error', res?.respDesc || 'Failed to add branch', 'error');
+            this.ADDvisible = false;
+            this.getBranchData()
           }
         },
         error: (err) => {
-          this.dialogService.show('Error', 'API error occurred', 'error');
+          this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          this.ADDvisible = false;
+          this.getBranchData()
         }
       });
     }
 
     if (this.BrType === 'edit') {
-      console.log('Editing branch:', formData);
-      this.restApi.post(formData, '/configuration/branch/edit').subscribe({
+      const editPayload = {
+        ...this.Edit_data
+      };
+      console.log('Editing branch:', editPayload);
+      this.restApi.post(editPayload, '/configuration/branch/edit', 'text').subscribe({
         next: (res) => {
           if (res) {
-            this.dialogService.show('Success', 'Branch updated successfully', 'success');
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false;
+            this.getBranchData()
+            this.cdr.detectChanges();
           } else {
-            this.dialogService.show('Error', res?.respDesc || 'Failed to update branch', 'error');
+            this.dialogService.show('Error', res || 'Failed to update branch', 'error');
+            this.edit_visible = false;
+            this.getBranchData()
           }
         },
         error: (err) => {
-          this.dialogService.show('Error', 'API error occurred', 'error');
+          this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          this.edit_visible = false;
+          this.getBranchData()
         }
       });
     }

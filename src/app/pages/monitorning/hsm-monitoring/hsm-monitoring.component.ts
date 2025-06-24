@@ -60,7 +60,7 @@ export class HSMMonitoringComponent {
   ];
 
   getData() {
-    this.loading = true;
+
     this.restApi.get('/monitoring/hsm').pipe(
       take(1),
     ).subscribe({
@@ -76,14 +76,11 @@ export class HSMMonitoringComponent {
           this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        };
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+
         this.cdr.detectChanges();
 
       }

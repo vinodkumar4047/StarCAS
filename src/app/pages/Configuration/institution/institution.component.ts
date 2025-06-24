@@ -63,7 +63,6 @@ export class InstitutionComponent {
   }
 
   getInstitutionData() {
-    this.loading = true;
     // const instId = localStorage.getItem('instId')
     const instId = 'CLFSC'; // Static value for now
 
@@ -76,17 +75,14 @@ export class InstitutionComponent {
       next: (res) => {
         if (res) {
           this.InstitutionData = res;
+          this.cdr.detectChanges();
           console.log('taskManager data:', this.InstitutionData);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
       }

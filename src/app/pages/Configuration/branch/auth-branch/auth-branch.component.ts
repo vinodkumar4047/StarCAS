@@ -27,7 +27,7 @@ export class AuthBranchComponent {
     { field: 'branchCode', header: 'BRANCH ID', },
     { field: 'branchMapCode', header: 'BRANCH MAP CODE', },
     { field: 'branchName', header: 'BRANCH NAME', },
-    { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth' ? 'view' : 'delete'] } // Optional, if you're using action buttons
+    { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth' || this.routeData.type == 'edit' ? 'view' : 'delete'] } // Optional, if you're using action buttons
   ];
   edit_visible: boolean = false;
   Edit_data: any = {
@@ -58,7 +58,6 @@ export class AuthBranchComponent {
     this.location.back();
   }
   getAuthBranchdata() {
-    this.loading = true;
     let requestType = 'U'; // default
     if (this.routeData.type === 'deleteAuth') {
       requestType = 'D';
@@ -77,17 +76,14 @@ export class AuthBranchComponent {
       next: (res) => {
         if (res) {
           this.branchData = res;
+          this.cdr.detectChanges();
           console.log('taskManager data:', this.branchData);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        };
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
       }
@@ -95,35 +91,43 @@ export class AuthBranchComponent {
   }
   Authorized(action: any): void {
 
-    if (this.routeData.type === 'auth' || this.routeData === 'deleteAuth' || this.routeData === 'edit') {
+    if (this.routeData.type === 'auth' || this.routeData.type === 'deleteAuth' || this.routeData.type === 'edit') {
       console.log('kamal', this.routeData);
 
       if (action === 'authorize') {
         console.log('Calling Authorize API...');
-        this.restApi.post(null, `/configuration/branch/authorize/${this.Edit_data.branchCode}`).subscribe({
+        this.restApi.post(null, `/configuration/branch/authorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           }
         });
 
 
       } else if (action === 'reject') {
         console.log('Calling Reject API...');
-        this.restApi.post(null, `/configuration/branch/deAuthorize/${this.Edit_data.branchCode}`).subscribe({
+      
+
+        this.restApi.post(null, `/configuration/branch/deAuthorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           }
         });
 
@@ -132,12 +136,12 @@ export class AuthBranchComponent {
         this.restApi.delete(this.Edit_data.branchCode, '/configuration/branch/delete/authorize/').subscribe({
           next: (res) => {
             console.log('Profile delete authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete authorization:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
           }
         });
       } else if (action === 'deleteProfileDeAuth') {
@@ -145,38 +149,45 @@ export class AuthBranchComponent {
         this.restApi.delete(this.Edit_data.branchCode, '/usermanagement/profile/deleteDeAuth/').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
           }
         });
       } else if (action === 'editProfileAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
-        this.restApi.post(null, `/configuration/branch/edit/authorize/${this.Edit_data.branchCode}`).subscribe({
+          console.log(this.Edit_data.branchCode);
+        this.restApi.post(null, `/configuration/branch/edit/authorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           }
         });
       } else if (action === 'editProfileDeAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
-        this.restApi.post(null, `/configuration/branch/edit/deAuthorize/${this.Edit_data.branchCode}`).subscribe({
+        this.restApi.post(null, `/configuration/branch/edit/deAuthorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-            this.goBack();
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
-            this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+            this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.edit_visible = false
+            this.getAuthBranchdata()
           }
         });
       }

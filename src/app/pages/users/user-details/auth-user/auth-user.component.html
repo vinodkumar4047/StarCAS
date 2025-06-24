@@ -13,7 +13,7 @@
             </div> 
 
              <app-table [tableData]="tableData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-             (viewEvent)="authView($event,'view')" [loading]="loading"/>
+             (viewEvent)="authView($event,'view')" />
 
     <p-dialog [modal]="true" [(visible)]="edit_visible" [closable]="false" [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">

@@ -43,7 +43,7 @@ export class ResetPasswordComponent {
   }
 
   getUserListData() {
-    this.loading = true;
+  
     this.restApi.get(`/forgotPassword/getAllUsersForPasswordReset`).pipe(
       take(1),
     ).subscribe({
@@ -54,16 +54,16 @@ export class ResetPasswordComponent {
             return o;
           });
           console.log('this.tableData data:', this.tableData)
-          this.loading = false;
+     
           this.cd.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-          this.loading = false;
+        
         }
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+       
 
       }
     });

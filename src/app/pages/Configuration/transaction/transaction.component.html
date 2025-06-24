@@ -4,7 +4,7 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="transactionData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (viewEvent)="addOrEdit($event,'view')" [loading]="loading" />
+            (viewEvent)="addOrEdit($event,'view')" />
     </div>
     <p-dialog [(visible)]="editVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
         class="EDIT_BRANCH_DIALOG">

@@ -7,7 +7,7 @@
             (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit($event,'add')"
             (editEvent)="editFunction($event, 'edit')" (viewEvent)="editFunction($event , 'view')"
             [addButton]="userType != 'M'?null:'Add Branch'" [multipleButton]="userType != 'M' ? buttonsList : ''"
-            (event)="authFunc($event)" [loading]="loading">
+            (event)="authFunc($event)" >
         </app-table>
     </div>
 
@@ -52,7 +52,7 @@
         </div>
         <div class="flex justify-end gap-2 mt-4" *ngIf="!tpCheck">
             <p-button label="Cancel" severity="secondary" (click)="edit_visible = false" />
-            <p-button label="Save" icon="pi pi-save" (click)="edit_visible = false" />
+            <p-button label="Save" icon="pi pi-save" (click)="onSave()" />
         </div>
     </p-dialog>
 

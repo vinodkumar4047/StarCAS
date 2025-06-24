@@ -42,7 +42,7 @@ export class UnblockUserComponent {
   }
 
      getUserListData() {
-           this.loading = true;
+          
               this.restApi.get('/usermanagement/user/getAllUsersByStatus/UUB').pipe(
                 take(1),
               ).subscribe({
@@ -53,16 +53,16 @@ export class UnblockUserComponent {
                       return o;
                     });
                     console.log('this.tableData data:', this.tableData)
-                     this.loading = false;
+                    
                      this.cd.detectChanges();
                   } else {
                     console.warn('No data received or request failed.');
-                    this.loading = false;
+                    
                   }
                 },
                 error: (err) => {
                   console.error('Subscription error:', err);
-                  this.loading = false;
+                  
           
                 }
               });

@@ -13,6 +13,8 @@ import { Select } from 'primeng/select';
 import { NgModel } from '@angular/forms';
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
+import { DialogService } from '../../../layout/component/commonDialog.service';
+
 @Component({
   selector: 'app-password-policy',
   imports: [TooltipModule,
@@ -35,7 +37,7 @@ export class PasswordPolicyComponent {
   edit_visible: boolean = false;
   showViewData: any = null;
 
-  constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
+  constructor(private dialogService: DialogService, private restApi: RestService, private cdr: ChangeDetectorRef) { };
 
 
   Edit_data: any = {
@@ -93,8 +95,8 @@ export class PasswordPolicyComponent {
     this.Edit_data.upperCase = this.cities.find((c: any) => c.code === customer.data.upperCase);
     this.Edit_data.numbers = this.cities.find((c: any) => c.code === customer.data.numbers);
     this.Edit_data.special = this.cities.find((c: any) => c.code === customer.data.special);
-    this.Edit_data.pwdExpPeriod = this.cities.find((c: any) => c.code === customer.data.pwdExpPeriod);
-    this.Edit_data.totalCount = this.cities.find((c: any) => c.code === customer.data.totalCount);
+    this.Edit_data.pwdExpPeriod = customer.data.pwdExpPeriod;
+    this.Edit_data.totalCount = customer.data.totalCount;
     this.edit_visible = true;
     this.tpCheck = type == 'view' ? true : false;
   }
@@ -116,20 +118,18 @@ export class PasswordPolicyComponent {
   }
 
   getBinData() {
-    this.loading = true;
+
     this.restApi.get('/usermanagement/passwordPolicy/getAll').pipe(
       take(1)
     ).subscribe({
       next: (res) => {
         if (res) {
-          this.passwordPilicy = res;
+          this.passwordPilicy = res.data;
+          this.cdr.detectChanges();
           console.log('taskManager data:', this.passwordPilicy);
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        };
       },
       error: (err) => {
         console.error('Subscription error:', err);
@@ -139,4 +139,80 @@ export class PasswordPolicyComponent {
       }
     });
   };
+  // OnSave() {
+  //   const payload = {
+  //     id: this.Edit_data.id,
+  //     instId: this.Edit_data.instId || 'TISA', // fallback if needed
+  //     loweCase: this.Edit_data.loweCase?.code || '',
+  //     upperCase: this.Edit_data.upperCase?.code || '',
+  //     numbers: this.Edit_data.numbers?.code || '',
+  //     special: this.Edit_data.special?.code || '',
+  //     totalCount: this.Edit_data.totalCount || '',
+  //     pwdExpPeriod: this.Edit_data.pwdExpPeriod || ''
+  //   };
+  //   console.log('Payload:', payload);
+  //   this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
+  //     next: (res: any) => {
+  //       console.log(res);
+  //       if (!res) {
+  //         this.dialogService.show('No response from server', 'Try again later', 'error', 3000);
+  //         return;
+  //       }
+  //       if (res && res.respCode === '00') {
+  //         this.dialogService.show('Success', res.message, 'success', 3000);
+  //         this.edit_visible = false;
+  //         this.getBinData();
+  //       } else {
+  //         this.dialogService.show('Oops!', res?.message || 'Something went wrong', 'error', 3000);
+  //       }
+  //     },
+  //     error: (err: any) => {
+  //       console.error('POST error:', err);
+  //       this.dialogService.show('Server Error', err?.error?.message || 'Internal Server Error', 'error', 3000);
+  //     }
+  //   });
+  // }
+  // Utility function to normalize select values
+  getCode(value: any): string {
+    return typeof value === 'object' && value?.code ? value.code : (value || '');
+  }
+
+  OnSave() {
+    const payload = {
+      id: this.Edit_data.id,
+      instId: this.Edit_data.instId ?? 'TISA', // fallback if null or undefined
+      loweCase: this.getCode(this.Edit_data.loweCase),
+      upperCase: this.getCode(this.Edit_data.upperCase),
+      numbers: this.getCode(this.Edit_data.numbers),
+      special: this.getCode(this.Edit_data.special),
+      totalCount: this.Edit_data.totalCount || '',
+      pwdExpPeriod: this.Edit_data.pwdExpPeriod || ''
+    };
+
+    console.log('Payload being sent:', payload);
+
+    this.restApi.post(payload, '/usermanagement/profile/edit').subscribe({
+      next: (res: any) => {
+        if (!res || typeof res !== 'object') {
+          this.dialogService.show('No response from server', 'Try again later', 'error', 3000);
+          return;
+        }
+
+        if (res.respCode === '00') {
+          this.dialogService.show('Success', res.message || 'Profile updated successfully', 'success', 3000);
+          this.edit_visible = false;
+          this.getBinData(); // refresh list or details
+        } else {
+          this.dialogService.show('Oops!', res.message || 'Something went wrong', 'error', 3000);
+        }
+      },
+      error: (err: any) => {
+        console.error('POST error:', err);
+        const errorMsg = err?.error?.message || 'Internal Server Error';
+        this.dialogService.show('Server Error', errorMsg, 'error', 3000);
+      }
+    });
+  }
+
 }
+

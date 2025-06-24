@@ -14,7 +14,7 @@
         </div>
 
         <app-table [tableData]="branchData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="editFunction($event , 'view')" (deleteEvent)="delete_visible = true" [loading]="loading" />
+            (viewEvent)="editFunction($event , 'view')" (deleteEvent)="delete_visible = true" />
 
         <p-dialog [(visible)]="edit_visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
             class="EDIT_BRANCH_DIALOG">

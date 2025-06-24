@@ -59,7 +59,7 @@ export class AuthProfileComponent {
   };
 
   getprofileData() {
-    this.loading = true;
+
     let requestType = 'PA'; // default
     if (this.routeData.type === 'deleteAuth') {
       requestType = 'PD';
@@ -73,6 +73,7 @@ export class AuthProfileComponent {
       next: (res) => {
         if (res) {
           this.profileData = res.data
+          this.cdr.detectChanges();
           //   this.networkData = res.map((a: any) => {
           //     return {
           //       ...a,
@@ -85,14 +86,11 @@ export class AuthProfileComponent {
         } else {
           console.warn('No data received or request failed.');
         }
-        setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+
 
       }
     });

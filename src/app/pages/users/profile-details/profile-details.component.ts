@@ -59,7 +59,7 @@ export class ProfileDetailsComponent {
 
   userRole: any = localStorage.getItem('userRole');
   userType: any = localStorage.getItem('userType');
-  buttonsList: any = this.userType == 'SU' ? [
+  buttonsList: any = this.userType == 'SU' || this.userType == 'C' ? [
     { label: 'Authorize Delete Profile', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
     { label: 'Authorize Profile', icon: 'pi pi-verified', type: 'auth', variant: 'outlined', severity: "info" },
     { label: 'Edit Authorize Profile', icon: 'pi pi-pencil', type: 'edit', variant: 'outlined', severity: "arn" }
@@ -70,6 +70,8 @@ export class ProfileDetailsComponent {
     ]
 
   ngOnInit() {
+    console.log("userType", this.userType);
+
     this.cols = this.userType === 'M' || this.userType === 'SU'
       ? this.cols
       : this.cols.filter(col => col.field !== 'Action');
@@ -99,10 +101,19 @@ export class ProfileDetailsComponent {
       next: (res) => {
         console.log('Profile deleted successfully:', res);
         const msg = res?.message || 'Deleted successfully';
-        this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
-        this.getprofileData(); // ✅ Refresh table/list
-        this.cdr.detectChanges();
-        this.delete_visible = false; // ✅ Close dialog
+        if (res.respCode == '00') {
+          this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+          this.getprofileData(); // ✅ Refresh table/list
+          this.cdr.detectChanges();
+          this.delete_visible = false; // ✅ Close dialog
+        } else {
+          this.dialogService.show('Oops!', res?.message, 'error', 3000); // ✅ Success dialog 
+          this.getprofileData(); // ✅ Refresh table/list
+          this.cdr.detectChanges();
+          this.delete_visible = false; // ✅ Close dialog
+
+        }
+
       },
       error: (err) => {
         console.error('Error deleting profile:', err);
@@ -124,13 +135,14 @@ export class ProfileDetailsComponent {
   }
 
   getprofileData() {
-    this.loading = true;
+
     this.restApi.get('/usermanagement/profile/getAllProfiles/P').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
         if (res) {
           this.profileData = res.data
+          this.cdr.detectChanges();
           //   this.networkData = res.map((a: any) => {
           //     return {
           //       ...a,
@@ -142,15 +154,11 @@ export class ProfileDetailsComponent {
           this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-        }
-        setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        };
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
+        
 
       }
     });

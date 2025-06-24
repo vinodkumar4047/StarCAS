@@ -10,6 +10,7 @@ import { TableComponent } from '../../../layout/component/table/table.component'
 import { RestService } from '../../../layout/service/rest.service';
 import { take } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import { LocateFixed } from 'lucide-angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,24 +56,26 @@ export class PortManagerComponent {
   ];
 
   getData() {
-    this.loading = true;
+
     this.restApi.get('/control/portManager').pipe(
       take(1),
     ).subscribe({
       next: (res) => {
         if (res) {
-          this.portManagerData = res;
+          this.portManagerData = res.map((a: any) => {
+            return {
+              ...a,
+              portStatus: a.portStatus == 'CONNECTED' ? 'CONNECTED' : a.portStatus,
+            };
+          });
           console.log('taskManager data:', res);
+          this.cdr.detectChanges();
         } else {
           console.warn('No data received or request failed.');
-        } setTimeout(() => {
-          this.loading = false;
-          this.cdr.detectChanges();
-        }, 2000);
+        };
       },
       error: (err) => {
         console.error('Subscription error:', err);
-        this.loading = false;
         this.cdr.detectChanges();
 
       }

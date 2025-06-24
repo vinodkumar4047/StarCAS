@@ -1,13 +1,21 @@
-.p-datatable-frozen-tbody {
-    font-weight: bold;
-}
+::ng-deep {
+    .p-datatable-frozen-tbody {
+        font-weight: bold;
+    }
 
-.p-datatable-scrollable .p-frozen-column {
-    font-weight: bold;
-}
+    .p-datatable-scrollable .p-frozen-column {
+        font-weight: bold;
+    }
 
-.background-ban {
-    margin: 0px -28px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--primary-color) 30%, transparent), transparent);
-    padding: 25px 25px 0;
+    .background-ban {
+        margin: 0px -28px;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--primary-color) 30%, transparent), transparent);
+        padding: 25px 25px 0;
+    }
+
+    .CONNECTED {
+        font-weight: 600 !important;
+        color: rgb(17, 158, 59) !important;
+    }
+
 }
