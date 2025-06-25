@@ -622,6 +622,14 @@ export class NodeServiceService {
               "menuId": "M00000704",
               "checked": false
             },
+            {
+              "title": "Generate Switch File",
+              "link": "generateSwitch",
+              "icon": "contact",
+              "color": "#1b5e20",
+              "menuId": "M00000705",
+              "checked": false
+            },
           ]
         },
         {

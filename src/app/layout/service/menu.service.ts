@@ -641,6 +641,14 @@ export class MenuService {
                      "menuId": "M00000704",
                      "checked": false
                   },
+                  {
+                     "title": "Generate Switch File",
+                     "link": "generateSwitch",
+                     "icon": "contact",
+                     "color": "#1b5e20",
+                     "menuId": "M00000705",
+                     "checked": false
+                  },
                ]
             },
             {
@@ -711,15 +719,15 @@ export class MenuService {
    getMenuitem() {
       return this.menuItems;
    }
-    setmenuItems(items: any) {
-    this.menuItems = items;
-    sessionStorage.setItem('menuItems', JSON.stringify(items));
-  }
+   setmenuItems(items: any) {
+      this.menuItems = items;
+      sessionStorage.setItem('menuItems', JSON.stringify(items));
+   }
 
-  restoreMenuFromSession() {
-    const stored = sessionStorage.getItem('menuItems');
-    if (stored) {
-      this.menuItems = JSON.parse(stored);
-    }
-  }
+   restoreMenuFromSession() {
+      const stored = sessionStorage.getItem('menuItems');
+      if (stored) {
+         this.menuItems = JSON.parse(stored);
+      }
+   }
 }

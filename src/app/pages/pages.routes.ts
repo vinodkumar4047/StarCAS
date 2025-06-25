@@ -75,6 +75,7 @@ import { ControlMonitoringComponent } from './control/control-monitoring/control
 import { FraudMonitoringComponent } from './monitorning/fraud-monitoring/fraud-monitoring.component';
 import { StatusMapComponent } from './Configuration/status-map/status-map.component';
 import { PasswordPolicyComponent } from './users/password-policy/password-policy.component';
+import { GenerateSwitchFileComponent } from './utility/generate-switch-file/generate-switch-file.component';
 
 export default [
   { path: 'empty', component: Empty },
@@ -151,6 +152,7 @@ export default [
   { path: 'auth-profile', component: AuthProfileComponent },
   { path: 'auth-User', component: AuthUserComponent },
   { path: 'profilePolicy', component: PasswordPolicyComponent },
+  { path: 'generateSwitch', component: GenerateSwitchFileComponent },
   { path: '**', redirectTo: '/notfound' }
 
 ] as Routes;
