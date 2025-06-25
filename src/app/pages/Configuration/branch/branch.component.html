@@ -4,10 +4,10 @@
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
         <app-table [tableData]="branchData" [cols]="cols" [globalFilterFields]="globalFilterFields"
-            (deleteEvent)="delete_visible = true" (addEvent)="addOrEdit($event,'add')"
+            (deleteEvent)="example($event)" (addEvent)="addOrEdit($event,'add')"
             (editEvent)="editFunction($event, 'edit')" (viewEvent)="editFunction($event , 'view')"
             [addButton]="userType != 'M'?null:'Add Branch'" [multipleButton]="userType != 'M' ? buttonsList : ''"
-            (event)="authFunc($event)" >
+            (event)="authFunc($event)">
         </app-table>
     </div>
 
@@ -40,7 +40,7 @@
             <div class="table-row">
                 <div class="table-cell heading">Branch Map Code</div>
                 <input class="table-cell value" pInputText [(ngModel)]="Edit_data.branchMapCode" type="text"
-                    placeholder="" [disabled]="tpCheck" />
+                    placeholder="" [disabled]="tpCheck" maxlength="5" />
 
             </div>
             <div class="table-row">
@@ -71,7 +71,7 @@
         </div>
         <div class="flex justify-end gap-2">
             <p-button label="No" severity="secondary" (click)="delete_visible = false" />
-            <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
+            <p-button label="Yes, Delete" severity="danger" (click)="deleteProfile(deleteData)" />
         </div>
     </p-dialog>
 
@@ -94,8 +94,7 @@
             <div class="grid grid-cols-2 gap-4 mt-6">
                 <div class="flex flex-col gap-2">
                     <label for="institutionId">Institution Id *</label>
-                    <input pInputText id="institutionId" formControlName="institutionId" [disabled]="true"
-                        placeholder="TEST" />
+                    <input pInputText id="instId" formControlName="instId" [disabled]="true" placeholder="TEST" />
                 </div>
 
                 <div class="flex flex-col gap-2">
@@ -105,8 +104,8 @@
 
                 <div class="flex flex-col gap-2">
                     <label for="branchMapCode">Branch Map Code *</label>
-                    <input pInputText id="branchMapCode" formControlName="branchMapCode"
-                        placeholder="Branch Map Code" />
+                    <input pInputText id="branchMapCode" formControlName="branchMapCode" placeholder="Branch Map Code"
+                        maxlength="5" />
                 </div>
 
                 <div class="flex flex-col gap-2">

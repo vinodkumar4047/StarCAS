@@ -63,84 +63,6 @@ export class BranchComponent {
     { label: 'Edit Authorize Profile', icon: 'pi pi-pencil', type: 'edit', variant: 'outlined', severity: "arn" },
     { label: 'Authorize Delete Branch', icon: 'pi pi-user-minus', type: 'deleteAuth', variant: 'outlined', severity: "danger" },
   ]
-  // userRole: any = localStorage.getItem('userRole');
-  // filteredButtons: any;
-  // permittedActions: any;
-  // canAdd: any;
-  // permissionActionMap: any = {
-  //   'Authorize Branch': 'auth',
-  //   'Authorize Delete Branch': 'deleteAuth',
-  //   'Add User': 'add',
-  //   'View User': 'view',
-  //   'Edit User': 'edit',
-  //   'Delete User': 'delete'
-  // };
-  // permission: any = [];
-  // canAddBranch: any;
-  // constructor(private router: Router, private menuService: MenuService) { };
-  // ngOnInit() {
-  //   this.permission = this.menuService.getMenuitem();
-  //   console.log('Permissions:', this.permission);
-
-  //   const branchPerms = this.getPermissionsFor('Branch');
-  //   const { actions, buttons, canAdd } = this.mapPermissionsToActions(branchPerms);
-
-  //   this.cols = [
-  //     { field: 'INSTID', header: 'INST ID' },
-  //     { field: 'BRANCHCODE', header: 'Branch ID' },
-  //     { field: 'BRANCHMAPCODE', header: 'Branch Map Code' },
-  //     { field: 'BRANCHNAME', header: 'Branch Name' },
-  //     { field: 'Action', header: 'Action', type: actions }
-  //   ];
-
-  //   this.filteredButtons = buttons;
-  //   this.canAddBranch = canAdd;
-
-  //   this.cols = this.userRole === 'maker'
-  //     ? this.cols
-  //     : this.cols.filter((col: any) => col.field !== 'Action');
-  // }
-
-  // mapPermissionsToActions(perms: any[]) {
-  //   const actions: string[] = [];
-  //   const buttons: any[] = [];
-
-  //   const actionMap: { [key: string]: string } = {
-  //     'View Branch': 'view',
-  //     'Edit Branch': 'edit',
-  //     'Delete Branch': 'delete',
-  //   };
-
-  //   const buttonMap: { [key: string]: any } = {
-  //     'Authorize Branch': {
-  //       label: 'Authorize Branch',
-  //       icon: 'pi pi-verified',
-  //       type: 'auth',
-  //       variant: 'outlined',
-  //       severity: 'info'
-  //     },
-  //     'Delete Authorize Branch': {
-  //       label: 'Authorize Delete Branch',
-  //       icon: 'pi pi-user-minus',
-  //       type: 'deleteAuth',
-  //       variant: 'outlined',
-  //       severity: 'danger'
-  //     }
-  //   };
-
-  //   for (let p of perms) {
-  //     if (actionMap[p.title]) actions.push(actionMap[p.title]);
-  //     if (buttonMap[p.title]) buttons.push(buttonMap[p.title]);
-  //   }
-
-  //   return { actions, buttons, canAdd: perms.some(p => p.title === 'Add Branch') };
-  // }
-
-  // getPermissionsFor(title: string): any[] {
-  //   const configMenu = this.permission.find((p: any) => p.title === 'Configuration');
-  //   const submenu = configMenu?.subMenu?.find((s: any) => s.title === title);
-  //   return submenu?.permissions?.filter((p: any) => p.checked) || [];
-  // }
 
   userRole: string = localStorage.getItem('userRole') || '';
   userType: any = localStorage.getItem('userType');
@@ -158,6 +80,7 @@ export class BranchComponent {
   BrType: any;
 
   constructor(private location: Location, private dialogService: DialogService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private restApi: RestService, private router: Router, private menuService: MenuService) {
+
     this.branchForm = this.fb.group({
       instId: [{ value: 'CLFSC', disabled: true }],
       branchCode: ['', Validators.required],
@@ -194,7 +117,7 @@ export class BranchComponent {
 
   addOrEdit(data1?: any, type?: any) {
     this.ADDvisible = !this.ADDvisible
-    console.log('this.branchForm', this.branchForm);
+    console.log('this.branchForm', type);
     this.BrType = type;
   }
   authFunc(event: any) {
@@ -256,21 +179,28 @@ export class BranchComponent {
       console.log('Adding branch:', formData);
       this.restApi.post(formData, url, 'text').subscribe({
         next: (res) => {
-          if (res.respCode == '00') {
-            this.dialogService.show('Success', res?.message, 'success', 3000); // ✅ Success dialog
+          if (res) {
+            this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
             this.ADDvisible = false;
+            this.resetBranchForm();
             this.getBranchData()
             this.cdr.detectChanges();
           } else {
-            this.dialogService.show('Error', res?.respDesc || 'Failed to add branch', 'error');
+            console.log(res);
+
+            this.dialogService.show('Error', res || 'Failed to add branch', 'error');
             this.ADDvisible = false;
-            this.getBranchData()
+            this.resetBranchForm();
+            this.getBranchData();
+            this.cdr.detectChanges();
           }
         },
         error: (err) => {
-          this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
           this.ADDvisible = false;
-          this.getBranchData()
+          this.resetBranchForm();
+          this.getBranchData();
+          this.cdr.detectChanges();
         }
       });
     }
@@ -290,16 +220,70 @@ export class BranchComponent {
           } else {
             this.dialogService.show('Error', res || 'Failed to update branch', 'error');
             this.edit_visible = false;
-            this.getBranchData()
+            this.getBranchData();
+            this.cdr.detectChanges();
           }
         },
         error: (err) => {
-          this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+          this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
           this.edit_visible = false;
-          this.getBranchData()
+          this.getBranchData();
+          this.cdr.detectChanges();
         }
       });
     }
   }
+  resetBranchForm() {
+    this.branchForm.reset(); // Clear all values and states
 
+    // Patch default values after reset
+    this.branchForm.patchValue({
+      instId: 'CLFSC',
+      branchCode: '',
+      branchMapCode: '',
+      branchName: ''
+    });
+
+    // Clear validation error state
+    this.branchForm.markAsPristine();
+    this.branchForm.markAsUntouched();
+
+    // Force form update if needed
+    this.cdr.detectChanges();
+  }
+  deleteData: any
+  example(data: any) {
+    this.deleteData = data.data.branchCode
+    this.delete_visible = true
+  }
+  deleteProfile(data?: any) {
+    console.log('Delete Profile Data:', data);
+    console.log(this.Edit_data.branchCode);
+
+
+    this.restApi.post(null, `/configuration/branch/delete/${this.deleteData}`, 'text').subscribe({
+      next: (res) => {
+        console.log('Profile deleted successfully:', res);
+        if (res) {
+          this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+          this.getBranchData(); // ✅ Refresh table/list
+          this.cdr.detectChanges();
+          this.delete_visible = false; // ✅ Close dialog
+        } else {
+          this.dialogService.show('Oops!', res, 'error', 3000); // ✅ Success dialog 
+          this.getBranchData(); // ✅ Refresh table/list
+          this.cdr.detectChanges();
+          this.delete_visible = false; // ✅ Close dialog
+
+        }
+
+      },
+      error: (err) => {
+        console.error('Error deleting profile:', err);
+        this.dialogService.show('Oops!', err.message, 'error', 3000); // ✅ Error dialog
+
+        // this.toast.showError('Error', err?.error?.message || 'Failed to delete profile'); // ✅ Error toast
+      }
+    });
+  }
 }

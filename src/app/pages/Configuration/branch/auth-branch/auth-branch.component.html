@@ -14,7 +14,7 @@
         </div>
 
         <app-table [tableData]="branchData" [cols]="cols" [globalFilterFields]="globalFilterFields" [multipleButton]=""
-            (viewEvent)="editFunction($event , 'view')" (deleteEvent)="delete_visible = true" />
+            (viewEvent)="editFunction($event , 'view')" (deleteEvent)="example($event)" />
 
         <p-dialog [(visible)]="edit_visible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
             class="EDIT_BRANCH_DIALOG">
@@ -50,7 +50,7 @@
                 <div class="table-row">
                     <div class="table-cell heading">Branch Name</div>
                     <input class="table-cell value" pInputText [(ngModel)]="Edit_data.branchName" type="text"
-                        placeholder="" [disabled]="true" />
+                        placeholder="" [disabled]="true" maxlength="5" />
 
                 </div>
             </div>
@@ -89,8 +89,8 @@
             </div>
             <div class=" mb-4 text-base tracking-wide"> * This action cannot be undone.</div>
             <div class="flex justify-end gap-2">
-                <p-button label="No" severity="secondary" (click)="delete_visible = false" />
-                <p-button label="Yes, Delete" severity="danger" (click)="delete_visible = false" />
+                <p-button label="No" severity="secondary" (onClick)="Authorized('deleteProfileDeAuth')" />
+                <p-button label="Yes, Delete" severity="danger" (onClick)="Authorized('deleteProfileAuth')" />
             </div>
         </p-dialog>
     </div>
