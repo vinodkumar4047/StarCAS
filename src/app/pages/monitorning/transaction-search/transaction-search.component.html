@@ -1,7 +1,9 @@
 <div class="search-txn">
     <!-- Header Section with Background and Title -->
-   <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> Transaction Search Details</h2>
-   
+    <h2 class="mb-8 card header-card "
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;"> Transaction Search Details
+    </h2>
+
     <!-- <div class="card">
     <div class="grid grid-cols-3 gap-4">
         <div class="flex-auto">
@@ -55,26 +57,25 @@
                 <p-floatlabel variant="on">
                     <p-datepicker selectionMode="range" inputId="FromToDate" styleClass="w-full" showIcon
                         iconDisplay="input" formControlName="FromToDate" />
-                    <label for="FromToDate">From Date - To Date <span
-                            style="color: red;font-size: 16px;">*</span></label>
+                    <label for="FromToDate">From Date - To Date </label>
                 </p-floatlabel>
-                  <!-- Dynamic Inputs Based on Criteria -->
-    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '0'">
-        <input pInputText styleClass="w-full" formControlName="RefNum" type="text" />
-        <label>Ref Number <span style="color: red; font-size: 16px;">*</span></label>
-    </p-floatlabel>
+                <!-- Dynamic Inputs Based on Criteria -->
+                <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '0'">
+                    <input pInputText styleClass="w-full" formControlName="RefNum" type="text" />
+                    <label>Ref Number </label>
+                </p-floatlabel>
 
-    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '1'">
-        <input pInputText styleClass="w-full" formControlName="Account" type="text" />
-        <label>Account <span style="color: red; font-size: 16px;">*</span></label>
-    </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '1'">
+                    <input pInputText styleClass="w-full" formControlName="Account" type="text" />
+                    <label>Account <span style="color: red; font-size: 16px;">*</span></label>
+                </p-floatlabel>
 
-    <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '2'">
-        <input pInputText styleClass="w-full" formControlName="CHN" type="text" />
-        <label>CHN <span style="color: red; font-size: 16px;">*</span></label>
-    </p-floatlabel>
+                <p-floatlabel variant="on" *ngIf="searchForm.get('Criteria')?.value === '2'">
+                    <input pInputText styleClass="w-full" formControlName="CHN" type="text" />
+                    <label>CHN </label>
+                </p-floatlabel>
                 <div class="radiobutton flex flex-col gap-4">
-                    <label>Criteria <span style="color: red; font-size: 16px;">*</span> </label>
+                    <label>Criteria </label>
                     <div class=" flex gap-4">
                         <div *ngFor="let category of categories" class="field-checkbox">
                             <p-radiobutton [inputId]="category.key" [value]="category.key" formControlName="Criteria" />
@@ -89,6 +90,23 @@
             <div class="flex flex-row-reverse mx-4 my-8 justify-center">
                 <p-button label="Search" severity="primary" raised icon="pi pi-save" (click)="onSubmit()" />
             </div>
+            <div class="tableContainor" *ngIf="tableData?.length > 0">
+                <p-table [value]="tableData" [tableStyle]="{ 'min-width': '50rem' }" 
+                 [rowsPerPageOptions]="[10, 20, 30]" showGridlines [paginator]="true" [rows]="10">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th *ngFor="let col of cols">{{ col.header }}</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr [ngClass]="rowData['respCode'] == 0 ? 'green' : 'red'">
+                            <td *ngFor="let col of cols">{{ rowData[col.field] }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+             <div class="nodata" *ngIf="tableData?.length == 0 && nodata">No Data Found</div>
         </div>
     </form>
 </div>

@@ -79,7 +79,7 @@
                             pTooltip="Unblock" tooltipPosition="top" icon="pi pi-lock-open" (click)="otherEvents(row,$event,'UnBlock')" />
                         <p-button *ngIf="row['status'] == 'U'&& componentHeader == 'user'" text severity="warn" class=" p-button-icon-only"
                             pTooltip="Block" tooltipPosition="top" icon="pi pi-lock" (click)="otherEvents(row,$event,'Block')" />
-                         <p-button *ngIf="row['forgotPasswordFlag'] != '0'&& componentHeader == 'user'" text severity="info" class=" p-button-icon-only"
+                         <p-button *ngIf="row['forgotPasswordFlag'] == 'F'&& componentHeader == 'user'" text severity="info" class=" p-button-icon-only"
                             pTooltip="ResetPassword" tooltipPosition="top" icon="pi pi-refresh" (click)="otherEvents(row,$event,'ResetPassword')" />
                         <!-- <p-button *ngIf="col.type?.includes('Block')" raised severity="danger" class="m-2"
                             tooltipPosition="top" label="Block" icon="pi pi-lock"

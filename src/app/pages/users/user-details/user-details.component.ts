@@ -90,14 +90,14 @@ export class UserDetailsComponent {
           if (res.respCode == '00') {
             this.getUserListData();
             this.cd.detectChanges();
-            this.dialogService.show('Success', res?.respDesc, 'success');
+            this.dialogService.show('Success', res?.message, 'success');
           } else {
-            this.dialogService.show('Oops!', res.respDesc, 'error');
+            this.dialogService.show('Oops!', res.message, 'error');
           }
         },
         error: (err) => {
           console.error('Error blocking profile:', err);
-          this.dialogService.show('Oops!', err.respDesc, 'error');
+          this.dialogService.show('Oops!', err.message, 'error');
         }
       });
     } else if (event.type == 'UnBlock') {

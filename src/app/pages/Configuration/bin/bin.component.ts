@@ -34,11 +34,9 @@ export class BinComponent {
   show_visible: boolean = false;
   loading: boolean = true;
   BinData: any;
+  desc: any;  
+  products:any = [];
   constructor(private restApi: RestService, private cdr: ChangeDetectorRef) { };
-
-
-  products = [{ "TXNCODE": 1, "TXNDESC": "Cash Withdrawal" }, { "TXNCODE": 30, "TXNDESC": "Balance Enquiry" }, { "TXNCODE": 38, "TXNDESC": "Mini Statement" }, { "TXNCODE": 94, "TXNDESC": "PIN Change" }, { "TXNCODE": 40, "TXNDESC": "Fund Transfer" }, { "TXNCODE": 36, "TXNDESC": "OAR" }, { "TXNCODE": 41, "TXNDESC": "FT Name Verify" }, { "TXNCODE": 91, "TXNDESC": "CHEQUE BOOK REQUEST" }, { "TXNCODE": 92, "TXNDESC": "STATEMENT REQUEST" }, { "TXNCODE": 71, "TXNDESC": "CARDLESS CASH VERIFY" }, { "TXNCODE": 72, "TXNDESC": "CARDLESS CASH" }]
-
   clear(able: Table) {
 
   }
@@ -67,33 +65,56 @@ export class BinComponent {
   }
   showFucntion(data: any) {
     this.show_visible = true;
+    console.log(data,'----');
+    this.products = data?.data?.filteredDesc;
   }
   ngOnInit() {
+    this.getDesc();
+  }
+
+  getDesc() {
+    this.restApi.get('/configuration/binDescription').pipe(
+      take(1)
+    ).subscribe({
+      next: (res) => {
+        this.desc = res;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Subscription error:', err);
+        this.cdr.detectChanges();
+      }
+    });
     this.getBinData();
   }
+
   getBinData() {
-
-    // const instId = localStorage.getItem('instId')
     const instId = 'CLFSC'; // Static value for now
-
 
     this.restApi.get('/configuration/bin').pipe(
       take(1)
     ).subscribe({
       next: (res) => {
         if (res) {
-          this.BinData = res;
+          this.BinData = res.map((a: any) => {
+            // Split txnList into an array and assign it back
+            const txnListArray = a.txnList.split(',');
+
+            // Now filter the 'desc' array based on txnListArray
+            a.filteredDesc = this.desc.filter((txn: any) => txnListArray.includes(txn.TXNCODE));
+
+            return a;
+          });
           this.cdr.detectChanges();
-          console.log('taskManager data:', this.BinData);
+          console.log('Bin Data with filtered descriptions:', this.BinData);
         } else {
           console.warn('No data received or request failed.');
-        };
+        }
       },
       error: (err) => {
         console.error('Subscription error:', err);
         this.cdr.detectChanges();
-
       }
     });
-  };
+  }
 }

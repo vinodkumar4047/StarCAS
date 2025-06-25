@@ -229,7 +229,7 @@ export class MenuService {
                   },
                   {
                      "title": "Casette",
-                     "link": "casset",
+                     "link": "update_casset",
                      "icon": "credit-card",
                      "color": "#1b5e20",
                      "menuId": "M00000208",
