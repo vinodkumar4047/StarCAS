@@ -25,8 +25,8 @@ export class AuthBranchComponent {
   cols = [
     { field: 'institutionId', header: 'INST ID' },
     { field: 'branchCode', header: 'BRANCH ID', },
-    { field: 'branchMapCode', header: 'BRANCH MAP CODE', },
-    { field: 'branchName', header: 'BRANCH NAME', },
+    { field: this.routeData.type === 'edit' ? 'tempBranchMapCode' : 'branchMapCode', header: 'BRANCH MAP CODE', },
+    { field: this.routeData.type === 'edit' ? 'tempBranchName' : 'branchName', header: 'BRANCH NAME', },
     { field: 'Action', header: 'Action', type: [this.routeData.type == 'auth' || this.routeData.type == 'edit' ? 'view' : 'delete'] } // Optional, if you're using action buttons
   ];
   edit_visible: boolean = false;
@@ -114,7 +114,7 @@ export class AuthBranchComponent {
 
       } else if (action === 'reject') {
         console.log('Calling Reject API...');
-      
+
 
         this.restApi.post(null, `/configuration/branch/deAuthorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
@@ -132,34 +132,38 @@ export class AuthBranchComponent {
         });
 
       } else if (action === 'deleteProfileAuth') {
-        console.log('Calling Delete Profile Authorization API...');
-        this.restApi.delete(this.Edit_data.branchCode, '/configuration/branch/delete/authorize/').subscribe({
+        console.log('Calling Delete Profile Authorization API...', this.Edit_data.branchCode);
+        this.restApi.post(null, `/configuration/branch/delete/authorize/${this.deleteData}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile delete authorization added successfully:', res);
             this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.delete_visible = false;
             this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete authorization:', err)
             this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.delete_visible = false;
           }
         });
       } else if (action === 'deleteProfileDeAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
-        this.restApi.delete(this.Edit_data.branchCode, '/usermanagement/profile/deleteDeAuth/').subscribe({
+        this.restApi.post(null, `/configuration/branch/delete/deAuthorize/${this.deleteData}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
             this.dialogService.show('Success', res, 'success', 3000); // ✅ Success dialog
+            this.delete_visible = false;
             this.getAuthBranchdata()
           },
           error: (err) => {
             console.error('Error adding profile delete de-authorization:', err)
             this.dialogService.show('Oops!', err, 'error', 3000); // ✅ Error dialog
+            this.delete_visible = false;
           }
         });
       } else if (action === 'editProfileAuth') {
         console.log('Calling Delete Profile De-Authorization API...');
-          console.log(this.Edit_data.branchCode);
+        console.log(this.Edit_data.branchCode);
         this.restApi.post(null, `/configuration/branch/edit/authorize/${this.Edit_data.branchCode}`, 'text').subscribe({
           next: (res) => {
             console.log('Profile delete de-authorization added successfully:', res);
@@ -193,5 +197,9 @@ export class AuthBranchComponent {
       }
     }
   }
-
+  deleteData: any
+  example(data: any) {
+    this.deleteData = data.data.branchCode
+    this.delete_visible = true
+  }
 }

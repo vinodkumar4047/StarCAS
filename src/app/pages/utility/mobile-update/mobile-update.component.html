@@ -2,7 +2,7 @@
     <h2 class="mb-8 card header-card " style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">ATM Mobile Details</h2>
 
     <div class="card" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px;">
-        <app-table [tableData]="transformedmobileGroups" [cols]="cols" [globalFilterFields]="globalFilterFields"
+        <app-table [tableData]="mobileData" [cols]="cols" [globalFilterFields]="globalFilterFields"
             (viewEvent)="view($event,'View')" [addButton]="userType != 'M'?null:'Add Mobile'" (addEvent)="view($event,'Add')" />
     </div>
     <p-dialog [(visible)]="viewVisible" [modal]="true" [style]="{ width: '50rem' }" [closable]="false"
@@ -25,7 +25,7 @@
       <div class="label-cell">mobile List</div>
       <div class="value-cell">
         <ul class="mobile-list">
-          <li *ngFor="let mobile of group.mobileList">{{ mobile }}</li>
+          <li *ngFor="let mobile of group.formattedmobileList">{{ mobile }}</li>
         </ul>
       </div>
     </div>
